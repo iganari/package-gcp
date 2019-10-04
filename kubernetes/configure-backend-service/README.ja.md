@@ -35,7 +35,7 @@ gcloud config set compute/zone asia-northeast1-a
 ### Repository の clone
 
 ```
-git clone git@github.com:iganari/package-gcp.git
+git clone https://github.com/iganari/package-gcp.git
 cd package-gcp
 ```
 
