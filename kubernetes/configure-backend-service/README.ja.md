@@ -154,6 +154,15 @@ NAME             HOSTS   ADDRESS   PORTS   AGE
 my-bsc-ingress   *                 80      4s
 ```
 
+### ブラウザで確認
+
++ GCP >> Kubernetes Engine >> Service & Ingress >> my-bsc-ingress 
+
+と確認が出来れば、成功
+
+
+
+
 ## 実験後
 
 ### k8s 削除
