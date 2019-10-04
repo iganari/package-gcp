@@ -45,7 +45,7 @@ cd package-gcp/kubernetes/configure-backend-service/
 ### Kubernetes Engine クラスタの作成
 
 ```
-export cl_name='sp-2003'
+export cl_name='ingress-test'
 echo ${cl_name}
 ```
 
