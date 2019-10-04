@@ -1,0 +1,8 @@
+apiVersion: cloud.google.com/v1beta1
+kind: BackendConfig
+metadata:
+  name: my-bsc-backendconfig
+spec:
+  timeoutSec: 300
+  connectionDraining:
+    drainingTimeoutSec: 60
