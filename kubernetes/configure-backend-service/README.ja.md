@@ -36,7 +36,7 @@ gcloud config set compute/zone asia-northeast1-a
 
 ```
 git clone https://github.com/iganari/package-gcp.git
-cd package-gcp
+cd package-gcp/kubernetes/configure-backend-service/
 ```
 
 
