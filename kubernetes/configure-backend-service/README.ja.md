@@ -32,6 +32,16 @@ gcloud config set project ${YOUR_PROJECT}
 gcloud config set compute/zone asia-northeast1-a
 ```
 
+### Repository の clone
+
+```
+git clone git@github.com:iganari/package-gcp.git
+cd package-gcp
+```
+
+
+
+
 ### Kubernetes Engine クラスタの作成
 
 ```
