@@ -17,7 +17,7 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/configure-backend-service
 + gcloud コマンドによる認証
 
 ```
-gcloud auch login
+gcloud auth login
 ```
 
 + GKE を起動するプロジェクトを設定
