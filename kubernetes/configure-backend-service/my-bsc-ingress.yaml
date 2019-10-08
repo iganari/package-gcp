@@ -1,0 +1,8 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: my-bsc-ingress
+spec:
+  backend:
+    serviceName: my-bsc-service
+    servicePort: 80
