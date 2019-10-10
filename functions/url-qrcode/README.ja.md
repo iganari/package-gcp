@@ -6,7 +6,6 @@
 export _setting_name='create-qr'
 
 gcloud config configurations create ${_setting_name}
-
 ```
 
 ## 認証
@@ -52,7 +51,6 @@ gcloud functions deploy url-qrcode \
     --region asia-northeast1
     --runtime python37 \
     --trigger-http
-
 ```
 
 ## ブラウザで確認
