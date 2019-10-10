@@ -87,6 +87,7 @@ https://asia-northeast1-iganari_test-qr.cloudfunctions.net/url_qrcode
 
 + `q` という変数に、存在する URL をいれて実行すると、その URL を含んだ URL が記録出来ます
     + 例として `https://www.bing.com/` を指定します
+    + `q` は [ここ](WIP) で設定している値
 
 ```
 https://{デプロイしたリージョン}-{GCP のプロジェクト名}/url_qrcode?q=https://www.bing.com/
