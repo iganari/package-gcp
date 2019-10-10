@@ -48,7 +48,7 @@ gcloud config configurations list
     + `us-central1` に Functions がデプロイされます
 
 ```
-gcloud functions deploy url-qrcode \
+gcloud functions deploy url_qrcode \
     --runtime python37 \
     --trigger-http
 ```
@@ -57,7 +57,7 @@ gcloud functions deploy url-qrcode \
     + `asia-northeast1`
 
 ```
-gcloud functions deploy url-qrcode \
+gcloud functions deploy url_qrcode \
     --region asia-northeast1 \
     --runtime python37 \
     --trigger-http
@@ -81,5 +81,5 @@ WIP
     + `asia-northeast1` を指定している
 
 ```
-gcloud functions delete url-qrcode --region asia-northeast1
+gcloud functions delete url_qrcode --region asia-northeast1
 ```
