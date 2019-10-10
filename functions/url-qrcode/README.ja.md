@@ -18,9 +18,9 @@ gcloud config configurations create ${_setting_name}
 
 ## :whale: 認証
 
-```
-WIP
-```
+
+[IAM & admin](../../iam-admin/README.ja.md)
+
 
 ## :whale: プロジェクトの設定
 
