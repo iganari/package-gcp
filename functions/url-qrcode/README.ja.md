@@ -48,7 +48,7 @@ WIP
 
 ```
 gcloud functions deploy url-qrcode \
-    --region asia-northeast1
+    --region asia-northeast1 \
     --runtime python37 \
     --trigger-http
 ```
