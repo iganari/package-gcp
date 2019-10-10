@@ -67,6 +67,8 @@ gcloud functions deploy url_qrcode \
 
 ## ブラウザで確認
 
+### デフォルトの場合
+
 
 + `デプロイしたリージョン` , `GCP のプロジェクト名` で、 URL が変わります
 
@@ -81,7 +83,14 @@ https://{デプロイしたリージョン}-{GCP のプロジェクト名}.cloud
 https://asia-northeast1-iganari_test-qr.cloudfunctions.net/url_qrcode
 ```
 
+### クエリパラメータを使用する
 
++ `q` という変数に、存在する URL をいれて実行すると、その URL を含んだ URL が記録出来ます
+    + 例として `https://www.bing.com/` を指定します
+
+```
+https://{デプロイしたリージョン}-{GCP のプロジェクト名}/url_qrcode?q=https://www.bing.com/
+```
 
 ## :whale: リソースの削除
 
@@ -89,7 +98,7 @@ https://asia-northeast1-iganari_test-qr.cloudfunctions.net/url_qrcode
     + `us-central1` に Functions がデプロイされている
 
 ```
-WIP
+gcloud functions delete url_qrcode
 ```
 
 + リージョンを指定してデプロイした際の削除
