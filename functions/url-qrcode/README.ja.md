@@ -18,7 +18,9 @@ gcloud config configurations create ${_setting_name}
 
 ## :whale: 認証
 
-WIP (Link)
+```
+WIP
+```
 
 ## :whale: プロジェクトの設定
 
@@ -65,7 +67,15 @@ gcloud functions deploy url_qrcode \
 
 ## ブラウザで確認
 
-WIP
+
++ `デプロイしたリージョン` , `GCP のプロジェクト名` で、 URL が変わります
+    + 以下は , `デプロイしたリージョン` = `asia-northeast1` , `GCP のプロジェクト名` = `iganari_test-qr` の場合の架空の URL() です
+
+```
+### 架空の URL
+https://asia-northeast1-iganari_test-qr.cloudfunctions.net/url_qrcode
+```
+
 
 
 ## :whale: リソースの削除
