@@ -6,7 +6,7 @@ import io
 import qrcode
 from flask import escape, helpers
 
-def make_qr(request):
+def url-qrcode(request):
     img = generate_qr_image(url=request.args.get('q'))
     buf = io.BytesIO()
     img.save(buf, 'png')
