@@ -37,7 +37,23 @@ gcloud config configurations list
 
 ## GCP にデプロイ
 
++ デプロイする
+    + `WIP` にデプロイされます
+
+```
 WIP
+```
+
++ リージョンを指定してデプロイする
+    + `asia-northeast1`
+
+```
+gcloud functions deploy url-qrcode \
+    --region asia-northeast1
+    --runtime python37 \
+    --trigger-http
+
+```
 
 ## ブラウザで確認
 
