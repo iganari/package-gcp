@@ -69,7 +69,12 @@ gcloud functions deploy url_qrcode \
 
 
 + `デプロイしたリージョン` , `GCP のプロジェクト名` で、 URL が変わります
-    + 以下は , `デプロイしたリージョン` = `asia-northeast1` , `GCP のプロジェクト名` = `iganari_test-qr` の場合の架空の URL() です
+
+```
+https://{デプロイしたリージョン}-{GCP のプロジェクト名}.cloudfunctions.net/url_qrcode
+```
+
++ 以下は `デプロイしたリージョン` = `asia-northeast1` , `GCP のプロジェクト名` = `iganari_test-qr` の場合の架空の URL です
 
 ```
 ### 架空の URL
