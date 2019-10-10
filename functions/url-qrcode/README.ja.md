@@ -1,6 +1,14 @@
 # Cloud Fanctions の上で QRCode のサンプルを作成する
 
-## コンフィグの作成
+## 準備
+
++ 作業用の Docker コンテナを起動する ---> :whale:
+
+```
+sh docker-build-run.sh
+```
+
+## gcloud のコンフィグの作成
 
 ```
 export _setting_name='create-qr'
