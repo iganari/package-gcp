@@ -1,6 +1,14 @@
 # Cloud Fanctions の上で QRCode のサンプルを作成する
 
-## コンフィグの作成
+## 準備
+
++ 作業用の Docker コンテナを起動する ---> :whale:
+
+```
+sh docker-build-run.sh
+```
+
+## :whale: gcloud のコンフィグの作成
 
 ```
 export _setting_name='create-qr'
@@ -8,11 +16,11 @@ export _setting_name='create-qr'
 gcloud config configurations create ${_setting_name}
 ```
 
-## 認証
+## :whale: 認証
 
 WIP (Link)
 
-## プロジェクトの設定
+## :whale: プロジェクトの設定
 
 + 必須
 
@@ -34,7 +42,7 @@ gcloud config set compute/zone asia-northeast1-a
 gcloud config configurations list
 ```
 
-## GCP にデプロイ
+## :whale: GCP にデプロイ
 
 + デプロイする
     + `us-central1` に Functions がデプロイされます
@@ -60,7 +68,7 @@ gcloud functions deploy url-qrcode \
 WIP
 
 
-## リソースの削除
+## :whale: リソースの削除
 
 + デフォルトにデプロイした際の削除
     + `us-central1` に Functions がデプロイされている
