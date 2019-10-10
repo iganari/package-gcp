@@ -37,10 +37,12 @@ gcloud config configurations list
 ## GCP にデプロイ
 
 + デプロイする
-    + `WIP` にデプロイされます
+    + `us-central1` に Functions がデプロイされます
 
 ```
-WIP
+gcloud functions deploy url-qrcode \
+    --runtime python37 \
+    --trigger-http
 ```
 
 + リージョンを指定してデプロイする
@@ -56,3 +58,20 @@ gcloud functions deploy url-qrcode \
 ## ブラウザで確認
 
 WIP
+
+
+## リソースの削除
+
++ デフォルトにデプロイした際の削除
+    + `us-central1` に Functions がデプロイされている
+
+```
+WIP
+```
+
++ リージョンを指定してデプロイした際の削除
+    + `asia-northeast1` を指定している
+
+```
+gcloud functions delete url-qrcode --region asia-northeast1
+```
