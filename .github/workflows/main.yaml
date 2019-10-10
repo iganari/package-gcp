@@ -1,0 +1,13 @@
+name: test
+on: [push]
+
+jobs:
+  name: Build
+  runs-on: ubuntu-18.04
+  steps:
+
+  - name: test01
+    run: echo "test01"
+  
+  - name: test02
+    run: echo "test02"
