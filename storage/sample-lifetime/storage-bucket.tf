@@ -13,11 +13,17 @@ resource "random_string" "bucket-suffix" {
     special = false
 }
 
-output "output-random-string" {
-    value = "${random_string.bucket-suffix}"
+# output "output-random-string" {
+#     value = "${random_string.bucket-suffix}"
+# }
+
+resource "random_string" "bucket-suffix-02" {
+    length = 8
+    upper = false
+    lower = true
+    number = false
+    special = false
 }
-
-
 
 resource "google_storage_bucket" "gsb" {
   name     = "image-store-bucket-${random_string.bucket-suffix.id}"
@@ -33,3 +39,18 @@ resource "google_storage_bucket" "gsb" {
   #   not_found_page   = "404.html"
   # }
 }
+
+resource "google_storage_bucket" "gsb-02" {
+  name     = "image-store-bucket-${random_string.bucket-suffix-02.id}"
+  location = "asia-northeast1"
+
+  project = "${terraform.workspace}"
+  storage_class = "REGIONAL"
+  force_destroy = false
+}
+
+resource "google_storage_bucket_access_control" "gsbac_public_rule" {
+  bucket = "${google_storage_bucket.gsb-02.name}"
+  role = "READER"
+  entity = "allUsers"
+} 
