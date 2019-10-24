@@ -3,4 +3,4 @@ variables.tf
 service_account.json
 
 ## Temp
-terraform.tfstate
+*terraform.tfstate*
