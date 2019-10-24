@@ -1,4 +1,5 @@
 provider "google" {
-    project = "${lookup(var.common, "project")}"
+    project = "${terraform.workspace}"
+    credentials = "${file("service_account.json")}"
     # region
 }
