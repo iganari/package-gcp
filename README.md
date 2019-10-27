@@ -1,4 +1,4 @@
-# Package Azure
+# Package GCP
 
 ## About this Repository :octocat:
 
