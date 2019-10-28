@@ -1,6 +1,6 @@
 # Tips
 
-:warining: 日本語オンリー / Jananese Only :warning:
+:warning: 日本語オンリー / Jananese Only :warning:
 
 ## VPC ネットワーク ピアリング
 
