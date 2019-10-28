@@ -18,9 +18,9 @@ gcloud config configurations create ${_setting_name}
 
 ## :whale: 認証
 
-```
-WIP
-```
+
+[IAM & admin](../../iam-admin/README.ja.md)
+
 
 ## :whale: プロジェクトの設定
 
@@ -87,7 +87,7 @@ https://asia-northeast1-iganari_test-qr.cloudfunctions.net/url_qrcode
 
 + `q` という変数に、存在する URL をいれて実行すると、その URL を含んだ URL が記録出来ます
     + 例として `https://www.bing.com/` を指定します
-    + `q` は [ここ](WIP) で設定している値
+    + `q` は [ここ](main.py#L10) で設定している値
 
 ```
 https://{デプロイしたリージョン}-{GCP のプロジェクト名}/url_qrcode?q=https://www.bing.com/
