@@ -52,3 +52,17 @@ terraform workspace show
 ```
 gcloud config configurations list
 ```
+
+## Terraform の実行
+
++ plan
+
+```
+terraform plan
+```
+
++ apply
+
+```
+terraform apply
+```
