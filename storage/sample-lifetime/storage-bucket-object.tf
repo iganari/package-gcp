@@ -28,19 +28,12 @@ resource "google_storage_bucket_object" "gsbo-pic-01-03" {
 #        Test bucket 02          #
 # ============================== #
 
-
 resource "google_storage_bucket_object" "gsbo-pic-02" {
   bucket = "${google_storage_bucket.gsb-02.name}"
 
-  count = "${length(var.image-hiyoko)}"
-
+  count  = "${length(var.image-hiyoko)}"
   name   = "sammple/hiyoko/${element(var.image-hiyoko, count.index)}"
   source = "images/irasutoya/hiyoko/${element(var.image-hiyoko, count.index)}"
-
-
-  # name   = "animal_chara_smartphone_penguin.png"
-  # source = "images/animal_chara_smartphone_penguin.png"
-
 }
 
 # ============================== #

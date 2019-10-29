@@ -47,6 +47,7 @@ resource "random_string" "bucket-suffix-02" {
   number  = false
   special = false
 }
+
 resource "google_storage_bucket" "gsb-02" {
   name     = "bucket-test-public-02-${random_string.bucket-suffix-02.id}"
   location = "asia-northeast1"
