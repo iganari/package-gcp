@@ -2,9 +2,13 @@
 
 ## これは何?
 
-Google Cloud Storage にイメージをアップロードする基本的なコード
+Google Cloud Storage にイメージをアップロードする基本的なコードです。
 
 ## 準備
+
++ GCP のアカウントを作成します。
+  + ここは他の記事におまかせします。
+
 
 + Repository を clone し、作業ディレクトリに移動します。
 
@@ -13,6 +17,7 @@ git clone hogehoge
 ```
 
 + 作業用の Docker コンテナを起動します。 ---> :whale:
+  + 以降は :whale: が付いているコマンドはこの Docker コンテナの中で実行しています。
 
 ```
 sh docker-build-run.sh
