@@ -55,6 +55,13 @@ gcloud config configurations list
 
 ## Terraform の実行
 
++ init
+  + 今回は初回実行のみ
+
+```
+
+```
+
 + plan
 
 ```
