@@ -5,7 +5,6 @@
 resource "google_storage_bucket_object" "gsbo-pic-01-01" {
   bucket = "${google_storage_bucket.gsb-01.name}"
 
-  # name   = "animal_chara_computer_penguin.png"
   name   = "azarashi-01.png"
   source = "images/irasutoya/azarashi/animal_chara_computer_azarashi.png"
 }
