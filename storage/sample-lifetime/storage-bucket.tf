@@ -1,10 +1,13 @@
+# ============================== #
+#        Test bucket 01          #
+# ============================== #
 
 resource "random_string" "bucket-suffix-01" {
-    length = 8
-    upper = false
-    lower = true
-    number = false
-    special = false
+  length  = 8
+  upper   = false
+  lower   = true
+  number  = false
+  special = false
 }
 
 # output "output-random-string" {
@@ -15,7 +18,7 @@ resource "google_storage_bucket" "gsb-01" {
   name     = "bucket-test-public-01-${random_string.bucket-suffix-01.id}"
   location = "asia-northeast1"
 
-  project = "${terraform.workspace}"
+  project       = "${terraform.workspace}"
   storage_class = "REGIONAL"
   force_destroy = false
 
@@ -25,7 +28,7 @@ resource "google_storage_bucket" "gsb-01" {
   #   not_found_page   = "404.html"
   # }
 }
-
+### 
 # resource "google_storage_bucket_access_control" "gsbac_public_rule-01" {
 #   bucket = "${google_storage_bucket.gsb-01.name}"
 #   role = "READER"
@@ -36,42 +39,42 @@ resource "google_storage_bucket" "gsb-01" {
 # ================================================= #
 
 resource "random_string" "bucket-suffix-02" {
-    length = 8
-    upper = false
-    lower = true
-    number = false
-    special = false
+  length  = 8
+  upper   = false
+  lower   = true
+  number  = false
+  special = false
 }
 resource "google_storage_bucket" "gsb-02" {
   name     = "bucket-test-public-02-${random_string.bucket-suffix-02.id}"
   location = "asia-northeast1"
 
-  project = "${terraform.workspace}"
+  project       = "${terraform.workspace}"
   storage_class = "REGIONAL"
   force_destroy = false
 }
 
 resource "google_storage_bucket_access_control" "gsbac_public_rule" {
   bucket = "${google_storage_bucket.gsb-02.name}"
-  role = "READER"
+  role   = "READER"
   entity = "allUsers"
-} 
+}
 
 # ================================================= #
 
 resource "random_string" "bucket-suffix-03" {
-    length = 8
-    upper = false
-    lower = true
-    number = false
-    special = false
+  length  = 8
+  upper   = false
+  lower   = true
+  number  = false
+  special = false
 }
 
 resource "google_storage_bucket" "gsb-03" {
   name     = "bucket-test-public-03-${random_string.bucket-suffix-03.id}"
   location = "asia-northeast1"
 
-  project = "${terraform.workspace}"
+  project       = "${terraform.workspace}"
   storage_class = "REGIONAL"
   force_destroy = false
 }
@@ -81,4 +84,3 @@ resource "google_storage_bucket" "gsb-03" {
 #   role = "READER"
 #   entity = "allAuthenticatedUsers"
 #   # entity = "cigaguri@gmail.com"
-# } 
