@@ -68,7 +68,7 @@ terraform workspace show
 gcloud config configurations list
 ```
 
-## Terraform の実行
+## Terraform で GCP にデプロイ
 
 + init
   + 今回は初回実行のみ
@@ -87,4 +87,11 @@ terraform plan
 
 ```
 terraform apply
+```
+
+
+## Terraform で リソースの削除
+
+```
+terraform destroy
 ```
