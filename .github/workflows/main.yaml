@@ -1,6 +1,10 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branchs:
+      - master
+      - feature/add-actions-yaml
 
 jobs:
   build:
