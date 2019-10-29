@@ -44,7 +44,6 @@ gcloud config set compute/zone asia-northeast1-a
 terraform workspace new ${_pj}
 terraform workspace select ${_pj}
 terraform workspace show
-
 ```
 
 + 確認
