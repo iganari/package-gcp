@@ -59,7 +59,7 @@ gcloud config configurations list
   + 今回は初回実行のみ
 
 ```
-
+terraform init
 ```
 
 + plan
