@@ -1,4 +1,4 @@
-# Cloud Storage
+# Google Cloud Storage
 
 ## Documents
 
