@@ -1,4 +1,6 @@
-# sample-lifetime
+# Sample Basic
+
+Google Cloud Storage にイメージをアップロードする基本的なコード
 
 ## 準備
 
