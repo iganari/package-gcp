@@ -36,7 +36,9 @@ resource "google_storage_bucket" "gsb-01" {
 # } 
 
 
-# ================================================= #
+# ============================== #
+#        Test bucket 02          #
+# ============================== #
 
 resource "random_string" "bucket-suffix-02" {
   length  = 8
@@ -60,7 +62,9 @@ resource "google_storage_bucket_access_control" "gsbac_public_rule" {
   entity = "allUsers"
 }
 
-# ================================================= #
+# ============================== #
+#        Test bucket 03          #
+# ============================== #
 
 resource "random_string" "bucket-suffix-03" {
   length  = 8

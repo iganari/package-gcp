@@ -24,17 +24,26 @@ resource "google_storage_bucket_object" "gsbo-pic-01-03" {
 }
 
 
-# ===============
-# Test bucket 02
-# ===============
+# ============================== #
+#        Test bucket 02          #
+# ============================== #
 
 
 resource "google_storage_bucket_object" "gsbo-pic-02" {
+  bucket = "${google_storage_bucket.gsb-02.name}"
+
+  count = "${length(var.image-hiyoko)}"
+
+  
+
   name   = "animal_chara_smartphone_penguin.png"
   source = "images/animal_chara_smartphone_penguin.png"
-  bucket = "${google_storage_bucket.gsb-02.name}"
+
 }
 
+# ============================== #
+#        Test bucket 03          #
+# ============================== #
 
 resource "google_storage_bucket_object" "gsbo-pic-03" {
   name   = "animal_chara_smartphone_penguin.png"
