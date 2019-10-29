@@ -1,14 +1,34 @@
-# sample-lifetime
+# Sample Basic
+
+## これは何?
+
+Google Cloud Storage にイメージをアップロードする基本的なコードです。
 
 ## 準備
+
++ GCP のアカウントを作成します。
+  + ここは他の記事におまかせします。
 
 + Repository を clone し、作業ディレクトリに移動します。
 
 ```
-git clone hogehoge
+git clone https://github.com/iganari/package-gcp.git
 ```
 
++ GCP 上でサンプルのプロジェクトを作成し、 Service Account を作成します。
+  + 付与する権限は、 {A|B|C} でこのコードは実行可能です。
+  + JSON の鍵を取得しておきます。
+
++ 上記で取得した鍵を以下の PATH に以下の名前で配置します。
+
+```
+cd storage/sample-basic/
+touch service_account.json
+```
+
+
 + 作業用の Docker コンテナを起動します。 ---> :whale:
+  + 以降は :whale: が付いているコマンドはこの Docker コンテナの中で実行しています。
 
 ```
 sh docker-build-run.sh
@@ -26,9 +46,12 @@ gcloud config configurations create ${_setting_name}
 
 ## :whale: 認証
 
-+ Service accounts を使用します
++ Service accounts を使用するため、不要です(たぶん)
+
+```
   + https://cloud.google.com/iam/docs/service-accounts?hl=ja
 + 上記を参考に Service account key を発行して、
+```
 
 
 ## :whale: プロジェクトの設定
