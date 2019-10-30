@@ -10,6 +10,7 @@ Google Cloud Storage にイメージをアップロードする基本的なコ�
   + ここは他の記事におまかせします。
 
 + Repository を clone し、作業ディレクトリに移動します。
+  + 最新のソースコードのみを clone するオプションをつけています。
 
 ```
 git clone --branch master --depth 1 https://github.com/iganari/package-gcp.git
