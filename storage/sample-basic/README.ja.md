@@ -12,11 +12,11 @@ Google Cloud Storage にイメージをアップロードする基本的なコ�
 + Repository を clone し、作業ディレクトリに移動します。
 
 ```
-git clone https://github.com/iganari/package-gcp.git
+git clone --branch master --depth 1 https://github.com/iganari/package-gcp.git
 ```
 
 + GCP 上でサンプルのプロジェクトを作成し、 Service Account を作成します。
-  + 付与する権限は、 {A|B|C} でこのコードは実行可能です。
+  + 付与する権限は、 {A|B|C} でこのコードは実行可能です。[WIP]
   + JSON の鍵を取得しておきます。
 
 + 上記で取得した鍵を以下の PATH に以下の名前で配置します。
