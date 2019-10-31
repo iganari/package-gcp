@@ -1,3 +1,9 @@
+variable "common" {
+  
+}
+
+
+
 variable "image-hiyoko" {
   default = [
     "animal_mark_hiyoko.png",
