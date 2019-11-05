@@ -1,8 +1,8 @@
-# Sample Basic
+# Sample Access Control
 
 ## これは何?
 
-Google Cloud Storage にイメージをアップロードする基本的なコードです。
+Google Cloud Storage にアップロードしたオブジェクトに権限を付与して、閲覧・削除が出来るようにします。
 
 ## 準備
 
@@ -10,14 +10,13 @@ Google Cloud Storage にイメージをアップロードする基本的なコ�
   + ここは他の記事におまかせします。
 
 + Repository を clone し、作業ディレクトリに移動します。
-  + 最新のソースコードのみを clone するオプションをつけています。
 
 ```
-git clone --branch master --depth 1 https://github.com/iganari/package-gcp.git
+git clone https://github.com/iganari/package-gcp.git
 ```
 
 + GCP 上でサンプルのプロジェクトを作成し、 Service Account を作成します。
-  + 付与する権限は、 {A|B|C} でこのコードは実行可能です。[WIP]
+  + 付与する権限は、 {A|B|C} でこのコードは実行可能です。
   + JSON の鍵を取得しておきます。
 
 + 上記で取得した鍵を以下の PATH に以下の名前で配置します。
