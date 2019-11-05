@@ -19,7 +19,7 @@ git clone https://github.com/iganari/package-gcp.git
   + 以降は :whale: が付いているコマンドはこの Docker コンテナの中で実行しています。
 
 ```
-cd WIP 
+cd package-gcp/storage/sample-access-control
 sh docker-build-run.sh
 ```
 
