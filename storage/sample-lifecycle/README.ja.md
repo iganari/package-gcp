@@ -33,15 +33,6 @@ export _setting_name='sample-lifetime'
 gcloud config configurations create ${_setting_name}
 ```
 
-## :whale: 認証
-
-+ Service accounts を使用するため、不要です(たぶん)
-
-```
-+ https://cloud.google.com/iam/docs/service-accounts?hl=ja
-+ 上記を参考に Service account key を発行して、
-```
-
 
 ## :whale: プロジェクトの設定
 
