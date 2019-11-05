@@ -1,8 +1,8 @@
-# Sample Basic
+# Sample Access Control
 
 ## これは何?
 
-Google Cloud Storage にイメージをアップロードする基本的なコードです。
+Google Cloud Storage にアップロードしたオブジェクトに権限を付与して、閲覧・削除が出来るようにします。
 
 ## 準備
 
