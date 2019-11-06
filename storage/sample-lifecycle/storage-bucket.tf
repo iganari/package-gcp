@@ -22,11 +22,6 @@ resource "google_storage_bucket" "gsb-01" {
   storage_class = "REGIONAL"
   force_destroy = false
 
-
-  # website {
-  #   main_page_suffix = "index.html"
-  #   not_found_page   = "404.html"
-  # }
 }
 ### 
 # resource "google_storage_bucket_access_control" "gsbac_public_rule-01" {
