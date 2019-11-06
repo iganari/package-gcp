@@ -52,7 +52,7 @@ resource "google_storage_bucket" "gsb-02" {
   force_destroy = false
 }
 
-resource "google_storage_bucket_access_control" "gsbac_public_rule" {
+resource "google_storage_bucket_access_control" "gsbac_public_rule-02" {
   bucket = "${google_storage_bucket.gsb-02.name}"
   role   = "READER"
   entity = "allUsers"
@@ -62,25 +62,25 @@ resource "google_storage_bucket_access_control" "gsbac_public_rule" {
 #        Test bucket 03          #
 # ============================== #
 
-### resource "random_string" "bucket-suffix-03" {
-###   length  = 8
-###   upper   = false
-###   lower   = true
-###   number  = false
-###   special = false
-### }
-### 
-### resource "google_storage_bucket" "gsb-03" {
-###   name     = "bucket-test-public-03-${random_string.bucket-suffix-03.id}"
-###   location = "asia-northeast1"
-### 
-###   project       = "${terraform.workspace}"
-###   storage_class = "REGIONAL"
-###   force_destroy = false
-### }
-### 
-### # resource "google_storage_bucket_access_control" "gsbac_public_rule-03" {
-### #   bucket = "${google_storage_bucket.gsb-03.name}"
-### #   role = "READER"
-### #   entity = "allAuthenticatedUsers"
-### #   # entity = "cigaguri@gmail.com"
+resource "random_string" "bucket-suffix-03" {
+  length  = 8
+  upper   = false
+  lower   = true
+  number  = false
+  special = false
+}
+
+resource "google_storage_bucket" "gsb-03" {
+  name     = "bucket-test-public-03-${random_string.bucket-suffix-03.id}"
+  location = "asia-northeast1"
+
+  project       = "${terraform.workspace}"
+  storage_class = "REGIONAL"
+  force_destroy = false
+}
+
+# resource "google_storage_bucket_access_control" "gsbac_public_rule-03" {
+#   bucket = "${google_storage_bucket.gsb-03.name}"
+#   role = "READER"
+#   entity = "allAuthenticatedUsers"
+#   # entity = "cigaguri@gmail.com"
