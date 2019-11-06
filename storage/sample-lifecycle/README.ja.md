@@ -28,11 +28,19 @@ sh docker-build-run.sh
 + gcloud には 設定をローカルに保持する機能があり、ラベルみたいなもので紐付け、管理することが出来ます(WIP)
 
 ```
-export _setting_name='sample-lifetime'
+export _setting_name='sample-lifecycle'
 
 gcloud config configurations create ${_setting_name}
+gcloud config configurations list
 ```
 
+## :whale: gcloud コマンドによる認証
+
++ ブラウザを介して、認証を行います。
+
+```
+gcloud auth application-default login
+```
 
 ## :whale: プロジェクトの設定
 
@@ -44,22 +52,15 @@ export _pj='iganari_test-qr'
 gcloud config set project ${_pj}
 ```
 
-+ region や zone を設定したい場合は以下のコマンドを実行します。
-  + この作業はこの作業に置いては必須ではありません。
-
-```
-gcloud config set compute/region asia-northeast1
-gcloud config set compute/zone asia-northeast1-a
-```
-
 + Terraform の workspace の設定
+  + Terraform には workspace という機能があり、それを用います。
 
 ```
 terraform workspace new ${_pj}
 terraform workspace select ${_pj}
 ```
 
-+ + Terraform の workspace の確認
++ Terraform の workspace の確認
 
 ```
 terraform workspace show
