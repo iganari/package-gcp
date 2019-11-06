@@ -1,3 +1,3 @@
 provider "google" {
-  project     = "${terraform.workspace}"
+  project = "${terraform.workspace}"
 }
