@@ -218,3 +218,24 @@ hello-web-569dc47c5b-v2rrs   1/1     Running   0          58s
 ```
 docker build -t gcr.io/${PROJECT_ID}/hello-app:v2 .
 ```
+```
+docker push gcr.io/${PROJECT_ID}/hello-app:v2
+```
+```
+kubectl set image deployment/hello-web hello-app=gcr.io/${PROJECT_ID}/hello-app:v2
+```
+
+## Cleaning up
+
++ Service の削除
+  + 外部IPアドレス含む
+
+```
+kubectl delete service hello-web
+```
+
++ GKE のクラスター削除
+
+```
+gcloud container clusters delete hello-cluster
+```
