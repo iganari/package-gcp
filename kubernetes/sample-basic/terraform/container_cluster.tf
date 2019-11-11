@@ -17,6 +17,6 @@ resource "google_container_cluster" "gcc_priary" {
     }
   }
 
-  network = google_compute_network.gcn_default.name
+  network    = google_compute_network.gcn_default.name
   subnetwork = google_compute_subnetwork.gcs_default.name
 }
