@@ -95,6 +95,21 @@ terraform plan
 terraform apply
 ```
 
+## GKE との認証
+
+```
+gcloud auth login
+gcloud config set compute/zone us-central1
+gcloud container clusters get-credentials igrs-test
+```
+
++ node の確認
+
+```
+kubectl get node
+OR
+kubectl get node -o wide
+```
 
 ## Terraform で リソースの削除
 
