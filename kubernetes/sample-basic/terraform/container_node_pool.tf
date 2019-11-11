@@ -8,11 +8,11 @@ resource "google_container_node_pool" "gcnp_default" {
   node_count = 1
 
 
-  # # ゾーンあたりのnode数なので、全体のnode数のことではないの注意
-  # autoscaling {
-  #     min_node_count = 1
-  #     max_node_count = 1
-  # }
+  # ゾーンあたりのnode数なので、全体のnode数のことではないの注意
+  autoscaling {
+      min_node_count = 1
+      max_node_count = 1
+  }
 
   management {
     auto_repair = true
