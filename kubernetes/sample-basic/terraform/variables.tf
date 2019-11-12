@@ -1,7 +1,3 @@
-# variable "common" {
-#   
-# }
-
 variable "network" {
     type = "map"
     default = {
