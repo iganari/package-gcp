@@ -1,8 +1,8 @@
-# Sample Basic
+# Sample Access Control
 
 ## これは何?
 
-Google Cloud Storage にイメージをアップロードする基本的なコードです。
+Google Cloud Storage にアップロードしたオブジェクトに権限を付与して、閲覧・削除が出来るようにします。
 
 ## 準備
 
@@ -10,28 +10,16 @@ Google Cloud Storage にイメージをアップロードする基本的なコ�
   + ここは他の記事におまかせします。
 
 + Repository を clone し、作業ディレクトリに移動します。
-  + 最新のソースコードのみを clone するオプションをつけています。
 
 ```
-git clone --branch master --depth 1 https://github.com/iganari/package-gcp.git
+git clone https://github.com/iganari/package-gcp.git
 ```
-
-+ GCP 上でサンプルのプロジェクトを作成し、 Service Account を作成します。
-  + 付与する権限は、 {A|B|C} でこのコードは実行可能です。[WIP]
-  + JSON の鍵を取得しておきます。
-
-+ 上記で取得した鍵を以下の PATH に以下の名前で配置します。
-
-```
-cd storage/sample-basic/
-touch service_account.json
-```
-
 
 + 作業用の Docker コンテナを起動します。 ---> :whale:
   + 以降は :whale: が付いているコマンドはこの Docker コンテナの中で実行しています。
 
 ```
+cd package-gcp/storage/sample-access-control
 sh docker-build-run.sh
 ```
 
@@ -40,20 +28,19 @@ sh docker-build-run.sh
 + gcloud には 設定をローカルに保持する機能があり、ラベルみたいなもので紐付け、管理することが出来ます(WIP)
 
 ```
-export _setting_name='sample-lifetime'
+export _setting_name='sample-lifecycle'
 
 gcloud config configurations create ${_setting_name}
+gcloud config configurations list
 ```
 
-## :whale: 認証
+## :whale: gcloud コマンドによる認証
 
-+ Service accounts を使用するため、不要です(たぶん)
++ ブラウザを介して、認証を行います。
 
 ```
-+ https://cloud.google.com/iam/docs/service-accounts?hl=ja
-+ 上記を参考に Service account key を発行して、
+gcloud auth application-default login
 ```
-
 
 ## :whale: プロジェクトの設定
 
@@ -65,22 +52,15 @@ export _pj='iganari_test-qr'
 gcloud config set project ${_pj}
 ```
 
-+ region や zone を設定したい場合は以下のコマンドを実行します。
-  + この作業はこの作業に置いては必須ではありません。
-
-```
-gcloud config set compute/region asia-northeast1
-gcloud config set compute/zone asia-northeast1-a
-```
-
 + Terraform の workspace の設定
+  + Terraform には workspace という機能があり、それを用います。
 
 ```
 terraform workspace new ${_pj}
 terraform workspace select ${_pj}
 ```
 
-+ + Terraform の workspace の確認
++ Terraform の workspace の確認
 
 ```
 terraform workspace show
