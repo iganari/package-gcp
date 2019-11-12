@@ -41,9 +41,10 @@ sh docker-build-run.sh
 
 ## :whale: gcloud のコンフィグの作成
 
-+ gcloud には 設定をローカルに保持する機能があり、ラベルみたいなもので紐付け、管理することが出来ます(WIP)
-  + ここではプロジェクトを同じ名前の設定を作成する例を記載します
-  + GCP 上のプロジェクト名 = `iganari-gke-sample-basic`
++ gcloud には 設定のセットをローカルに保持して管理することが出来ます。
+  + [gcloud config configurations ](https://cloud.google.com/sdk/gcloud/reference/config/configurations/)
+  + ここではプロジェクトを同じ名前の設定を作成する例を記載します。
+  + GCP 上のプロジェクト名 = `iganari-gke-sample-basic` とします。
 
 ```
 export _pj='iganari-gke-sample-basic'
