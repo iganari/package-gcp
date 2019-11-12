@@ -124,7 +124,7 @@ terraform apply
 ```
 gcloud auth login
 gcloud config set compute/zone us-central1
-gcloud container clusters get-credentials igrs-test
+gcloud container clusters get-credentials iganari-k8s-primary
 ```
 
 + node の確認
