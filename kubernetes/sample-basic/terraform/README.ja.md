@@ -6,6 +6,17 @@ WIP
 + GKE を立ち上げる Terraform のサンプルです。
 + Deployment 等の管理はせず、あくまで GKE のみにフォーカスを当てています。
 
+## 説明
+
+基本的なところは Terraform の公式ドキュメントに沿っています。
+
++ https://www.terraform.io/docs/providers/google/r/container_cluster.html
+
+しかし、以下の点は上記の公式ドキュメントのサンプルから変更しています。
+
++ Master Node と Node pool のネットワークを分離
++ ノードのオートスケールを設定
+
 ## 準備
 
 + GCP のアカウントを作成します。
