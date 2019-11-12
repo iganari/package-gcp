@@ -14,8 +14,14 @@
 しかし、以下の点は上記の公式ドキュメントのサンプルから変更しています。
 
 + Master Node と Node pool のネットワークを分離
+  + [here](container_cluster.tf#L20-L21)
 + ノードのオートスケールを設定
+  + [here](container_node_pool.tf#L11-L15)
 + デフォルトの VPCネットワークを使わない
+  + [here](compute_network.tf)
++ Node のオートヒーリングの設定
+  + [here](container_node_pool.tf#L17-L19)
+
 
 ## 準備
 
