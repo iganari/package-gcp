@@ -1,6 +1,5 @@
-# basic sample of GKE
+# Basic Sample Terraform of GKE
 
-WIP
 ## これは何?
 
 + GKE を立ち上げる Terraform のサンプルです。
@@ -16,6 +15,7 @@ WIP
 
 + Master Node と Node pool のネットワークを分離
 + ノードのオートスケールを設定
++ デフォルトの VPCネットワークを使わない
 
 ## 準備
 
@@ -63,13 +63,13 @@ gcloud auth application-default login
 
 ## :whale: プロジェクトの設定
 
-+ gcloud コマンドのプロジェクトの設定をします
++ gcloud コマンドのプロジェクトの設定をします。
 
 ```
 gcloud config set project ${_pj}
 ```
 
-+ Terraform の workspace の設定
++ Terraform の workspace の設定をします。
   + Terraform には workspace という機能があり、それを用います。
 
 ```
@@ -77,13 +77,13 @@ terraform workspace new ${_pj}
 terraform workspace select ${_pj}
 ```
 
-+ Terraform の workspace の確認
++ Terraform の workspace の確認をします。
 
 ```
 terraform workspace show
 ```
 
-+ gcloud コマンドの設定の確認
++ gcloud コマンドの設定の確認をします。
 
 ```
 gcloud config configurations list
@@ -96,24 +96,24 @@ NAME                      IS_ACTIVE  ACCOUNT  PROJECT                   DEFAULT_
 iganari-gke-sample-basic  True                iganari-gke-sample-basic
 ```
 
-
-
 ## Terraform で GCP にデプロイ
 
 + init
-  + 今回は初回実行のみ
+  + 今回は初回実行のみ行います。
 
 ```
 terraform init
 ```
 
 + plan
+  + 記法に誤りが無いか確認します。
 
 ```
 terraform plan
 ```
 
 + apply
+  + 実際にリソースをデプロイします。
 
 ```
 terraform apply
@@ -121,7 +121,7 @@ terraform apply
 
 ## GKE との認証
 
-+ GKE のクラスターとの認証をします
++ GKE のクラスターとの認証をします。
   + [name](container_cluster.tf#L5) ここで設定したものです。
 
 ```
@@ -147,9 +147,15 @@ gke-iganari-k8s-prim-iganari-k8s-node-3899e3c5-djr6   Ready    <none>   2m32s   
 gke-iganari-k8s-prim-iganari-k8s-node-68f4f800-fk73   Ready    <none>   2m33s   v1.13.11-gke.9
 ```
 
+---> これで GKE のサンプル作成は完成です!
 
 ## Terraform で リソースの削除
 
 ```
 terraform destroy
 ```
+
+## まとめ
+
++ GKE として新しい機能が追加され、良さそうなものがあれば追記していきます。
++ このディレクトリは GKE の構築までなので、 Kubernetes のサンプルコードは別のディレクトリにてサンプルを作成します。 
