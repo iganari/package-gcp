@@ -2,8 +2,9 @@
 # https://www.terraform.io/docs/providers/google/r/container_cluster.html
 
 resource "google_container_node_pool" "gcnp_default" {
-  name       = "my-node-pool"
-  location   = "us-central1"
+  name       = "${lookup(var.node-pool, "np-name")}"
+  # location   = "us-central1"
+  location = google_compute_subnetwork.gcs_default.region
   cluster    = google_container_cluster.gcc_priary.name
   node_count = 1
 
@@ -20,7 +21,7 @@ resource "google_container_node_pool" "gcnp_default" {
 
   node_config {
     preemptible  = true
-    machine_type = "n1-standard-1"
+    machine_type = "${lookup(var.node-pool, "np-machine-type")}"
 
     metadata = {
       disable-legacy-endpoints = "true"

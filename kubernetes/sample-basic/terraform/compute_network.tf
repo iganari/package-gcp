@@ -2,17 +2,17 @@
 resource "google_compute_network" "gcn_default" {
   # provider = "google-beta"
 
-  name                    = "igrs-network"
-  auto_create_subnetworks = "false"
+  name                    = "${lookup(var.network, "nw-name")}"
+  auto_create_subnetworks = "${lookup(var.network, "nw-auto_create_subnetworks")}"
 }
 
 resource "google_compute_subnetwork" "gcs_default" {
   # provider = "google-beta"
   network = google_compute_network.gcn_default.name
 
-  name          = "igrs-subnet"
-  ip_cidr_range = "192.168.101.0/24"
+  name          = "${lookup(var.network, "sb-name")}"
+  ip_cidr_range = "${lookup(var.network, "sb-ip_cidr_range")}"
 
-  region = "us-central1"
+  region = "${lookup(var.network, "sb-region")}"
 
 }
