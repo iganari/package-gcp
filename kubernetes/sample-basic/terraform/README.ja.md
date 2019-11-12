@@ -21,18 +21,20 @@ git clone https://github.com/iganari/package-gcp.git
   + 以降は :whale: が付いているコマンドはこの Docker コンテナの中で実行しています。
 
 ```
-cd package-gcp/storage/sample-access-control
+cd package-gcp/kubernetes/sample-basic/terraform/
 sh docker-build-run.sh
 ```
 
 ## :whale: gcloud のコンフィグの作成
 
 + gcloud には 設定をローカルに保持する機能があり、ラベルみたいなもので紐付け、管理することが出来ます(WIP)
+  + ここではプロジェクトを同じ名前の設定を作成する例を記載します
+  + GCP 上のプロジェクト名 = `iganari-gke-sample-basic`
 
 ```
-export _setting_name='sample-lifecycle'
+export _pj='iganari-gke-sample-basic'
 
-gcloud config configurations create ${_setting_name}
+gcloud config configurations create ${_pj}
 gcloud config configurations list
 ```
 
@@ -46,11 +48,9 @@ gcloud auth application-default login
 
 ## :whale: プロジェクトの設定
 
-+ GCP 上で使用する、プロジェクトを先に指定しておきます。
++ gcloud コマンドのプロジェクトの設定をします
 
 ```
-export _pj='iganari_test-qr'
-
 gcloud config set project ${_pj}
 ```
 
