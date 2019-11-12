@@ -88,6 +88,15 @@ terraform workspace show
 ```
 gcloud config configurations list
 ```
+```
+### 例
+
+# gcloud config configurations list
+NAME                      IS_ACTIVE  ACCOUNT  PROJECT                   DEFAULT_ZONE  DEFAULT_REGION
+iganari-gke-sample-basic  True                iganari-gke-sample-basic
+```
+
+
 
 ## Terraform で GCP にデプロイ
 
