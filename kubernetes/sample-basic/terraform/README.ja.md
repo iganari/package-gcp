@@ -155,7 +155,7 @@ gke-iganari-k8s-prim-iganari-k8s-node-68f4f800-fk73   Ready    <none>   2m33s   
 
 ---> これで GKE のサンプル作成は完成です!! 🙌
 
-## Terraform で リソースの削除
+## Terraform でリソースの削除
 
 ```
 terraform destroy
