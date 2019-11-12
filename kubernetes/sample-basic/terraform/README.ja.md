@@ -121,6 +121,9 @@ terraform apply
 
 ## GKE との認証
 
++ GKE のクラスターとの認証をします
+  + [name](container_cluster.tf#L5) ここで設定したものです。
+
 ```
 gcloud auth login
 gcloud config set compute/zone us-central1
