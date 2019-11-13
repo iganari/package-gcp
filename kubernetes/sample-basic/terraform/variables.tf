@@ -22,8 +22,8 @@ variable "node-pool" {
   type = "map"
   default = {
     np-name         = "iganari-k8s-node"
-    master-name     = "k8s-admin"
-    master-pass     = "hogehogefugafuga"
+    # master-name     = "k8s-admin"
+    # master-pass     = "hogehogefugafuga"
     np-machine-type = "n1-standard-1"
 
   }
