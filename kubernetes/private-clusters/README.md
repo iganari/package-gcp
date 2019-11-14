@@ -65,7 +65,7 @@ gcloud container clusters delete private-cluster-0
 
 + 上記をミニマムで作ってみる
   + `n1-standard-1` が 3 台 + preemptible インスタンスを使用する
-  + `gcloud beta` を使用します
+  + `gcloud beta` コマンドを使用します
 
 ```
 gcloud beta container clusters create private-cluster-0 \
