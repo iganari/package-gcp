@@ -80,3 +80,52 @@ gcloud beta container clusters create private-cluster-0 \
   --release-channel stable \
   --preemptible 
 ```
+
++ Cloud Shell からの疎通を許可する
+
+```
+dig +short myip.opendns.com @resolver1.opendns.com
+```
+```
+### 例
+
+$ dig +short myip.opendns.com @resolver1.opendns.com
+104.199.171.167
+```
+```
+gcloud container clusters update private-cluster-0 \
+    --zone us-central1-c \
+    --enable-master-authorized-networks \
+    --master-authorized-networks [EXISTING_AUTH_NETS],[SHELL_IP]/32
+```
+```
+### 例
+
+$ gcloud container clusters update private-cluster-0 \
+    --region us-central1 \
+    --enable-master-authorized-networks \
+    --master-authorized-networks 104.199.171.167/32
+```
+
++ GKE との認証を gcloud コマンド経由で行います
+
+```
+gcloud container clusters get-credentials private-cluster-0 \
+    --region us-central1 \
+    --project ${_pj}
+```
+
++ Node の確認
+
+```
+kubectl get nodes
+```
+```
+### 例
+
+$ kubectl get nodes
+NAME                                               STATUS   ROLES    AGE   VERSION
+gke-private-cluster-0-default-pool-5bb7017b-x7lf   Ready    <none>   32m   v1.13.11-gke.14
+gke-private-cluster-0-default-pool-71736f9d-x5fx   Ready    <none>   32m   v1.13.11-gke.14
+gke-private-cluster-0-default-pool-96dab18f-t59k   Ready    <none>   32m   v1.13.11-gke.14
+```
