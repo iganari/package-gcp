@@ -210,3 +210,8 @@ nginx-pod   1/1     Running   0          30s
 $ kubectl exec -it nginx-pod /bin/bash
 ```
 
+## クラスタの削除
+
+```
+gcloud container clusters delete private-cluster-0
+```
