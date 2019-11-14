@@ -41,3 +41,30 @@ gcloud beta container clusters create iganari-test-cli-1911 \
   --release-channel stable \
   --preemptible 
 ```
+
+## GKE との認証
+
++ GKE のクラスターとの認証をします。
+
+```
+gcloud auth login
+gcloud config set compute/zone us-central1
+gcloud container clusters get-credentials iganari-test-cli-1911
+```
+
++ node の確認
+
+```
+kubectl get node
+OR
+kubectl get node -o wide
+```
+```
+### 例
+
+$ kubectl get node
+NAME                                                  STATUS   ROLES    AGE     VERSION
+gke-iganari-test-cli-191-default-pool-8e3fded4-g898   Ready    <none>   5m19s   v1.13.11-gke.14
+gke-iganari-test-cli-191-default-pool-b2f227b2-gf81   Ready    <none>   5m19s   v1.13.11-gke.14
+gke-iganari-test-cli-191-default-pool-fe9079b7-8k79   Ready    <none>   5m18s   v1.13.11-gke.14
+```
