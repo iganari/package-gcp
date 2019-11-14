@@ -1,6 +1,22 @@
-# WIP
+# gcloud の覚書
 
+## Auth
 
+[auth](https://cloud.google.com/sdk/gcloud/reference/auth/)
+
+認証について
+
++ gcloud auth コマンドにて GCP との認証を行えます。
++ Web ブラウザが必要になるので、その環境を用意して下さい。
+
+```
+gcloud auth login
+```
+```
+gcloud auth application-default login
+```
+
+## めも
 
 + VPC ネットワーク作成
 
