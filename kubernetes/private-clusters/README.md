@@ -40,4 +40,17 @@ NAME                      IS_ACTIVE  ACCOUNT                     PROJECT        
 iganari-gke-sample-basic  True       igarashi.toru@cloud-ace.jp  iganari-gke-sample-basic  us-central1   us-central1-a
 ```
 
+## Creating a private cluster with limited access to the public endpoint
 
++ チュートリアル通りに GKE を作ってみる
+
+```
+gcloud container clusters create private-cluster-0 \
+    --create-subnetwork name=my-subnet-0 \
+    --enable-master-authorized-networks \
+    --enable-ip-alias \
+    --enable-private-nodes \
+    --master-ipv4-cidr 172.16.0.0/28 \
+    --no-enable-basic-auth \
+    --no-issue-client-certificate
+```
