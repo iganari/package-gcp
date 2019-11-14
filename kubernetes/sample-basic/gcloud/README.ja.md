@@ -15,22 +15,62 @@
 
 ## 準備
 
-+ GCP のアカウントを作成します。
++ GCP のアカウント作成
 
 ```
-ここは他の記事におまかせします。
+他の参考資料に任せます
+```
+
++ gcloud には 設定のセットをローカルに保持して管理することが出来ます。
+  + [gcloud config configurations]
+  + ここではプロジェクトを同じ名前の設定を作成する例を記載します。
+  + GCP 上で以下のようなステータスで作成していきます。
+    + プロジェクト名
+      + iganari-gke-sample-basic
+    + region
+      + us-central1
+    + zone
+      + us-central1-a
+
+
+```
+export _pj='iganari-gke-sample-basic'
+
+gcloud config configurations create ${_pj}
+gcloud config configurations list
+
+gcloud config set compute/region us-central1
+gcloud config set compute/zone us-central1-a
+gcloud config set project ${_pj}
+
+gcloud auth login
 ```
 
 ```
-gcloud config set project [PROJECT_ID]
-gcloud config set compute/zone [COMPUTE_ZONE]
-gcloud config set compute/region [COMPUTE_REGION]
-gcloud components update
+$ gcloud config configurations list
+NAME                      IS_ACTIVE  ACCOUNT                     PROJECT                   DEFAULT_ZONE  DEFAULT_REGION
+iganari-gke-sample-basic  True       iganari@example.com         iganari-gke-sample-basic  us-central1   us-central1-a
 ```
-
-
 
 ## Cloud Shell 上でコマンドを実行
+
++ 専用の VPC ネットワークを作成します。
+  + VPC ネットワーク名
+    + iganari-gke-sample-basic-nw
+
+```
+gcloud beta compute networks create iganari-gke-sample-basic-nw \
+  --subnet-mode=custom
+```
+```
+gcloud compute networks subnets create iganari-gke-sample-basic-sb \
+  --network iganari-gke-sample-basic-nw \
+  --region us-central1 \
+  --range 172.16.0.0/12
+```
+
+
+
 
 + Node(n1-standard-1) が合計 3 個を起動する
 
@@ -69,9 +109,24 @@ gke-iganari-test-cli-191-default-pool-b2f227b2-gf81   Ready    <none>   5m19s   
 gke-iganari-test-cli-191-default-pool-fe9079b7-8k79   Ready    <none>   5m18s   v1.13.11-gke.14
 ```
 
-## クラスターの削除
+## リソースの削除
+
++ GKE クラスターの削除
 
 ```
 gcloud beta container clusters delete iganari-test-cli-1911 \
   --zone us-central1
 ```
+
++ VPC ネットワークの削除
+  + サブネットも同時に削除します。
+
+```
+gcloud beta compute networks delete hgoehoge
+```
+
+
+```
+
+
+
