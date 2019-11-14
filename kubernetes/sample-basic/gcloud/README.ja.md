@@ -68,3 +68,10 @@ gke-iganari-test-cli-191-default-pool-8e3fded4-g898   Ready    <none>   5m19s   
 gke-iganari-test-cli-191-default-pool-b2f227b2-gf81   Ready    <none>   5m19s   v1.13.11-gke.14
 gke-iganari-test-cli-191-default-pool-fe9079b7-8k79   Ready    <none>   5m18s   v1.13.11-gke.14
 ```
+
+## クラスターの削除
+
+```
+gcloud beta container clusters delete iganari-test-cli-1911 \
+  --zone us-central1
+```
