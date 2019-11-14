@@ -142,6 +142,13 @@ gcloud compute routers create nat-router \
   --region us-central1
 ```
 ```
+gcloud compute routers nats create nat-config \
+    --router-region us-central1 \
+    --router nat-router \
+    --nat-all-subnet-ip-ranges \
+    --auto-allocate-nat-external-ips
+```
+```
 gcloud compute firewall-rules create allow-ssh-1113 \
     --network default \
     --allow tcp:22
