@@ -43,14 +43,39 @@ iganari-gke-sample-basic  True       igarashi.toru@cloud-ace.jp  iganari-gke-sam
 ## Creating a private cluster with limited access to the public endpoint
 
 + チュートリアル通りに GKE を作ってみる
+  + `n1-standard-1` が 9 台立ち上がる!!
 
 ```
 gcloud container clusters create private-cluster-0 \
-    --create-subnetwork name=my-subnet-0 \
-    --enable-master-authorized-networks \
-    --enable-ip-alias \
-    --enable-private-nodes \
-    --master-ipv4-cidr 172.16.0.0/28 \
-    --no-enable-basic-auth \
-    --no-issue-client-certificate
+  --create-subnetwork name=my-subnet-0 \
+  --enable-master-authorized-networks \
+  --enable-ip-alias \
+  --enable-private-nodes \
+  --master-ipv4-cidr 172.16.0.0/28 \
+  --no-enable-basic-auth \
+  --no-issue-client-certificate
+```
+
++ 一旦、削除
+
+```
+gcloud container clusters delete private-cluster-0
+```
+
+
++ 上記をミニマムで作ってみる
+  + `n1-standard-1` が 3 台 + preemptible インスタンスを使用する
+
+```
+gcloud container clusters create private-cluster-0 \
+  --create-subnetwork name=my-subnet-0 \
+  --enable-master-authorized-networks \
+  --enable-ip-alias \
+  --enable-private-nodes \
+  --master-ipv4-cidr 172.16.0.0/28 \
+  --no-enable-basic-auth \
+  --no-issue-client-certificate \
+  --num-nodes=1 \
+  --release-channel stable \
+  --preemptible 
 ```
