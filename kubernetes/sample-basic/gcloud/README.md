@@ -4,4 +4,4 @@ I am sorry :(
 
 I have prepared Japaneses readme only.
 
-Plz --> Check Japanese README [./README.ja.md]
+Plz --> Check Japanese README [](./README.ja.md)
