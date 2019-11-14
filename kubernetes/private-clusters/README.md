@@ -129,3 +129,77 @@ gke-private-cluster-0-default-pool-5bb7017b-x7lf   Ready    <none>   32m   v1.13
 gke-private-cluster-0-default-pool-71736f9d-x5fx   Ready    <none>   32m   v1.13.11-gke.14
 gke-private-cluster-0-default-pool-96dab18f-t59k   Ready    <none>   32m   v1.13.11-gke.14
 ```
+
+## CloudNAT 試す
+
+ドキュメント
+
++ https://cloud.google.com/nat/docs/gke-example
+
+```
+gcloud compute routers create nat-router \
+  --network default \
+  --region us-central1
+```
+```
+gcloud compute firewall-rules create allow-ssh-1113 \
+    --network default \
+    --allow tcp:22
+```
+
+### Step 5: Log into node and confirm that it cannot reach the Internet
+
+```
+gcloud compute instances list
+```
+```
+### 例
+
+$ gcloud compute instances list
+NAME                                              ZONE           MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP  STATUS
+gke-private-cluster-0-default-pool-5bb7017b-x7lf  us-central1-a  n1-standard-1  true         10.97.28.4                RUNNING
+gke-private-cluster-0-default-pool-71736f9d-x5fx  us-central1-c  n1-standard-1  true         10.97.28.2                RUNNING
+gke-private-cluster-0-default-pool-96dab18f-t59k  us-central1-f  n1-standard-1  true         10.97.28.3                RUNNING
+```
+```
+### 例
+
+$ gcloud compute ssh gke-private-cluster-0-default-pool-5bb7017b-x7lf \
+    --zone us-central1-a \
+    --tunnel-through-iap
+```
+
+## Pod を作ってみる
+
+```
+vim pod-nginx.yaml
+```
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+      ports:
+      - containerPort: 80
+```
+
+```
+kubectl create -f pod-nginx.yaml
+```
+```
+### 例
+
+$ kubectl create -f pod-nginx.yaml
+pod/nginx-pod created
+
+$ kubectl get pods
+NAME        READY   STATUS    RESTARTS   AGE
+nginx-pod   1/1     Running   0          30s
+
+$ kubectl exec -it nginx-pod /bin/bash
+```
+
