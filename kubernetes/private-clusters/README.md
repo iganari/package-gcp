@@ -23,7 +23,14 @@
 + gcloud には 設定のセットをローカルに保持して管理することが出来ます。
   + [gcloud config configurations]
   + ここではプロジェクトを同じ名前の設定を作成する例を記載します。
-  + GCP 上のプロジェクト名 = iganari-gke-sample-basic とします。
+  + GCP 上で以下のようなステータスで作成していきます。
+    + プロジェクト名
+      + iganari-gke-private-clusters
+    + region
+      + us-central1
+    + zone
+      + us-central1-a
+
 
 ```
 export _pj='iganari-gke-sample-basic'
@@ -31,15 +38,11 @@ export _pj='iganari-gke-sample-basic'
 gcloud config configurations create ${_pj}
 gcloud config configurations list
 
-
-gcloud config set compute/zone us-central1
-gcloud config set compute/region us-central1-a
+gcloud config set compute/region us-central1
+gcloud config set compute/zone us-central1-a
 gcloud config set project ${_pj}
 
 gcloud auth login
-```
-```
-gcloud auth application-default login
 ```
 
 ```
