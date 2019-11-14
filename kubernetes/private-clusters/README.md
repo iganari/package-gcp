@@ -67,7 +67,7 @@ gcloud container clusters delete private-cluster-0
   + `n1-standard-1` が 3 台 + preemptible インスタンスを使用する
 
 ```
-gcloud container clusters create private-cluster-0 \
+gcloud beta container clusters create private-cluster-0 \
   --create-subnetwork name=my-subnet-0 \
   --enable-master-authorized-networks \
   --enable-ip-alias \
