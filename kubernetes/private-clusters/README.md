@@ -238,8 +238,24 @@ nginx-pod   1/1     Running   0          30s
 $ kubectl exec -it nginx-pod /bin/bash
 ```
 
-## クラスタの削除
+## リソースの削除
+
++ K8s クラスターの削除
 
 ```
-gcloud container clusters delete private-cluster-0
+gcloud container clusters delete private-cluster-0 \
+    --zone us-central1
+```
+
++ firewall
+
+```
+gcloud compute firewall-rules delete private-cluster-0-nw-allow-internal
+```
+
++ network
+
+```
+gcloud beta compute networks delete private-cluster-0-nw \
+  --subnet-mode=custom
 ```
