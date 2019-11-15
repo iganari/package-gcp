@@ -47,16 +47,17 @@ gcloud auth login
 
 ```
 $ gcloud config configurations list
-NAME                      IS_ACTIVE  ACCOUNT                     PROJECT                   DEFAULT_ZONE  DEFAULT_REGION
-iganari-gke-sample-basic  True       igarashi.toru@cloud-ace.jp  iganari-gke-sample-basic  us-central1   us-central1-a
+NAME                          IS_ACTIVE  ACCOUNT                     PROJECT                   DEFAULT_ZONE  DEFAULT_REGION
+iganari-gke-private-clusters  True       iganari@example.com  iganari-gke-sample-basic  us-central1   us-central1-a
 ```
 
 ## Creating a private cluster with limited access to the public endpoint
 
-+ チュートリアル通りに GKE を作ってみる
-  + `n1-standard-1` が 9 台立ち上がる!!
++ チュートリアル通りに GKE を作ると `n1-standard-1` が 9 台立ち上がってしましいます
 
 ```
+### 例
+
 gcloud container clusters create private-cluster-0 \
   --create-subnetwork name=my-subnet-0 \
   --enable-master-authorized-networks \
@@ -67,19 +68,26 @@ gcloud container clusters create private-cluster-0 \
   --no-issue-client-certificate
 ```
 
-+ 一旦、削除
-
-```
-gcloud container clusters delete private-cluster-0
-```
-
-
-+ 上記をミニマムで作ってみる
-  + `n1-standard-1` が 3 台 + preemptible インスタンスを使用する
++ 故に、上記をミニマムで作ってみます。
+  + `n1-standard-1` が 3 台 + preemptible インスタンスを使用します。
   + `gcloud beta` コマンドを使用します
+  + Node は preemptible instance を用います。
+  + GKE cluster 名 
+    + private-cluster-0
 
+
+```
+gcloud beta compute networks create private-cluster-0-nw \
+  --subnet-mode=custom
+```
+```
+gcloud compute firewall-rules create private-cluster-0-nw-allow-internal \
+  --network private-cluster-0-nw  \
+  --allow tcp:0-65535,udp:0-65535,icmp
+```
 ```
 gcloud beta container clusters create private-cluster-0 \
+  --network private-cluster-0-nw \
   --create-subnetwork name=my-subnet-0 \
   --enable-master-authorized-networks \
   --enable-ip-alias \
@@ -140,6 +148,15 @@ gke-private-cluster-0-default-pool-5bb7017b-x7lf   Ready    <none>   32m   v1.13
 gke-private-cluster-0-default-pool-71736f9d-x5fx   Ready    <none>   32m   v1.13.11-gke.14
 gke-private-cluster-0-default-pool-96dab18f-t59k   Ready    <none>   32m   v1.13.11-gke.14
 ```
+
+---> ここまでで、限定公開クラスタは作成完了。
+---> 以降は、限定公開クラスタを一般公開するための作業です
+
+
+## Ingress を試す
+
+
+
 
 ## CloudNAT 試す
 
