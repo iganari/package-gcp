@@ -118,9 +118,8 @@ iganari-gke-sample-basic-k8s  us-central1  1.13.11-gke.14  35.202.54.141  n1-sta
 + GKE のクラスターとの認証をします。
 
 ```
-gcloud auth login
 gcloud config set compute/zone us-central1
-gcloud container clusters get-credentials iganari-test-cli-1911
+gcloud container clusters get-credentials iganari-gke-sample-basic-k8s
 ```
 
 + node の確認
@@ -135,9 +134,9 @@ kubectl get node -o wide
 
 $ kubectl get node
 NAME                                                  STATUS   ROLES    AGE     VERSION
-gke-iganari-test-cli-191-default-pool-8e3fded4-g898   Ready    <none>   5m19s   v1.13.11-gke.14
-gke-iganari-test-cli-191-default-pool-b2f227b2-gf81   Ready    <none>   5m19s   v1.13.11-gke.14
-gke-iganari-test-cli-191-default-pool-fe9079b7-8k79   Ready    <none>   5m18s   v1.13.11-gke.14
+gke-iganari-gke-sample-b-default-pool-12f8dab9-vn1j   Ready    <none>   2m52s   v1.13.11-gke.14
+gke-iganari-gke-sample-b-default-pool-425a2cc8-d330   Ready    <none>   2m50s   v1.13.11-gke.14
+gke-iganari-gke-sample-b-default-pool-98fd478c-8jdv   Ready    <none>   2m54s   v1.13.11-gke.14
 ```
 
 ## リソースの削除
@@ -153,7 +152,7 @@ gcloud beta container clusters delete iganari-gke-sample-basic-k8s \
   + サブネットも同時に削除します。
 
 ```
-gcloud beta compute networks delete hgoehoge
+gcloud beta compute networks delete iganari-gke-sample-basic-nw
 ```
 
 
