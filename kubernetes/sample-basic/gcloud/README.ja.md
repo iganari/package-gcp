@@ -148,15 +148,16 @@ gcloud beta container clusters delete iganari-gke-sample-basic-k8s \
   --zone us-central1
 ```
 
++ Firewall rules を削除
+
+```
+gcloud compute firewall-rules delete iganari-gke-sample-basic-nw-allow-internal
+```
+
+
 + VPC ネットワークの削除
   + サブネットも同時に削除します。
 
 ```
 gcloud beta compute networks delete iganari-gke-sample-basic-nw
 ```
-
-
-```
-
-
-
