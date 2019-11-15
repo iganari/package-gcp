@@ -57,6 +57,10 @@ iganari-gke-sample-basic  True       iganari@example.com         iganari-gke-sam
 + 専用の VPC ネットワークを作成します。
   + VPC ネットワーク名
     + iganari-gke-sample-basic-nw
+  + サブネットワーク名
+    + iganari-gke-sample-basic-sb
+  + Firewall rule 名
+    + iganari-gke-sample-basic-nw-allow-internal
 
 ```
 gcloud beta compute networks create iganari-gke-sample-basic-nw \
@@ -68,14 +72,18 @@ gcloud compute networks subnets create iganari-gke-sample-basic-sb \
   --region us-central1 \
   --range 172.16.0.0/12
 ```
+```
+gcloud compute firewall-rules create iganari-gke-sample-basic-nw-allow-internal \
+  --network iganari-gke-sample-basic-nw \
+  --allow tcp:0-65535,udp:0-65535,icmp
+```
 
-
-
-
-+ Node(n1-standard-1) が合計 3 個を起動する
++ Node(n1-standard-1) が合計 3 個を起動します
 
 ```
 gcloud beta container clusters create iganari-test-cli-1911 \
+  --network=iganari-gke-sample-basic-nw \
+  --subnetwork=iganari-gke-sample-basic-sb \
   --zone us-central1 \
   --num-nodes=1 \
   --release-channel stable \
