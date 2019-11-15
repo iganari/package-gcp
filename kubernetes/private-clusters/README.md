@@ -75,16 +75,23 @@ gcloud container clusters create private-cluster-0 \
   + GKE cluster 名 
     + private-cluster-0
 
++ この限定公開クラスタ用の VPC ネットワークを作成します。
 
 ```
 gcloud beta compute networks create private-cluster-0-nw \
   --subnet-mode=custom
 ```
+
++ Firewall Rules を作成します。
+
 ```
 gcloud compute firewall-rules create private-cluster-0-nw-allow-internal \
   --network private-cluster-0-nw  \
   --allow tcp:0-65535,udp:0-65535,icmp
 ```
+
++ 限定公開クラスタの GKE を作成します。
+
 ```
 gcloud beta container clusters create private-cluster-0 \
   --network private-cluster-0-nw \
@@ -100,7 +107,7 @@ gcloud beta container clusters create private-cluster-0 \
   --preemptible 
 ```
 
-+ Cloud Shell からの疎通を許可する
++ Cloud Shell から、限定公開クラスタに対して、疎通を許可するコマンドを実行します。
 
 ```
 dig +short myip.opendns.com @resolver1.opendns.com
