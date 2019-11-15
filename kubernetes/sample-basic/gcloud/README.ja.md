@@ -78,7 +78,8 @@ gcloud compute firewall-rules create iganari-gke-sample-basic-nw-allow-internal 
   --allow tcp:0-65535,udp:0-65535,icmp
 ```
 
-+ Node(n1-standard-1) が合計 3 個を起動します
++ GKE を Node(n1-standard-1) が合計 3 個を起動します。
+  + Node は preemptible instance を用います。
 
 ```
 gcloud beta container clusters create iganari-test-cli-1911 \
@@ -88,6 +89,26 @@ gcloud beta container clusters create iganari-test-cli-1911 \
   --num-nodes=1 \
   --release-channel stable \
   --preemptible 
+```
+```
+### 例
+
+$ gcloud beta container clusters create iganari-test-cli-1911 \
+>   --network=iganari-gke-sample-basic-nw \
+>   --subnetwork=iganari-gke-sample-basic-sb \
+>   --zone us-central1 \
+>   --num-nodes=1 \
+>   --release-channel stable \
+>   --preemptible
+.
+.
+.
+割愛
+.
+.
+.
+NAME                   LOCATION     MASTER_VERSION  MASTER_IP      MACHINE_TYPE   NODE_VERSION    NUM_NODES  STATUS
+iganari-test-cli-1911  us-central1  1.13.11-gke.14  35.202.54.141  n1-standard-1  1.13.11-gke.14  3          RUNNING
 ```
 
 ## GKE との認証
