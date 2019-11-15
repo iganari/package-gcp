@@ -120,7 +120,6 @@ $ dig +short myip.opendns.com @resolver1.opendns.com
 ```
 ```
 gcloud container clusters update private-cluster-0 \
-    --zone us-central1-c \
     --enable-master-authorized-networks \
     --master-authorized-networks [EXISTING_AUTH_NETS],[SHELL_IP]/32
 ```
@@ -128,7 +127,6 @@ gcloud container clusters update private-cluster-0 \
 ### 例
 
 $ gcloud container clusters update private-cluster-0 \
-    --region us-central1 \
     --enable-master-authorized-networks \
     --master-authorized-networks 104.199.171.167/32
 ```
@@ -137,7 +135,6 @@ $ gcloud container clusters update private-cluster-0 \
 
 ```
 gcloud container clusters get-credentials private-cluster-0 \
-    --region us-central1 \
     --project ${_pj}
 ```
 
