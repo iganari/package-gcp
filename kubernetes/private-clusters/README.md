@@ -247,22 +247,21 @@ $ kubectl exec -it nginx-pod /bin/bash
 
 ## リソースの削除
 
-+ K8s クラスターの削除
++ K8s クラスターの削除します。
 
 ```
 gcloud container clusters delete private-cluster-0 \
     --zone us-central1-a
 ```
 
-+ firewall
++ Firewall Rule を削除します。
 
 ```
 gcloud compute firewall-rules delete private-cluster-0-nw-allow-internal
 ```
 
-+ network
++ VPC ネットワークを削除します。
 
 ```
-gcloud beta compute networks delete private-cluster-0-nw \
-  --subnet-mode=custom
+gcloud beta compute networks delete private-cluster-0-nw
 ```
