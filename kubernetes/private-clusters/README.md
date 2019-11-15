@@ -251,7 +251,7 @@ $ kubectl exec -it nginx-pod /bin/bash
 
 ```
 gcloud container clusters delete private-cluster-0 \
-    --zone us-central1
+    --zone us-central1-a
 ```
 
 + firewall
