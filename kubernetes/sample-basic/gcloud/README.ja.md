@@ -80,9 +80,11 @@ gcloud compute firewall-rules create iganari-gke-sample-basic-nw-allow-internal 
 
 + GKE を Node(n1-standard-1) が合計 3 個を起動します。
   + Node は preemptible instance を用います。
+  + GKE cluster 名
+    + iganari-gke-sample-basic-k8s
 
 ```
-gcloud beta container clusters create iganari-test-cli-1911 \
+gcloud beta container clusters create iganari-gke-sample-basic-k8s \
   --network=iganari-gke-sample-basic-nw \
   --subnetwork=iganari-gke-sample-basic-sb \
   --zone us-central1 \
@@ -93,7 +95,7 @@ gcloud beta container clusters create iganari-test-cli-1911 \
 ```
 ### 例
 
-$ gcloud beta container clusters create iganari-test-cli-1911 \
+$ gcloud beta container clusters create iganari-gke-sample-basic-k8s \
 >   --network=iganari-gke-sample-basic-nw \
 >   --subnetwork=iganari-gke-sample-basic-sb \
 >   --zone us-central1 \
@@ -107,8 +109,8 @@ $ gcloud beta container clusters create iganari-test-cli-1911 \
 .
 .
 .
-NAME                   LOCATION     MASTER_VERSION  MASTER_IP      MACHINE_TYPE   NODE_VERSION    NUM_NODES  STATUS
-iganari-test-cli-1911  us-central1  1.13.11-gke.14  35.202.54.141  n1-standard-1  1.13.11-gke.14  3          RUNNING
+NAME                          LOCATION     MASTER_VERSION  MASTER_IP      MACHINE_TYPE   NODE_VERSION    NUM_NODES  STATUS
+iganari-gke-sample-basic-k8s  us-central1  1.13.11-gke.14  35.202.54.141  n1-standard-1  1.13.11-gke.14  3          RUNNING
 ```
 
 ## GKE との認証
@@ -143,7 +145,7 @@ gke-iganari-test-cli-191-default-pool-fe9079b7-8k79   Ready    <none>   5m18s   
 + GKE クラスターの削除
 
 ```
-gcloud beta container clusters delete iganari-test-cli-1911 \
+gcloud beta container clusters delete iganari-gke-sample-basic-k8s \
   --zone us-central1
 ```
 
