@@ -7,8 +7,15 @@
 
 ## どんな構成が作れるの??
 
-
-
++ GKE を ゾーンクラスタ と リージョン クラスタ で作成します。
+  + [ゾーンクラスタ](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster)
+  + [リージョン クラスタ](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster)
++ GKE クラスターを デフォルトの VPC ネットワークではなく、自分で作成した VPC ネットワークとサブネット上に構築します。
++ Node に使用する VM に プリミティブ VM インスタンスを指定しています。
+  + [プリミティブ VM インスタンス](https://cloud.google.com/compute/docs/instances/preemptible)
++ Node のオートスケーリングは設定していません。
++ 起動する Node のスペックはデフォルトのままです。
+  + デフォルトでは `n1-standard-1` になります。
 
 ## 説明
 
@@ -16,6 +23,7 @@
 
 + https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster
 + https://cloud.google.com/sdk/gcloud/reference/container/clusters/create
++ https://cloud.google.com/sdk/gcloud/reference/container/clusters/delete
 
 
 ## アカウント準備
@@ -30,13 +38,6 @@
 
 ```
 ここは他の記事におまかせします。
-```
-
-```
-gcloud config set project [PROJECT_ID]
-gcloud config set compute/zone [COMPUTE_ZONE]
-gcloud config set compute/region [COMPUTE_REGION]
-gcloud components update
 ```
 
 ## GKE の構築
@@ -89,10 +90,11 @@ gcloud compute firewall-rules create ${_common_name}-nw-allow-internal \
 
 ### ゾーンナルクラスター
 
-
-+ 単一の Zone に Node を 1 台立ち上げます
-  + zone は us-central1-a
++ 単一の Zone 内に Node を 1 台立ち上げます。
+  + Zone は `us-central1-a` を指定します。 
   + 主に検証用として使って下さい。
+
++ 構築コマンド
 
 ```
 gcloud beta container clusters create ${_common_name} \
@@ -113,9 +115,10 @@ gcloud beta container clusters delete ${_common_name} \
 
 ### リージョナルクラスター
 
-+ GKE を Node(n1-standard-1) が合計 3 個を起動します。
-  + region で指定しているため、その region 毎に node が 1個立ち上がります
-  + Node は preemptible instance を用います。
++  Region の中の Zone 毎に Node を 1 台立ち上げます。
+  + Zone 障害に耐性が尽きますが、 Zone 毎に起動するのでコストが高くなります。
+
++ 構築コマンド
 
 ```
 gcloud beta container clusters create ${_common_name} \
@@ -126,17 +129,6 @@ gcloud beta container clusters create ${_common_name} \
   --preemptible
 ```
 
-+ kubectl コマンドにて確認を行います。
-  + Node のバージョンが指定したバージョンになっていることを確認出来ました。
-
-```
-kubectl get nodes
-NAME                                         STATUS   ROLES    AGE   VERSION
-gke-no-downtime-default-pool-1894e82b-2b2j   Ready    <none>   57s   v1.12.10-gke.17
-gke-no-downtime-default-pool-8d4eb0ed-78r1   Ready    <none>   57s   v1.12.10-gke.17
-gke-no-downtime-default-pool-d5a8d6e0-vmvd   Ready    <none>   76s   v1.12.10-gke.17
-```
-
 + 削除コマンド
 
 ```
@@ -144,16 +136,12 @@ gcloud beta container clusters delete ${_common_name} \
   --region us-central1
 ```
 
-
 ### K8s のバージョンを固定したい場合
 
-+ GKE を Node(n1-standard-1) が合計 3 個を起動します。
-  + region で指定しているため、その region 毎に node が 1個立ち上がります
-  + Node は preemptible instance を用います。
-  + クラスタのバージョンをあえて、古いバージョンに指定して作製します。
-    + 2019/11/18 現在は デフォルトのバージョンは `1.13.11-gke.14` であり、選択出来るバージョンで最も古いのは `1.12.10-gke.17` です。
++ クラスタのバージョンをあえて、古いバージョンに指定して作製します。
+  + 2019/11/18 現在は デフォルトのバージョンは `1.13.11-gke.14` であり、選択出来るバージョンで最も古いのは `1.12.10-gke.17` です。
 
-
++ 構築コマンド
 
 ```
 gcloud beta container clusters create ${_common_name} \
@@ -163,6 +151,13 @@ gcloud beta container clusters create ${_common_name} \
   --num-nodes=1 \
   --preemptible \
   --cluster-version=1.12.10-gke.17
+```
+
++ 削除コマンド
+
+```
+gcloud beta container clusters delete ${_common_name} \
+  --zone us-central1-a
 ```
 
 ## Kubernetes との認証
@@ -175,7 +170,7 @@ gcloud config set compute/zone us-central1
 gcloud container clusters get-credentials ${_common_name}
 ```
 
-+ node の確認
++ Node の確認
 
 ```
 kubectl get node
@@ -194,10 +189,15 @@ gke-iganari-test-cli-191-default-pool-fe9079b7-8k79   Ready    <none>   5m18s   
 
 ## クラスターの削除
 
++ ゾーンクラスタの場合
+
 ```
-gcloud beta container clusters delete iganari-test-cli-1911 \
+gcloud beta container clusters delete ${_common_name} \
   --zone us-central1
 ```
+
++ リージョナルクラスターの場合
+
 ```
 gcloud beta container clusters delete ${_common_name} \
   --zone us-central1-a
