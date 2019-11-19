@@ -36,11 +36,10 @@ gcloud components update
 
 ## GKE の構築
 
-:waring: サンプルは Cloud Shell からの実行で動作確認しています。
+:warning: サンプルは Cloud Shell からの実行で動作確認しています。
 
 + GCP の認証
   + ブラウザを通しての認証を行います。
-
 
 ```
 gcloud auth application-default login
@@ -112,17 +111,14 @@ gcloud beta container clusters delete ${_common_name} \
 + GKE を Node(n1-standard-1) が合計 3 個を起動します。
   + region で指定しているため、その region 毎に node が 1個立ち上がります
   + Node は preemptible instance を用います。
-  + クラスタのバージョンをあえて、古いバージョンに指定して作製します。
-    + 2019/11/18 現在は デフォルトのバージョンは `1.13.11-gke.14` であり、選択出来るバージョンで最も古いのは `1.12.10-gke.17` です。
 
 ```
-gcloud beta container clusters create no-downtime \
-  --network=no-downtime-nw \
-  --subnetwork=no-downtime-sb \
-  --zone us-central1 \
+gcloud beta container clusters create ${_common_name} \
+  --network=${_common_name}-nw \
+  --subnetwork=${_common_name}-sb \
+  --region us-central1 \
   --num-nodes=1 \
-  --preemptible \
-  --cluster-version=1.12.10-gke.17
+  --preemptible
 ```
 
 + kubectl コマンドにて確認を行います。
@@ -135,6 +131,14 @@ gke-no-downtime-default-pool-1894e82b-2b2j   Ready    <none>   57s   v1.12.10-gk
 gke-no-downtime-default-pool-8d4eb0ed-78r1   Ready    <none>   57s   v1.12.10-gke.17
 gke-no-downtime-default-pool-d5a8d6e0-vmvd   Ready    <none>   76s   v1.12.10-gke.17
 ```
+
++ 削除コマンド
+
+```
+gcloud beta container clusters delete ${_common_name} \
+  --region us-central1
+```
+
 
 ### K8s のバージョンを固定したい場合
 
