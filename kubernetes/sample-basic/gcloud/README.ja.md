@@ -113,9 +113,8 @@ gcloud beta container clusters create ${_common_name} \
 
 ### リージョナルクラスター
 
-+  Region の中の Zone 毎に Node を 1 台立ち上げます。
++ Region の中の Zone 毎に Node を 1 台立ち上げます。
   + Zone 障害に耐性が尽きますが、 Zone 毎に起動するのでコストが高くなります。
-
 + 構築コマンド
 
 ```
