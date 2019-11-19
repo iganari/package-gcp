@@ -1,241 +1,220 @@
-# [WIP] GKE Sample using gcloud command
+# Basic Sample gcloud of GKE
 
-## 参考 URL
+## これは何?
 
-+ 公式チュートリアル
-  + https://cloud.google.com/kubernetes-engine/docs/tutorials/
++ GKE を立ち上げる gcloud コマンドのサンプルです。
++ Deployment 等の管理はせず、あくまで GKE のみにフォーカスを当てています。
 
-## Deploying a containerized web application
+## どんな構成が作れるの??
 
-+ 公式ドキュメント
-  + https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app
++ GKE を ゾーンクラスタ と リージョン クラスタ で作成します。
+  + [ゾーンクラスタ](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster)
+  + [リージョン クラスタ](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster)
++ GKE クラスターを デフォルトの VPC ネットワークではなく、自分で作成した VPC ネットワークとサブネット上に構築します。
++ Node に使用する VM に プリミティブ VM インスタンスを指定しています。
+  + [プリミティブ VM インスタンス](https://cloud.google.com/compute/docs/instances/preemptible)
++ Node のオートスケーリングは設定していません。
++ 起動する Node のスペックはデフォルトのままです。
+  + デフォルトでは `n1-standard-1` になります。
 
+## 説明
 
-### Option A: Use Google Cloud Shell
+公式ドキュメント
 
-+ GKE を操作出来るようにパッケージをインストールする
-
-```
-gcloud components install kubectl
-```
-
-### Step 1: Build the container image
-
-+ サンプルソースコードを GitHub から取得する
-
-```
-git clone https://github.com/GoogleCloudPlatform/kubernetes-engine-samples
-cd kubernetes-engine-samples/hello-app
-```
-
-+ プロジェクトの設定
-
-```
-export _pj='iganari-gke-test'
-
-export PROJECT_ID=${_pj}
-```
++ https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster
++ https://cloud.google.com/sdk/gcloud/reference/container/clusters/create
++ https://cloud.google.com/sdk/gcloud/reference/container/clusters/delete
 
 
-+ Docker コンテナのイメージを作成する
+## アカウント準備
+
++ GCP のアカウントを作成します。
 
 ```
-docker build -t gcr.io/${_pj}/hello-app:v1 .
+ここは他の記事におまかせします。
 ```
 
-+ Docker イメージの確認
++ GCP のプロジェクト作成
 
 ```
-docker images
-```
-```
-### 例
-
-$ docker images
-REPOSITORY                          TAG                 IMAGE ID            CREATED             SIZE
-gcr.io/ca-igarashi-test/hello-app   v1                  ad8e83f42b58        6 seconds ago       11.4MB
+ここは他の記事におまかせします。
 ```
 
-### Step 2: Upload the container image
+## GKE の構築
 
-+ 認証
+:warning: サンプルは Cloud Shell からの実行で動作確認しています。
 
-```
-gcloud auth configure-docker
-```
-
-+ GCR に対して、 Docker イメージを push する
++ GCP の認証
+  + ブラウザを通しての認証を行います。
 
 ```
-docker push gcr.io/${_pj}/hello-app:v1
+gcloud auth application-default login
 ```
 
-### Step 3: Run your container locally (optional)
-
-+ Cloud Shell 上だと難しいのでパス
-
-### Step 4: Create a container cluster
-
-+ 最低限のプロパティを設定する
-
++ gcloud コマンドの configure 機能を使用し設定を管理します
+  + また、 GCP 上のプロジェクトID を使用します。
+  
 ```
+export _pj='GCP 上のプロジェクトID'
+  
+  
+gcloud config configurations create ${_pj}
 gcloud config set project ${_pj}
-gcloud config set compute/zone asia-northeast1-a
+gcloud config configurations list
 ```
 
-+ GKE 作成
-  + default のネットワークが存在する場合
++ 実験用の VPC ネットワークとそれに付随するサブネットワークを作成します。
 
 ```
-gcloud container clusters create hello-cluster --num-nodes=2
-```
-
-+ GKE 作成
-  + :warning: default のネットワークが存在しない場合
-
-+ VPC ネットワーク作成
-
-```
-### めんどくさい人向け(非推奨)
-
-gcloud compute networks create auto-network --subnet-mode auto
-```
-
-```
-### 日本 に限定して VPC ネットワークの作成
-### これは真剣にやる必要があるので後回し
-
-gcloud compute networks create gke-sample --subnet-mode custom
-
-gcloud compute networks subnets create gke-sample-sb-us-central  --network gke-sample --region us-central1  --range 192.168.1.0/24
-gcloud compute networks subnets create gke-sample-sb-europe-west --network gke-sample --region europe-west1 --range 192.168.2.0/24
-gcloud compute networks subnets create gke-sample-sb-asia-east   --network gke-sample --region asia-east1   --range 192.168.3.0/24
-
-
-gcloud container clusters create hello-cluster --num-nodes=2 --network=gke-sample --subnetwork=gke-sample-sb-asia-east
->> 要確認
-
-
-
-### 一旦削除
-
-gcloud compute networks subnets delete gke-sample-sb-us-central  --region us-central1
-gcloud compute networks subnets delete gke-sample-sb-europe-west --region europe-west1
-gcloud compute networks subnets delete gke-sample-sb-asia-east   --region asia-east1
-
-gcloud compute networks delete gke-sample
-```
-
-
----> ここまでで GKE 作成完了
- 
-
- + GKE に使われている node (GCE) の確認
-
-```
-gcloud compute instances list
-```
-
-### Step 5: Deploy your application
-
-+ deployment の作成
-
-```
-kubectl create deployment hello-web --image=gcr.io/${PROJECT_ID}/hello-app:v1
-```
-
-+ Pods の確認
-
-```
-kubectl get pods
-```
-
-### Step 6: Expose your application to the Internet
-
-+ 外部IPアドレスをつけてあげる
-  + どこに? service では無く??
-
-```
-kubectl expose deployment hello-web --type=LoadBalancer --port 80 --target-port 8080
-```
-
-+ 確認
-
-```
-kubectl get service
+export _common_name='iganari-k8s'
 ```
 ```
-### 準備中
-
-$ kubectl get service
-NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-hello-web    LoadBalancer   10.55.244.211   <pending>     80:31119/TCP   28s
-kubernetes   ClusterIP      10.55.240.1     <none>        443/TCP        6m57s
+gcloud beta compute networks create ${_common_name}-nw \
+  --subnet-mode=custom
 ```
 ```
-### 準備完了
-
-$ kubectl get service
-NAME         TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
-hello-web    LoadBalancer   10.55.244.211   34.84.161.130   80:31119/TCP   87s
-kubernetes   ClusterIP      10.55.240.1     <none>          443/TCP        7m56s
+gcloud beta compute networks subnets create ${_common_name}-sb \
+  --network ${_common_name}-nw \
+  --region us-central1 \
+  --range 172.16.0.0/12
 ```
 
-### Step 7: Scale up your application
-
-+ レプリカを増やす
++ Firewall Rules を作成します。
 
 ```
-kubectl scale deployment hello-web --replicas=3
+gcloud compute firewall-rules create ${_common_name}-nw-allow-internal \
+  --network ${_common_name}-nw \
+  --allow tcp:0-65535,udp:0-65535,icmp
 ```
 
-+ 確認
+### ゾーンナルクラスター
+
++ 単一の Zone 内に Node を 1 台立ち上げます。
+  + Zone は `us-central1-a` を指定します。 
+  + 主に検証用として使って下さい。
+
++ 構築コマンド
 
 ```
-kubectl get deployment hello-web
-```
-```
-$ kubectl get deployment hello-web
-NAME        READY   UP-TO-DATE   AVAILABLE   AGE
-hello-web   3/3     3            3           55m
-```
-
-+ Pods の確認
-
-```
-kubectl get pods
-```
-```
-$ kubectl get pods
-NAME                         READY   STATUS    RESTARTS   AGE
-hello-web-569dc47c5b-4svdz   1/1     Running   0          56m
-hello-web-569dc47c5b-twgmt   1/1     Running   0          58s
-hello-web-569dc47c5b-v2rrs   1/1     Running   0          58s
+gcloud beta container clusters create ${_common_name} \
+  --network=${_common_name}-nw \
+  --subnetwork=${_common_name}-sb \
+  --zone us-central1-a \
+  --num-nodes=1 \
+  --preemptible
 ```
 
-### Deploy a new version of your app
++ 削除コマンド
 
 ```
-docker build -t gcr.io/${PROJECT_ID}/hello-app:v2 .
-```
-```
-docker push gcr.io/${PROJECT_ID}/hello-app:v2
-```
-```
-kubectl set image deployment/hello-web hello-app=gcr.io/${PROJECT_ID}/hello-app:v2
+後述します。
 ```
 
-## Cleaning up
 
-+ Service の削除
-  + 外部IPアドレス含む
+### リージョナルクラスター
 
-```
-kubectl delete service hello-web
-```
-
-+ GKE のクラスター削除
++ Region の中の Zone 毎に Node を 1 台立ち上げます。
+  + Zone 障害に耐性が尽きますが、 Zone 毎に起動するのでコストが高くなります。
++ 構築コマンド
 
 ```
-gcloud container clusters delete hello-cluster
+gcloud beta container clusters create ${_common_name} \
+  --network=${_common_name}-nw \
+  --subnetwork=${_common_name}-sb \
+  --region us-central1 \
+  --num-nodes=1 \
+  --preemptible
+```
+
++ 削除コマンド
+
+```
+後述します。
+```
+
+### K8s のバージョンを固定したい場合
+
++ クラスタのバージョンをあえて、古いバージョンに指定して作製します。
+  + 2019/11/18 現在は デフォルトのバージョンは `1.13.11-gke.14` であり、選択出来るバージョンで最も古いのは `1.12.10-gke.17` です。
+
++ 構築コマンド
+
+```
+gcloud beta container clusters create ${_common_name} \
+  --network=${_common_name}-nw \
+  --subnetwork=${_common_name}-sb \
+  --zone us-central1-a \
+  --num-nodes=1 \
+  --preemptible \
+  --cluster-version=1.12.10-gke.17
+```
+
++ 削除コマンド
+
+```
+gcloud beta container clusters delete ${_common_name} \
+  --zone us-central1-a
+```
+
+## Kubernetes との認証
+
++ GKE のクラスターとの認証をします。
+
+```
+gcloud auth login
+gcloud config set compute/zone us-central1
+gcloud container clusters get-credentials ${_common_name}
+```
+
++ Node の確認
+
+```
+kubectl get node
+OR
+kubectl get node -o wide
+```
+```
+### 例(リージョナルで作成した時)
+
+$ kubectl get node
+NAME                                         STATUS   ROLES    AGE   VERSION
+gke-iganari-k8s-default-pool-483b7289-4cvc   Ready    <none>   50s   v1.13.11-gke.14
+gke-iganari-k8s-default-pool-a6a52aa1-51b0   Ready    <none>   49s   v1.13.11-gke.14
+gke-iganari-k8s-default-pool-e3f4e84e-1lk6   Ready    <none>   50s   v1.13.11-gke.14
+```
+
+## リソースの削除
+
+### K8s クラスターの削除
+
++ ゾーンクラスタの場合
+
+```
+gcloud beta container clusters delete ${_common_name} \
+  --zone us-central1-a
+```
+
++ リージョナルクラスターの場合
+
+```
+gcloud beta container clusters delete ${_common_name} \
+  --region us-central1
+```
+
+### ネットワークの削除
+
++ Firewall Rules を削除します。
+
+```
+gcloud compute firewall-rules delete ${_common_name}-nw-allow-internal
+```
+
++ 実験用の VPC ネットワークとそれに付随するサブネットワークを削除します。
+
+```
+gcloud beta compute networks subnets delete ${_common_name}-sb \
+  --region us-central1
+```
+```
+gcloud beta compute networks delete ${_common_name}-nw
 ```
