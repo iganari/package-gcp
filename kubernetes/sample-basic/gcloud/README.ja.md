@@ -108,8 +108,7 @@ gcloud beta container clusters create ${_common_name} \
 + 削除コマンド
 
 ```
-gcloud beta container clusters delete ${_common_name} \
-  --zone us-central1-a
+後述します。
 ```
 
 
@@ -132,8 +131,7 @@ gcloud beta container clusters create ${_common_name} \
 + 削除コマンド
 
 ```
-gcloud beta container clusters delete ${_common_name} \
-  --region us-central1
+後述します。
 ```
 
 ### K8s のバージョンを固定したい場合
@@ -181,25 +179,48 @@ kubectl get node -o wide
 ### 例(リージョナルで作成した時)
 
 $ kubectl get node
-NAME                                                  STATUS   ROLES    AGE     VERSION
-gke-iganari-test-cli-191-default-pool-8e3fded4-g898   Ready    <none>   5m19s   v1.13.11-gke.14
-gke-iganari-test-cli-191-default-pool-b2f227b2-gf81   Ready    <none>   5m19s   v1.13.11-gke.14
-gke-iganari-test-cli-191-default-pool-fe9079b7-8k79   Ready    <none>   5m18s   v1.13.11-gke.14
+NAME                                         STATUS   ROLES    AGE   VERSION
+gke-iganari-k8s-default-pool-483b7289-4cvc   Ready    <none>   50s   v1.13.11-gke.14
+gke-iganari-k8s-default-pool-a6a52aa1-51b0   Ready    <none>   49s   v1.13.11-gke.14
+gke-iganari-k8s-default-pool-e3f4e84e-1lk6   Ready    <none>   50s   v1.13.11-gke.14
 ```
 
-## クラスターの削除
+## リソースの削除
+
+### K8s クラスターの削除
 
 + ゾーンクラスタの場合
 
 ```
 gcloud beta container clusters delete ${_common_name} \
-  --zone us-central1
+  --zone us-central1-a
 ```
 
 + リージョナルクラスターの場合
 
 ```
 gcloud beta container clusters delete ${_common_name} \
-  --zone us-central1-a
+  --region us-central1
+```
+
+### ネットワークの削除
+
++ Firewall Rules を削除します。
+
+```
+gcloud compute firewall-rules delete ${_common_name}-nw-allow-internal \
+  --network ${_common_name}-nw
+```
+
+
+```
+gcloud beta compute networks create ${_common_name}-nw \
+  --subnet-mode=custom
+```
+```
+gcloud beta compute networks subnets create ${_common_name}-sb \
+  --network ${_common_name}-nw \
+  --region us-central1 \
+  --range 172.16.0.0/12
 ```
 
