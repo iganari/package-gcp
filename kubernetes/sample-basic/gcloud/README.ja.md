@@ -107,9 +107,15 @@ gcloud beta container clusters create ${_common_name} \
 + Node の確認
 
 ```
-WIP
+kubectl get node
+OR
+kubectl get node -o wide
 ```
-
+```
+$ kubectl get nodes
+NAME                                         STATUS   ROLES    AGE   VERSION
+gke-iganari-k8s-default-pool-bba6c328-pgtq   Ready    <none>   29s   v1.13.11-gke.14
+```
 
 ### リージョナルクラスター
 
