@@ -68,7 +68,6 @@ gcloud config configurations list
 ```
 export _common_name='iganari-k8s'
 ```
-
 ```
 gcloud beta compute networks create ${_common_name}-nw \
   --subnet-mode=custom
@@ -208,19 +207,15 @@ gcloud beta container clusters delete ${_common_name} \
 + Firewall Rules を削除します。
 
 ```
-gcloud compute firewall-rules delete ${_common_name}-nw-allow-internal \
-  --network ${_common_name}-nw
+gcloud compute firewall-rules delete ${_common_name}-nw-allow-internal
 ```
 
++ 実験用の VPC ネットワークとそれに付随するサブネットワークを削除します。
 
 ```
-gcloud beta compute networks create ${_common_name}-nw \
-  --subnet-mode=custom
+gcloud beta compute networks subnets delete ${_common_name}-sb \
+  --region us-central1
 ```
 ```
-gcloud beta compute networks subnets create ${_common_name}-sb \
-  --network ${_common_name}-nw \
-  --region us-central1 \
-  --range 172.16.0.0/12
+gcloud beta compute networks delete ${_common_name}-nw
 ```
-
