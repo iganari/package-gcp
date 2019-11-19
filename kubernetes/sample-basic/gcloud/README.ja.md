@@ -5,6 +5,11 @@
 + GKE を立ち上げる gcloud コマンドのサンプルです。
 + Deployment 等の管理はせず、あくまで GKE のみにフォーカスを当てています。
 
+## どんな構成が作れるの??
+
+
+
+
 ## 説明
 
 公式ドキュメント
@@ -160,27 +165,14 @@ gcloud beta container clusters create ${_common_name} \
   --cluster-version=1.12.10-gke.17
 ```
 
-
-## Cloud Shell 上でコマンドを実行
-
-+ Node(n1-standard-1) が合計 3 個を起動する
-
-```
-gcloud beta container clusters create iganari-test-cli-1911 \
-  --zone us-central1 \
-  --num-nodes=1 \
-  --release-channel stable \
-  --preemptible 
-```
-
-## GKE との認証
+## Kubernetes との認証
 
 + GKE のクラスターとの認証をします。
 
 ```
 gcloud auth login
 gcloud config set compute/zone us-central1
-gcloud container clusters get-credentials iganari-test-cli-1911
+gcloud container clusters get-credentials ${_common_name}
 ```
 
 + node の確認
@@ -191,7 +183,7 @@ OR
 kubectl get node -o wide
 ```
 ```
-### 例
+### 例(リージョナルで作成した時)
 
 $ kubectl get node
 NAME                                                  STATUS   ROLES    AGE     VERSION
