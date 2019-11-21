@@ -135,7 +135,14 @@ gcloud beta container clusters create ${_common_name} \
 + Node の確認
 
 ```
-WIP
+kubectl get node
+OR
+kubectl get node -o wide
+```
+```
+$ kubectl get node
+NAME                                         STATUS   ROLES    AGE    VERSION
+gke-iganari-k8s-default-pool-4a9e4df1-k8l8   Ready    <none>   5m4s   v1.13.11-gke.14
 ```
 
 ### K8s のバージョンを固定したい場合
