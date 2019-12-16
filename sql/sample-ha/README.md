@@ -12,16 +12,17 @@
 
 ## 構築ハンズオン
 
-+ Docker の起動
++ Docker の起動します。
+  + 以降は Docker コンテナ内から実行する想定です。 ---> :whale:
 
 ```
-WIP
+sh docker-build-run.sh
 ```
 
-+ GCP と認証を行う
++ GCP と認証を行います。
 
 ```
-WIP
+gcloud auth login
 ```
 
 + Terraform の実行
