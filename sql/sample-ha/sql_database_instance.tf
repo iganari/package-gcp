@@ -1,5 +1,5 @@
 resource "random_string" "db_name_suffix" {
-  length  = 4
+  length  = 6
   upper   = false
   lower   = true
   number  = false
@@ -14,7 +14,15 @@ resource "google_sql_database_instance" "gsdi_master" {
   database_version = "${lookup(var.sql, "in_version")}"
 
   settings {
-    tier              = "${lookup(var.sql, "in_tier")}"
-    availability_type = "${lookup(var.sql, "in_ha")}"
+    availability_type      = "${lookup(var.sql, "in_ha")}"
+    tier                   = "${lookup(var.sql, "in_tier")}"
+    crash_safe_replication = true
+
+    backup_configuration {
+      binary_log_enabled = true
+      enabled            = true
+      start_time         = "00:00"
+    }
   }
+
 }

@@ -6,5 +6,6 @@ variable "sql" {
     "in_region"  = "us-central1"
     "in_tier"    = "db-f1-micro"
     "in_ha"      = "REGIONAL" # Not => ZONAL
+    # "in_ha"      = "ZONAL"
   }
 }
