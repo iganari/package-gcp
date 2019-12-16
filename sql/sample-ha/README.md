@@ -25,11 +25,38 @@ sh docker-build-run.sh
 gcloud auth login
 ```
 
-+ Terraform の実行
++ Terraform の workspace を作成します。
+  + 既存の GCP プロジェクト ID を Terraform の workspace 名に設定してしまいます。
 
 ```
-WIP
+export _pj='既存の GCP プロジェクト ID'
+gcloud config set project ${_pj}
 ```
+
++ Terraform の workspace を設定します。
+
+```
+terraform workspace new ${_pj}
+terraform workspace select ${_pj}
+terraform workspace show
+```
+
++ Terraform を実行します。
+
+```
+terraform init
+```
+
+
+```
+terraform plan
+```
+
+```
+terraform apply
+```
+
+
 
 ## HA を試してみる
 
