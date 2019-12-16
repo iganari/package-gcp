@@ -3,7 +3,7 @@
 ## これは何?
 
 + GKE を立ち上げる gcloud コマンドのサンプルです。
-+ Deployment 等の管理はせず、あくまで GKE のみにフォーカスを当てています。
++ GKE を構築するまでの工程にフォーカスを当てています。
 
 ## どんな構成が作れるの??
 
@@ -104,12 +104,18 @@ gcloud beta container clusters create ${_common_name} \
   --preemptible
 ```
 
-+ 削除コマンド
++ Node の確認
 
 ```
-後述します。
+kubectl get node
+OR
+kubectl get node -o wide
 ```
-
+```
+$ kubectl get nodes
+NAME                                         STATUS   ROLES    AGE   VERSION
+gke-iganari-k8s-default-pool-bba6c328-pgtq   Ready    <none>   29s   v1.13.11-gke.14
+```
 
 ### リージョナルクラスター
 
@@ -126,10 +132,17 @@ gcloud beta container clusters create ${_common_name} \
   --preemptible
 ```
 
-+ 削除コマンド
++ Node の確認
 
 ```
-後述します。
+kubectl get node
+OR
+kubectl get node -o wide
+```
+```
+$ kubectl get node
+NAME                                         STATUS   ROLES    AGE    VERSION
+gke-iganari-k8s-default-pool-4a9e4df1-k8l8   Ready    <none>   5m4s   v1.13.11-gke.14
 ```
 
 ### K8s のバージョンを固定したい場合
@@ -149,14 +162,15 @@ gcloud beta container clusters create ${_common_name} \
   --cluster-version=1.12.10-gke.17
 ```
 
-+ 削除コマンド
++ Node の確認
 
 ```
-gcloud beta container clusters delete ${_common_name} \
-  --zone us-central1-a
+WIP
 ```
 
 ## Kubernetes との認証
+
+GKE と認証が通ってないエラーが出た場合は、以下のコマンドで認証をしましょう。
 
 + GKE のクラスターとの認証をします。
 
