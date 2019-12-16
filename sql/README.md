@@ -2,6 +2,6 @@
 
 ## サンプル
 
++ sample-readreplica
 + sample-ha
-+ sample-replica
-+ sample-ha-replica
++ sample-ha-readreplica
