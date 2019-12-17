@@ -22,7 +22,7 @@ sh docker-build-run.sh
 + GCP と認証を行います。
 
 ```
-gcloud auth login
+gcloud auth application-default login
 ```
 
 + Terraform の workspace を作成します。
