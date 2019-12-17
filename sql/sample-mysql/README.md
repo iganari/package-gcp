@@ -19,13 +19,13 @@
 sh docker-build-run.sh
 ```
 
-+ GCP と認証を行います。
++ :whale: GCP と認証を行います。
 
 ```
 gcloud auth application-default login
 ```
 
-+ Terraform の workspace を作成します。
++ :whale: Terraform の workspace を作成します。
   + 既存の GCP プロジェクト ID を Terraform の workspace 名に設定してしまいます。
 
 ```
@@ -33,7 +33,7 @@ export _pj='既存の GCP プロジェクト ID'
 gcloud config set project ${_pj}
 ```
 
-+ Terraform の workspace を設定します。
++ :whale: Terraform の workspace を設定します。
 
 ```
 terraform workspace new ${_pj}
@@ -41,7 +41,7 @@ terraform workspace select ${_pj}
 terraform workspace show
 ```
 
-+ Terraform を実行します。
++ :whale: Terraform を実行します。
 
 ```
 terraform init
