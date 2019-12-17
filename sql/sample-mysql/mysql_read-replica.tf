@@ -24,3 +24,19 @@ resource "google_sql_database_instance" "gsdi_replica" {
     }
   }
 }
+
+resource "google_sql_database_instance" "gsdi_replica_replica" {
+  name = "${lookup(var.sql_replica, "in_name")}-${random_string.db_name_suffix_replica.id}-replica"
+  region = "${lookup(var.sql_replica, "in_region")}"
+  database_version = "${lookup(var.sql_replica, "in_version")}"
+
+  depends_on = [google_sql_database_instance.gsdi_replica]
+
+  master_instance_name = google_sql_database_instance.gsdi_replica.name
+  replica_configuration {
+    failover_target = true
+  }
+  settings {
+    tier = "${lookup(var.sql_replica, "in_tier")}"
+  }
+}
