@@ -2,7 +2,7 @@
 
 set -xeu
 
-_I_TAG='sql-sample-ha'
+_I_TAG='sql-sample-mysql'
 BASEPATH=$(cd `dirname $0`; pwd)
 DIREPATH=`echo $BASEPATH | awk -F\/ '{print $NF}'`
 
