@@ -6,7 +6,6 @@ resource "random_string" "db_name_suffix_ha" {
   special = false
 }
 
-
 # https://www.terraform.io/docs/providers/google/r/sql_database_instance.html
 resource "google_sql_database_instance" "gsdi_ha" {
   name             = "${lookup(var.sql_ha, "in_name")}-${random_string.db_name_suffix_ha.id}"
