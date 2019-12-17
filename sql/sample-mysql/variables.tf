@@ -1,4 +1,4 @@
-variable "sql" {
+variable "sql_ha" {
   type = "map"
   default = {
     "in_name"    = "sample-ha"
