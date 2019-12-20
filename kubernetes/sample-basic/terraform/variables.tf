@@ -1,5 +1,5 @@
 variable "network" {
-  type = "map"
+  # type = "map"
   default = {
     nw-name                    = "iganari-nw"
     nw-auto_create_subnetworks = "false"
@@ -10,7 +10,7 @@ variable "network" {
 }
 
 variable "cluster" {
-  type = "map"
+  # type = "map"
   default = {
     pr-name     = "iganari-k8s-primary"
     master-name = "k8s-admin"
@@ -19,7 +19,7 @@ variable "cluster" {
 }
 
 variable "node-pool" {
-  type = "map"
+  # type = "map"
   default = {
     np-name         = "iganari-k8s-node"
     # master-name     = "k8s-admin"
