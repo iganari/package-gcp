@@ -1,14 +1,7 @@
-# FROM hashicorp/terraform:light
-# 
-# RUN apk update
-# 
-# ENTRYPOINT /bin/sh
-
-
-
 FROM iganarix/cld-gcloud
 
-RUN curl https://releases.hashicorp.com/terraform/0.12.12/terraform_0.12.12_linux_amd64.zip -o /usr/local/bin/terraform_0.12.12_linux_amd64.zip && \
+ARG _tf_ver='0.12.18'
+RUN curl https://releases.hashicorp.com/terraform/${_tf_ver}/terraform_${_tf_ver}_linux_amd64.zip -o /usr/local/bin/terraform_${_tf_ver}_linux_amd64.zip && \
     cd /usr/local/bin/ && \
-    unzip terraform_0.12.12_linux_amd64.zip && \
-    rm -f /usr/local/bin/terraform_0.12.12_linux_amd64.zip
+    unzip terraform_${_tf_ver}_linux_amd64.zip && \
+    rm -f /usr/local/bin/terraform_${_tf_ver}_linux_amd64.zip
