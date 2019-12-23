@@ -26,6 +26,13 @@ sh docker-build-run.sh
 cd v3_3_0
 ```
 
++ GCP との認証を行います
+  + Terrform を使用するため、 `application-default` を使用します。
+
+```
+gcloud auth application-default login
+```
+
 + :whale: Terraform のプロバイダーなどの準備をします。
 
 ```
