@@ -59,13 +59,13 @@ terraform apply
 
 ## GKE 確認方法
 
-+ 手元の gcloud コマンドを使うための認証をします
++ :whale: 手元の gcloud コマンドを使うための認証をします
 
 ```
 gcloud auth login
 ```
 
-+ 構築した GKE に対して、認証をします。
++ :whale: 構築した GKE に対して、認証をします。
 
 ```
 gcloud container clusters get-credentials ${GKE_cluster_name}
@@ -77,10 +77,18 @@ gcloud container clusters get-credentials tf-diff-v3 \
   --region us-central1
 ```
 
-+ 構築した GKE の Node を確認します。
++ :whale: 構築した GKE の Node を確認します。
 
 ```
 kubectl get nodes
 OR
 kubectl get nodes -o wide
+```
+
+## GKE 削除方法
+
++ :whale: destroy を使用して、削除します。
+
+```
+terraform destroy
 ```
