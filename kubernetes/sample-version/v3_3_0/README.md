@@ -1,6 +1,6 @@
 # v3.3.0
 
-## 実行方法(簡易版)
+## GKE構築方法(簡易版)
 
 + Repository を Clone します。
 
@@ -55,4 +55,12 @@ terraform plan
 
 ```
 terraform apply
+```
+
+## GKE 確認方法
+
++ 手元の gcloud コマンドを使うための認証をします
+
+```
+gcloud 
 ```
