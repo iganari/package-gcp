@@ -73,7 +73,7 @@ gcloud container clusters get-credentials ${GKE_cluster_name}
 ```
 ### 例
 
-gcloud container clusters get-credentials tf-diff-v3 \
+gcloud container clusters get-credentials tf-diff-v2 \
   --region us-central1
 ```
 
