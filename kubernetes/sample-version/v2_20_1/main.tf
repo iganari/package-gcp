@@ -25,14 +25,6 @@ resource "google_compute_subnetwork" "gcs_tf_diff" {
   ip_cidr_range = lookup(var.network, "sb_cidr")
   region        = lookup(var.network, "sb_region")
 
-  secondary_ip_range {
-    range_name    = lookup(var.network, "sb_sec_name_cls")
-    ip_cidr_range = lookup(var.network, "sb_sec_cidr_cls")
-  }
-  secondary_ip_range {
-    range_name    = lookup(var.network, "sb_sec_name_srv")
-    ip_cidr_range = lookup(var.network, "sb_sec_cidr_srv")
-  }
 }
 
 resource "google_container_cluster" "gcc_tf_diff" {
@@ -40,8 +32,8 @@ resource "google_container_cluster" "gcc_tf_diff" {
   name     = lookup(var.cluster, "name")
   location = google_compute_subnetwork.gcs_tf_diff.region
 
-  network    = google_compute_network.gcn_tf_diff.self_link
-  subnetwork = google_compute_subnetwork.gcs_tf_diff.self_link
+  network    = google_compute_network.gcn_tf_diff.name
+  subnetwork = google_compute_subnetwork.gcs_tf_diff.name
 
   remove_default_node_pool = true
   initial_node_count       = 1
@@ -54,11 +46,6 @@ resource "google_container_cluster" "gcc_tf_diff" {
     client_certificate_config {
       issue_client_certificate = false
     }
-  }
-
-  ip_allocation_policy {
-    cluster_secondary_range_name  = lookup(var.network, "sb_sec_name_cls")
-    services_secondary_range_name = lookup(var.network, "sb_sec_name_srv")
   }
 
   pod_security_policy_config {
