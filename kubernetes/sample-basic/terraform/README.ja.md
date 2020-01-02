@@ -56,6 +56,7 @@ sh docker-build-run.sh
 export _pj='iganari-gke-sample-basic'
 
 gcloud config configurations create ${_pj}
+gcloud config configurations select ${_pj}
 gcloud config configurations list
 ```
 
