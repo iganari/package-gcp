@@ -112,8 +112,15 @@ iganari-gke-sample-basic  True                iganari-gke-sample-basic
 terraform init
 ```
 
-+ plan
++ validate
   + 記法に誤りが無いか確認します。
+
+```
+terraform plan
+```
+
++ plan
+  + 作成予定のリソースを表示します。
 
 ```
 terraform plan
