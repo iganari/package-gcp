@@ -116,7 +116,7 @@ terraform init
   + 記法に誤りが無いか確認します。
 
 ```
-terraform plan
+terraform validate
 ```
 
 + plan
