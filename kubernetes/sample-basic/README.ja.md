@@ -4,4 +4,4 @@
 
 GKE を構築するサンプルです。
 
-[Terraform] 版と [gcloud] 版を作っています
+[Terraform](./terraform/README.md) 版と [gcloud](./gcloud/README.md) 版を作っています
