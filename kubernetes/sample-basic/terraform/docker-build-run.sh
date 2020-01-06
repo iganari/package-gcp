@@ -19,4 +19,4 @@ docker run --rm \
            -h ${_I_TAG} \
            --name ${_I_TAG} \
            ${_I_TAG} \
-           /bin/bash
+           /bin/ash
