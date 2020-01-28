@@ -56,6 +56,7 @@ sh docker-build-run.sh
 export _pj='iganari-gke-sample-basic'
 
 gcloud config configurations create ${_pj}
+gcloud config configurations select ${_pj}
 gcloud config configurations list
 ```
 
@@ -111,8 +112,15 @@ iganari-gke-sample-basic  True                iganari-gke-sample-basic
 terraform init
 ```
 
-+ plan
++ validate
   + 記法に誤りが無いか確認します。
+
+```
+terraform validate
+```
+
++ plan
+  + 作成予定のリソースを表示します。
 
 ```
 terraform plan
