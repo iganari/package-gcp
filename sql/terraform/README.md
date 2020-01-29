@@ -24,15 +24,18 @@ cd package-gcp
 sh docker-build-run.sh
 ```
 
-+ :whale: {ha|readreplica|ha-readreplica} の環境に行き、Terraform を実行します
-
-### ha を行う場合
-
++ :whale: gcloud コマンドのアップデート
 
 ```
 gcloud --quiet components update
 gcloud --quiet components install beta
 ```
+
+あとは {ha|readreplica|ha-readreplica} の環境に行き、Terraform を実行します。
+
+### ha を行う場合
+
+
 ```
 gcloud auth application-default login
 ```
@@ -45,8 +48,6 @@ cd sql/terraform/env/ha
 ```
 export _pj='sample-gcp-project'
 
-export _pj='ca-igarashi-test-v3'
-
 terraform workspace new ${_pj}
 terraform workspace list
 
@@ -58,7 +59,7 @@ terraform apply
 
 ## 実験
 
-WIP
+As you Like ... 
 
 ## 検証後
 
