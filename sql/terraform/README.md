@@ -23,3 +23,53 @@ cd package-gcp
 ```
 sh docker-build-run.sh
 ```
+
++ :whale: {ha|readreplica|ha-readreplica} の環境に行き、Terraform を実行します
+
+### ha を行う場合
+
+
+```
+gcloud --quiet components update
+gcloud --quiet components install beta
+```
+```
+gcloud auth application-default login
+```
+
+
+```
+cd sql/terraform/env/ha
+```
+
+```
+export _pj='sample-gcp-project'
+
+export _pj='ca-igarashi-test-v3'
+
+terraform workspace new ${_pj}
+terraform workspace list
+
+terraform init
+terraform validate
+terraform plan
+terraform apply
+```
+
+## 実験
+
+WIP
+
+## 検証後
+
++ :whale: リソースの削除
+
+```
+terraform destroy
+```
+
++ Docker コンテナから出る
+
+```
+exit
+```
