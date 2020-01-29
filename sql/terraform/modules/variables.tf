@@ -18,3 +18,12 @@ variable "sql_replica" {
     "in_ha" = "ZONAL"
   }
 }
+
+variable "database" {
+  type = "map"
+  default = {
+    "db_name"    = "pkg-gcp-sql"
+    "db_version" = "MYSQL_5_7"
+    "db_region"  = "us-central1"
+  }
+}
