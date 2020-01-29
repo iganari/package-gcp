@@ -5,3 +5,6 @@ RUN curl https://releases.hashicorp.com/terraform/${_ver}/terraform_${_ver}_linu
     cd /usr/local/bin/ && \
     unzip terraform_${_ver}_linux_amd64.zip && \
     rm -f /usr/local/bin/terraform_${_ver}_linux_amd64.zip
+
+RUN gcloud --quiet components update && \
+    gcloud --quiet components install beta
