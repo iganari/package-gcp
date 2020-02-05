@@ -90,23 +90,6 @@ gcloud beta container clusters create ${_common}-cls \
     --preemptible
 ```
 
-+ :whale: マスター承認ネットワークを設定します。
-
-```
-gcloud container clusters update ${_common}-cls \
-    --region ${_region} \
-    --enable-master-authorized-networks \
-    --master-authorized-networks [EXISTING_AUTH_NETS],[SHELL_IP]/32
-```
-
-+ :whale: GKE と承認をします。
-
-```
-gcloud container clusters get-credentials ${_common}-cls \
-    --region ${_region} \
-    --project ${_pj}
-```
-
 + :whale: Cloud Router を作成します。
 
 ```
@@ -123,6 +106,64 @@ gcloud compute routers nats create nat-config \
     --nat-all-subnet-ip-ranges \
     --auto-allocate-nat-external-ips
 ```
+
+---> ここまでで構築作業が完了です。
+
+## 認証作業
+
++ :whale: マスター承認ネットワークを設定します。
+
+```
+gcloud container clusters update ${_common}-cls \
+    --region ${_region} \
+    --enable-master-authorized-networks \
+    --master-authorized-networks [EXISTING_AUTH_NETS],[SHELL_IP]/32
+```
+```
+### 例
+
+# 自分の環境の外部 IP アドレスを確認します。
+## Cloud Shell の場合
+dig +short myip.opendns.com @resolver1.opendns.com
+## 上記以外の場合
+curl ipaddr.io
+
+# マスター承認ネットワークの設定をします。
+gcloud container clusters update ${_common}-cls \
+    --region ${_region} \
+    --enable-master-authorized-networks \
+    --master-authorized-networks 126.73.72.145/32
+```
+
++ :whale: GKE と承認をします。
+
+```
+gcloud container clusters get-credentials ${_common}-cls \
+    --region ${_region} \
+    --project ${_pj}
+```
+
++ :whale: Node を確認をします。
+
+```
+kubectl get no
+```
+```
+### 例
+
+WIP
+```
+
++ :whale: Pod を確認します。
+
+```
+kubectl get po
+```
+```
+# kubectl get po
+No resources found in default namespace.
+```
+
 
 ## Kubernetes を使ってみる
 
