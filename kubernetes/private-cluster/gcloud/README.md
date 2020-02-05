@@ -86,7 +86,7 @@ gcloud beta container clusters create ${_common}-cls \
   --enable-ip-alias \
   --master-ipv4-cidr 172.16.0.16/28 \
   --no-enable-basic-auth \
-  --no-issue-client-certificate
+  --no-issue-client-certificate \
   --num-nodes=1 \
   --release-channel stable \
   --preemptible
