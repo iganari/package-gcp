@@ -25,7 +25,7 @@ gcloud components install beta
 ### ここはよしなに変更して下さい
 
 export _pj='{Your GCP Project ID}'
-export _common='igrs-priv-cls'
+export _common='iganari-privcls'
 export _region='us-central1'
 ```
 
