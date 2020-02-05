@@ -6,8 +6,6 @@
 
 ## 構築作業
 
-### gcloud コマンドの用意する
-
 + Docker コンテナを起動する ---> :whale:
 
 ```
@@ -116,13 +114,59 @@ gcloud container clusters get-credentials ${_common}-cls \
 
 + :whale:
 
+## Kubernetes を使ってみる
+
+WIP
+
+## 削除作業
+
++ :whale: WIP
+
+```
+WIP
+```
 
 
++ :whale: WIP
+
+```
+WIP
+```
 
 
++ :whale: WIP
+
+```
+WIP
+```
 
 
++ :whale: WIP
 
+```
+WIP
+```
+
+
++ :whale: WIP
+
+```
+WIP
+```
+
+
++ :whale: WIP
+
+```
+WIP
+```
+
+
++ :whale: WIP
+
+```
+WIP
+```
 
 
 
