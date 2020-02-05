@@ -74,20 +74,20 @@ gcloud beta compute networks subnets create ${_common}-sb \
 
 ```
 gcloud beta container clusters create ${_common}-cls \
-  --region ${_region} \
-  --enable-master-authorized-networks \
-  --network ${_common}-nw \
-  --subnetwork ${_common}-sb \
-  --cluster-secondary-range-name pods-range \
-  --services-secondary-range-name services-range \
-  --enable-private-nodes \
-  --enable-ip-alias \
-  --master-ipv4-cidr 172.16.0.16/28 \
-  --no-enable-basic-auth \
-  --no-issue-client-certificate \
-  --num-nodes=1 \
-  --release-channel stable \
-  --preemptible
+    --region ${_region} \
+    --enable-master-authorized-networks \
+    --network ${_common}-nw \
+    --subnetwork ${_common}-sb \
+    --cluster-secondary-range-name pods-range \
+    --services-secondary-range-name services-range \
+    --enable-private-nodes \
+    --enable-ip-alias \
+    --master-ipv4-cidr 172.16.0.16/28 \
+    --no-enable-basic-auth \
+    --no-issue-client-certificate \
+    --num-nodes=1 \
+    --release-channel stable \
+    --preemptible
 ```
 
 + :whale: マスター承認ネットワークを設定します。
@@ -107,12 +107,22 @@ gcloud container clusters get-credentials ${_common}-cls \
     --project ${_pj}
 ```
 
++ :whale: Cloud Router を作成します。
 
-+ :whale:
+```
+gcloud compute routers create nat-router \
+  --network ${_common}-nw
+```
 
++ :whale: Cloud NAT を作成します。
 
-
-+ :whale:
+```
+gcloud compute routers nats create nat-config \
+    --router-region ${_region} \
+    --router nat-router \
+    --nat-all-subnet-ip-ranges \
+    --auto-allocate-nat-external-ips
+```
 
 ## Kubernetes を使ってみる
 
@@ -120,55 +130,36 @@ WIP
 
 ## 削除作業
 
-+ :whale: WIP
++ :whale: GKE を削除します。
 
 ```
-WIP
+gcloud container clusters delete ${_common}-cls \
+    --region ${_region}
 ```
 
-
-+ :whale: WIP
-
-```
-WIP
-```
-
-
-+ :whale: WIP
++ :whale: Cloud NAT を削除します。
 
 ```
-WIP
+gcloud compute routers nats delete nat-config \
+    --router-region ${_region} \
+    --router nat-router
 ```
 
-
-+ :whale: WIP
-
-```
-WIP
-```
-
-
-+ :whale: WIP
++ :whale: Cloud Router を削除します。
 
 ```
-WIP
+gcloud compute routers delete nat-router
 ```
 
-
-+ :whale: WIP
-
-```
-WIP
-```
-
-
-+ :whale: WIP
++ :whale: サブネットワークの削除します。
 
 ```
-WIP
+gcloud beta compute networks subnets delete ${_common}-sb \
+    --region ${_region}
 ```
 
++ :whale: VPC ネットワークを削除します。
 
-
-
-
+```
+gcloud beta compute networks delete ${_common}-nw
+```
