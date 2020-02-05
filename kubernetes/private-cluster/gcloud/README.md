@@ -45,6 +45,14 @@ gcloud config set project ${_pj}
 gcloud config configurations list
 ```
 
++ :whale: GCP と認証をします。
+  + Web ブラウザ経由で認証をします。
+
+```
+gcloud auth login
+```
+
+
 + :whale: VPC ネットワークを作成します。
 
 ```
