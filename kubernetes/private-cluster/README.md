@@ -15,4 +15,4 @@
 ## 実際に構築してみる
 
 + [gcloud 版](./gcloud/README.md)
-+ [ WIP: Terraform 版](./terraform/README.md)
++ [ WIP: Terraform 版]()
