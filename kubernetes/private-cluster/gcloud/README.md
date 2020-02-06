@@ -25,7 +25,7 @@ gcloud components install beta
 ### ここはよしなに変更して下さい
 
 export _pj='{Your GCP Project ID}'
-export _common='iganari-privcls'
+export _common='iganari-privcls-gcloud'
 export _region='us-central1'
 ```
 
@@ -49,7 +49,6 @@ gcloud config configurations list
 ```
 gcloud auth login
 ```
-
 
 + :whale: VPC ネットワークを作成します。
 
@@ -167,7 +166,9 @@ No resources found in default namespace.
 
 ## Kubernetes を使ってみる
 
-WIP
+適当にサンプルを実行してみて下さい。
+
+( もし特段思い浮かばなければ、[sample_guestbook](https://github.com/iganari/package-kubernetes/tree/master/sample_guestbook) や [sample_vote](https://github.com/iganari/package-kubernetes/tree/master/sample_vote) をやってみて下さい :)
 
 ## 削除作業
 
