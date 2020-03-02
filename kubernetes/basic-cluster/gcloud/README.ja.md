@@ -48,7 +48,7 @@
   + ブラウザを通しての認証を行います。
 
 ```
-gcloud auth application-default login
+gcloud auth login
 ```
 
 + gcloud コマンドの configure 機能を使用し設定を管理します
