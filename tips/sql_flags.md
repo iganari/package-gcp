@@ -1,4 +1,4 @@
-# Tips: Cloud SQL for MySQL におけるパラメータを変更したい時
+# Tips: Cloud SQL におけるパラメータを変更したい時
 
 + :warning: この情報は 2020/03/03 に書きました。
 
