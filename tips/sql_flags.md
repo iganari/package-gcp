@@ -1,6 +1,6 @@
 # Tips: Cloud SQL for MySQL におけるパラメータを変更したい時
 
-:warning: この情報は 2020/03/03 に書きました。
++ :warning: この情報は 2020/03/03 に書きました。
 
 ## 手段
 
@@ -10,26 +10,26 @@ Flag 機能を使うことで、MySQL のパラメータなどを変更出来ま
 
 + Flag のドキュメント
   + https://cloud.google.com/sql/docs/mysql/flags
-+ 変更可能な flags の一覧
++ 変更可能な Flag の一覧
   + https://cloud.google.com/sql/docs/mysql/flags#list-flags
 
 ### PostgreSQL 版
 
 + Flag のドキュメント
   + https://cloud.google.com/sql/docs/postgres/flags
-+ 変更可能な flags の一覧
++ 変更可能な Flag の一覧
   + https://cloud.google.com/sql/docs/postgres/flags#list-flags-postgres
 
 ### SQL Server 版
 
 + Flag のドキュメント
   + https://cloud.google.com/sql/docs/sqlserver/flags
-+ 変更可能な flags の一覧
++ 変更可能な Flag の一覧
   + https://cloud.google.com/sql/docs/sqlserver/flags#list-flags-sqlserver
 
 ## 注意点
 
-+ Flag の種類によっては、Cloud SQL のインスタンスの可用性や安定性に影響を及ぼし、SLA 対象外になる可能性があるので注意
++ Flag の種類によっては、Cloud SQL のインスタンスの可用性や安定性に影響を及ぼし、SLA 対象外になる可能性があるので注意しましょう。
   + https://cloud.google.com/sql/docs/mysql/operational-guidelines
   
 ## コマンド例 (MySQL 版の例)
