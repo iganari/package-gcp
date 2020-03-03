@@ -48,7 +48,7 @@
   + ブラウザを通しての認証を行います。
 
 ```
-gcloud auth application-default login
+gcloud auth login
 ```
 
 + gcloud コマンドの configure 機能を使用し設定を管理します
@@ -104,6 +104,14 @@ gcloud beta container clusters create ${_common_name} \
   --preemptible
 ```
 
++ GKE との認証
+
+```
+gcloud container clusters get-credentials ${_common_name} \
+  --zone us-central1-a
+```
+
+
 + Node の確認
 
 ```
@@ -130,6 +138,13 @@ gcloud beta container clusters create ${_common_name} \
   --region us-central1 \
   --num-nodes=1 \
   --preemptible
+```
+
++ GKE との認証
+
+```
+gcloud container clusters get-credentials ${_common_name} \
+  --region us-central1
 ```
 
 + Node の確認
