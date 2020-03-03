@@ -1,6 +1,6 @@
 # Tips: Cloud SQL for MySQL におけるパラメータを変更したい時
 
-:waring: この情報は 2020/03/03 において最新です。
+:warning: この情報は 2020/03/03 に書きました。
 
 ## 手段
 
@@ -32,7 +32,7 @@ Flag 機能を使うことで、MySQL のパラメータなどを変更出来ま
 + Flag の種類によっては、Cloud SQL のインスタンスの可用性や安定性に影響を及ぼし、SLA 対象外になる可能性があるので注意
   + https://cloud.google.com/sql/docs/mysql/operational-guidelines
   
-## コマンド例 ( MySQL 版の例)
+## コマンド例 (MySQL 版の例)
 
 + gcloud
 
@@ -150,3 +150,11 @@ resource "google_sql_database_instance" "pkg-gcp" {
   }
 }
 ```
+
+## まとめ
+
+マネージド故に設定出来るパラメータと出来ないパラメータがあります。
+
+設定出来るパラメータはなるべくコードで変更しましょう。
+
+Have fun!! :)
