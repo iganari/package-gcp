@@ -9,11 +9,26 @@
 + gcloud auth コマンドにて GCP との認証を行えます。
 + Web ブラウザが必要になるので、その環境を用意して下さい。
 
++ そのターミナル上で GCP を操作する場合
+  + ブラウザの認証が必要
+
 ```
 gcloud auth login
 ```
+ 
++ SDK や Terraform のようなプログラムを介して、 GCP を操作する場合
+  + ブラウザの認証が必要
+
 ```
 gcloud auth application-default login
+```
+
++ Service Account に紐づくキーを用いて認証を行う場合
+  + ブラウザの認証が `不` 必要
+
+```
+gcloud auth activate-service-account \
+    --key-file=service-account.json
 ```
 
 ## めも
