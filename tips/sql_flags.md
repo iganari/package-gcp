@@ -132,13 +132,8 @@ resource "google_sql_database_instance" "pkg-gcp" {
   database_version = "MYSQL_5_7"
 
   settings {
-    tier             = "sunkiko_koutei"
+    tier             = "db-f1-micro"
     replication_type = "SYNCHRONOUS"
-    backup_configuration {
-      enabled            = true
-      binary_log_enabled = true
-      start_time         = "03:00"
-    }
     database_flags {
       name = "default_time_zone"
       value = "+09:00"
