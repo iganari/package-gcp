@@ -132,8 +132,8 @@ resource "google_sql_database_instance" "pkg-gcp" {
   database_version = "MYSQL_5_7"
 
   settings {
-    tier             = local.instance_tier
-    replication_type = "db-f1-micro"
+    tier             = "sunkiko_koutei"
+    replication_type = "SYNCHRONOUS"
     backup_configuration {
       enabled            = true
       binary_log_enabled = true
