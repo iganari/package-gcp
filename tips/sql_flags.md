@@ -65,7 +65,7 @@ MySQL [(none)]> show variables like '%character%';
 + gcloud コマンドを用いて、Flag を設定してみます。
 
 ```
-gcloud sql instances patch flagchecksql \
+gcloud sql instances patch ${instance_name} \
     --database-flags default_time_zone=+09:00,character_set_server=utf8mb4
 ```
 
@@ -100,6 +100,27 @@ MySQL [(none)]> show variables like '%character%';
 
 + :warning: 注意
   + 再起動が必要な Flag に関しては勝手に再起動が走ります。
+
++ gcloud コマンドでも確認してみましょう。
+
+```
+gcloud sql instances describe ${instance_name} --format=json | jq .settings.databaseFlags[]
+```
+```
+### ex
+
+# gcloud sql instances describe ${instance_name} --format=json | jq .settings.databaseFlags[]
+{
+  "name": "default_time_zone",
+  "value": "+09:00"
+}
+{
+  "name": "character_set_server",
+  "value": "utf8mb4"
+}
+```
+
+---> gcloud コマンドでも、変更出来ていることが確認出来ました :raised_hands:
 
 ## Terraform の例
 
