@@ -63,6 +63,7 @@ MySQL [(none)]> show variables like '%character%';
 ```
 
 + gcloud コマンドを用いて、Flag を設定してみます。
+  + :warning: 再起動が必要な Flag に関しては勝手に再起動が走ります。
 
 ```
 gcloud sql instances patch ${instance_name} \
@@ -97,9 +98,6 @@ MySQL [(none)]> show variables like '%character%';
 ```
 
 ---> 意図通り、変更出来ていることが確認出来ました :raised_hands:
-
-+ :warning: 注意
-  + 再起動が必要な Flag に関しては勝手に再起動が走ります。
 
 + gcloud コマンドでも確認してみましょう。
 
