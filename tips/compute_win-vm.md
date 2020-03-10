@@ -12,14 +12,53 @@
 
 ## Windows Server を GCE 上に構築する
 
+### ネットワークの作成
+
++ VPC ネットワークの作成
+
+```
 WIP
+```
+
++ サブネットワークの作成
+
+```
+WIP
+```
+
+### Firewall Rule の作成
+
++ RDP 用
+
+```
+WIP
+```
+
+### GCE の作成
+
++ 以下の点に注意
+  + Win の特定のイメージを使う
+  + Firewall で RDP 用の作る
+
+```
+WIP
+```
 
 ## RDP クライアントを用いて、ログイン
 
-WIP
+### セキュリティを一回 off
+
++ IE 問題
+
+
+### セキュリティを一回 on
+
+```
+
+```
 
 ## まとめ
 
-WIP
+GCE 上でも Windows Server は動かせます!!
 
 Have fun!! :)
