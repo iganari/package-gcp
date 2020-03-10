@@ -105,7 +105,11 @@ NAME             ZONE               MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXT
 win-on-gce-test  asia-northeast1-a  n1-standard-1               172.16.0.2   34.84.176.202  RUNNING
 ```
 
+### GUI で作る時の注意点
 
+![](./images/compute_win-vm-01.png)
+
+![](./images/compute_win-vm-02.png)
 
 ## RDP クライアントを用いて、ログイン
 
