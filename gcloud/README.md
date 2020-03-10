@@ -31,6 +31,39 @@ gcloud auth activate-service-account \
     --key-file=service-account.json
 ```
 
+## configurations
+
++ gcloud コマンドを使う際の設定
++ 環境ごとに設定を分けて、それを切り替えて使うことが可能
++ どんな名前でもいいが、GCP プロジェクトと紐付けると見分けやすい
+
+
++ config の作成
+
+```
+gcloud config configurations create ${Your Project Name}
+```
+
++ config リストの確認
+
+```
+gcloud config configurations list
+```
+
+```
+### ex
+_my_project_name='iganari-test-2020'
+
+gcloud config configurations create ${_my_project_name}
+gcloud config set compute/region us-central1
+gcloud config set compute/zone us-central1-a
+gcloud config set project ${_my_project_name}
+
+# gcloud config configurations list
+NAME                 IS_ACTIVE  ACCOUNT                     PROJECT              DEFAULT_ZONE       DEFAULT_REGION
+iganari-test-2020    True       hogehoge@example.com        iganari-test-2020    us-central1-a      us-central1
+```
+
 ## めも
 
 + VPC ネットワーク作成
