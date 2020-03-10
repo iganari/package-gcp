@@ -105,7 +105,7 @@ NAME             ZONE               MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXT
 win-on-gce-test  asia-northeast1-a  n1-standard-1               172.16.0.2   34.84.176.202  RUNNING
 ```
 
-### GUI で作る時の注意点
+### :warning: GUI で作る時の注意点
 
 + Boot disk のところで `Show images with Shielded VM features` にチェックを入れる
 
