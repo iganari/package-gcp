@@ -116,6 +116,24 @@ win-on-gce-test  asia-northeast1-a  n1-standard-1               172.16.0.2   34.
 
 ![](./images/compute_win-vm-02.png)
 
+### RDP 接続用のユーザとパスワードを作成します。
+
++ gcloud コマンドで作成した VM が出来ているのが確認出来るので、RDP 用のパスワードをコンソールから作成します。
+
+![](./images/compute_win-vm-03.png)
+
++ `Set Windows password` をクリック
+
+![](./images/compute_win-vm-04.png)
+
++ RDP 用のユーザ名を入力
+
+![](./images/compute_win-vm-05.png)
+
++ しばらくすると、自動生成されたパスワードが表示されるのでこれを控えておきます。
+
+![](./images/compute_win-vm-06.png)
+
 ## RDP クライアントを用いて、ログイン
 
 ### セキュリティを一回 off
