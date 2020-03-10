@@ -12,7 +12,7 @@
 
 ## Compute Engine
 
-+ [Windows on GCE を構築する](compute_)
++ [Windows on GCE を構築する](compute_win-vm.md)
 
 ## Cloud SQL
 
