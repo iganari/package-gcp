@@ -107,7 +107,12 @@ win-on-gce-test  asia-northeast1-a  n1-standard-1               172.16.0.2   34.
 
 ### GUI で作る時の注意点
 
++ Boot disk のところで `Show images with Shielded VM features` にチェックを入れる
+
 ![](./images/compute_win-vm-01.png)
+
++ `Datacenter Core 以外` が出てくるので、それを選択する
+  + 今回は `Windows Server 2019 Datacenter` を選択
 
 ![](./images/compute_win-vm-02.png)
 
