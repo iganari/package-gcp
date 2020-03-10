@@ -9,6 +9,11 @@
 + GCP サーバーレス コンピューティングのポートフォリオ
   + https://cloud.google.com/serverless-options/?hl=ja
 
+
+## Compute Engine
+
++ [Windows on GCE を構築する](compute_)
+
 ## Cloud SQL
 
 + [Cloud SQL  におけるパラメータを変更したい時](sql_flags.md)
