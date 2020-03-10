@@ -134,7 +134,35 @@ win-on-gce-test  asia-northeast1-a  n1-standard-1               172.16.0.2   34.
 
 ![](./images/compute_win-vm-06.png)
 
-## RDP クライアントを用いて、ログイン
+## RDP クライアントを用いて、ログインする
+
++ ログイン方法 (macOS 版)
+  + Chrome の拡張機能を使用する
+  + アプリを使用する
+
+今回は、アプリケーションを使用します。
+
++ アプリケーションの起動し、左上の `+` から新規作成をします
+
+![](./images/compute_win-vm-07.png)
+
++ 先程作成した VM の External IP を入力し `Add` します
+
+![](./images/compute_win-vm-08.png)
+
++ 登録が完了しました
+
+![](./images/compute_win-vm-09.png)
+
++ 先程設定した、RDP ログインのユーザとパスワードを入力します。
+
+![](./images/compute_win-vm-10.png)
+
+![](./images/compute_win-vm-11.png)
+
++ 無事、Windows Server にログインすることが出来ました。
+
+![](./images/compute_win-vm-12.png)
 
 ### セキュリティを一回 off
 
