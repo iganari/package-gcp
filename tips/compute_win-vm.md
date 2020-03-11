@@ -134,7 +134,9 @@ win-on-gce-test  asia-northeast1-a  n1-standard-1               172.16.0.2   34.
 
 ![](./images/compute_win-vm-06.png)
 
-## RDP クライアントを用いて、ログインする
+## 実際に使ってみる
+
+### RDP クライアントを用いて、ログインする
 
 + ログイン方法 (macOS 版)
   + Chrome の拡張機能を使用する
@@ -167,13 +169,43 @@ win-on-gce-test  asia-northeast1-a  n1-standard-1               172.16.0.2   34.
 ### セキュリティを一回 off
 
 + IE 問題
+  + https://support.microsoft.com/en-us/help/815141/ie-enhanced-security-configuration-changes-browsing-experience
 
++ `Local Server` をクリックし、IE Enhanced Security Configuration の横の `On` をクリック
+
+![](./images/compute_win-vm-13.png)
+
+![](./images/compute_win-vm-14.png)
+
++ 設定が立ち上がるので、一時的に `Off` にします
+
+![](./images/compute_win-vm-15.png)
+
+![](./images/compute_win-vm-16.png)
+
+![](./images/compute_win-vm-17.png)
+
+### Microsoft Edge を IE からダウンロードし、インストールします。
+
+![](./images/compute_win-vm-18.png)
+
+![](./images/compute_win-vm-19.png)
+
+![](./images/compute_win-vm-20.png)
+
+![](./images/compute_win-vm-21.png)
+
+![](./images/compute_win-vm-22.png)
+
+![](./images/compute_win-vm-23.png)
 
 ### セキュリティを一回 on
 
-```
++ IE Enhanced Security Configuration を再度有効にします
 
-```
+![](./images/compute_win-vm-24.png)
+
+![](./images/compute_win-vm-25.png)
 
 ## まとめ
 
