@@ -1,5 +1,9 @@
 # gcloud の覚書
 
++ Auth
++ cong
++ IAM
+
 ## Auth
 
 [auth](https://cloud.google.com/sdk/gcloud/reference/auth/)
@@ -63,6 +67,21 @@ gcloud config set project ${_my_project_name}
 NAME                 IS_ACTIVE  ACCOUNT                     PROJECT              DEFAULT_ZONE       DEFAULT_REGION
 iganari-test-2020    True       hogehoge@example.com        iganari-test-2020    us-central1-a      us-central1
 ```
+
+## IAM
+
++ IAM の `Permissions` を確認する
+
+```
+gcloud projects get-iam-policy ${GCP Project ID}
+```
+
++ IAM の Service Account を確認する
+
+```
+gcloud iam service-accounts list --project ${GCP Project ID}
+```
+
 
 ## めも
 
