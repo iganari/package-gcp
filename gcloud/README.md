@@ -1,8 +1,8 @@
 # gcloud の覚書
 
-+ Auth
++ [Auth](README.md#auth)
 + cong
-+ IAM
++ [IAM](./README.md#iam)
 
 ## Auth
 
