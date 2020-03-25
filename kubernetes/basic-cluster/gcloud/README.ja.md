@@ -42,15 +42,6 @@
 
 ## GKE の構築
 
-:warning: サンプルは Cloud Shell からの実行で動作確認しています。
-
-+ GCP の認証
-  + ブラウザを通しての認証を行います。
-
-```
-gcloud auth login
-```
-
 + gcloud コマンドの configure 機能を使用し設定を管理します
   + また、 GCP 上のプロジェクトID を使用します。
   
@@ -61,6 +52,13 @@ export _pj='GCP 上のプロジェクトID'
 gcloud config configurations create ${_pj}
 gcloud config set project ${_pj}
 gcloud config configurations list
+```
+
++ GCP の認証
+  + ブラウザを通しての認証を行います。
+
+```
+gcloud auth login
 ```
 
 + 実験用の VPC ネットワークとそれに付随するサブネットワークを作成します。
