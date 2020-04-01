@@ -47,7 +47,6 @@ gcloud beta compute networks create ${_common}-nw \
 ```
 
 + :whale: サブネットワークを作成します。
-  + WIP
 
 ```
 gcloud beta compute networks subnets create ${_common}-sb \
