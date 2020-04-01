@@ -8,13 +8,6 @@
 sh docker-build-run.sh
 ```
 
-+ :whale: gcloud コマンドのアップデート
-
-```
-gcloud components update
-gcloud components install beta
-```
-
 + :whale: gcloud の設定を先にいれます。
 
 ```
