@@ -28,22 +28,17 @@ sudo yum install -y stackdriver-agent
 sudo service stackdriver-agent start
 ```
 
-
-
----> 失敗する
++ Check status
 
 ```
-$ sudo service stackdriver-agent start
-Redirecting to /bin/systemctl start stackdriver-agent.service
-Failed to start stackdriver-agent.service: Unit not found.
+udo service stackdriver-agent status
 ```
-
-
 
 ## Check Agent Version
 
 + CentOS/RHEL
 
 ```
-sudo service stackdriver-agent status
+rpm --query --queryformat '%{NAME} %{VERSION} %{RELEASE} %{ARCH}\n' \
+     stackdriver-agent
 ```
