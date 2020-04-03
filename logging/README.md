@@ -19,11 +19,22 @@ sudo bash install-logging-agent.sh
 sudo service google-fluentd status
 ```
 
-+ Check Agent Version (Debian/Ubuntu)
+## Check Agent Version
+
++  Debian/Ubuntu
 
 ```
 dpkg-query --show --showformat \
     '${Package} ${Version} ${Architecture} ${Status}\n' \
+     google-fluentd \
+     google-fluentd-catch-all-config \
+     google-fluentd-catch-all-config-structured
+```
+
++ CentOS/RHEL
+
+```
+rpm --query --queryformat '%{NAME} %{VERSION} %{RELEASE} %{ARCH}\n' \
      google-fluentd \
      google-fluentd-catch-all-config \
      google-fluentd-catch-all-config-structured
