@@ -18,7 +18,8 @@ sudo bash add-monitoring-agent-repo.sh
 + Install the agent
 
 ```
-sudo yum list -y stackdriver-agent
+sudo yum list    -y stackdriver-agent
+sudo yum install -y stackdriver-agent
 ```
 
 + Start the agent service
