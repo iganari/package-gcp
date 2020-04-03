@@ -24,7 +24,7 @@ sudo service google-fluentd status
 ```
 dpkg-query --show --showformat \
     '${Package} ${Version} ${Architecture} ${Status}\n' \
-     google-fluentd \ 
-     google-fluentd-catch-all-config \ 
+     google-fluentd \
+     google-fluentd-catch-all-config \
      google-fluentd-catch-all-config-structured
 ```
