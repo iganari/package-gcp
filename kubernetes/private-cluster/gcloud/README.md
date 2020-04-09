@@ -1,22 +1,11 @@
 # gcloud コマンドを用いて、限定公開クラスタを構築する
 
-## やること
-
-+ hogehoge
-
 ## 構築作業
 
 + Docker コンテナを起動する ---> :whale:
 
 ```
 sh docker-build-run.sh
-```
-
-+ :whale: gcloud コマンドのアップデート
-
-```
-gcloud components update
-gcloud components install beta
 ```
 
 + :whale: gcloud の設定を先にいれます。
@@ -58,7 +47,6 @@ gcloud beta compute networks create ${_common}-nw \
 ```
 
 + :whale: サブネットワークを作成します。
-  + WIP
 
 ```
 gcloud beta compute networks subnets create ${_common}-sb \
