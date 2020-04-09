@@ -75,13 +75,32 @@ iganari-test-2020    True       hogehoge@example.com        iganari-test-2020   
 ```
 gcloud projects get-iam-policy ${GCP Project ID}
 ```
+```
+### 例
 
-+ IAM の Service Account を確認する
+# gcloud projects get-iam-policy ${GCP Project ID}
+bindings:
+- members:
+  - serviceAccount:service-9999999999@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:9999999999-compute@developer.gserviceaccount.com
+  - serviceAccount:9999999999@cloudservices.gserviceaccount.com
+  - serviceAccount:mogumogu@iganari-pkg-gcp.iam.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:hogehoge@iganari-pkg-gcp.iam.gserviceaccount.com
+  - serviceAccount:fugafuga@iganari-pkg-gcp.iam.gserviceaccount.com
+  role: roles/iam.securityAdmin
+version: 1
+```
+
+
++ IAM の Service Account をリストを表示する
 
 ```
 gcloud iam service-accounts list --project ${GCP Project ID}
 ```
-
 
 ## めも
 
