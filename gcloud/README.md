@@ -1,7 +1,7 @@
 # gcloud の覚書
 
 + [Auth](README.md#auth)
-+ cong
++ configurations
 + [IAM](./README.md#iam)
 
 ## Auth
@@ -41,11 +41,12 @@ gcloud auth activate-service-account \
 + 環境ごとに設定を分けて、それを切り替えて使うことが可能
 + どんな名前でもいいが、GCP プロジェクトと紐付けると見分けやすい
 
+### 基本的な使い方
 
 + config の作成
 
 ```
-gcloud config configurations create ${Your Project Name}
+gcloud config configurations create ${Config Name}
 ```
 
 + config リストの確認
@@ -53,6 +54,8 @@ gcloud config configurations create ${Your Project Name}
 ```
 gcloud config configurations list
 ```
+
+### 使い方例
 
 ```
 ### ex
