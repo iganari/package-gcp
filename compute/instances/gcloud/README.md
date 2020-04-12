@@ -75,7 +75,7 @@ gcloud beta compute instances create ${_common_name}-vm \
     --no-restart-on-failure \
     --maintenance-policy=TERMINATE \
     --preemptible \
-    --service-account=hogehoge@developer.gserviceaccount.com \
+    --service-account=$(gcloud iam service-accounts list | grep 'Compute\ Engine\ default\ service\ account' | awk '{print $6}') \
     --scopes=https://www.googleapis.com/auth/cloud-platform \
     --image=ubuntu-1804-bionic-v20200317 \
     --image-project=ubuntu-os-cloud \
