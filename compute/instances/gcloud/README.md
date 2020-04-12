@@ -61,13 +61,12 @@ gcloud compute firewall-rules create ${_common_name}-nw-allow-internal \
   --target-tags=${_common_name}-nw-allow-internal
 ```
 
-
 + Create instance
 
 ```
 gcloud beta compute instances create ${_common_name}-vm \
     --project=${_my_project_id} \
-    --zone=${${_region}}-a \
+    --zone=${_region}-a \
     --machine-type=n1-standard-1 \
     --subnet=${_common_name}-sb \
     --network-tier=PREMIUM \
@@ -79,7 +78,7 @@ gcloud beta compute instances create ${_common_name}-vm \
     --scopes=https://www.googleapis.com/auth/cloud-platform \
     --image=ubuntu-1804-bionic-v20200317 \
     --image-project=ubuntu-os-cloud \
-    --boot-disk-size=30GB \
+    --boot-disk-size=10GB \
     --boot-disk-type=pd-standard \
     --boot-disk-device-name=vm-test \
     --no-shielded-secure-boot \
