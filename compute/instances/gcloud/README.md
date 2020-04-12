@@ -1,8 +1,12 @@
 # Compute Engine using gcloud
 
+## Prepare command
+
++ gcloud
+
 ## Prepare env
 
-+ :whale: Setting gcloud configure
++ Setting gcloud configure
 
 ```
 export _my_project_id='your-project-id'
