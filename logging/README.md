@@ -4,6 +4,10 @@
 
 https://cloud.google.com/logging/docs/agent/installation?hl=en
 
++ 実装方法
+  + About the Logging agent
+  + https://cloud.google.com/logging/docs/agent/
+
 ## Installing the Cloud Logging agent 
 
 + install (Linux Ver)
