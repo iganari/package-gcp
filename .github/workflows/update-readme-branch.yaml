@@ -18,6 +18,7 @@ jobs:
           iganari_dev_email: ${{ secrets.IGANARI_DEV_PASSWORD }}
           iganari_dev_token: ${{ secrets.IGANARI_DEV_TOKEN}}
         run: |
+          echo ${GITHUB_REF}
           cd /tmp
           echo "Git Clone ${GITHUB_REPOSITORY}"
           git clone https://${iganari_dev_token}@github.com/${GITHUB_REPOSITORY}.git
