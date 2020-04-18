@@ -3,8 +3,8 @@ name: 'update-readme-branch'
 on:
   push:
     branches:
-      - 'master'
-      # - 'feature/add-update-modify-readme'
+      - master
+      - 'feature/add-update-modify-readme'
       # - develop
 
 jobs:
