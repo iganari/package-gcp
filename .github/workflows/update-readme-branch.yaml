@@ -4,7 +4,7 @@ on:
   push:
     branchs:
       - 'master'
-      - 'feature/add-update-modify-readme'
+      # - 'feature/add-update-modify-readme'
       # - develop
 
 jobs:
