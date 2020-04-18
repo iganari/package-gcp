@@ -16,8 +16,8 @@ jobs:
         shell: bash
         env:
           iganari_dev_user: ${{ secrets.IGANARI_DEV_USER }}
-          iganari_dev_email: ${{ secrets.IGANARI_DEV_PASSWORD }}
-          iganari_dev_token: ${{ secrets.IGANARI_DEV_TOKEN}}
+          iganari_dev_email: ${{ secrets.IGANARI_DEV_EMAIL }}
+          iganari_dev_token: ${{ secrets.IGANARI_DEV_TOKEN }}
         run: |
           echo ${GITHUB_REF} | sed 's/refs\/heads\///g'
           cd /tmp
