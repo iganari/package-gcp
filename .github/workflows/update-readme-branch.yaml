@@ -2,7 +2,7 @@ name: 'update-readme-branch'
 
 on:
   push:
-    branchs:
+    branches:
       - 'master'
       # - 'feature/add-update-modify-readme'
       # - develop
