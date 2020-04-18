@@ -1,0 +1,29 @@
+name: 'update-readme-branch'
+
+on:
+  push:
+    branchs:
+      - master
+      # - develop
+
+jobs:
+  step:
+    name: Update readme branch
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Update modify-readme-only
+        shell: bash
+        env:
+          iganari_dev_user: ${{ secrets.IGANARI_DEV_USER }}
+          iganari_dev_email: ${{ secrets.IGANARI_DEV_PASSWORD }}
+          iganari_dev_token: ${{ secrets.IGANARI_DEV_TOKEN}}
+        run: |
+          cd /tmp
+          echo "Git Clone ${GITHUB_REPOSITORY}"
+          git clone https://${iganari_dev_token}@github.com/${GITHUB_REPOSITORY}.git
+          cd $(echo ${GITHUB_REPOSITORY} | awk -F\/ '{print $2}')
+          git config user.name "${iganari_dev_user}"
+          git config user.email "${iganari_dev_email}"
+          git checkout modify-readme-only
+          git pull origin master
+          git push origin
