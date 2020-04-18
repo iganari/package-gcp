@@ -1,4 +1,4 @@
-ARG _TAG='278.0.0-alpine'
+ARG _TAG='286.0.0-alpine'
 FROM google/cloud-sdk:${_TAG}
 # https://hub.docker.com/r/google/cloud-sdk/
 
@@ -18,7 +18,7 @@ RUN apk --update add git bind-tools && \
 # Install kubectl binary via curl
 # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
 # https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV _KUBECTL_VERSION='v1.16.2'
+ENV _KUBECTL_VERSION='v1.18.0'
 
 RUN curl -L https://storage.googleapis.com/kubernetes-release/release/${_KUBECTL_VERSION}/bin/linux/amd64/kubectl \
          -o /usr/local/bin/kubectl &&\
