@@ -29,4 +29,4 @@ jobs:
           git checkout modify-readme-only
           git pull origin $(echo ${GITHUB_REF} | sed 's/refs\/heads\///g') --no-edit
           echo "debug 4"
-          git push origin
+          git push origin modify-readme-only
