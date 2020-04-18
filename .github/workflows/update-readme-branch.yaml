@@ -20,7 +20,7 @@ jobs:
           iganari_dev_token: ${{ secrets.IGANARI_DEV_TOKEN}}
         run: |
           echo ${GITHUB_REF}
-          echo ${GITHUB_REF} | sed 's/refs\/heads\//g'
+          echo ${GITHUB_REF} | sed 's/refs\/heads\///g'
           cd /tmp
           echo "Git Clone ${GITHUB_REPOSITORY}"
           git clone https://${iganari_dev_token}@github.com/${GITHUB_REPOSITORY}.git
