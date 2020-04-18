@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - 'feature/add-update-modify-readme'
+      # - 'feature/hogehoge'
       # - develop
 
 jobs:
@@ -28,5 +28,4 @@ jobs:
           git config user.email "${iganari_dev_email}"
           git checkout modify-readme-only
           git pull origin $(echo ${GITHUB_REF} | sed 's/refs\/heads\///g') --no-edit
-          echo "debug 4 "
           git push origin modify-readme-only
