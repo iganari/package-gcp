@@ -1,0 +1,49 @@
+#
+# roles/nginx/tasks/main.yml
+#
+
+# https://www.nginx.com/resources/wiki/start/topics/tutorials/install/
+
+- name: Installing NGINX repo
+  copy:
+    src: etc/yum.repos.d/nginx.repo
+    dest: /etc/yum.repos.d/nginx.repo
+    force: yes
+    group: root
+    owner: root
+    mode: 0644
+
+
+- name: Installing NGINX
+  yum:
+    name: nginx
+    state: latest
+    update_cache: yes
+ 
+- name: Starting NGINX
+  systemd:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Create directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0666
+    group: nginx
+    owner: nginx
+    recurse: yes
+  with_items:
+  - /var/log/nginx
+
+- name: copy nginx.logrotate.config
+  copy:
+    src: etc/logrotate.d/nginx
+    dest: /etc/logrotate.d/nginx
+    force: yes
+    backup: yes
+    group: root
+    owner: root
+    mode: 0644    
+  notify: restart nginx
