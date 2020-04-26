@@ -1,0 +1,13 @@
+{
+  "_project_id": "{{env `_project_id`}}",
+  "_source_image": "centos-7-v20200420",
+  "_disk_size": "20",
+  "_ssh_username": "packer",
+  "_zone": "{{env `_region`}}-a",
+  "_network": "projects/{{env `_project_id`}}/global/networks/{{env `_vpc_network_name`}}",
+  "_subnetwork": "projects/{{env `_project_id`}}/regions/{{env `_region`}}/subnetworks/{{env `_subnet_name`}}",
+  "_tags": "allow-all-ssh",
+  "_image_name": "pkg-gcp-custom-image-centos7",
+  "_playbook_file": "./ansible/servers.yml",
+  "_groups": "pkg-gcp-custom-image-centos7"
+}
