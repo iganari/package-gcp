@@ -8,6 +8,6 @@
   "_subnetwork": "projects/{{env `_project_id`}}/regions/{{env `_region`}}/subnetworks/{{env `_subnet_name`}}",
   "_tags": "allow-all-ssh",
   "_image_name": "pkg-gcp-custom-image-centos7",
-  "_playbook_file": "./ansible/servers.yml",
+  "_playbook_file": "./ansible-centos7/servers.yml",
   "_groups": "pkg-gcp-custom-image-centos7"
 }

@@ -63,7 +63,7 @@ gcloud compute firewall-rules create allow-ssh-all \
 + Packer の実行
 
 ```
-WIP
+packer build -var-file=variables-centos7.json packer.json
 ```
 
 ## 注意点
