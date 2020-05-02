@@ -4,6 +4,13 @@
 
 Packerを使用してカスタムイメージを作成する
 
+以下のバージョンを用います
+
++ Packer
+  + WIP
++ Ansible
+  + WIP
+
 ## 手順
 
 + GCP との認証
