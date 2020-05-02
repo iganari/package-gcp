@@ -3,6 +3,7 @@
 + [Auth](README.md#auth)
 + configurations
 + [IAM](./README.md#iam)
++ [monitoring](./README.md#monitoring)
 
 ## Auth
 
@@ -104,6 +105,22 @@ version: 1
 ```
 gcloud iam service-accounts list --project ${GCP Project ID}
 ```
+
+## monitoring
+
+:warning: WIP
+
+Cloud Monitoring 用のコマンド
+
+```
+export _pj_id='Your GCP Project Id'
+```
+
+```
+gcloud alpha monitoring channel-descriptors describe projects/${_pj_id}/notificationChannelDescriptors/slack
+```
+
+
 
 ## めも
 
