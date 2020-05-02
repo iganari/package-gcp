@@ -4,7 +4,7 @@
 
 Packerを使用してカスタムイメージを作成する
 
-以下のバージョンを用います
+以下のバージョンを用いる
 
 + Packer
   + v1.5.5
@@ -13,8 +13,8 @@ Packerを使用してカスタムイメージを作成する
 
 ## 手順
 
-+ ネットワークの作成
-+ Packer の実行
++ [ネットワークの作成](./README.md#ネットワークの作成)
++ [Packer の実行](./README.md#packerの実行)
 
 ## ネットワークの作成
 
@@ -94,7 +94,7 @@ packer build -var-file=variables-centos7.json packer.json
 ```
 ### Ubuntu 18.04 の場合
 
-
+WIP
 ```
 
 + カスタムイメージの確認
@@ -106,22 +106,14 @@ pkg-gcp-custom-image-centos7-2020-05-02t06-16-03z  pkg-gcp-instance-packer      
 ```
 
 
-
 ## 注意点
 
-+ Cloud Monitoring Agnet を入れる際に、 VM の Access Scorp が Monitoring API を使えるようにしていないと起動に失敗する
++ Cloud Monitoring Agnet を入れる際に、インスタンスの Access Scorp が Monitoring API を使えるように設定しておかないと起動に失敗してしまう
 
-## 削除
-
-```
-gcloud compute firewall-rules delete allow-ssh-all \
-  --project ${_project_id}
-```
++ [packer による設定例(カスタムインスタンス作成時のみ全許可してしまう)](./packer.json#L14-L15)
 
 ```
-
-```
-
-```
-
+"scopes": [
+  "https://www.googleapis.com/auth/cloud-platform"
+]
 ```
