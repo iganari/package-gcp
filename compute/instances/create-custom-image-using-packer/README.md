@@ -14,7 +14,7 @@ Packerを使用してカスタムイメージを作成する
 ## 手順
 
 + [ネットワークの作成](./README.md#ネットワークの作成)
-+ [Packer の実行](./README.md#packerの実行)
++ [Packer の実行](./README.md#packer-の実行)
 
 ## ネットワークの作成
 
