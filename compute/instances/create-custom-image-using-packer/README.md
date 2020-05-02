@@ -108,7 +108,7 @@ pkg-gcp-custom-image-centos7-2020-05-02t06-16-03z  pkg-gcp-instance-packer      
 
 ## 注意点
 
-+ Cloud Monitoring Agnet を入れる際に、インスタンスの Access Scorp が Monitoring API を使えるように設定しておかないと起動に失敗してしまう
+Cloud Monitoring Agnet を入れる際に、インスタンスの Access Scorp が Monitoring API を使えるように設定しておかないと起動に失敗してしまう
 
 + [packer による設定例(カスタムインスタンス作成時のみ全許可してしまう)](./packer.json#L14-L15)
 
