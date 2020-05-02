@@ -1,0 +1,31 @@
+#
+# roles/gcp_logging-agent/tasks/main.yml
+#
+
+# ref: https://cloud.google.com/logging/docs/agent/installation#agent-install-amazon-centos-rhel
+
+- name: Get add Repository Shell
+  get_url:
+    url: "https://dl.google.com/cloudagents/add-logging-agent-repo.sh"
+    dest: "/usr/local/src/add-logging-agent-repo.sh"
+    mode: 0755
+
+- name: Run Repository Shell
+  shell: "bash /usr/local/src/add-logging-agent-repo.sh"
+
+- name: Upgrade all packages to the latest version
+  yum:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Install Logging Agent
+  yum:
+    name: google-fluentd
+
+- name: enable Logging Service
+  systemd:
+    name: google-fluentd
+    state: started
+    enabled: yes
+  notify: restart google-fluentd
