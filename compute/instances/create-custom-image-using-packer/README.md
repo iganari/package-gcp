@@ -7,7 +7,7 @@ Packerを使用してカスタムイメージを作成する
 以下のバージョンを用います
 
 + Packer
-  + WIP
+  + v1.5.5
 + Ansible
   + WIP
 
@@ -16,7 +16,7 @@ Packerを使用してカスタムイメージを作成する
 + GCP との認証
 
 ```
-WIP
+gcloud auth login
 ```
 
 + GCP の service を有効化

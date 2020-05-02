@@ -18,3 +18,5 @@ RUN mkdir /usr/src \
     && unzip packer_1.5.5_linux_amd64.zip \
     && mv packer /usr/local/bin/packer \
     && rm -fv packer_1.5.5_linux_amd64.zip
+
+RUN gcloud components install beta -q
