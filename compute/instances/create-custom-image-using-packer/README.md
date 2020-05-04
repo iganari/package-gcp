@@ -101,8 +101,9 @@ packer build -var-file=variables-ubuntu1910.json packer.json
 
 ```
 # gcloud beta compute images list --project ${_project_id} --filter="name~'^pkg'"
-NAME                                               PROJECT              FAMILY  DEPRECATED  STATUS
-pkg-gcp-custom-image-centos7-2020-05-02t06-16-03z  pkg-gcp-instance-packer                  READY
+NAME                                                  PROJECT                  FAMILY  DEPRECATED  STATUS
+pkg-gcp-custom-image-centos7-2020-05-04t01-19-27z     pkg-gcp-instance-packer                      READY
+pkg-gcp-custom-image-ubuntu1910-2020-05-04t01-51-54z  pkg-gcp-instance-packer                      READY
 ```
 
 
