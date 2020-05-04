@@ -9,7 +9,7 @@ Packerを使用してカスタムイメージを作成します
 + Packer
   + v1.5.5
 + Ansible
-  + WIP
+  + 2.9.7
 
 ## 手順
 
