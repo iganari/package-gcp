@@ -12,6 +12,16 @@
   apt:
     upgrade: dist
 
+- name: Install tzdate for setting timezone
+  apt:
+    name: "{{ packages }}"
+    state: latest
+    update_cache: yes
+    force_apt_get: True
+  vars:
+    packages:
+    - tzdata
+
 - name: set timezone to Asia/Tokyo
   timezone:
     name: Asia/Tokyo

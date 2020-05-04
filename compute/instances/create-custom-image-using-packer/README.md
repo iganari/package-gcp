@@ -1,15 +1,15 @@
 # Create custom image using Packer
 
-## やること
+## 出来ること
 
-Packerを使用してカスタムイメージを作成する
+Packerを使用してカスタムイメージを作成します
 
-以下のバージョンを用いる
+以下のバージョンを用います
 
 + Packer
   + v1.5.5
 + Ansible
-  + WIP
+  + 2.9.7
 
 ## 手順
 
@@ -30,7 +30,7 @@ gcloud auth login
 WIP
 ```
 
-+ 任意の値を環境変数にいれる
++ 任意の値を環境変数に代入
 
 ```
 export _project_id='Your GCP Project's ID'
@@ -94,23 +94,24 @@ packer build -var-file=variables-centos7.json packer.json
 ```
 ### Ubuntu 18.04 の場合
 
-WIP
+packer build -var-file=variables-ubuntu1910.json packer.json
 ```
 
 + カスタムイメージの確認
 
 ```
 # gcloud beta compute images list --project ${_project_id} --filter="name~'^pkg'"
-NAME                                               PROJECT              FAMILY  DEPRECATED  STATUS
-pkg-gcp-custom-image-centos7-2020-05-02t06-16-03z  pkg-gcp-instance-packer                  READY
+NAME                                                  PROJECT                  FAMILY  DEPRECATED  STATUS
+pkg-gcp-custom-image-centos7-2020-05-04t01-19-27z     pkg-gcp-instance-packer                      READY
+pkg-gcp-custom-image-ubuntu1910-2020-05-04t01-51-54z  pkg-gcp-instance-packer                      READY
 ```
 
 
 ## 注意点
 
-Cloud Monitoring Agnet を入れる際に、インスタンスの Access Scorp が Monitoring API を使えるように設定しておかないと起動に失敗してしまう
+Cloud Monitoring Agnet を入れる際に、インスタンスの Access Scorp が Monitoring API を使えるように設定しておかないと systemd の起動時に失敗してしまうので、許可しておく必要があります
 
-+ [packer による設定例(カスタムインスタンス作成時のみ全許可してしまう)](./packer.json#L14-L15)
++ [packer による設定例(カスタムインスタンス作成時のみ全許可)](./packer.json#L14-L15)
 
 ```
 "scopes": [
