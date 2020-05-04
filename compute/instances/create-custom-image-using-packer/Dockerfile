@@ -9,7 +9,7 @@ RUN apk --update add tzdata \
     && rm -rf /var/cache/apk/*
 
 # install git
-RUN apk --update add vim git ansible \
+RUN apk --update add ansible \
     && rm -rfv /var/lib/apt/lists/* \
     && rm -rfv /var/cache/apk/*
 
