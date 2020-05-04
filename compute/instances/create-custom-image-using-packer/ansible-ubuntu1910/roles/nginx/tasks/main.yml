@@ -1,0 +1,78 @@
+#
+# roles/nginx/tasks/main.yml
+#
+
+- name: Add repository list
+  copy:
+    src: etc/apt/sources.list.d/nginx.list
+    dest: /etc/apt/sources.list.d/nginx.list
+    owner: root
+    group: root
+    mode: 0600
+    remote_src: no
+    backup: yes
+
+- name: Add an Apt singing key 
+  apt_key:
+    url: http://nginx.org/keys/nginx_signing.key
+    state: present
+
+- name: Upgrade all packages to the latest version
+  apt:
+    name: "*"
+    state: latest
+    force_apt_get: True
+
+- name: Install NGINX Package from apt
+  apt:
+    name: nginx
+
+- name: create group group
+  group:
+    name: nginx
+    state: present
+
+- name: create nginx user
+  user:
+    name: nginx
+    state: present
+
+- name: copy nginx.default.config
+  copy:
+    src: etc/nginx/nginx.conf
+    dest: /etc/nginx/nginx.conf
+    remote_src: no
+    force: yes
+    backup: yes
+    group: root
+    owner: root
+    mode: 0644
+
+- name: delete default directory of sites-enabled
+  file:
+    path: /etc/nginx/sites-enabled
+    state: absent
+  ignore_errors: true
+
+- name: copy nginx.config
+  copy:
+    src: etc/nginx/sites-enabled
+    dest: /etc/nginx/
+    remote_src: no
+    force: yes
+    backup: yes
+    group: root
+    owner: root
+    mode: 0755
+
+- name: copy nginx.logrotate.config
+  copy:
+    src: etc/logrotate.d/nginx
+    dest: /etc/logrotate.d/nginx
+    remote_src: no
+    force: yes
+    backup: no
+    group: root
+    owner: root
+    mode: 0644
+  notify: restart nginx

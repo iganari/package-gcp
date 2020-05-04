@@ -94,7 +94,7 @@ packer build -var-file=variables-centos7.json packer.json
 ```
 ### Ubuntu 18.04 の場合
 
-WIP
+packer build -var-file=variables-ubuntu1910.json packer.json
 ```
 
 + カスタムイメージの確認
