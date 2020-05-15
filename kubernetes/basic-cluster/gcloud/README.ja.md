@@ -42,15 +42,6 @@
 
 ## GKE の構築
 
-:warning: サンプルは Cloud Shell からの実行で動作確認しています。
-
-+ GCP の認証
-  + ブラウザを通しての認証を行います。
-
-```
-gcloud auth application-default login
-```
-
 + gcloud コマンドの configure 機能を使用し設定を管理します
   + また、 GCP 上のプロジェクトID を使用します。
   
@@ -61,6 +52,13 @@ export _pj='GCP 上のプロジェクトID'
 gcloud config configurations create ${_pj}
 gcloud config set project ${_pj}
 gcloud config configurations list
+```
+
++ GCP の認証
+  + ブラウザを通しての認証を行います。
+
+```
+gcloud auth login
 ```
 
 + 実験用の VPC ネットワークとそれに付随するサブネットワークを作成します。
@@ -104,6 +102,14 @@ gcloud beta container clusters create ${_common_name} \
   --preemptible
 ```
 
++ GKE との認証
+
+```
+gcloud container clusters get-credentials ${_common_name} \
+  --zone us-central1-a
+```
+
+
 + Node の確認
 
 ```
@@ -130,6 +136,13 @@ gcloud beta container clusters create ${_common_name} \
   --region us-central1 \
   --num-nodes=1 \
   --preemptible
+```
+
++ GKE との認証
+
+```
+gcloud container clusters get-credentials ${_common_name} \
+  --region us-central1
 ```
 
 + Node の確認

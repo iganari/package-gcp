@@ -1,0 +1,67 @@
+#
+# roles/common/tasks/main.yml
+#
+
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: install epel package
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: latest
+    update_cache: yes
+
+- name: install the 'Development tools' package group
+  yum:
+    name: "@Development tools"
+    state: present
+
+- name: install packages
+  yum: 
+    name: "{{ packages }}"
+    update_cache: yes
+    enablerepo: epel
+    state: latest
+  vars:
+    packages:
+    - git
+
+- name: change localtime to JST
+  file:
+    src: /usr/share/zoneinfo/Asia/Tokyo
+    dest: /etc/localtime
+    force: yes
+    state: link
+
+- name: setting locale
+  shell: echo 'LANG="ja_JP.utf8"' > /etc/locale.conf
+   
+- name: disable selinux (temp)
+  shell: setenforce 0
+  ignore_errors: true
+
+- name: disable selinux (permanently)
+  lineinfile: 
+    dest: '/etc/sysconfig/selinux'
+    state: present
+    backrefs: yes
+    regexp: "{{ item }}"
+    line: 'SELINUX=disabled'
+  with_items:
+  - SELINUX=enforcing
+  - SELINUX=permissive
+  ignore_errors: true
+
+- name: production basic directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0777
+    group: root
+    owner: root
+    recurse: yes
+  with_items:
+  - /srv/www

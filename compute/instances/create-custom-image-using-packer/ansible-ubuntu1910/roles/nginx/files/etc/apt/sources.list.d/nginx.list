@@ -1,0 +1,7 @@
+## Replace $release with your corresponding Ubuntu release.
+
+# deb https://nginx.org/packages/mainline/ubuntu/ <CODENAME> nginx
+# deb-src https://nginx.org/packages/mainline/ubuntu/ <CODENAME> nginx
+
+deb https://nginx.org/packages/mainline/ubuntu/ eoan nginx
+deb-src https://nginx.org/packages/mainline/ubuntu/ eoan nginx
