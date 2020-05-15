@@ -1,0 +1,27 @@
+{
+  "builders" : [
+    {
+      "type": "googlecompute",
+      "project_id": "{{user `_project_id`}}",
+      "source_image": "{{user `_source_image`}}",
+      "disk_size": "{{user `_disk_size`}}",
+      "ssh_username": "{{user `_ssh_username`}}",
+      "zone": "{{user `_zone`}}",
+      "network": "{{user `_network`}}",
+      "subnetwork": "{{user `_subnetwork`}}",
+      "tags": "{{user `_tags`}}",
+      "image_name": "{{user `_image_name`}}-{{isotime | clean_resource_name}}",
+      "scopes": [
+        "https://www.googleapis.com/auth/cloud-platform"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "{{user `_playbook_file`}}",
+      "groups": "{{user `_groups`}}",
+      "user": "{{user `_ssh_username`}}"
+    }
+  ]
+}

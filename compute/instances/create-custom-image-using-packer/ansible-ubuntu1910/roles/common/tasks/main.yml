@@ -1,0 +1,27 @@
+#
+# roles/common/tasks/main.yml
+#
+
+- name: Upgrade all packages to the latest version
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+
+- name: Install tzdate for setting timezone
+  apt:
+    name: "{{ packages }}"
+    state: latest
+    update_cache: yes
+    force_apt_get: True
+  vars:
+    packages:
+    - tzdata
+
+- name: set timezone to Asia/Tokyo
+  timezone:
+    name: Asia/Tokyo
