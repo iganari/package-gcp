@@ -6,6 +6,6 @@ Terraform にて、 Cloud Monitoring の監視拠点の IP アドレスを動的
 
 ## リンク
 
-[App Engine の場合](./README.md)
+[App Engine の場合](./README.ja.md)
 
 [Compute Engine の場合]
