@@ -1,0 +1,31 @@
+#
+# roles/gcp_monitoring-agent/tasks/main.yml
+#
+
+# https://cloud.google.com/monitoring/agent/install-agent
+
+- name: Get add Repository Shell
+  get_url:
+    url: "https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh"
+    dest: "/usr/local/src/add-monitoring-agent-repo.sh"
+    mode: 0755
+
+- name: Run Repository Shell
+  shell: "bash /usr/local/src/add-monitoring-agent-repo.sh"
+
+- name: Upgrade all packages to the latest version
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+    force_apt_get: True
+
+- name: Install Monitoring Agent
+  apt:
+    name: stackdriver-agent
+
+- name: Start Monitoring Service
+  systemd:
+    name: stackdriver-agent
+    state: started
+  notify: restart stackdriver-agent

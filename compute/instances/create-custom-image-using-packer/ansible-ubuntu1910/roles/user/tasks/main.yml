@@ -1,0 +1,22 @@
+#
+# roles/user/tasks/main.yml
+#
+
+- name: create group
+  group:
+    name: hejda
+    state: present
+
+- name: create user
+  user:
+    name: iganari
+    group: hejda
+    shell: /bin/bash
+    home: /home/iganari
+    state: present
+
+- name: copy sudoers file
+  copy:
+    src: roles/user/files/etc/sudoers.d/iganari
+    dest: /etc/sudoers.d/iganari
+    mode: 0644
