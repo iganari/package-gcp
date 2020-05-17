@@ -1,6 +1,14 @@
-variable "common" {
-  default = {
-    region = "Your GAE Region"
-    zone   = "Your GAE Zone"
-  }
+variable "project" {
+  default = "Your GCP Project ID"
+  description = "hogehoge"
+}
+
+variable "region" {
+  default = "Your GAE Region"
+  description = "hogehoge"
+}
+
+variable "zone" {
+  default = "Your GAE Zone"
+  description = "hogehoge"
 }
