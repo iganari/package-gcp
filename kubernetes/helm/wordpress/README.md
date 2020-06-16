@@ -190,9 +190,9 @@ To access your WordPress site from outside the cluster follow the steps below:
  
 + Check Your Web Browser
 
-IMG
+![](./img/helm-wp-default-01.png)
 
-IMG
+![](./img/helm-wp-default-02.png)
 
 You did it!! :)
 
