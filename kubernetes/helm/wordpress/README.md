@@ -175,5 +175,5 @@ gcloud beta container clusters delete "${_common}-cluster" \
 ```
 
 Now, All the work is done.
-Thank you!! :)
- 
+
+Thank you!! :) 
