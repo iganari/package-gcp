@@ -174,6 +174,6 @@ gcloud beta container clusters delete "${_common}-cluster" \
   --zone "asia-northeast1-a"
 ```
 
-Now, All the work is done.
+Now, All the work is done :raised_hands:
 
 Thank you!! :) 

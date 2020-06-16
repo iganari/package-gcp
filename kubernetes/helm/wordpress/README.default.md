@@ -44,4 +44,4 @@ To access your WordPress site from outside the cluster follow the steps below:
 
 ![](./img/helm-wp-default-02.png)
 
-You did it!! :)
+You did it!! :rocket:
