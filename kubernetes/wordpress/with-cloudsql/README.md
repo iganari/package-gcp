@@ -35,14 +35,11 @@
 gcloud auth login
 ```
 
-+ Setting Env
++ Setting GCP Project on Console.
 
 ```
-export _pj_id='ca-igarashi-corp-renewal'
+export _pj_id='Your GCP Project ID'
 ```
-
-+ Setting GCP Project.
-
 ```
 gcloud config set project ${_pj_id}
 ```
