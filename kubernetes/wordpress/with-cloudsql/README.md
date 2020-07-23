@@ -373,49 +373,53 @@ kubectl get service --namespace with-cloudsql | grep wordpress | awk '{print $4}
 
 ## Delete Resource
 
-+ Kubernetes のリソースの削除
++ Delete Kubernetes Resource
 
 ```
-k delete -f 03_wordpress-service.yaml && \
-k delete -f 02_wordpress_cloudsql.yaml && \
-k delete -f 01_wordpress-volumeclaim.yaml
+kubectl delete -f wordpress-service.yaml && \
+kubectl delete -f wordpress_cloudsql.yaml && \
+kubectl delete -f wordpress-volumeclaim.yaml
 ```
 
-+ ServiceAccount の削除
++ Delete ServiceAccount
 
 ```
 gcloud beta iam service-accounts delete ${_sa_email} \
-  --project "${_pj_id}" -q
+  --project "${_pj_id}"
 ```
 
-+ GKE Cluster の削除
++ Delete GKE Cluster
 
 ```
 gcloud beta container clusters delete "${_common}-cluster" \
   --project "${_pj_id}" \
-  --zone "${_region}-a" -q
+  --zone "${_region}-a"
 ```
 
-+ CloudSQL の削除
++ Delete Cloud SQL
 
 ```
-gcloud beta sql instances delete ${_common}-instance -q
+gcloud beta sql instances delete ${_common}-instance
 ```
 
-+ Firewall Rule の削除
++ Delete Firewall Rule
 
 ```
-gcloud compute firewall-rules delete ${_common}-allow-internal -q
+gcloud compute firewall-rules delete ${_common}-allow-internal
 ```
 
-+ VPC network と Subnet の削除
++ Delete Network
 
 ```
 gcloud beta compute networks subnets delete ${_common}-subnets \
-  --region ${_region} -q
+  --region ${_region}
 ```
 ```
-gcloud beta compute networks delete ${_common}-network -q
+gcloud beta compute networks delete ${_common}-network
 ```
 
-おわり
+End.
+
+## closing
+
+Have Fan :)
