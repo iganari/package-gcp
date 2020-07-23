@@ -158,19 +158,20 @@ gcloud container clusters get-credentials ${_common}-cluster \
 + Create Cloud SQL instance
 
 ```
-### 既にある設定
+### Existing Settings
 export _common='wp-gke-cloudsql'
 export _region='asia-northeast1'
 
-### 新規設定
-export _db_instance_type='db-f1-micro' 
+### New Setting
+export _db_instance_type='db-f1-micro'
+export _db_root_password='DB Root Password'
 ```
 ```
 gcloud beta sql instances create ${_common}-instance \
   --database-version=MYSQL_5_7 \
   --tier=${_db_instance_type} \
   --zone=${_region}-a \
-  --root-password=password123
+  --root-password=${_db_root_password}
 ```
 
 + Check Instance
@@ -182,51 +183,46 @@ gcloud beta sql instances list | grep ${_common}-instance
 + Create DB user / password
 
 ```
+### New Setting
 export CLOUD_SQL_USER='wordpress-admin'
-export CLOUD_SQL_PASSWORD='hogehoge'
-
+export CLOUD_SQL_PASSWORD='wordpress-admin-password'
+```
+```
 gcloud beta sql users create ${CLOUD_SQL_USER} \
   --instance=${_common}-instance \
   --host="%" \
   --password ${CLOUD_SQL_PASSWORD}
 ```
 
-+ 環境変数を作っておく
-  + あとで入れる
++ Check Cloud SQL Connection Name
+  + 後で使います
 
 ```
 export INSTANCE_CONNECTION_NAME=$(gcloud sql instances describe ${_common}-instance --format='value(connectionName)')
 echo ${INSTANCE_CONNECTION_NAME}
 ```
 
-```
-+ database の作成
-  + コンテナイメージに `wordpress` とベタ書きされているため
-  + コンテナに kubectl exec すれば分かる
-
-
-gcloud beta sql databases 
-```
-
-
 ## Create Service Account
 
 + GKE から Cloud SQL に繋ぐ、Service Account (と Key) を作る
 
 ```
+### New Setting
 export _sa_name=${_common}-gke
 echo ${_sa_name}
-
+```
+```
 gcloud beta iam service-accounts create ${_sa_name} --display-name ${_sa_name}
 ```
 
 + 作成した Service Account に、 CloudSQL の client 権限を付与します
 
 ```
+### New Setting
 export _sa_email=$(gcloud iam service-accounts list --filter=displayName:${_sa_name} --format='value(email)')
 echo ${_sa_email}
-
-
+```
+```
 gcloud projects add-iam-policy-binding ${_pj_id} \
   --role roles/cloudsql.client \
   --member serviceAccount:${_sa_email}
@@ -237,6 +233,9 @@ gcloud projects add-iam-policy-binding ${_pj_id} \
 ```
 gcloud iam service-accounts keys create ./serviceAccount-${_sa_name}-key.json \
   --iam-account ${_sa_email}
+```
+```
+ls ./serviceAccount-${_sa_name}-key.json
 ```
 
 ## Create Secret
@@ -249,6 +248,8 @@ gcloud container clusters get-credentials ${_common}-cluster \
 ```
 
 + K8s のシークレットを 2 個作る
+  + Secret of DB username and password 
+  + Secret of ServiceAccount
 
 ```
 kubectl create secret generic cloudsql-db-credentials \
@@ -266,7 +267,7 @@ kubectl create secret generic cloudsql-instance-credentials \
   + https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk?hl=ja#creating-a-pv-and-a-pvc-back-by=persistent-disks
 
 ```
-k create -f 01_wordpress-volumeclaim.yaml
+kubectl create -f 01_wordpress-volumeclaim.yaml
 ```
 
 + 確認
