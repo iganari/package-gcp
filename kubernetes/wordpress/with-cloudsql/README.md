@@ -5,7 +5,7 @@
 公式 ドキュメントに沿って、WordPress + CloudSQL on GKE をやってみる
 
 + 公式ドキュメント
-  + https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk?hl=ja
+  + https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk?hl=en
 + 使用する GitHub
   + https://github.com/GoogleCloudPlatform/kubernetes-engine-samples/tree/master/wordpress-persistent-disks
 
@@ -198,8 +198,9 @@ gcloud beta sql users create ${CLOUD_SQL_USER} \
   + 後で使います
 
 ```
-export INSTANCE_CONNECTION_NAME=$(gcloud sql instances describe ${_common}-instance --format='value(connectionName)')
-echo ${INSTANCE_CONNECTION_NAME}
+### New Setting
+export __INSTANCE_CONNECTION_NAME=$(gcloud sql instances describe ${_common}-instance --format='value(connectionName)')
+echo ${__INSTANCE_CONNECTION_NAME}
 ```
 
 ## Create Service Account
@@ -252,31 +253,42 @@ gcloud container clusters get-credentials ${_common}-cluster \
   + Secret of ServiceAccount
 
 ```
+export _name_space=$(cat namespace.yaml | grep 'name:' | awk '{print $2}')
+echo ${_name_space}
+```
+```
 kubectl create secret generic cloudsql-db-credentials \
   --from-literal username=${CLOUD_SQL_USER} \
-  --from-literal password=${CLOUD_SQL_PASSWORD}
+  --from-literal password=${CLOUD_SQL_PASSWORD} \
+  --namespace ${_name_space}
 ```
 ```
 kubectl create secret generic cloudsql-instance-credentials \
-  --from-file ./serviceAccount-${_sa_name}-key.json
+  --from-file ./serviceAccount-${_sa_name}-key.json \
+  --namespace ${_name_space}
 ```
 
 ## Create Kubernetes Resource
 
-+ PV と PVC を作成する
-  + https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk?hl=ja#creating-a-pv-and-a-pvc-back-by=persistent-disks
++ Create NameSpace
 
 ```
-kubectl create -f 01_wordpress-volumeclaim.yaml
+kubectl create -f namespace.yaml
+```
+
++ PV と PVC を作成する
+
+```
+kubectl create -f wordpress-volumeclaim.yaml
 ```
 
 + 確認
 
 ```
-k get pvc
+kubectl get pvc
 ```
 ```
-# k get pvc
+# kubectl get pvc
 NAME                    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 wordpress-volumeclaim   Bound    pvc-31df75a6-11e7-4db1-8ffd-a480cd6a763a   200Gi      RWO            standard       10s
 ```
@@ -284,67 +296,75 @@ wordpress-volumeclaim   Bound    pvc-31df75a6-11e7-4db1-8ffd-a480cd6a763a   200G
 + Cloud SQL for MySQL インスタンスを作成する
 
 ```
-## 必要な環境変数
-echo ${INSTANCE_CONNECTION_NAME}
-
+### Existing Settings
+echo ${__INSTANCE_CONNECTION_NAME}
+echo ${_sa_name}
+```
+```
+### New Setting
+export __SA_KEY_NAME=$(echo serviceAccount-${_sa_name}-key.json)
+echo ${__SA_KEY_NAME}
+```
+```
+cat wordpress-cloudsql.yaml.template | sed "s/__INSTANCE_CONNECTION_NAME/${__INSTANCE_CONNECTION_NAME}/g" | sed "s/
+__SA_KEY_NAME/${__SA_KEY_NAME}/g" > wordpress-cloudsql.yaml
 ```
 
-+ サンプルコンフィグからマニフェストを作成する
++ Create Deployment Resource
 
 ```
-### alpine の場合は下記で envsubst をインストールする
-apk --no-cache add gettext
-
-### サンプルコンフィグからマニフェストを作成する
-cat 02_wordpress_cloudsql.yaml.template | envsubst > 02_wordpress_cloudsql.yaml
+kubectl create -f wordpress-cloudsql.yaml
 ```
 
-+ デプロイ
++ Check Pod
 
 ```
-kubectl create -f 02_wordpress_cloudsql.yaml
+watch -n1 kubectl get pod -l app=wordpress --namespace with-cloudsql
 ```
 
-+ 確認
++ Create Service
 
 ```
-watch -n1 kubectl get pod -l app=wordpress 
+kubectl create -f wordpress-service.yaml
 ```
 
-+ Service の作成
-
-```
-k create -f 03_wordpress-service.yaml
-```
-
-+ 確認
++ Check External IP Address
   + `EXTERNAL-IP` が割り当てられることを確認する
 
 ```
-watch -n1 kubectl get service
+watch -n1 kubectl get service --namespace with-cloudsql
 ```
 
 + debug
   + Pod の中に複数のコンテナがある場合(今回はCloudSQLのコンテナがサイドカーとしている)
 
 ```
-k exec -it wordpress-5b95bc6b5c-kbpx8 -c cloudsql-proxy -- /bin/ash
+export _pod_name=$(kubectl get pod --namespace with-cloudsql | grep wordpress- | awk '{print $1}')
+echo ${_pod_name}
 ```
 ```
-k exec -it wordpress-5b95bc6b5c-kbpx8 -c wordpress -- /bin/bash
-k exec -it wordpress-5b95bc6b5c-kbpx8 -c cloudsql-proxy -- /bin/ash
+kubectl exec -it ${_pod_name} --namespace with-cloudsql -c wordpress -- /bin/bash
+kubectl exec -it ${_pod_name} --namespace with-cloudsql -c cloudsql-proxy -- /bin/ash
 ```
+
+
+
+
+
+=================================
+
+
 
 + Web ブラウザで確認する
 
 ```
 ### EXTERNAL-IP の確認
-kubectl get service | grep wordpress | awk '{print $4}'
+kubectl get service --namespace with-cloudsql | grep wordpress | awk '{print $4}'
 ```
 ```
 ### Ex.
-# kubectl get service | grep wordpress | awk '{print $4}'
-34.85.70.95
+# kubectl get service --namespace with-cloudsql | grep wordpress | awk '{print $4}'
+34.84.210.42
 
 
 ---> http://34.85.70.95 にアクセスする
