@@ -26,16 +26,13 @@ WIP
 ## WordPress
 
 + [With MySQL Pod]
-
-WIP
+  + WIP
 
 + [With CloudSQL](./wordpress/with-cloudsql)
-
-WIP
+  + GKE 上に Cloud SQL を使用した WordPress を作成する
 
 + [Costom Container With CloudSQL]
-
-WIP
+  + WIP
 
 
 ## Helm
