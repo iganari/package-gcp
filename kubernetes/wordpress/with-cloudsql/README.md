@@ -262,8 +262,8 @@ kubectl create -f namespace.yaml
 
 ```
 ### New Setting
-export _name_space=$(cat namespace.yaml | grep 'name:' | awk '{print $2}')
-echo ${_name_space}
+export _namespace_name=$(cat namespace.yaml | grep 'name:' | awk '{print $2}')
+echo ${_namespace_name}
 ```
 ```
 ### Existing Settings
@@ -275,23 +275,23 @@ echo ${CLOUD_SQL_PASSWORD}
 kubectl create secret generic cloudsql-db-credentials \
   --from-literal username=${CLOUD_SQL_USER} \
   --from-literal password=${CLOUD_SQL_PASSWORD} \
-  --namespace ${_name_space}
+  --namespace ${_namespace_name}
 ```
 ```
 kubectl create secret generic cloudsql-instance-credentials \
   --from-file ./serviceAccount-${_sa_name}-key.json \
-  --namespace ${_name_space}
+  --namespace ${_namespace_name}
 ```
 
 + Check Secret
 
 ```
-kubectl get secret --namespace ${_name_space} | grep cloudsql-
+kubectl get secret --namespace ${_namespace_name} | grep cloudsql-
 ```
 ```
 ### Ex.
 
-# kubectl get secret --namespace ${_name_space} | grep cloudsql-
+# kubectl get secret --namespace ${_namespace_name} | grep cloudsql-
 cloudsql-db-credentials         Opaque                                2      92s
 cloudsql-instance-credentials   Opaque                                1      86s
 ```
@@ -308,12 +308,12 @@ kubectl create -f wordpress-volumeclaim.yaml
 + 確認
 
 ```
-kubectl get pvc --namespace with-cloudsql
+kubectl get pvc --namespace ${_namespace_name}
 ```
 ```
 ### EX.
 
-# kubectl get pvc --namespace with-cloudsql
+# kubectl get pvc --namespace ${_namespace_name}
 NAME                    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 wordpress-volumeclaim   Bound    pvc-5ee024d3-a246-4aed-8202-8c7203f9843f   200Gi      RWO            standard       64s
 ```
@@ -343,7 +343,7 @@ kubectl create -f wordpress-cloudsql.yaml
 + Check Pod
 
 ```
-watch -n1 kubectl get pod -l app=wordpress --namespace with-cloudsql
+watch -n1 kubectl get pod -l app=wordpress --namespace ${_namespace_name}
 ```
 
 + Create Service
@@ -356,19 +356,19 @@ kubectl create -f wordpress-service.yaml
   + `EXTERNAL-IP` が割り当てられることを確認する
 
 ```
-watch -n1 kubectl get service --namespace with-cloudsql
+watch -n1 kubectl get service --namespace ${_namespace_name}
 ```
 
 + debug
   + Pod の中に複数のコンテナがある場合(今回はCloudSQLのコンテナがサイドカーとしている)
 
 ```
-export _pod_name=$(kubectl get pod --namespace with-cloudsql | grep wordpress- | awk '{print $1}')
+export _pod_name=$(kubectl get pod --namespace ${_namespace_name} | grep wordpress- | awk '{print $1}')
 echo ${_pod_name}
 ```
 ```
-kubectl exec -it ${_pod_name} --namespace with-cloudsql -c wordpress -- /bin/bash
-kubectl exec -it ${_pod_name} --namespace with-cloudsql -c cloudsql-proxy -- /bin/ash
+kubectl exec -it ${_pod_name} --namespace ${_namespace_name} -c wordpress -- /bin/bash
+kubectl exec -it ${_pod_name} --namespace ${_namespace_name} -c cloudsql-proxy -- /bin/ash
 ```
 
 
@@ -377,11 +377,11 @@ kubectl exec -it ${_pod_name} --namespace with-cloudsql -c cloudsql-proxy -- /bi
 
 ```
 ### EXTERNAL-IP の確認
-kubectl get service --namespace with-cloudsql | grep wordpress | awk '{print $4}'
+kubectl get service --namespace ${_namespace_name} | grep wordpress | awk '{print $4}'
 ```
 ```
 ### Ex.
-# kubectl get service --namespace with-cloudsql | grep wordpress | awk '{print $4}'
+# kubectl get service --namespace ${_namespace_name} | grep wordpress | awk '{print $4}'
 34.84.80.246
 
 
