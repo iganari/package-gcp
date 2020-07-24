@@ -17,14 +17,6 @@
   + [GKE Cluster の作成](./README.md#cerate-gke-cluster)
 + [CloudSQL を作成する](./README.md#create-cloud-sql)
 
-## GKE を用意しておく
-
-+ WIP
-  + GCP Project ID
-    + ca-igarashi-corp-renewal
-  + GKE Cluster name
-    + site-renewal-2021-cluster
-
 ## Create GKE
 
 ### Create Network
@@ -38,6 +30,7 @@ gcloud auth login
 + Setting GCP Project on Console.
 
 ```
+### New Setting
 export _pj_id='Your GCP Project ID'
 ```
 ```
@@ -47,6 +40,7 @@ gcloud config set project ${_pj_id}
 + Make VPC network and Subnets
 
 ```
+### New Setting
 export _common='wp-gke-cloudsql'
 export _region='asia-northeast1'
 ```
@@ -165,9 +159,10 @@ export _region='asia-northeast1'
 ### New Setting
 export _db_instance_type='db-f1-micro'
 export _db_root_password='DB Root Password'
+export _rand='Your Random Number'
 ```
 ```
-gcloud beta sql instances create ${_common}-instance \
+gcloud beta sql instances create ${_common}-instance-${_rand} \
   --database-version=MYSQL_5_7 \
   --tier=${_db_instance_type} \
   --zone=${_region}-a \
@@ -177,7 +172,7 @@ gcloud beta sql instances create ${_common}-instance \
 + Check Instance
 
 ```
-gcloud beta sql instances list | grep ${_common}-instance
+gcloud beta sql instances list | grep ${_common}-instance-
 ```
 
 + Create DB user / password
@@ -189,7 +184,7 @@ export CLOUD_SQL_PASSWORD='wordpress-admin-password'
 ```
 ```
 gcloud beta sql users create ${CLOUD_SQL_USER} \
-  --instance=${_common}-instance \
+  --instance=${_common}-instance-${_rand} \
   --host="%" \
   --password ${CLOUD_SQL_PASSWORD}
 ```
@@ -230,6 +225,7 @@ gcloud projects add-iam-policy-binding ${_pj_id} \
 ```
 
 + Service Account に紐づく Key の作成
+  + Kubernetes の Secret に使います
 
 ```
 gcloud iam service-accounts keys create ./serviceAccount-${_sa_name}-key.json \
@@ -239,7 +235,11 @@ gcloud iam service-accounts keys create ./serviceAccount-${_sa_name}-key.json \
 ls ./serviceAccount-${_sa_name}-key.json
 ```
 
-## Create Secret
+
+
+## Create Kubernetes Resource
+
+### Create NameSpace
 
 + GKE との認証
 
@@ -248,14 +248,32 @@ gcloud container clusters get-credentials ${_common}-cluster \
   --zone "${_region}-a"
 ```
 
++ Create NameSpace
+
+```
+kubectl create -f namespace.yaml
+```
+
+### Create Secret
+
 + K8s のシークレットを 2 個作る
   + Secret of DB username and password 
   + Secret of ServiceAccount
 
 ```
+### New Setting
 export _name_space=$(cat namespace.yaml | grep 'name:' | awk '{print $2}')
 echo ${_name_space}
 ```
+```
+### Existing Settings
+export CLOUD_SQL_USER='wordpress-admin'
+export CLOUD_SQL_PASSWORD='wordpress-admin-password'
+
+echo ${CLOUD_SQL_USER}
+echo ${CLOUD_SQL_PASSWORD}
+```
+
 ```
 kubectl create secret generic cloudsql-db-credentials \
   --from-literal username=${CLOUD_SQL_USER} \
@@ -268,13 +286,7 @@ kubectl create secret generic cloudsql-instance-credentials \
   --namespace ${_name_space}
 ```
 
-## Create Kubernetes Resource
-
-+ Create NameSpace
-
-```
-kubectl create -f namespace.yaml
-```
+### Create PV , PVC
 
 + PV と PVC を作成する
 
@@ -285,12 +297,14 @@ kubectl create -f wordpress-volumeclaim.yaml
 + 確認
 
 ```
-kubectl get pvc
+kubectl get pvc --namespace with-cloudsql
 ```
 ```
-# kubectl get pvc
+### EX.
+
+# kubectl get pvc --namespace with-cloudsql
 NAME                    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-wordpress-volumeclaim   Bound    pvc-31df75a6-11e7-4db1-8ffd-a480cd6a763a   200Gi      RWO            standard       10s
+wordpress-volumeclaim   Bound    pvc-5ee024d3-a246-4aed-8202-8c7203f9843f   200Gi      RWO            standard       64s
 ```
 
 + Cloud SQL for MySQL インスタンスを作成する
@@ -306,8 +320,7 @@ export __SA_KEY_NAME=$(echo serviceAccount-${_sa_name}-key.json)
 echo ${__SA_KEY_NAME}
 ```
 ```
-cat wordpress-cloudsql.yaml.template | sed "s/__INSTANCE_CONNECTION_NAME/${__INSTANCE_CONNECTION_NAME}/g" | sed "s/
-__SA_KEY_NAME/${__SA_KEY_NAME}/g" > wordpress-cloudsql.yaml
+cat wordpress-cloudsql.yaml.template | sed "s/__INSTANCE_CONNECTION_NAME/${__INSTANCE_CONNECTION_NAME}/g" | sed "s/__SA_KEY_NAME/${__SA_KEY_NAME}/g" > wordpress-cloudsql.yaml
 ```
 
 + Create Deployment Resource
@@ -349,6 +362,14 @@ kubectl exec -it ${_pod_name} --namespace with-cloudsql -c cloudsql-proxy -- /bi
 
 
 
+cluster の確認
+
+```
+
+```
+
+
+
 
 
 ================================= WIP ==================================
@@ -381,6 +402,13 @@ kubectl delete -f wordpress_cloudsql.yaml && \
 kubectl delete -f wordpress-volumeclaim.yaml
 ```
 
++ Permission を削除
+
+```
+
+```
+
+
 + Delete ServiceAccount
 
 ```
@@ -399,7 +427,7 @@ gcloud beta container clusters delete "${_common}-cluster" \
 + Delete Cloud SQL
 
 ```
-gcloud beta sql instances delete ${_common}-instance
+gcloud beta sql instances delete ${_common}-instance-${_rand}
 ```
 
 + Delete Firewall Rule
