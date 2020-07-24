@@ -24,7 +24,7 @@
 + GCP authentication.
 
 ```
-gcloud auth login
+gcloud auth login -q
 ```
 
 + Setting GCP Project on Console.
@@ -153,8 +153,8 @@ gcloud container clusters get-credentials ${_common}-cluster \
 
 ```
 ### Existing Settings
-export _common='wp-gke-cloudsql'
-export _region='asia-northeast1'
+echo ${_common}
+echo ${_region}
 
 ### New Setting
 export _db_instance_type='db-f1-micro'
@@ -194,7 +194,7 @@ gcloud beta sql users create ${CLOUD_SQL_USER} \
 
 ```
 ### New Setting
-export __INSTANCE_CONNECTION_NAME=$(gcloud sql instances describe ${_common}-instance --format='value(connectionName)')
+export __INSTANCE_CONNECTION_NAME=$(gcloud sql instances describe ${_common}-instance-${_rand} --format='value(connectionName)')
 echo ${__INSTANCE_CONNECTION_NAME}
 ```
 
@@ -267,9 +267,6 @@ echo ${_name_space}
 ```
 ```
 ### Existing Settings
-export CLOUD_SQL_USER='wordpress-admin'
-export CLOUD_SQL_PASSWORD='wordpress-admin-password'
-
 echo ${CLOUD_SQL_USER}
 echo ${CLOUD_SQL_PASSWORD}
 ```
@@ -285,6 +282,20 @@ kubectl create secret generic cloudsql-instance-credentials \
   --from-file ./serviceAccount-${_sa_name}-key.json \
   --namespace ${_name_space}
 ```
+
++ Check Secret
+
+```
+kubectl get secret --namespace ${_name_space} | grep cloudsql-
+```
+```
+### Ex.
+
+# kubectl get secret --namespace ${_name_space} | grep cloudsql-
+cloudsql-db-credentials         Opaque                                2      92s
+cloudsql-instance-credentials   Opaque                                1      86s
+```
+
 
 ### Create PV , PVC
 
@@ -362,20 +373,6 @@ kubectl exec -it ${_pod_name} --namespace with-cloudsql -c cloudsql-proxy -- /bi
 
 
 
-cluster の確認
-
-```
-
-```
-
-
-
-
-
-================================= WIP ==================================
-
-
-
 + Web ブラウザで確認する
 
 ```
@@ -385,27 +382,31 @@ kubectl get service --namespace with-cloudsql | grep wordpress | awk '{print $4}
 ```
 ### Ex.
 # kubectl get service --namespace with-cloudsql | grep wordpress | awk '{print $4}'
-34.84.210.42
+34.84.80.246
 
 
----> http://34.85.70.95 にアクセスする
+---> http://34.84.80.246 にアクセスする
 ```
+
+![](./image.png)
+
 
 
 ## Delete Resource
 
 + Delete Kubernetes Resource
-
 ```
 kubectl delete -f wordpress-service.yaml && \
-kubectl delete -f wordpress_cloudsql.yaml && \
+kubectl delete -f wordpress-cloudsql.yaml && \
 kubectl delete -f wordpress-volumeclaim.yaml
 ```
 
 + Permission を削除
 
 ```
-
+gcloud projects remove-iam-policy-binding ${_pj_id} \
+  --role roles/cloudsql.client \
+  --member serviceAccount:${_sa_email}
 ```
 
 
