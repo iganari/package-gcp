@@ -27,6 +27,15 @@ Try WordPress + CloudSQL on GKE according to the Official Documentation.
   + [Check Browser](./README.md#check-browser)
 + [Delete Resource](./README.md#delete-resource)
 
+## Get Source
+
++ Get this Repository
+
+```
+git clone https://github.com/iganari/package-gcp.git
+cd package-gcp/kubernetes/wordpress/with-cloudsql
+```
+
 ## Create GKE
 
 ### Create Network
@@ -404,6 +413,7 @@ kubectl get service --namespace ${_namespace_name} | grep wordpress | awk '{prin
 ## Delete Resource
 
 + Delete Kubernetes Resource
+
 ```
 kubectl delete -f wordpress-service.yaml && \
 kubectl delete -f wordpress-cloudsql.yaml && \
@@ -433,7 +443,7 @@ gcloud beta container clusters delete "${_common}-cluster" \
   --zone "${_region}-a"
 ```
 
-+ Delete Cloud SQL
++ Delete CloudSQL
 
 ```
 gcloud beta sql instances delete ${_common}-instance-${_rand}
