@@ -1,40 +1,18 @@
-# Create WordPress with Cloud SQL on GKE
+# GKE 上に Cloud SQL を使用し、カスタムコンテナの WordPress を作成する
 
-Japanese here :) ---> [README.ja.md](./README.ja.md)
+## やること
 
-## Goal
+WIP
 
-Try WordPress + CloudSQL on GKE according to the Official Documentation.
+GKE 上に Cloud SQL を使用し、カスタムコンテナの WordPress を作成する
 
-+ Official Document
-  + https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk?hl=en
-+ Public GitHub
-  + https://github.com/GoogleCloudPlatform/kubernetes-engine-samples/tree/master/wordpress-persistent-disks
 
-## Let's Work
+## やってみる
 
-+ [Create GKE](./README.md#create-gke)
-  + [Create Network](./README.md#create-network)
-  + [Cerate GKE Cluster](./README.md#cerate-gke-cluster)
-+ [Create Cloud SQL](./README.md#create-cloud-sql)
-+ [Create Service Account](./README.md#create-service-account)
-+ [Create Kubernetes Resource](./README.md#create-kubernetes-resource)
-  + [Create NameSpace](./README.md#create-namespace)
-  + [Create Secret](./README.md#create-secret)
-  + [Create PV form PVC](./README.md#create-pv-form-pvc)
-  + [Create Deployment](./README.md#create-deployment)
-  + [Create Service](./README.md#create-service)
-  + [Check Browser](./README.md#check-browser)
-+ [Delete Resource](./README.md#delete-resource)
-
-## Get Source
-
-+ Get this Repository
-
-```
-git clone https://github.com/iganari/package-gcp.git
-cd package-gcp/kubernetes/wordpress/with-cloudsql
-```
++ [GKE を作成する](./README.md#create-gke)
+  + [GKE で使用するネットワークの作成](./README.md#create-network)
+  + [GKE Cluster の作成](./README.md#cerate-gke-cluster)
++ [CloudSQL を作成する](./README.md#create-cloud-sql)
 
 ## Create GKE
 
@@ -60,7 +38,7 @@ gcloud config set project ${_pj_id}
 
 ```
 ### New Setting
-export _common='wp-gke-cloudsql'
+export _common='using-costom-container'
 export _region='asia-northeast1'
 ```
 ```
@@ -166,6 +144,16 @@ gcloud container clusters get-credentials ${_common}-cluster \
   --zone "${_region}-a"
 ```
 
+
+
+docker run -it wordpress:5.4.2-php7.2-apache /bin/bash
+
+
+ 
+
+
+
+
 ## Create Cloud SQL
 
 + Create Cloud SQL instance
@@ -209,7 +197,7 @@ gcloud beta sql users create ${CLOUD_SQL_USER} \
 ```
 
 + Check Cloud SQL Connection Name
-  + use this later
+  + 後で使います
 
 ```
 ### New Setting
@@ -219,7 +207,7 @@ echo ${__INSTANCE_CONNECTION_NAME}
 
 ## Create Service Account
 
-+ Create a Service Account (and Key) that connects from GKE to Cloud SQL.
++ GKE から Cloud SQL に繋ぐ、Service Account (と Key) を作る
 
 ```
 ### New Setting
@@ -230,7 +218,7 @@ echo ${_sa_name}
 gcloud beta iam service-accounts create ${_sa_name} --display-name ${_sa_name}
 ```
 
-+ Grant the CloudSQL client permission to the created Service Account.
++ 作成した Service Account に、 CloudSQL の client 権限を付与します
 
 ```
 ### New Setting
@@ -243,8 +231,8 @@ gcloud projects add-iam-policy-binding ${_pj_id} \
   --member serviceAccount:${_sa_email}
 ```
 
-+ Creating Key associated with Service Account
-  + Used for the secret of Kubernetes
++ Service Account に紐づく Key の作成
+  + Kubernetes の Secret に使います
 
 ```
 gcloud iam service-accounts keys create ./serviceAccount-${_sa_name}-key.json \
@@ -254,11 +242,13 @@ gcloud iam service-accounts keys create ./serviceAccount-${_sa_name}-key.json \
 ls ./serviceAccount-${_sa_name}-key.json
 ```
 
+
+
 ## Create Kubernetes Resource
 
 ### Create NameSpace
 
-+ GCP authentication.
++ GKE との認証
 
 ```
 gcloud container clusters get-credentials ${_common}-cluster \
@@ -273,7 +263,7 @@ kubectl create -f namespace.yaml
 
 ### Create Secret
 
-+ Create two Kubernetes secrets
++ K8s のシークレットを 2 個作る
   + Secret of DB username and password 
   + Secret of ServiceAccount
 
@@ -313,15 +303,16 @@ cloudsql-db-credentials         Opaque                                2      92s
 cloudsql-instance-credentials   Opaque                                1      86s
 ```
 
-### Create PV form PVC
 
-+ Create PersistentVolume (PV) form PersistentVolumeClaim (PVC)
+### Create PV , PVC
+
++ PV と PVC を作成する
 
 ```
 kubectl create -f wordpress-volumeclaim.yaml
 ```
 
-+ Check PersistentVolume
++ 確認
 
 ```
 kubectl get pvc --namespace ${_namespace_name}
@@ -334,9 +325,7 @@ NAME                    STATUS   VOLUME                                     CAPA
 wordpress-volumeclaim   Bound    pvc-5ee024d3-a246-4aed-8202-8c7203f9843f   200Gi      RWO            standard       64s
 ```
 
-### Create Deployment
-
-+ Create a Cloud SQL for MySQL instance
++ Cloud SQL for MySQL インスタンスを作成する
 
 ```
 ### Existing Settings
@@ -364,8 +353,6 @@ kubectl create -f wordpress-cloudsql.yaml
 watch -n1 kubectl get pod -l app=wordpress --namespace ${_namespace_name}
 ```
 
-### Create Service
-
 + Create Service
 
 ```
@@ -373,14 +360,14 @@ kubectl create -f wordpress-service.yaml
 ```
 
 + Check External IP Address
-  + Make sure `EXTERNAL-IP` is set
+  + `EXTERNAL-IP` が割り当てられることを確認する
 
 ```
 watch -n1 kubectl get service --namespace ${_namespace_name}
 ```
 
 + debug
-  + If there are multiple containers in the pod (this time the CloudSQL container is the sidecar)
+  + Pod の中に複数のコンテナがある場合(今回はCloudSQLのコンテナがサイドカーとしている)
 
 ```
 export _pod_name=$(kubectl get pod --namespace ${_namespace_name} | grep wordpress- | awk '{print $1}')
@@ -391,12 +378,12 @@ kubectl exec -it ${_pod_name} --namespace ${_namespace_name} -c wordpress -- /bi
 kubectl exec -it ${_pod_name} --namespace ${_namespace_name} -c cloudsql-proxy -- /bin/ash
 ```
 
-### Check Browser
 
-+ Check on Web browser
+
++ Web ブラウザで確認する
 
 ```
-### Check EXTERNAL-IP
+### EXTERNAL-IP の確認
 kubectl get service --namespace ${_namespace_name} | grep wordpress | awk '{print $4}'
 ```
 ```
@@ -405,28 +392,74 @@ kubectl get service --namespace ${_namespace_name} | grep wordpress | awk '{prin
 34.84.80.246
 
 
----> http://34.84.80.246 Access!!
+---> http://34.84.80.246 にアクセスする
 ```
 
 ![](./image.png)
 
+## hoge
+
+```
+# cat docker-php-ext-memory.ini
+memory_limit = 50M
+post_max_size = 40M
+upload_max_filesize = 30M
+```
+
+```
+kubectl get pod --namespace ${_namespace_name}
+kubectl get deployment --namespace ${_namespace_name}
+```
+
+```
+# kubectl get pod --namespace ${_namespace_name}
+NAME                         READY   STATUS    RESTARTS   AGE
+wordpress-6fdc479dfc-fxvqv   2/2     Running   0          22m
+```
+```
+kubectl rollout restart deployment/wordpress  --namespace ${_namespace_name}
+```
+```
+# kubectl get pod --namespace ${_namespace_name}
+NAME                         READY   STATUS    RESTARTS   AGE
+wordpress-85658f5dbf-xshfl   2/2     Running   0          96s
+```
+
+-> 変わらなかった
+
+```
+# kubectl get pod --namespace ${_namespace_name} -o wide
+NAME                         READY   STATUS    RESTARTS   AGE     IP          NODE                                                  NOMINATED NODE   READINESS GATES
+wordpress-85658f5dbf-xshfl   2/2     Running   0          3m11s   10.48.3.7   gke-using-costom-con-using-costom-con-cfffa245-c5m2   <none>           <none>
+```
+```
+# php -r 'phpinfo();' | grep upload_max_filesize
+upload_max_filesize => 2M => 2M
+```
+
+```
+vim /var/www/html/.htaccess
+```
+
+
+
 ## Delete Resource
 
 + Delete Kubernetes Resource
-
 ```
 kubectl delete -f wordpress-service.yaml && \
 kubectl delete -f wordpress-cloudsql.yaml && \
 kubectl delete -f wordpress-volumeclaim.yaml
 ```
 
-+ Delete Permission
++ Permission を削除
 
 ```
 gcloud projects remove-iam-policy-binding ${_pj_id} \
   --role roles/cloudsql.client \
   --member serviceAccount:${_sa_email}
 ```
+
 
 + Delete ServiceAccount
 
@@ -443,7 +476,7 @@ gcloud beta container clusters delete "${_common}-cluster" \
   --zone "${_region}-a"
 ```
 
-+ Delete CloudSQL
++ Delete Cloud SQL
 
 ```
 gcloud beta sql instances delete ${_common}-instance-${_rand}
@@ -468,9 +501,5 @@ gcloud beta compute networks delete ${_common}-network
 End.
 
 ## closing
-
-We experienced WordPress on GKE with CloudSQL with a little arrangement from the official document.
-
-There are many features we haven't experienced yet, so let's continue learning.
 
 Have Fan :)
