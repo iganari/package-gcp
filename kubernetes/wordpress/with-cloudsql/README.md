@@ -1,5 +1,7 @@
 # Create WordPress with Cloud SQL on GKE
 
+Japanese here :) ---> [README.ja.md](./README.ja.md)
+
 ## Goal
 
 Try WordPress + CloudSQL on GKE according to the Official Documentation.
