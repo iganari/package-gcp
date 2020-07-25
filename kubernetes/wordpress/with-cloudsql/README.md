@@ -13,17 +13,17 @@ Try WordPress + CloudSQL on GKE according to the Official Documentation.
 
 + [Create GKE](./README.md#create-gke)
   + [Create Network](./README.md#create-network)
-  + [GKE Cluster の作成](./README.md#cerate-gke-cluster)
-+ [CloudSQL を作成する](./README.md#create-cloud-sql)
-+ [Create Service Account](./README.md#)
-+ [Create Kubernetes Resource](./README.md#)
-  + [Create NameSpace](./README.md#)
-  + [Create Secret](./README.md#)
-  + [Create PV form PVC](./README.md#)
-  + [Create Deployment](./README.md#)
-  + [Create Service](./README.md#)
-  + [Check Browser](./README.md#)
-+ [Delete Resource](./README.md#)
+  + [Cerate GKE Cluster](./README.md#cerate-gke-cluster)
++ [Create Cloud SQL](./README.md#create-cloud-sql)
++ [Create Service Account](./README.md#create-service-account)
++ [Create Kubernetes Resource](./README.md#create-kubernetes-resource)
+  + [Create NameSpace](./README.md#create-namespace)
+  + [Create Secret](./README.md#create-secret)
+  + [Create PV form PVC](./README.md#create-pv-form-pvc)
+  + [Create Deployment](./README.md#create-deployment)
+  + [Create Service](./README.md#create-service)
+  + [Check Browser](./README.md#check-browser)
++ [Delete Resource](./README.md#delete-resource)
 
 ## Create GKE
 
