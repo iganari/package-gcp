@@ -1,4 +1,4 @@
-# GKE 上に Cloud SQL を使用した WordPress を作成する
+# Create WordPress with Cloud SQL on GKE
 
 ## Goal
 
@@ -15,6 +15,15 @@ Try WordPress + CloudSQL on GKE according to the Official Documentation.
   + [Create Network](./README.md#create-network)
   + [GKE Cluster の作成](./README.md#cerate-gke-cluster)
 + [CloudSQL を作成する](./README.md#create-cloud-sql)
++ [Create Service Account](./README.md#)
++ [Create Kubernetes Resource](./README.md#)
+  + [Create NameSpace](./README.md#)
+  + [Create Secret](./README.md#)
+  + [Create PV form PVC](./README.md#)
+  + [Create Deployment](./README.md#)
+  + [Create Service](./README.md#)
+  + [Check Browser](./README.md#)
++ [Delete Resource](./README.md#)
 
 ## Create GKE
 
@@ -314,6 +323,8 @@ NAME                    STATUS   VOLUME                                     CAPA
 wordpress-volumeclaim   Bound    pvc-5ee024d3-a246-4aed-8202-8c7203f9843f   200Gi      RWO            standard       64s
 ```
 
+### Create Deployment
+
 + Create a Cloud SQL for MySQL instance
 
 ```
@@ -342,6 +353,8 @@ kubectl create -f wordpress-cloudsql.yaml
 watch -n1 kubectl get pod -l app=wordpress --namespace ${_namespace_name}
 ```
 
+### Create Service
+
 + Create Service
 
 ```
@@ -366,6 +379,8 @@ echo ${_pod_name}
 kubectl exec -it ${_pod_name} --namespace ${_namespace_name} -c wordpress -- /bin/bash
 kubectl exec -it ${_pod_name} --namespace ${_namespace_name} -c cloudsql-proxy -- /bin/ash
 ```
+
+### Check Browser
 
 + Check on Web browser
 
