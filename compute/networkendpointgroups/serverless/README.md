@@ -1,6 +1,6 @@
 # Serverless NEG
 
-## Prepare
+## Prepare gcloud command
 
 + GCP authentication.
 
