@@ -27,6 +27,15 @@
   + [Web ブラウザで確認をする](./README.md#check-browser)
 + [Resource の削除](./README.md#delete-resource)
 
+## Get Source
+
++ Get this Repository
+
+```
+git clone https://github.com/iganari/package-gcp.git
+cd package-gcp/kubernetes/wordpress/with-cloudsql
+```
+
 ## Create GKE
 
 ### Create Network
@@ -402,7 +411,8 @@ kubectl get service --namespace ${_namespace_name} | grep wordpress | awk '{prin
 
 ## Delete Resource
 
-+ Delete Kubernetes Resource
++ Kubernetes Resource  を削除
+
 ```
 kubectl delete -f wordpress-service.yaml && \
 kubectl delete -f wordpress-cloudsql.yaml && \
@@ -418,14 +428,14 @@ gcloud projects remove-iam-policy-binding ${_pj_id} \
 ```
 
 
-+ Delete ServiceAccount
++ ServiceAccount を削除
 
 ```
 gcloud beta iam service-accounts delete ${_sa_email} \
   --project "${_pj_id}"
 ```
 
-+ Delete GKE Cluster
++ GKE Cluster を削除
 
 ```
 gcloud beta container clusters delete "${_common}-cluster" \
@@ -433,19 +443,19 @@ gcloud beta container clusters delete "${_common}-cluster" \
   --zone "${_region}-a"
 ```
 
-+ Delete Cloud SQL
++ CloudSQL を削除
 
 ```
 gcloud beta sql instances delete ${_common}-instance-${_rand}
 ```
 
-+ Delete Firewall Rule
++ Firewall Rule を削除
 
 ```
 gcloud compute firewall-rules delete ${_common}-allow-internal
 ```
 
-+ Delete Network
++ Network を削除
 
 ```
 gcloud beta compute networks subnets delete ${_common}-subnets \
