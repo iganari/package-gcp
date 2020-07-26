@@ -381,6 +381,7 @@ check-serverless-neg-https-content-rule          34.107.216.140  TCP          ch
 ![](./neg-serverless-04.png)
 ![](./neg-serverless-05.png)
 ![](./neg-serverless-06.png)
+![](./neg-serverless-07.png)
 
 ## Delete Resource
 
@@ -390,7 +391,6 @@ gcloud compute forwarding-rules delete ${_common}-https-content-rule --global
 ```
 gcloud compute target-https-proxies delete ${_common}-https-proxy
 ```
-
 ```
 gcloud compute ssl-certificates delete ${_common}-www-ssl-cert 
 ```
@@ -405,30 +405,15 @@ gcloud compute backend-services delete ${_common}-backend-service \
     --global
 ```
 ```
-
 gcloud beta compute network-endpoint-groups delete ${_common}-serverless-neg \
     --region=asia-northeast1 
 ```
-
 ```
 gcloud compute addresses delete ${_common}-example-ip \
     --global
 ```
 
+## closing
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-WIP
-
+Have Fan :)
 
