@@ -34,10 +34,15 @@ gcloud config set project ${_pj_id}
 + Official Document
   + https://cloud.google.com/run/docs/quickstarts/build-and-deploy?hl=en
 
-+ Build your container image using Cloud Build
++ Change to the sample code directory for Cloud Run
 
 ```
 cd cloudrun
+```
+
++ Build your container image using Cloud Build
+
+```
 gcloud builds submit --tag gcr.io/${_pj_id}/${_common}-run
 ```
 
@@ -84,6 +89,8 @@ cd -
 + Official Document
   + https://cloud.google.com/appengine/docs/standard/python3/quickstart?hl=en
 
++ Change to the sample code directory for App Engine.
+
 ```
 cd appengine
 ```
@@ -125,9 +132,14 @@ cd -
 + Official Document
   + https://cloud.google.com/functions/docs/tutorials/http?hl=en#functions-trigger-http-command-python
 
++ Change to the sample code directory for Cloud Functions
+
 ```
 cd functions
 ```
+
++ Deploy Cloud Functions.
+
 ```
 gcloud functions deploy func \
   --runtime python38 \
