@@ -1,0 +1,3 @@
+# https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/appengine/standard_python3/hello_world/requirements.txt
+
+Flask==1.1.2
