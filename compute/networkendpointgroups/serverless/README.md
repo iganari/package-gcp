@@ -24,8 +24,6 @@ gcloud auth login -q
 ### New Setting
 export _pj_id='Your GCP Project ID'
 export _common='check-serverless-neg'
-
-### export _pj_id='ca-igarashi-test-v5v2'
 ```
 ```
 gcloud config set project ${_pj_id}
@@ -60,7 +58,7 @@ gcloud run deploy ${_common}-run \
 >     --platform managed \
 >     --region asia-northeast1 \
 >     --allow-unauthenticated
-Deploying container to Cloud Run service [check-serverless-neg-run] in project [ca-igarashi-test-v5v2] region [asia-northeast1]
+Deploying container to Cloud Run service [check-serverless-neg-run] in project [~~~~~~~~~~] region [asia-northeast1]
 ✓ Deploying new service... Done.
   ✓ Creating Revision...
   ✓ Routing traffic...
