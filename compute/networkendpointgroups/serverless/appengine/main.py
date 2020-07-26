@@ -10,8 +10,11 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
-    return 'Hello World! from GAE.'
-
+    return 'Hello World! from App Engine.\n'
+@app.route('/<mypath>')
+def show_path(mypath):
+    # target = os.environ.get('TARGET', 'World')
+    return 'Your Path is "/{}" from App Engine.\n'.format(mypath)
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
