@@ -149,14 +149,22 @@ gcloud compute addresses describe ${_common}-example-ip \
 
 ## Creating the External HTTP(S) Load Balancer
 
-+ Create Serverless NEG 
++ Create Cloud Run's Serverless NEG 
 
 ```
-gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg \
+gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-run \
     --region=asia-northeast1 \
     --network-endpoint-type=SERVERLESS  \
-    --cloud-run-service=helloworld
-    --app-engine-service=default   # <---? version??
+    --cloud-run-service=${_common}-run
+```
+
++ Create App Engine's Serverless NEG 
+
+```
+gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-app \
+    --region=asia-northeast1 \
+    --network-endpoint-type=SERVERLESS  \
+    --app-engine-service=${_common}-app
 ```
 
 + Check network-endpoint-groups
@@ -169,14 +177,19 @@ gcloud beta compute network-endpoint-groups list
 ### Ex.
 
 # gcloud beta compute network-endpoint-groups list
-NAME                                 LOCATION           ENDPOINT_TYPE   SIZE
-check-serverless-neg-serverless-neg  asia-northeast1    SERVERLESS      0
+NAME                                     LOCATION         ENDPOINT_TYPE  SIZE
+check-serverless-neg-serverless-neg-app  asia-northeast1  SERVERLESS     0
+check-serverless-neg-serverless-neg-run  asia-northeast1  SERVERLESS     0
 ```
 
 + Create backend service
 
 ```
-gcloud compute backend-services create ${_common}-backend-service \
+gcloud compute backend-services create ${_common}-backend-service-app \
+    --global
+```
+```
+gcloud compute backend-services create ${_common}-backend-service-run \
     --global
 ```
 
@@ -189,33 +202,61 @@ gcloud compute backend-services list
 ### Ex.
 
 # gcloud compute backend-services list
-NAME                                  BACKENDS  PROTOCOL
-check-serverless-neg-backend-service            HTTP
+NAME                                      BACKENDS  PROTOCOL
+check-serverless-neg-backend-service-app            HTTP
+check-serverless-neg-backend-service-run            HTTP
 ```
 
 + Add the serverless NEG as a backend to the backend service
 
 ```
-gcloud beta compute backend-services add-backend ${_common}-backend-service \
+gcloud beta compute backend-services add-backend ${_common}-backend-service-run \
     --global \
-    --network-endpoint-group=${_common}-serverless-neg \
+    --network-endpoint-group=${_common}-serverless-neg-run \
+    --network-endpoint-group-region=asia-northeast1
+```
+```
+gcloud beta compute backend-services add-backend ${_common}-backend-service-app \
+    --global \
+    --network-endpoint-group=${_common}-serverless-neg-app \
     --network-endpoint-group-region=asia-northeast1
 ```
 
 + Check
 
 ```
-# gcloud compute backend-services list
-NAME                                  BACKENDS                                                                   PROTOCOL
-check-serverless-neg-backend-service  asia-northeast1/networkEndpointGroups/check-serverless-neg-serverless-neg  HTTP
+gcloud compute backend-services list
 ```
+```
+### Ex.
+
+# gcloud compute backend-services list
+NAME                                      BACKENDS                                                                       PROTOCOL
+check-serverless-neg-backend-service-app  asia-northeast1/networkEndpointGroups/check-serverless-neg-serverless-neg-app  HTTP
+check-serverless-neg-backend-service-run  asia-northeast1/networkEndpointGroups/check-serverless-neg-serverless-neg-run  HTTP
+```
+
+
+
+
+
+
+
+
+
 
 + Create a URL map
   + to route incoming requests to the check-serverless-neg-backend-service backend service
 
 ```
 gcloud compute url-maps create ${_common}-url-map \
-    --default-service ${_common}-backend-service
+    --default-service ${_common}-backend-service-run
+```
+```
+gcloud compute url-maps add-path-matcher ${_common}-url-map \
+    --path-matcher-name=${_common}-path-matcher \
+    --path-rules "/app=check-serverless-neg-backend-service-app" \
+    --default-service=check-serverless-neg-backend-service-run
 ```
 
 + Check URL Map
@@ -228,7 +269,7 @@ gcloud compute url-maps list
 
 # gcloud compute url-maps list
 NAME                          DEFAULT_SERVICE
-check-serverless-neg-url-map  backendServices/check-serverless-neg-backend-service
+check-serverless-neg-url-map  backendServices/check-serverless-neg-backend-service-run
 ```
 
 ## create cert
@@ -236,7 +277,7 @@ check-serverless-neg-url-map  backendServices/check-serverless-neg-backend-servi
 + To create a Google-managed SSL certificate resource called www-ssl-cert
 
 ```
-export _my_domain='test.hejda.org'
+export _my_domain=$(echo ${_common}.hejda.org)
 ```
 ```
 gcloud compute ssl-certificates create ${_common}-www-ssl-cert \
@@ -253,11 +294,13 @@ gcloud compute ssl-certificates list
 
 # gcloud compute ssl-certificates list
 NAME                               TYPE     CREATION_TIMESTAMP             EXPIRE_TIME  MANAGED_STATUS
-check-serverless-neg-www-ssl-cert  MANAGED  2020-07-25T20:12:27.959-07:00               PROVISIONING
-    test.hejda.org: PROVISIONING
+check-serverless-neg-www-ssl-cert  MANAGED  2020-07-26T00:35:54.246-07:00               PROVISIONING
+    check-serverless-neg.hejda.org: PROVISIONING
 ```
 
----> ~結構待つ~ 待っててもだめ
+
+:warning: サブ自分で設定しておく -> 先にやっていおく
+
 
 
 + Create a target HTTPS proxy to route requests to your URL map
@@ -283,9 +326,20 @@ gcloud compute forwarding-rules create ${_common}-https-content-rule \
 ```
 gcloud compute forwarding-rules list
 ```
+```
+### Ex.
+
+# gcloud compute forwarding-rules list
+NAME                                     REGION  IP_ADDRESS      IP_PROTOCOL  TARGET
+check-serverless-neg-https-content-rule          34.107.216.140  TCP          check-serverless-neg-https-proxy
+```
+
+## Check Web blawser
+
+
+
 
 ## Delete Resource
-
 
 ```
 gcloud compute forwarding-rules delete ${_common}-https-content-rule --global
@@ -310,21 +364,10 @@ gcloud beta compute network-endpoint-groups delete ${_common}-serverless-neg \
     --region=asia-northeast1 
 ```
 
-
-
 ```
 gcloud compute addresses delete ${_common}-example-ip \
     --global
 ```
-
-
-
-
-```
-
-```
-
-
 
 
 
