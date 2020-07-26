@@ -84,7 +84,7 @@ cd -
 ## Create Sample Google App Engine
 
 + Official Document
-  + https://cloud.google.com/appengine/docs/standard/python3/quickstart
+  + https://cloud.google.com/appengine/docs/standard/python3/quickstart?hl=en
 
 ```
 cd appengine
@@ -121,6 +121,29 @@ https://check-serverless-neg-app-dot-[~~~~~~~~~~].an.r.appspot.com
 cd -
 ```
 
+## Create Sample Cloud Functions
+
+
++ Official Document
+  + https://cloud.google.com/functions/docs/tutorials/http?hl=en#functions-trigger-http-command-python
+
+```
+cd functions
+```
+```
+gcloud functions deploy func \
+  --runtime python38 \
+  --trigger-http \
+  --region asia-northeast1 \
+  --allow-unauthenticated
+```
+
+![](./functions/func-image-01.png)
+
+```
+cd -
+```
+
 ## Prepare External IP Address
 
 + Reserving an External IP Address
@@ -147,6 +170,10 @@ gcloud compute addresses describe ${_common}-example-ip \
 34.107.216.140
 ```
 
+### Prepare Sub Domain
+
+![](./neg-serverless-01.png)
+
 ## Creating the External HTTP(S) Load Balancer
 
 + Create Cloud Run's Serverless NEG 
@@ -167,6 +194,15 @@ gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-app
     --app-engine-service=${_common}-app
 ```
 
++ Create Cloud Functions's Serverless NEG 
+
+```
+gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-func \
+    --region=asia-northeast1 \
+    --network-endpoint-type=SERVERLESS  \
+    --cloud-function-name=func
+```
+
 + Check network-endpoint-groups
   + :warning: Right now, we can't see Serverless NEG in the console
 
@@ -178,8 +214,9 @@ gcloud beta compute network-endpoint-groups list
 
 # gcloud beta compute network-endpoint-groups list
 NAME                                     LOCATION         ENDPOINT_TYPE  SIZE
-check-serverless-neg-serverless-neg-app  asia-northeast1  SERVERLESS     0
-check-serverless-neg-serverless-neg-run  asia-northeast1  SERVERLESS     0
+check-serverless-neg-serverless-neg-app   asia-northeast1  SERVERLESS     0
+check-serverless-neg-serverless-neg-func  asia-northeast1  SERVERLESS     0
+check-serverless-neg-serverless-neg-run   asia-northeast1  SERVERLESS     0
 ```
 
 + Create backend service
@@ -190,6 +227,10 @@ gcloud compute backend-services create ${_common}-backend-service-app \
 ```
 ```
 gcloud compute backend-services create ${_common}-backend-service-run \
+    --global
+```
+```
+gcloud compute backend-services create ${_common}-backend-service-func \
     --global
 ```
 
@@ -204,6 +245,7 @@ gcloud compute backend-services list
 # gcloud compute backend-services list
 NAME                                      BACKENDS  PROTOCOL
 check-serverless-neg-backend-service-app            HTTP
+check-serverless-neg-backend-service-func           HTTP
 check-serverless-neg-backend-service-run            HTTP
 ```
 
@@ -221,6 +263,12 @@ gcloud beta compute backend-services add-backend ${_common}-backend-service-app 
     --network-endpoint-group=${_common}-serverless-neg-app \
     --network-endpoint-group-region=asia-northeast1
 ```
+```
+gcloud beta compute backend-services add-backend ${_common}-backend-service-func \
+    --global \
+    --network-endpoint-group=${_common}-serverless-neg-func \
+    --network-endpoint-group-region=asia-northeast1
+```
 
 + Check
 
@@ -231,19 +279,11 @@ gcloud compute backend-services list
 ### Ex.
 
 # gcloud compute backend-services list
-NAME                                      BACKENDS                                                                       PROTOCOL
-check-serverless-neg-backend-service-app  asia-northeast1/networkEndpointGroups/check-serverless-neg-serverless-neg-app  HTTP
-check-serverless-neg-backend-service-run  asia-northeast1/networkEndpointGroups/check-serverless-neg-serverless-neg-run  HTTP
+NAME                                       BACKENDS                                                                        PROTOCOL
+check-serverless-neg-backend-service-app   asia-northeast1/networkEndpointGroups/check-serverless-neg-serverless-neg-app   HTTP
+check-serverless-neg-backend-service-func  asia-northeast1/networkEndpointGroups/check-serverless-neg-serverless-neg-func  HTTP
+check-serverless-neg-backend-service-run   asia-northeast1/networkEndpointGroups/check-serverless-neg-serverless-neg-run   HTTP
 ```
-
-
-
-
-
-
-
-
-
 
 + Create a URL map
   + to route incoming requests to the check-serverless-neg-backend-service backend service
@@ -255,7 +295,7 @@ gcloud compute url-maps create ${_common}-url-map \
 ```
 gcloud compute url-maps add-path-matcher ${_common}-url-map \
     --path-matcher-name=${_common}-path-matcher \
-    --path-rules "/app=check-serverless-neg-backend-service-app" \
+    --path-rules "/app=check-serverless-neg-backend-service-app,/func=check-serverless-neg-backend-service-func" \
     --default-service=check-serverless-neg-backend-service-run
 ```
 
@@ -336,8 +376,11 @@ check-serverless-neg-https-content-rule          34.107.216.140  TCP          ch
 
 ## Check Web blawser
 
-
-
+![](./neg-serverless-02.png)
+![](./neg-serverless-03.png)
+![](./neg-serverless-04.png)
+![](./neg-serverless-05.png)
+![](./neg-serverless-06.png)
 
 ## Delete Resource
 
@@ -350,6 +393,9 @@ gcloud compute target-https-proxies delete ${_common}-https-proxy
 
 ```
 gcloud compute ssl-certificates delete ${_common}-www-ssl-cert 
+```
+```
+gcloud compute url-maps remove-path-matcher ${_common}-url-map --path-matcher-name=${_common}-path-matcher
 ```
 ```
 gcloud compute url-maps delete ${_common}-url-map 
