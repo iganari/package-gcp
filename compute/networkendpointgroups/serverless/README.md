@@ -447,32 +447,24 @@ Check the resources with a Web browser.
 
 ## Delete Resource
 
++ Delete the Resources created so far using the gloud command.
+
 ```
 gcloud compute forwarding-rules delete ${_common}-https-content-rule --global
-```
-```
+
 gcloud compute target-https-proxies delete ${_common}-https-proxy
-```
-```
+
 gcloud compute ssl-certificates delete ${_common}-www-ssl-cert 
-```
-```
+
 gcloud compute url-maps remove-path-matcher ${_common}-url-map --path-matcher-name=${_common}-path-matcher
-```
-```
+
 gcloud compute url-maps delete ${_common}-url-map 
-```
-```
-gcloud compute backend-services delete ${_common}-backend-service \
-    --global
-```
-```
-gcloud beta compute network-endpoint-groups delete ${_common}-serverless-neg \
-    --region=asia-northeast1 
-```
-```
-gcloud compute addresses delete ${_common}-example-ip \
-    --global
+
+gcloud compute backend-services delete ${_common}-backend-service --global
+
+gcloud beta compute network-endpoint-groups delete ${_common}-serverless-neg --region=asia-northeast1 
+
+gcloud compute addresses delete ${_common}-example-ip --global
 ```
 
 ## closing
