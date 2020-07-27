@@ -425,12 +425,24 @@ Check the resources with a Web browser.
 
 ![](./neg-serverless-02.png)
 
-+ hoge
++ "/" は Cloud Run にマッピングされています。
 
 ![](./neg-serverless-03.png)
+
++ "/run" は Cloud Run にマッピングされています。
+
 ![](./neg-serverless-04.png)
+
++ "/app" は App Engine にマッピングされています。
+
 ![](./neg-serverless-05.png)
+
++ "/func" は Cloud Functions にマッピングされています。
+
 ![](./neg-serverless-06.png)
+
++ 上記のルールに該当しない場合は Cloud Run にマッピングされています。
+
 ![](./neg-serverless-07.png)
 
 ## Delete Resource
