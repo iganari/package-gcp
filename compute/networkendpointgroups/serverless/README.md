@@ -1,4 +1,6 @@
-# Serverless NEG
+# Serverless Network Endpoint Group Sample
+
+Network Endpoint Group = NEG
 
 ## Document
 
