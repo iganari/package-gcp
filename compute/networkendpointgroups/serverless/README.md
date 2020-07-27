@@ -325,11 +325,15 @@ check-serverless-neg-backend-service-run   asia-northeast1/networkEndpointGroups
 ### Create a URL map
 
 + To route incoming requests to the check-serverless-neg-backend-service backend service.
+  + The default settings should map to Cloud Run.
 
 ```
 gcloud compute url-maps create ${_common}-url-map \
     --default-service ${_common}-backend-service-run
 ```
+
++ Set other than the default setting of URL map.
+
 ```
 gcloud compute url-maps add-path-matcher ${_common}-url-map \
     --path-matcher-name=${_common}-path-matcher \
@@ -337,7 +341,7 @@ gcloud compute url-maps add-path-matcher ${_common}-url-map \
     --default-service=check-serverless-neg-backend-service-run
 ```
 
-+ Check URL Map
++ Check URL map
 
 ```
 gcloud compute url-maps list
@@ -350,9 +354,9 @@ NAME                          DEFAULT_SERVICE
 check-serverless-neg-url-map  backendServices/check-serverless-neg-backend-service-run
 ```
 
-## create cert
+### Create Certificate
 
-+ To create a Google-managed SSL certificate resource called www-ssl-cert
++ To create a Google-managed SSL certificate resource called www-ssl-cert.
 
 ```
 export _my_domain=$(echo ${_common}.hejda.org)
@@ -362,7 +366,7 @@ gcloud compute ssl-certificates create ${_common}-www-ssl-cert \
     --domains ${_my_domain}
 ```
 
-+ Check 
++ Check certificate resource.
 
 ```
 gcloud compute ssl-certificates list
@@ -376,6 +380,7 @@ check-serverless-neg-www-ssl-cert  MANAGED  2020-07-26T00:35:54.246-07:00       
     check-serverless-neg.hejda.org: PROVISIONING
 ```
 
+### 
 
 + Create a target HTTPS proxy to route requests to your URL map
 
@@ -385,7 +390,9 @@ gcloud compute target-https-proxies create ${_common}-https-proxy \
     --url-map=${_common}-url-map
 ```
 
-+ Create a global forwarding rule to route incoming requests to the proxy
+## Create Forwarding Rule of Load Balancer
+
++ Create a global forwarding rule to route incoming requests to the proxy.
 
 ```
 gcloud compute forwarding-rules create ${_common}-https-content-rule \
@@ -395,7 +402,7 @@ gcloud compute forwarding-rules create ${_common}-https-content-rule \
     --ports=443
 ```
 
-+ Check global forwarding rule
++ Check global forwarding rule.
 
 ```
 gcloud compute forwarding-rules list
@@ -408,9 +415,18 @@ NAME                                     REGION  IP_ADDRESS      IP_PROTOCOL  TA
 check-serverless-neg-https-content-rule          34.107.216.140  TCP          check-serverless-neg-https-proxy
 ```
 
+---> Congratulations, You have created an External HTTP(S) Load Balancer using Serverless NEG!!
+
 ## Check Web blawser
 
+Check the resources with a Web browser.
+
++ URL map on GCP console.
+
 ![](./neg-serverless-02.png)
+
++ hoge
+
 ![](./neg-serverless-03.png)
 ![](./neg-serverless-04.png)
 ![](./neg-serverless-05.png)
