@@ -425,23 +425,23 @@ Check the resources with a Web browser.
 
 ![](./neg-serverless-02.png)
 
-+ "/" は Cloud Run にマッピングされています。
++ "/" maps to Cloud Run.
 
 ![](./neg-serverless-03.png)
 
-+ "/run" は Cloud Run にマッピングされています。
++ "/run" maps to Cloud Run.
 
 ![](./neg-serverless-04.png)
 
-+ "/app" は App Engine にマッピングされています。
++ "/app" maps to App Engine.
 
 ![](./neg-serverless-05.png)
 
-+ "/func" は Cloud Functions にマッピングされています。
++ "/func" maps to Cloud Functions.
 
 ![](./neg-serverless-06.png)
 
-+ 上記のルールに該当しない場合は Cloud Run にマッピングされています。
++ If none of the above rules apply, it is mapped to Cloud Run.
 
 ![](./neg-serverless-07.png)
 
