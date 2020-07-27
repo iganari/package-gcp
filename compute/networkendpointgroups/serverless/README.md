@@ -1,4 +1,6 @@
-# Serverless NEG
+# Serverless Network Endpoint Group Sample
+
+Network Endpoint Group = NEG
 
 ## Document
 
@@ -24,8 +26,6 @@ gcloud auth login -q
 ### New Setting
 export _pj_id='Your GCP Project ID'
 export _common='check-serverless-neg'
-
-### export _pj_id='ca-igarashi-test-v5v2'
 ```
 ```
 gcloud config set project ${_pj_id}
@@ -36,10 +36,15 @@ gcloud config set project ${_pj_id}
 + Official Document
   + https://cloud.google.com/run/docs/quickstarts/build-and-deploy?hl=en
 
-+ Build your container image using Cloud Build
++ Change to the sample code directory for Cloud Run.
 
 ```
 cd cloudrun
+```
+
++ Build your container image using Cloud Build
+
+```
 gcloud builds submit --tag gcr.io/${_pj_id}/${_common}-run
 ```
 
@@ -60,7 +65,7 @@ gcloud run deploy ${_common}-run \
 >     --platform managed \
 >     --region asia-northeast1 \
 >     --allow-unauthenticated
-Deploying container to Cloud Run service [check-serverless-neg-run] in project [ca-igarashi-test-v5v2] region [asia-northeast1]
+Deploying container to Cloud Run service [check-serverless-neg-run] in project [~~~~~~~~~~] region [asia-northeast1]
 ✓ Deploying new service... Done.
   ✓ Creating Revision...
   ✓ Routing traffic...
@@ -69,13 +74,13 @@ Done.
 Service [check-serverless-neg-run] revision [check-serverless-neg-run-00001-lut] has been deployed and is serving 100 percent of traffic at https://check-serverless-neg-run-3umtulj4sq-an.a.run.app
 ```
 
-+ Check Web Blawser
-
-```
----> https://check-serverless-neg-run-3umtulj4sq-an.a.run.app
-```
++ Check Web Blawser.
+  + The following URL is output to the output result of the deploy command above.
+  + https://check-serverless-neg-run-3umtulj4sq-an.a.run.app
 
 ![](./cloudrun/run-image-01.png)
+
++ Back to root directory.
 
 ```
 cd -
@@ -86,23 +91,25 @@ cd -
 + Official Document
   + https://cloud.google.com/appengine/docs/standard/python3/quickstart?hl=en
 
++ Change to the sample code directory for App Engine.
+
 ```
 cd appengine
 ```
 
-+ Create yaml from sample
++ Create yaml from Sample YAML.
 
 ```
 cat app.yaml.sample | sed "s/YOUR_SERVICE/${_common}-app/g" > app.yaml
 ```
 
-+ Deploy App Engine
++ Deploy App Engine.
 
 ```
 gcloud app deploy
 ```
 
-+ Check App Engine URL
++ Check App Engine URL.
 
 ```
 gcloud app browse -s ${_common}-app
@@ -115,7 +122,13 @@ Did not detect your browser. Go to this link to view your app:
 https://check-serverless-neg-app-dot-[~~~~~~~~~~].an.r.appspot.com
 ```
 
++ Check Web Blawser.
+  + The following URL is output to the output result of the deploy command above.
+  + https://check-serverless-neg-app-dot-[~~~~~~~~~~].an.r.appspot.com
+
 ![](./appengine/gae-image-01.png)
+
++ Back to root directory.
 
 ```
 cd -
@@ -123,13 +136,17 @@ cd -
 
 ## Create Sample Cloud Functions
 
-
 + Official Document
   + https://cloud.google.com/functions/docs/tutorials/http?hl=en#functions-trigger-http-command-python
+
++ Change to the sample code directory for Cloud Functions.
 
 ```
 cd functions
 ```
+
++ Deploy Cloud Functions.
+
 ```
 gcloud functions deploy func \
   --runtime python38 \
@@ -140,13 +157,15 @@ gcloud functions deploy func \
 
 ![](./functions/func-image-01.png)
 
++ Back to root directory.
+
 ```
 cd -
 ```
 
 ## Prepare External IP Address
 
-+ Reserving an External IP Address
++ Reserving an External IP Address.
 
 ```
 gcloud compute addresses create ${_common}-example-ip \
@@ -154,7 +173,7 @@ gcloud compute addresses create ${_common}-example-ip \
     --global
 ```
 
-+ Check External IP Address
++ Check External IP Address.
 
 ```
 gcloud compute addresses describe ${_common}-example-ip \
@@ -170,13 +189,17 @@ gcloud compute addresses describe ${_common}-example-ip \
 34.107.216.140
 ```
 
-### Prepare Sub Domain
+## Prepare Sub Domain
+
++ Set the reserved static IP address as an A record for your own subdomain.
 
 ![](./neg-serverless-01.png)
 
-## Creating the External HTTP(S) Load Balancer
+## Create External HTTP(S) Load Balancer
 
-+ Create Cloud Run's Serverless NEG 
+### Create Serverless NEG
+
++ Create Cloud Run's Serverless NEG.
 
 ```
 gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-run \
@@ -185,7 +208,7 @@ gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-run
     --cloud-run-service=${_common}-run
 ```
 
-+ Create App Engine's Serverless NEG 
++ Create App Engine's Serverless NEG.
 
 ```
 gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-app \
@@ -194,7 +217,7 @@ gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-app
     --app-engine-service=${_common}-app
 ```
 
-+ Create Cloud Functions's Serverless NEG 
++ Create Cloud Functions's Serverless NEG. 
 
 ```
 gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-func \
@@ -203,8 +226,8 @@ gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-fun
     --cloud-function-name=func
 ```
 
-+ Check network-endpoint-groups
-  + :warning: Right now, we can't see Serverless NEG in the console
++ Check NEG.
+  + :warning: Right now, we can't see Serverless NEG in the console.
 
 ```
 gcloud beta compute network-endpoint-groups list
@@ -219,22 +242,30 @@ check-serverless-neg-serverless-neg-func  asia-northeast1  SERVERLESS     0
 check-serverless-neg-serverless-neg-run   asia-northeast1  SERVERLESS     0
 ```
 
-+ Create backend service
+### Create Backend Service
+
++ Create Cloud Run's backend service.
+
+```
+gcloud compute backend-services create ${_common}-backend-service-run \
+    --global
+```
+
++ Create App Engine's backend service.
 
 ```
 gcloud compute backend-services create ${_common}-backend-service-app \
     --global
 ```
-```
-gcloud compute backend-services create ${_common}-backend-service-run \
-    --global
-```
+
++ Create Cloud Functions's  backend service.
+
 ```
 gcloud compute backend-services create ${_common}-backend-service-func \
     --global
 ```
 
-+ Check Backend Service
++ Check Backend Services.
 
 ```
 gcloud compute backend-services list
@@ -249,7 +280,9 @@ check-serverless-neg-backend-service-func           HTTP
 check-serverless-neg-backend-service-run            HTTP
 ```
 
-+ Add the serverless NEG as a backend to the backend service
+### Add the Serverless NEG as a backend to the Backend Service
+
++ Add Cloud Run's Serverless NEG as a backend to Cloud Run's Backend Service
 
 ```
 gcloud beta compute backend-services add-backend ${_common}-backend-service-run \
@@ -257,12 +290,18 @@ gcloud beta compute backend-services add-backend ${_common}-backend-service-run 
     --network-endpoint-group=${_common}-serverless-neg-run \
     --network-endpoint-group-region=asia-northeast1
 ```
+
++ Add App Engine's Serverless NEG as a backend to App Engine's Backend Service
+
 ```
 gcloud beta compute backend-services add-backend ${_common}-backend-service-app \
     --global \
     --network-endpoint-group=${_common}-serverless-neg-app \
     --network-endpoint-group-region=asia-northeast1
 ```
+
++ Add Cloud Functions's Serverless NEG as a backend to Cloud Functions's Backend Service
+
 ```
 gcloud beta compute backend-services add-backend ${_common}-backend-service-func \
     --global \
@@ -270,7 +309,7 @@ gcloud beta compute backend-services add-backend ${_common}-backend-service-func
     --network-endpoint-group-region=asia-northeast1
 ```
 
-+ Check
++ Check Backend Service.
 
 ```
 gcloud compute backend-services list
@@ -285,13 +324,18 @@ check-serverless-neg-backend-service-func  asia-northeast1/networkEndpointGroups
 check-serverless-neg-backend-service-run   asia-northeast1/networkEndpointGroups/check-serverless-neg-serverless-neg-run   HTTP
 ```
 
-+ Create a URL map
-  + to route incoming requests to the check-serverless-neg-backend-service backend service
+### Create a URL map
+
++ To route incoming requests to the check-serverless-neg-backend-service backend service.
+  + The default settings should map to Cloud Run.
 
 ```
 gcloud compute url-maps create ${_common}-url-map \
     --default-service ${_common}-backend-service-run
 ```
+
++ Set other than the default setting of URL map.
+
 ```
 gcloud compute url-maps add-path-matcher ${_common}-url-map \
     --path-matcher-name=${_common}-path-matcher \
@@ -299,7 +343,7 @@ gcloud compute url-maps add-path-matcher ${_common}-url-map \
     --default-service=check-serverless-neg-backend-service-run
 ```
 
-+ Check URL Map
++ Check URL map
 
 ```
 gcloud compute url-maps list
@@ -312,9 +356,9 @@ NAME                          DEFAULT_SERVICE
 check-serverless-neg-url-map  backendServices/check-serverless-neg-backend-service-run
 ```
 
-## create cert
+### Create Certificate
 
-+ To create a Google-managed SSL certificate resource called www-ssl-cert
++ To create a Google-managed SSL certificate resource called www-ssl-cert.
 
 ```
 export _my_domain=$(echo ${_common}.hejda.org)
@@ -324,7 +368,7 @@ gcloud compute ssl-certificates create ${_common}-www-ssl-cert \
     --domains ${_my_domain}
 ```
 
-+ Check 
++ Check certificate resource.
 
 ```
 gcloud compute ssl-certificates list
@@ -338,10 +382,7 @@ check-serverless-neg-www-ssl-cert  MANAGED  2020-07-26T00:35:54.246-07:00       
     check-serverless-neg.hejda.org: PROVISIONING
 ```
 
-
-:warning: サブ自分で設定しておく -> 先にやっていおく
-
-
+### 
 
 + Create a target HTTPS proxy to route requests to your URL map
 
@@ -351,7 +392,9 @@ gcloud compute target-https-proxies create ${_common}-https-proxy \
     --url-map=${_common}-url-map
 ```
 
-+ Create a global forwarding rule to route incoming requests to the proxy
+## Create Forwarding Rule of Load Balancer
+
++ Create a global forwarding rule to route incoming requests to the proxy.
 
 ```
 gcloud compute forwarding-rules create ${_common}-https-content-rule \
@@ -361,7 +404,7 @@ gcloud compute forwarding-rules create ${_common}-https-content-rule \
     --ports=443
 ```
 
-+ Check global forwarding rule
++ Check global forwarding rule.
 
 ```
 gcloud compute forwarding-rules list
@@ -374,43 +417,56 @@ NAME                                     REGION  IP_ADDRESS      IP_PROTOCOL  TA
 check-serverless-neg-https-content-rule          34.107.216.140  TCP          check-serverless-neg-https-proxy
 ```
 
+---> Congratulations, You have created an External HTTP(S) Load Balancer using Serverless NEG!!
+
 ## Check Web blawser
 
+Check the resources with a Web browser.
+
++ URL map on GCP console.
+
 ![](./neg-serverless-02.png)
+
++ "/" maps to Cloud Run.
+
 ![](./neg-serverless-03.png)
+
++ "/run" maps to Cloud Run.
+
 ![](./neg-serverless-04.png)
+
++ "/app" maps to App Engine.
+
 ![](./neg-serverless-05.png)
+
++ "/func" maps to Cloud Functions.
+
 ![](./neg-serverless-06.png)
+
++ If none of the above rules apply, it is mapped to Cloud Run.
+
 ![](./neg-serverless-07.png)
 
 ## Delete Resource
 
++ Delete the Resources created so far using the gloud command.
+
 ```
 gcloud compute forwarding-rules delete ${_common}-https-content-rule --global
-```
-```
+
 gcloud compute target-https-proxies delete ${_common}-https-proxy
-```
-```
+
 gcloud compute ssl-certificates delete ${_common}-www-ssl-cert 
-```
-```
+
 gcloud compute url-maps remove-path-matcher ${_common}-url-map --path-matcher-name=${_common}-path-matcher
-```
-```
+
 gcloud compute url-maps delete ${_common}-url-map 
-```
-```
-gcloud compute backend-services delete ${_common}-backend-service \
-    --global
-```
-```
-gcloud beta compute network-endpoint-groups delete ${_common}-serverless-neg \
-    --region=asia-northeast1 
-```
-```
-gcloud compute addresses delete ${_common}-example-ip \
-    --global
+
+gcloud compute backend-services delete ${_common}-backend-service --global
+
+gcloud beta compute network-endpoint-groups delete ${_common}-serverless-neg --region=asia-northeast1 
+
+gcloud compute addresses delete ${_common}-example-ip --global
 ```
 
 ## closing
