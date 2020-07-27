@@ -34,7 +34,7 @@ gcloud config set project ${_pj_id}
 + Official Document
   + https://cloud.google.com/run/docs/quickstarts/build-and-deploy?hl=en
 
-+ Change to the sample code directory for Cloud Run
++ Change to the sample code directory for Cloud Run.
 
 ```
 cd cloudrun
@@ -72,13 +72,13 @@ Done.
 Service [check-serverless-neg-run] revision [check-serverless-neg-run-00001-lut] has been deployed and is serving 100 percent of traffic at https://check-serverless-neg-run-3umtulj4sq-an.a.run.app
 ```
 
-+ Check Web Blawser
-
-```
----> https://check-serverless-neg-run-3umtulj4sq-an.a.run.app
-```
++ Check Web Blawser.
+  + The following URL is output to the output result of the deploy command above.
+  + https://check-serverless-neg-run-3umtulj4sq-an.a.run.app
 
 ![](./cloudrun/run-image-01.png)
+
++ Back to root directory.
 
 ```
 cd -
@@ -95,19 +95,19 @@ cd -
 cd appengine
 ```
 
-+ Create yaml from sample
++ Create yaml from Sample YAML.
 
 ```
 cat app.yaml.sample | sed "s/YOUR_SERVICE/${_common}-app/g" > app.yaml
 ```
 
-+ Deploy App Engine
++ Deploy App Engine.
 
 ```
 gcloud app deploy
 ```
 
-+ Check App Engine URL
++ Check App Engine URL.
 
 ```
 gcloud app browse -s ${_common}-app
@@ -120,7 +120,13 @@ Did not detect your browser. Go to this link to view your app:
 https://check-serverless-neg-app-dot-[~~~~~~~~~~].an.r.appspot.com
 ```
 
++ Check Web Blawser.
+  + The following URL is output to the output result of the deploy command above.
+  + https://check-serverless-neg-app-dot-[~~~~~~~~~~].an.r.appspot.com
+
 ![](./appengine/gae-image-01.png)
+
++ Back to root directory.
 
 ```
 cd -
@@ -128,11 +134,10 @@ cd -
 
 ## Create Sample Cloud Functions
 
-
 + Official Document
   + https://cloud.google.com/functions/docs/tutorials/http?hl=en#functions-trigger-http-command-python
 
-+ Change to the sample code directory for Cloud Functions
++ Change to the sample code directory for Cloud Functions.
 
 ```
 cd functions
@@ -149,6 +154,8 @@ gcloud functions deploy func \
 ```
 
 ![](./functions/func-image-01.png)
+
++ Back to root directory.
 
 ```
 cd -
