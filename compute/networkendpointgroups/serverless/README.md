@@ -163,7 +163,7 @@ cd -
 
 ## Prepare External IP Address
 
-+ Reserving an External IP Address
++ Reserving an External IP Address.
 
 ```
 gcloud compute addresses create ${_common}-example-ip \
@@ -171,7 +171,7 @@ gcloud compute addresses create ${_common}-example-ip \
     --global
 ```
 
-+ Check External IP Address
++ Check External IP Address.
 
 ```
 gcloud compute addresses describe ${_common}-example-ip \
@@ -187,13 +187,17 @@ gcloud compute addresses describe ${_common}-example-ip \
 34.107.216.140
 ```
 
-### Prepare Sub Domain
+## Prepare Sub Domain
+
++ Set the reserved static IP address as an A record for your own subdomain.
 
 ![](./neg-serverless-01.png)
 
-## Creating the External HTTP(S) Load Balancer
+## Create External HTTP(S) Load Balancer
 
-+ Create Cloud Run's Serverless NEG 
+### Create Serverless NEG
+
++ Create Cloud Run's Serverless NEG.
 
 ```
 gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-run \
@@ -202,7 +206,7 @@ gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-run
     --cloud-run-service=${_common}-run
 ```
 
-+ Create App Engine's Serverless NEG 
++ Create App Engine's Serverless NEG.
 
 ```
 gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-app \
@@ -211,7 +215,7 @@ gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-app
     --app-engine-service=${_common}-app
 ```
 
-+ Create Cloud Functions's Serverless NEG 
++ Create Cloud Functions's Serverless NEG. 
 
 ```
 gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-func \
@@ -220,8 +224,8 @@ gcloud beta compute network-endpoint-groups create ${_common}-serverless-neg-fun
     --cloud-function-name=func
 ```
 
-+ Check network-endpoint-groups
-  + :warning: Right now, we can't see Serverless NEG in the console
++ Check NEG.
+  + :warning: Right now, we can't see Serverless NEG in the console.
 
 ```
 gcloud beta compute network-endpoint-groups list
@@ -236,22 +240,30 @@ check-serverless-neg-serverless-neg-func  asia-northeast1  SERVERLESS     0
 check-serverless-neg-serverless-neg-run   asia-northeast1  SERVERLESS     0
 ```
 
-+ Create backend service
+### Create Backend Service
+
++ Create Cloud Run's backend service.
+
+```
+gcloud compute backend-services create ${_common}-backend-service-run \
+    --global
+```
+
++ Create App Engine's backend service.
 
 ```
 gcloud compute backend-services create ${_common}-backend-service-app \
     --global
 ```
-```
-gcloud compute backend-services create ${_common}-backend-service-run \
-    --global
-```
+
++ Create Cloud Functions's  backend service.
+
 ```
 gcloud compute backend-services create ${_common}-backend-service-func \
     --global
 ```
 
-+ Check Backend Service
++ Check Backend Services.
 
 ```
 gcloud compute backend-services list
@@ -266,7 +278,9 @@ check-serverless-neg-backend-service-func           HTTP
 check-serverless-neg-backend-service-run            HTTP
 ```
 
-+ Add the serverless NEG as a backend to the backend service
+### Add the Serverless NEG as a backend to the Backend Service
+
++ Add Cloud Run's Serverless NEG as a backend to Cloud Run's Backend Service
 
 ```
 gcloud beta compute backend-services add-backend ${_common}-backend-service-run \
@@ -274,12 +288,18 @@ gcloud beta compute backend-services add-backend ${_common}-backend-service-run 
     --network-endpoint-group=${_common}-serverless-neg-run \
     --network-endpoint-group-region=asia-northeast1
 ```
+
++ Add App Engine's Serverless NEG as a backend to App Engine's Backend Service
+
 ```
 gcloud beta compute backend-services add-backend ${_common}-backend-service-app \
     --global \
     --network-endpoint-group=${_common}-serverless-neg-app \
     --network-endpoint-group-region=asia-northeast1
 ```
+
++ Add Cloud Functions's Serverless NEG as a backend to Cloud Functions's Backend Service
+
 ```
 gcloud beta compute backend-services add-backend ${_common}-backend-service-func \
     --global \
@@ -287,7 +307,7 @@ gcloud beta compute backend-services add-backend ${_common}-backend-service-func
     --network-endpoint-group-region=asia-northeast1
 ```
 
-+ Check
++ Check Backend Service.
 
 ```
 gcloud compute backend-services list
@@ -302,8 +322,9 @@ check-serverless-neg-backend-service-func  asia-northeast1/networkEndpointGroups
 check-serverless-neg-backend-service-run   asia-northeast1/networkEndpointGroups/check-serverless-neg-serverless-neg-run   HTTP
 ```
 
-+ Create a URL map
-  + to route incoming requests to the check-serverless-neg-backend-service backend service
+### Create a URL map
+
++ To route incoming requests to the check-serverless-neg-backend-service backend service.
 
 ```
 gcloud compute url-maps create ${_common}-url-map \
@@ -354,10 +375,6 @@ NAME                               TYPE     CREATION_TIMESTAMP             EXPIR
 check-serverless-neg-www-ssl-cert  MANAGED  2020-07-26T00:35:54.246-07:00               PROVISIONING
     check-serverless-neg.hejda.org: PROVISIONING
 ```
-
-
-:warning: サブ自分で設定しておく -> 先にやっていおく
-
 
 
 + Create a target HTTPS proxy to route requests to your URL map
