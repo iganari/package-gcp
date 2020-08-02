@@ -1,0 +1,9 @@
+#
+# roles/gcp_logging-agent/handlers/main.yml
+#
+
+- name: restart google-fluentd
+  systemd:  
+    name: google-fluentd
+    state: restarted
+  ignore_errors: true
