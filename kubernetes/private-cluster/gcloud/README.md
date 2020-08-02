@@ -1,70 +1,73 @@
 # gcloud コマンドを用いて、限定公開クラスタを構築する
 
+公式
+
+https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters?hl=en#custom_subnet
+
+
 ## 構築作業
 
-+ Docker コンテナを起動する ---> :whale:
+## Create Network
 
 ```
-sh docker-build-run.sh
-```
-
-+ :whale: gcloud の設定を先にいれます。
-
-```
-### ここはよしなに変更して下さい
+### New Env
 
 export _pj='{Your GCP Project ID}'
 export _common='iganari-privcls-gcloud'
-export _region='us-central1'
+export _region='asia-northeast1'
 ```
+
++ gcloud コマンドの設定
 
 ```
 gcloud config configurations create ${_pj}
 
 gcloud config set compute/region ${_region}
-gcloud config set compute/zone us-central1-a
+gcloud config set compute/zone ${_region}-a
 gcloud config set project ${_pj}
 ```
 
-+ :whale: gcloud の設定を確認します。
++ gcloud の設定を確認します。
 
 ```
 gcloud config configurations list
 ```
 
-+ :whale: GCP と認証をします。
++ GCP と認証をします。
   + Web ブラウザ経由で認証をします。
 
 ```
-gcloud auth login
+gcloud auth login -q
 ```
 
-+ :whale: VPC ネットワークを作成します。
++ VPC ネットワークを作成します。
 
 ```
-gcloud beta compute networks create ${_common}-nw \
+gcloud beta compute networks create ${_common}-network \
   --subnet-mode=custom
 ```
 
-+ :whale: サブネットワークを作成します。
++ サブネットワークを作成します。
 
 ```
-gcloud beta compute networks subnets create ${_common}-sb \
-  --network ${_common}-nw \
+gcloud beta compute networks subnets create ${_common}-subnet \
+  --network ${_common}-network \
   --region ${_region} \
   --range 192.168.0.0/20 \
   --secondary-range pods-range=10.4.0.0/14,services-range=10.0.32.0/20 \
   --enable-private-ip-google-access
 ```
 
-+ :whale: Private Cluster (リージョナル) を構築します。
+## Create Regional Cluster
+
++ Private Cluster (リージョナル) を構築します。
 
 ```
 gcloud beta container clusters create ${_common}-cls \
     --region ${_region} \
     --enable-master-authorized-networks \
-    --network ${_common}-nw \
-    --subnetwork ${_common}-sb \
+    --network ${_common}-network \
+    --subnetwork ${_common}-subnet \
     --cluster-secondary-range-name pods-range \
     --services-secondary-range-name services-range \
     --enable-private-nodes \
@@ -77,28 +80,10 @@ gcloud beta container clusters create ${_common}-cls \
     --preemptible
 ```
 
-+ :whale: Cloud Router を作成します。
 
-```
-gcloud compute routers create nat-router \
-  --network ${_common}-nw
-```
+## auth cluster
 
-+ :whale: Cloud NAT を作成します。
-
-```
-gcloud compute routers nats create nat-config \
-    --router-region ${_region} \
-    --router nat-router \
-    --nat-all-subnet-ip-ranges \
-    --auto-allocate-nat-external-ips
-```
-
----> ここまでで構築作業が完了です。
-
-## 認証作業
-
-+ :whale: マスター承認ネットワークを設定します。
++ マスター承認ネットワークを設定します。
 
 ```
 gcloud container clusters update ${_common}-cls \
@@ -122,7 +107,24 @@ gcloud container clusters update ${_common}-cls \
     --master-authorized-networks 126.73.72.145/32
 ```
 
-+ :whale: GKE と承認をします。
++ Cloud Router を作成します
+
+```
+gcloud compute routers create nat-router \
+  --network ${_common}-network
+```
+
++ Cloud NAT を作成します
+
+```
+gcloud compute routers nats create nat-config \
+    --router-region ${_region} \
+    --router nat-router \
+    --nat-all-subnet-ip-ranges \
+    --auto-allocate-nat-external-ips
+```
+
++ GKE と承認をします。
 
 ```
 gcloud container clusters get-credentials ${_common}-cls \
@@ -130,7 +132,7 @@ gcloud container clusters get-credentials ${_common}-cls \
     --project ${_pj}
 ```
 
-+ :whale: Node を確認をします。
++ Node を確認をします。
 
 ```
 kubectl get no
@@ -138,10 +140,14 @@ kubectl get no
 ```
 ### 例
 
-WIP
+# kubectl get no
+NAME                                                  STATUS   ROLES    AGE   VERSION
+gke-iganari-privcls-gclo-default-pool-6f14bb95-nm0z   Ready    <none>   11m   v1.15.12-gke.2
+gke-iganari-privcls-gclo-default-pool-92f6783b-7cnp   Ready    <none>   11m   v1.15.12-gke.2
+gke-iganari-privcls-gclo-default-pool-bdcc9b08-wb1k   Ready    <none>   11m   v1.15.12-gke.2
 ```
 
-+ :whale: Pod を確認します。
++ Pod を確認します。
 
 ```
 kubectl get po
@@ -151,23 +157,22 @@ kubectl get po
 No resources found in default namespace.
 ```
 
-
 ## Kubernetes を使ってみる
 
 適当にサンプルを実行してみて下さい。
 
 ( もし特段思い浮かばなければ、[sample_guestbook](https://github.com/iganari/package-kubernetes/tree/master/sample_guestbook) や [sample_vote](https://github.com/iganari/package-kubernetes/tree/master/sample_vote) をやってみて下さい :)
 
-## 削除作業
+## Delete Resource
 
-+ :whale: GKE を削除します。
++ GKE を削除します。
 
 ```
 gcloud container clusters delete ${_common}-cls \
     --region ${_region}
 ```
 
-+ :whale: Cloud NAT を削除します。
++ Cloud NAT を削除します。
 
 ```
 gcloud compute routers nats delete nat-config \
@@ -175,21 +180,25 @@ gcloud compute routers nats delete nat-config \
     --router nat-router
 ```
 
-+ :whale: Cloud Router を削除します。
++ Cloud Router を削除します。
 
 ```
 gcloud compute routers delete nat-router
 ```
 
-+ :whale: サブネットワークの削除します。
++ サブネットワークの削除します。
 
 ```
-gcloud beta compute networks subnets delete ${_common}-sb \
+gcloud beta compute networks subnets delete ${_common}-subnet \
     --region ${_region}
 ```
 
-+ :whale: VPC ネットワークを削除します。
++ VPC ネットワークを削除します。
 
 ```
-gcloud beta compute networks delete ${_common}-nw
+gcloud beta compute networks delete ${_common}-network
 ```
+
+## closing
+
+Have Fan :)
