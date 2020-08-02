@@ -1,13 +1,20 @@
 # gcloud コマンドを用いて、限定公開クラスタを構築する
 
-公式
+公式ドキュメント
 
-https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters?hl=en#custom_subnet
-
++ https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters?hl=en#custom_subnet
 
 ## 構築作業
 
-## Create Network
+1. [gcloud コマンドの設定](./README.md#set-gcloud-command)
+1. [VPC network の作成](./README.md#create-network)
+1. [GKE の Cluster の作成](./README.md#create-regional-cluster)
+1. [Cluster と認証する](./README.md#auth-cluster)
+1. [リソースの削除](./README.md#delete-resource)
+
+## Set gcloud Command
+
++ 環境変数を設定
 
 ```
 ### New Env
@@ -39,6 +46,8 @@ gcloud config configurations list
 ```
 gcloud auth login -q
 ```
+
+## Create Network
 
 + VPC ネットワークを作成します。
 
