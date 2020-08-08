@@ -1,8 +1,0 @@
-# ref: https://cloud.google.com/run/docs/quickstarts/build-and-deploy?hl=en#python
-
-Dockerfile
-README.md
-*.pyc
-*.pyo
-*.pyd
-__pycache__
