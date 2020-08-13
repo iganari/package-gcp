@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: wordpress
+  namespace: with-cloudsql
+  labels:
+    app: wordpress
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: wordpress
