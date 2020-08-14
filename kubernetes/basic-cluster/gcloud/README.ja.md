@@ -40,7 +40,9 @@
 ここは他の記事におまかせします。
 ```
 
-## GKE の構築
+# GKE の構築
+
+## ネットワークの作成
 
 + gcloud コマンドの configure 機能を使用し設定を管理します
   + また、 GCP 上のプロジェクトID を使用します。
@@ -64,51 +66,51 @@ gcloud auth login
 + 実験用の VPC ネットワークとそれに付随するサブネットワークを作成します。
 
 ```
-export _common_name='iganari-k8s'
+export _common='iganari-k8s'
+export _region='asia-northeast1'
 ```
 ```
-gcloud beta compute networks create ${_common_name}-nw \
+gcloud beta compute networks create ${_common}-network \
   --subnet-mode=custom
 ```
 ```
-gcloud beta compute networks subnets create ${_common_name}-sb \
-  --network ${_common_name}-nw \
-  --region us-central1 \
+gcloud beta compute networks subnets create $_common}-subnet \
+  --network ${_common}-network \
+  --region ${_region} \
   --range 172.16.0.0/12
 ```
 
 + Firewall Rules を作成します。
 
 ```
-gcloud compute firewall-rules create ${_common_name}-nw-allow-internal \
-  --network ${_common_name}-nw \
+gcloud compute firewall-rules create ${_common}-allow-internal-all \
+  --network ${_common}-network \
   --allow tcp:0-65535,udp:0-65535,icmp
 ```
 
-### ゾーンナルクラスター
+## ゾーンナルクラスター
 
 + 単一の Zone 内に Node を 1 台立ち上げます。
-  + Zone は `us-central1-a` を指定します。 
+  + Zone は `asia-northeast1-a` を指定します。 
   + 主に検証用として使って下さい。
 
 + 構築コマンド
 
 ```
-gcloud beta container clusters create ${_common_name} \
-  --network=${_common_name}-nw \
-  --subnetwork=${_common_name}-sb \
-  --zone us-central1-a \
-  --num-nodes=1 \
+gcloud beta container clusters create ${_common}-cluster \
+  --network ${_common}-network \
+  --subnetwork $_common}-subnet \
+  --zone ${_region}-a \
+  --num-nodes 1 \
   --preemptible
 ```
 
 + GKE との認証
 
 ```
-gcloud container clusters get-credentials ${_common_name} \
-  --zone us-central1-a
+gcloud container clusters get-credentials ${_common}-cluster \
+  --zone ${_region}-a
 ```
-
 
 + Node の確認
 
@@ -123,7 +125,7 @@ NAME                                         STATUS   ROLES    AGE   VERSION
 gke-iganari-k8s-default-pool-bba6c328-pgtq   Ready    <none>   29s   v1.13.11-gke.14
 ```
 
-### リージョナルクラスター
+## リージョナルクラスター
 
 + Region の中の Zone 毎に Node を 1 台立ち上げます。
   + Zone 障害に耐性が尽きますが、 Zone 毎に起動するのでコストが高くなります。
@@ -158,7 +160,7 @@ NAME                                         STATUS   ROLES    AGE    VERSION
 gke-iganari-k8s-default-pool-4a9e4df1-k8l8   Ready    <none>   5m4s   v1.13.11-gke.14
 ```
 
-### K8s のバージョンを固定したい場合
+## K8s のバージョンを固定したい場合
 
 + クラスタのバージョンをあえて、古いバージョンに指定して作製します。
   + 2019/11/18 現在は デフォルトのバージョンは `1.13.11-gke.14` であり、選択出来るバージョンで最も古いのは `1.12.10-gke.17` です。
