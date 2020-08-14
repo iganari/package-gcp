@@ -97,9 +97,9 @@ gcloud compute firewall-rules create ${_common}-allow-internal-all \
 + 構築コマンド
 
 ```
-gcloud beta container clusters create ${_common}-cluster \
+gcloud beta container clusters create ${_common}-zonal \
   --network ${_common}-network \
-  --subnetwork $_common}-subnet \
+  --subnetwork ${_common}-subnet \
   --zone ${_region}-a \
   --num-nodes 3 \
   --preemptible
@@ -108,7 +108,7 @@ gcloud beta container clusters create ${_common}-cluster \
 + GKE との認証
 
 ```
-gcloud container clusters get-credentials ${_common}-cluster \
+gcloud container clusters get-credentials ${_common}-zonal \
   --zone ${_region}-a
 ```
 
@@ -133,18 +133,18 @@ WIP
 + 構築コマンド
 
 ```
-gcloud beta container clusters create ${_common_name} \
-  --network=${_common_name}-nw \
-  --subnetwork=${_common_name}-sb \
-  --region us-central1 \
-  --num-nodes=1 \
+gcloud beta container clusters create ${_common}-regional \
+  --network ${_common}-network \
+  --subnetwork ${_common}-subnet \
+  --region ${_region} \
+  --num-nodes 1 \
   --preemptible
 ```
 
 + GKE との認証
 
 ```
-gcloud container clusters get-credentials ${_common_name} \
+gcloud container clusters get-credentials ${_common}-regional \
   --region us-central1
 ```
 
@@ -213,38 +213,38 @@ gke-iganari-k8s-default-pool-a6a52aa1-51b0   Ready    <none>   49s   v1.13.11-gk
 gke-iganari-k8s-default-pool-e3f4e84e-1lk6   Ready    <none>   50s   v1.13.11-gke.14
 ```
 
-## リソースの削除
+# リソースの削除
 
-### K8s クラスターの削除
+## K8s クラスターの削除
 
 + ゾーンクラスタの場合
 
 ```
-gcloud beta container clusters delete ${_common_name} \
-  --zone us-central1-a
+gcloud beta container clusters delete ${_common}-zonal \
+  --zone ${_region}-a
 ```
 
 + リージョナルクラスターの場合
 
 ```
-gcloud beta container clusters delete ${_common_name} \
-  --region us-central1
+gcloud beta container clusters delete ${_common}-regional \
+  --region ${_region}
 ```
 
-### ネットワークの削除
+## ネットワークの削除
 
 + Firewall Rules を削除します。
 
 ```
-gcloud compute firewall-rules delete ${_common_name}-nw-allow-internal
+gcloud beta compute firewall-rules delete ${_common}-allow-internal-all
 ```
 
 + 実験用の VPC ネットワークとそれに付随するサブネットワークを削除します。
 
 ```
-gcloud beta compute networks subnets delete ${_common_name}-sb \
-  --region us-central1
+gcloud beta compute networks subnets delete ${_common}-subnet \
+  --region ${_region}
 ```
 ```
-gcloud beta compute networks delete ${_common_name}-nw
+gcloud beta compute networks delete ${_common}-network
 ```
