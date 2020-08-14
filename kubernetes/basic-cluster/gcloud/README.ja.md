@@ -60,7 +60,7 @@ gcloud config configurations list
   + ブラウザを通しての認証を行います。
 
 ```
-gcloud auth login
+gcloud auth login -q
 ```
 
 + 実験用の VPC ネットワークとそれに付随するサブネットワークを作成します。
@@ -74,7 +74,7 @@ gcloud beta compute networks create ${_common}-network \
   --subnet-mode=custom
 ```
 ```
-gcloud beta compute networks subnets create $_common}-subnet \
+gcloud beta compute networks subnets create ${_common}-subnet \
   --network ${_common}-network \
   --region ${_region} \
   --range 172.16.0.0/12
@@ -90,7 +90,7 @@ gcloud compute firewall-rules create ${_common}-allow-internal-all \
 
 ## ゾーンナルクラスター
 
-+ 単一の Zone 内に Node を 1 台立ち上げます。
++ 単一の Zone 内に Node を 3 台立ち上げます。
   + Zone は `asia-northeast1-a` を指定します。 
   + 主に検証用として使って下さい。
 
@@ -101,7 +101,7 @@ gcloud beta container clusters create ${_common}-cluster \
   --network ${_common}-network \
   --subnetwork $_common}-subnet \
   --zone ${_region}-a \
-  --num-nodes 1 \
+  --num-nodes 3 \
   --preemptible
 ```
 
@@ -120,15 +120,16 @@ OR
 kubectl get node -o wide
 ```
 ```
-$ kubectl get nodes
-NAME                                         STATUS   ROLES    AGE   VERSION
-gke-iganari-k8s-default-pool-bba6c328-pgtq   Ready    <none>   29s   v1.13.11-gke.14
+### Ex.
+
+WIP
 ```
 
 ## リージョナルクラスター
 
 + Region の中の Zone 毎に Node を 1 台立ち上げます。
-  + Zone 障害に耐性が尽きますが、 Zone 毎に起動するのでコストが高くなります。
+  + Zone 障害に耐性が着きます
+
 + 構築コマンド
 
 ```
