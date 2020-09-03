@@ -192,12 +192,6 @@ gcloud beta container node-pools delete default-pool \
   --region ${_region} \
   --project ${_pj}
 ```
-```
-gcloud beta container node-pools delete ${_common}-regional-nodepool \
-  --cluster ${_common}-regional \
-  --region ${_region} \
-  --project ${_pj} -q
-```
 
 + GKE との認証
 
@@ -215,9 +209,11 @@ OR
 kubectl get node -o wide
 ```
 ```
-$ kubectl get node
-NAME                                         STATUS   ROLES    AGE    VERSION
-gke-iganari-k8s-default-pool-4a9e4df1-k8l8   Ready    <none>   5m4s   v1.13.11-gke.14
+# kubectl get node -o wide
+NAME                                                  STATUS   ROLES    AGE   VERSION          INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-basic-gke-region-basic-gke-region-1b0af31f-0jks   Ready    <none>   92s   v1.15.12-gke.2   172.16.0.25   35.243.72.138   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-basic-gke-region-basic-gke-region-85628f84-8sbs   Ready    <none>   98s   v1.15.12-gke.2   172.16.0.23   34.84.183.161   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-basic-gke-region-basic-gke-region-d598db0e-gblr   Ready    <none>   92s   v1.15.12-gke.2   172.16.0.24   34.84.11.94     Container-Optimized OS from Google   4.19.112+        docker://19.3.1
 ```
 
 ## K8s のバージョンを固定したい場合
