@@ -99,7 +99,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   + Zone は `asia-northeast1-a` を指定します。 
   + 主に検証用として使って下さい。
 
-+ 構築コマンド
++ クラスタの作成
 
 ```
 gcloud beta container clusters create ${_common}-zonal \
@@ -111,10 +111,43 @@ gcloud beta container clusters create ${_common}-zonal \
   --project ${_pj}
 ```
 
++ ノードプールの作成
+
+```
+gcloud beta container node-pools create ${_common}-zonal-nodepool \
+  --cluster ${_common}-zonal \
+  --zone ${_region}-a \
+  --num-nodes 3 \
+  --preemptible \
+  --project ${_pj}
+```
+
++ デフォルトのノードプールの削除
+
+```
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-zonal \
+  --zone ${_region}-a \
+  --project ${_pj}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 + GKE との認証
 
 ```
-gcloud container clusters get-credentials ${_common}-zonal \
+gcloud beta container clusters get-credentials ${_common}-zonal \
   --zone ${_region}-a \
   --project ${_pj}
 ```
@@ -141,7 +174,7 @@ gke-basic-gke-zonal-default-pool-0bf00d79-p819   Ready    <none>   2m35s   v1.15
 + Region の中の Zone 毎に Node を 1 台立ち上げます。
   + Zone 障害に耐性が着きます
 
-+ 構築コマンド
++ クラスタの作成
 
 ```
 gcloud beta container clusters create ${_common}-regional \
@@ -153,10 +186,48 @@ gcloud beta container clusters create ${_common}-regional \
   --project ${_pj}
 ```
 
++ ノードプールの作成
+
+```
+gcloud beta container node-pools create ${_common}-regional-nodepool \
+  --cluster ${_common}-regional \
+  --region ${_region} \
+  --num-nodes 1 \
+  --preemptible \
+  --project ${_pj}
+```
+
++ デフォルトのノードプールの削除
+
+```
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-regional \
+  --region ${_region} \
+  --project ${_pj}
+```
+```
+gcloud beta container node-pools delete ${_common}-regional-nodepool \
+  --cluster ${_common}-regional \
+  --region ${_region} \
+  --project ${_pj} -q
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 + GKE との認証
 
 ```
-gcloud container clusters get-credentials ${_common}-regional \
+gcloud beta container clusters get-credentials ${_common}-regional \
   --region ${_region} \
   --project ${_pj}
 ```
