@@ -40,7 +40,9 @@
 ここは他の記事におまかせします。
 ```
 
-## GKE の構築
+# GKE の構築
+
+## ネットワークの作成
 
 + gcloud コマンドの configure 機能を使用し設定を管理します
   + また、 GCP 上のプロジェクトID を使用します。
@@ -58,57 +60,57 @@ gcloud config configurations list
   + ブラウザを通しての認証を行います。
 
 ```
-gcloud auth login
+gcloud auth login -q
 ```
 
 + 実験用の VPC ネットワークとそれに付随するサブネットワークを作成します。
 
 ```
-export _common_name='iganari-k8s'
+export _common='iganari-k8s'
+export _region='asia-northeast1'
 ```
 ```
-gcloud beta compute networks create ${_common_name}-nw \
+gcloud beta compute networks create ${_common}-network \
   --subnet-mode=custom
 ```
 ```
-gcloud beta compute networks subnets create ${_common_name}-sb \
-  --network ${_common_name}-nw \
-  --region us-central1 \
+gcloud beta compute networks subnets create ${_common}-subnet \
+  --network ${_common}-network \
+  --region ${_region} \
   --range 172.16.0.0/12
 ```
 
 + Firewall Rules を作成します。
 
 ```
-gcloud compute firewall-rules create ${_common_name}-nw-allow-internal \
-  --network ${_common_name}-nw \
+gcloud compute firewall-rules create ${_common}-allow-internal-all \
+  --network ${_common}-network \
   --allow tcp:0-65535,udp:0-65535,icmp
 ```
 
-### ゾーンナルクラスター
+## ゾーンナルクラスター
 
-+ 単一の Zone 内に Node を 1 台立ち上げます。
-  + Zone は `us-central1-a` を指定します。 
++ 単一の Zone 内に Node を 3 台立ち上げます。
+  + Zone は `asia-northeast1-a` を指定します。 
   + 主に検証用として使って下さい。
 
 + 構築コマンド
 
 ```
-gcloud beta container clusters create ${_common_name} \
-  --network=${_common_name}-nw \
-  --subnetwork=${_common_name}-sb \
-  --zone us-central1-a \
-  --num-nodes=1 \
+gcloud beta container clusters create ${_common}-zonal \
+  --network ${_common}-network \
+  --subnetwork ${_common}-subnet \
+  --zone ${_region}-a \
+  --num-nodes 3 \
   --preemptible
 ```
 
 + GKE との認証
 
 ```
-gcloud container clusters get-credentials ${_common_name} \
-  --zone us-central1-a
+gcloud container clusters get-credentials ${_common}-zonal \
+  --zone ${_region}-a
 ```
-
 
 + Node の確認
 
@@ -118,30 +120,31 @@ OR
 kubectl get node -o wide
 ```
 ```
-$ kubectl get nodes
-NAME                                         STATUS   ROLES    AGE   VERSION
-gke-iganari-k8s-default-pool-bba6c328-pgtq   Ready    <none>   29s   v1.13.11-gke.14
+### Ex.
+
+WIP
 ```
 
-### リージョナルクラスター
+## リージョナルクラスター
 
 + Region の中の Zone 毎に Node を 1 台立ち上げます。
-  + Zone 障害に耐性が尽きますが、 Zone 毎に起動するのでコストが高くなります。
+  + Zone 障害に耐性が着きます
+
 + 構築コマンド
 
 ```
-gcloud beta container clusters create ${_common_name} \
-  --network=${_common_name}-nw \
-  --subnetwork=${_common_name}-sb \
-  --region us-central1 \
-  --num-nodes=1 \
+gcloud beta container clusters create ${_common}-regional \
+  --network ${_common}-network \
+  --subnetwork ${_common}-subnet \
+  --region ${_region} \
+  --num-nodes 1 \
   --preemptible
 ```
 
 + GKE との認証
 
 ```
-gcloud container clusters get-credentials ${_common_name} \
+gcloud container clusters get-credentials ${_common}-regional \
   --region us-central1
 ```
 
@@ -158,7 +161,7 @@ NAME                                         STATUS   ROLES    AGE    VERSION
 gke-iganari-k8s-default-pool-4a9e4df1-k8l8   Ready    <none>   5m4s   v1.13.11-gke.14
 ```
 
-### K8s のバージョンを固定したい場合
+## K8s のバージョンを固定したい場合
 
 + クラスタのバージョンをあえて、古いバージョンに指定して作製します。
   + 2019/11/18 現在は デフォルトのバージョンは `1.13.11-gke.14` であり、選択出来るバージョンで最も古いのは `1.12.10-gke.17` です。
@@ -210,38 +213,38 @@ gke-iganari-k8s-default-pool-a6a52aa1-51b0   Ready    <none>   49s   v1.13.11-gk
 gke-iganari-k8s-default-pool-e3f4e84e-1lk6   Ready    <none>   50s   v1.13.11-gke.14
 ```
 
-## リソースの削除
+# リソースの削除
 
-### K8s クラスターの削除
+## K8s クラスターの削除
 
 + ゾーンクラスタの場合
 
 ```
-gcloud beta container clusters delete ${_common_name} \
-  --zone us-central1-a
+gcloud beta container clusters delete ${_common}-zonal \
+  --zone ${_region}-a
 ```
 
 + リージョナルクラスターの場合
 
 ```
-gcloud beta container clusters delete ${_common_name} \
-  --region us-central1
+gcloud beta container clusters delete ${_common}-regional \
+  --region ${_region}
 ```
 
-### ネットワークの削除
+## ネットワークの削除
 
 + Firewall Rules を削除します。
 
 ```
-gcloud compute firewall-rules delete ${_common_name}-nw-allow-internal
+gcloud beta compute firewall-rules delete ${_common}-allow-internal-all
 ```
 
 + 実験用の VPC ネットワークとそれに付随するサブネットワークを削除します。
 
 ```
-gcloud beta compute networks subnets delete ${_common_name}-sb \
-  --region us-central1
+gcloud beta compute networks subnets delete ${_common}-subnet \
+  --region ${_region}
 ```
 ```
-gcloud beta compute networks delete ${_common_name}-nw
+gcloud beta compute networks delete ${_common}-network
 ```
