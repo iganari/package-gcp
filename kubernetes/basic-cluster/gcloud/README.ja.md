@@ -297,7 +297,11 @@ kubectl get node -o wide
 ```
 ### Ex.
 
-
+# kubectl get node -o wide
+NAME                                                  STATUS   ROLES    AGE   VERSION            INTERNAL-IP   EXTERNAL-IP      OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-basic-gke-spver-basic-gke-spver-n-8b5878f5-j8hq   Ready    <none>   79s   v1.17.9-gke.1503   172.16.0.45   35.200.77.146    Container-Optimized OS from Google   4.19.112+        docker://19.3.6
+gke-basic-gke-spver-basic-gke-spver-n-b46157e3-909w   Ready    <none>   71s   v1.17.9-gke.1503   172.16.0.46   35.243.72.138    Container-Optimized OS from Google   4.19.112+        docker://19.3.6
+gke-basic-gke-spver-basic-gke-spver-n-e77d6153-cjhx   Ready    <none>   74s   v1.17.9-gke.1503   172.16.0.44   35.243.127.218   Container-Optimized OS from Google   4.19.112+        docker://19.3.6
 ```
 
 # リソースの削除
@@ -319,6 +323,15 @@ gcloud beta container clusters delete ${_common}-regional \
   --region ${_region} \
   --project ${_pj}
 ```
+
++ リリースチャンネルを指定したクラスタ(zonal)を削除する
+
+```
+gcloud beta container clusters delete ${_common}-spver \
+  --region ${_region} \
+  --project ${_pj}
+```
+
 
 ## ネットワークの削除
 
