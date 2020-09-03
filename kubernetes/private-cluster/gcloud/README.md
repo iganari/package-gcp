@@ -12,36 +12,39 @@
 1. [Cluster と認証する](./README.md#auth-cluster)
 1. [リソースの削除](./README.md#delete-resource)
 
-## Set gcloud Command
+## アカウント準備
 
-+ 環境変数を設定
-
-```
-### New Env
-
-export _pj='{Your GCP Project ID}'
-export _common='iganari-privcls-gcloud'
-export _region='asia-northeast1'
-```
-
-+ gcloud コマンドの設定
++ GCP のアカウントを作成します。
 
 ```
+ここは他の記事におまかせします。
+```
+
++ GCP のプロジェクト作成
+
+```
+ここは他の記事におまかせします。
+```
+
+# GKE の構築
+
+## ネットワークの作成
+
++ gcloud コマンドの configure 機能を使用し設定を管理します
+  + また、 GCP 上のプロジェクトID を使用します。
+  
+```
+### Add New Env
+export _pj='GCP のプロジェクトID'
+  
+  
 gcloud config configurations create ${_pj}
-
-gcloud config set compute/region ${_region}
-gcloud config set compute/zone ${_region}-a
 gcloud config set project ${_pj}
-```
-
-+ gcloud の設定を確認します。
-
-```
 gcloud config configurations list
 ```
 
-+ GCP と認証をします。
-  + Web ブラウザ経由で認証をします。
++ GCP の認証
+  + ブラウザを通しての認証を行います。
 
 ```
 gcloud auth login -q
@@ -49,11 +52,18 @@ gcloud auth login -q
 
 ## Create Network
 
+```
+### Add New Env
+export _common='private-gke'
+export _region='asia-northeast1'
+```
+
 + VPC ネットワークを作成します。
 
 ```
 gcloud beta compute networks create ${_common}-network \
-  --subnet-mode=custom
+  --subnet-mode=custom \
+  --project ${_pj}
 ```
 
 + サブネットワークを作成します。
@@ -62,9 +72,18 @@ gcloud beta compute networks create ${_common}-network \
 gcloud beta compute networks subnets create ${_common}-subnet \
   --network ${_common}-network \
   --region ${_region} \
-  --range 192.168.0.0/20 \
+  --range 172.16.0.0/12 \
   --secondary-range pods-range=10.4.0.0/14,services-range=10.0.32.0/20 \
   --enable-private-ip-google-access
+```
+
++ Firewall Rules を作成します。
+
+```
+gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
+  --network ${_common}-network \
+  --allow tcp:0-65535,udp:0-65535,icmp \
+  --project ${_pj}
 ```
 
 ## Create Regional Cluster
@@ -72,30 +91,50 @@ gcloud beta compute networks subnets create ${_common}-subnet \
 + Private Cluster (リージョナル) を構築します。
 
 ```
-gcloud beta container clusters create ${_common}-cls \
-    --region ${_region} \
-    --enable-master-authorized-networks \
-    --network ${_common}-network \
-    --subnetwork ${_common}-subnet \
-    --cluster-secondary-range-name pods-range \
-    --services-secondary-range-name services-range \
-    --enable-private-nodes \
-    --enable-ip-alias \
-    --master-ipv4-cidr 172.16.0.16/28 \
-    --no-enable-basic-auth \
-    --no-issue-client-certificate \
-    --num-nodes=1 \
-    --release-channel stable \
-    --preemptible
+gcloud beta container clusters create ${_common}-regional \
+  --region ${_region} \
+  --enable-master-authorized-networks \
+  --network ${_common}-network \
+  --subnetwork ${_common}-subnet \
+  --cluster-secondary-range-name pods-range \
+  --services-secondary-range-name services-range \
+  --enable-private-nodes \
+  --enable-ip-alias \
+  --master-ipv4-cidr 192.168.100.0/28 \
+  --no-enable-basic-auth \
+  --no-issue-client-certificate \
+  --num-nodes=1 \
+  --release-channel stable \
+  --preemptible \
+  --project ${_pj}
 ```
 
++ デフォルトのノードプールの削除
+
+```
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-regional \
+  --region ${_region} \
+  --project ${_pj}
+```
+
++ ノードプールの作成
+
+```
+gcloud beta container node-pools create ${_common}-regional-nodepool \
+  --cluster ${_common}-regional \
+  --region ${_region} \
+  --num-nodes 1 \
+  --preemptible \
+  --project ${_pj}
+```
 
 ## auth cluster
 
 + マスター承認ネットワークを設定します。
 
 ```
-gcloud container clusters update ${_common}-cls \
+gcloud container clusters update ${_common}-regional \
     --region ${_region} \
     --enable-master-authorized-networks \
     --master-authorized-networks [EXISTING_AUTH_NETS],[SHELL_IP]/32
@@ -110,59 +149,64 @@ dig +short myip.opendns.com @resolver1.opendns.com
 curl ipaddr.io
 
 # マスター承認ネットワークの設定をします。
-gcloud container clusters update ${_common}-cls \
-    --region ${_region} \
-    --enable-master-authorized-networks \
-    --master-authorized-networks 126.73.72.145/32
+gcloud container clusters update ${_common}-regional \
+  --region ${_region} \
+  --enable-master-authorized-networks \
+  --master-authorized-networks 126.73.72.145/32
 ```
 
 + Cloud Router を作成します
 
 ```
-gcloud compute routers create nat-router \
-  --network ${_common}-network
+gcloud compute routers create ${_common}-nat-router \
+  --network ${_common}-network \
+  --region ${_region} \
+  --project ${_pj}
 ```
 
 + Cloud NAT を作成します
 
 ```
-gcloud compute routers nats create nat-config \
-    --router-region ${_region} \
-    --router nat-router \
-    --nat-all-subnet-ip-ranges \
-    --auto-allocate-nat-external-ips
+gcloud compute routers nats create ${_common}-nat-config \
+  --router-region ${_region} \
+  --router ${_common}-nat-router \
+  --nat-all-subnet-ip-ranges \
+  --auto-allocate-nat-external-ips \
+  --project ${_pj}
 ```
 
 + GKE と承認をします。
 
 ```
-gcloud container clusters get-credentials ${_common}-cls \
-    --region ${_region} \
-    --project ${_pj}
+gcloud container clusters get-credentials ${_common}-regional \
+  --region ${_region} \
+  --project ${_pj}
 ```
 
 + Node を確認をします。
 
 ```
-kubectl get no
+kubectl get node
+OR
+kubectl get node -o wide
 ```
 ```
 ### 例
 
-# kubectl get no
-NAME                                                  STATUS   ROLES    AGE   VERSION
-gke-iganari-privcls-gclo-default-pool-6f14bb95-nm0z   Ready    <none>   11m   v1.15.12-gke.2
-gke-iganari-privcls-gclo-default-pool-92f6783b-7cnp   Ready    <none>   11m   v1.15.12-gke.2
-gke-iganari-privcls-gclo-default-pool-bdcc9b08-wb1k   Ready    <none>   11m   v1.15.12-gke.2
+# kubectl get node -o wide
+NAME                                                  STATUS   ROLES    AGE    VERSION          INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-private-gke-regi-private-gke-regi-a69b582d-fb9r   Ready    <none>   111s   v1.15.12-gke.2   172.16.0.6                  Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-private-gke-regi-private-gke-regi-b9af1f71-6zhk   Ready    <none>   100s   v1.15.12-gke.2   172.16.0.7                  Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-private-gke-regi-private-gke-regi-bf070d09-1v7b   Ready    <none>   117s   v1.15.12-gke.2   172.16.0.5                  Container-Optimized OS from Google   4.19.112+        docker://19.3.1
 ```
 
 + Pod を確認します。
 
 ```
-kubectl get po
+kubectl get pod
 ```
 ```
-# kubectl get po
+# kubectl get pod
 No resources found in default namespace.
 ```
 
@@ -177,35 +221,48 @@ No resources found in default namespace.
 + GKE を削除します。
 
 ```
-gcloud container clusters delete ${_common}-cls \
-    --region ${_region}
+gcloud container clusters delete ${_common}-regional \
+  --region ${_region} \
+  --project ${_pj}
 ```
 
 + Cloud NAT を削除します。
 
 ```
-gcloud compute routers nats delete nat-config \
-    --router-region ${_region} \
-    --router nat-router
+gcloud compute routers nats delete ${_common}-nat-config \
+  --router-region ${_region} \
+  --router ${_common}-nat-router \
+  --project ${_pj}
 ```
 
 + Cloud Router を削除します。
 
 ```
-gcloud compute routers delete nat-router
+gcloud compute routers delete ${_common}-nat-router \
+  --region ${_region} \
+  --project ${_pj}
+```
+
++ Firewall Rules を削除
+
+```
+gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
+  --project ${_pj}
 ```
 
 + サブネットワークの削除します。
 
 ```
 gcloud beta compute networks subnets delete ${_common}-subnet \
-    --region ${_region}
+  --region ${_region} \
+  --project ${_pj}
 ```
 
 + VPC ネットワークを削除します。
 
 ```
-gcloud beta compute networks delete ${_common}-network
+gcloud beta compute networks delete ${_common}-network \
+  --project ${_pj}
 ```
 
 ## closing
