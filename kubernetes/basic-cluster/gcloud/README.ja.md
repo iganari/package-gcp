@@ -324,7 +324,7 @@ gcloud beta container clusters delete ${_common}-regional \
   --project ${_pj}
 ```
 
-+ リリースチャンネルを指定したクラスタ(zonal)を削除する
++ リリースチャンネルを指定したクラスタ(regional)を削除する
 
 ```
 gcloud beta container clusters delete ${_common}-spver \
