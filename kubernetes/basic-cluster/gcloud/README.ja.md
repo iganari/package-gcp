@@ -40,13 +40,16 @@
 ここは他の記事におまかせします。
 ```
 
-## GKE の構築
+# GKE の構築
+
+## ネットワークの作成
 
 + gcloud コマンドの configure 機能を使用し設定を管理します
   + また、 GCP 上のプロジェクトID を使用します。
   
 ```
-export _pj='GCP 上のプロジェクトID'
+### Add New Env
+export _pj='GCP のプロジェクトID'
   
   
 gcloud config configurations create ${_pj}
@@ -58,57 +61,83 @@ gcloud config configurations list
   + ブラウザを通しての認証を行います。
 
 ```
-gcloud auth login
+gcloud auth login -q
 ```
 
 + 実験用の VPC ネットワークとそれに付随するサブネットワークを作成します。
 
 ```
-export _common_name='iganari-k8s'
+### Add New Env
+export _common='basic-gke'
+export _region='asia-northeast1'
 ```
 ```
-gcloud beta compute networks create ${_common_name}-nw \
-  --subnet-mode=custom
+gcloud beta compute networks create ${_common}-network \
+  --subnet-mode=custom \
+  --project ${_pj}
 ```
 ```
-gcloud beta compute networks subnets create ${_common_name}-sb \
-  --network ${_common_name}-nw \
-  --region us-central1 \
-  --range 172.16.0.0/12
+gcloud beta compute networks subnets create ${_common}-subnets \
+  --network ${_common}-network \
+  --region ${_region} \
+  --range 172.16.0.0/12 \
+  --project ${_pj}
 ```
 
 + Firewall Rules を作成します。
 
 ```
-gcloud compute firewall-rules create ${_common_name}-nw-allow-internal \
-  --network ${_common_name}-nw \
-  --allow tcp:0-65535,udp:0-65535,icmp
+gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
+  --network ${_common}-network \
+  --allow tcp:0-65535,udp:0-65535,icmp \
+  --project ${_pj}
 ```
 
-### ゾーンナルクラスター
+## ゾーンナルクラスタ
 
-+ 単一の Zone 内に Node を 1 台立ち上げます。
-  + Zone は `us-central1-a` を指定します。 
++ 単一の Zone 内に Node を 3 台立ち上げます。
+  + Zone は `asia-northeast1-a` を指定します。 
   + 主に検証用として使って下さい。
 
-+ 構築コマンド
++ クラスタの作成
 
 ```
-gcloud beta container clusters create ${_common_name} \
-  --network=${_common_name}-nw \
-  --subnetwork=${_common_name}-sb \
-  --zone us-central1-a \
-  --num-nodes=1 \
-  --preemptible
+gcloud beta container clusters create ${_common}-zonal \
+  --network ${_common}-network \
+  --subnetwork ${_common}-subnets \
+  --zone ${_region}-a \
+  --num-nodes 3 \
+  --preemptible \
+  --project ${_pj}
+```
+
++ デフォルトのノードプールの削除
+
+```
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-zonal \
+  --zone ${_region}-a \
+  --project ${_pj}
+```
+
++ ノードプールの作成
+
+```
+gcloud beta container node-pools create ${_common}-zonal-nodepool \
+  --cluster ${_common}-zonal \
+  --zone ${_region}-a \
+  --num-nodes 3 \
+  --preemptible \
+  --project ${_pj}
 ```
 
 + GKE との認証
 
 ```
-gcloud container clusters get-credentials ${_common_name} \
-  --zone us-central1-a
+gcloud beta container clusters get-credentials ${_common}-zonal \
+  --zone ${_region}-a \
+  --project ${_pj}
 ```
-
 
 + Node の確認
 
@@ -118,31 +147,58 @@ OR
 kubectl get node -o wide
 ```
 ```
-$ kubectl get nodes
-NAME                                         STATUS   ROLES    AGE   VERSION
-gke-iganari-k8s-default-pool-bba6c328-pgtq   Ready    <none>   29s   v1.13.11-gke.14
+### Ex.
+
+# kubectl get node -o wide
+NAME                                                  STATUS   ROLES    AGE    VERSION          INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-basic-gke-zonal-basic-gke-zonal-n-da6ec9dd-8q7h   Ready    <none>   3m5s   v1.15.12-gke.2   172.16.0.21   35.200.77.146   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-basic-gke-zonal-basic-gke-zonal-n-da6ec9dd-fpns   Ready    <none>   3m7s   v1.15.12-gke.2   172.16.0.22   34.84.124.17    Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-basic-gke-zonal-basic-gke-zonal-n-da6ec9dd-zkj2   Ready    <none>   3m5s   v1.15.12-gke.2   172.16.0.20   34.84.183.161   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
 ```
 
-### リージョナルクラスター
+## リージョナルクラスタ
 
 + Region の中の Zone 毎に Node を 1 台立ち上げます。
-  + Zone 障害に耐性が尽きますが、 Zone 毎に起動するのでコストが高くなります。
-+ 構築コマンド
+  + Zone 障害に耐性が着きます
+
++ クラスタの作成
 
 ```
-gcloud beta container clusters create ${_common_name} \
-  --network=${_common_name}-nw \
-  --subnetwork=${_common_name}-sb \
-  --region us-central1 \
-  --num-nodes=1 \
-  --preemptible
+gcloud beta container clusters create ${_common}-regional \
+  --network ${_common}-network \
+  --subnetwork ${_common}-subnets \
+  --region ${_region} \
+  --num-nodes 1 \
+  --preemptible \
+  --project ${_pj}
+```
+
++ デフォルトのノードプールの削除
+
+```
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-regional \
+  --region ${_region} \
+  --project ${_pj}
+```
+
++ ノードプールの作成
+
+```
+gcloud beta container node-pools create ${_common}-regional-nodepool \
+  --cluster ${_common}-regional \
+  --region ${_region} \
+  --num-nodes 1 \
+  --preemptible \
+  --project ${_pj}
 ```
 
 + GKE との認証
 
 ```
-gcloud container clusters get-credentials ${_common_name} \
-  --region us-central1
+gcloud beta container clusters get-credentials ${_common}-regional \
+  --region ${_region} \
+  --project ${_pj}
 ```
 
 + Node の確認
@@ -153,44 +209,82 @@ OR
 kubectl get node -o wide
 ```
 ```
-$ kubectl get node
-NAME                                         STATUS   ROLES    AGE    VERSION
-gke-iganari-k8s-default-pool-4a9e4df1-k8l8   Ready    <none>   5m4s   v1.13.11-gke.14
+### Ex.
+
+# kubectl get node -o wide
+NAME                                                  STATUS   ROLES    AGE   VERSION          INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-basic-gke-region-basic-gke-region-1b0af31f-0jks   Ready    <none>   92s   v1.15.12-gke.2   172.16.0.25   35.243.72.138   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-basic-gke-region-basic-gke-region-85628f84-8sbs   Ready    <none>   98s   v1.15.12-gke.2   172.16.0.23   34.84.183.161   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-basic-gke-region-basic-gke-region-d598db0e-gblr   Ready    <none>   92s   v1.15.12-gke.2   172.16.0.24   34.84.11.94     Container-Optimized OS from Google   4.19.112+        docker://19.3.1
 ```
 
-### K8s のバージョンを固定したい場合
+## GKE のリリースチャンネルを指定する
 
-+ クラスタのバージョンをあえて、古いバージョンに指定して作製します。
-  + 2019/11/18 現在は デフォルトのバージョンは `1.13.11-gke.14` であり、選択出来るバージョンで最も古いのは `1.12.10-gke.17` です。
-
-+ 構築コマンド
++ 指定出来るリリースチャンネルの確認
 
 ```
-gcloud beta container clusters create ${_common_name} \
-  --network=${_common_name}-nw \
-  --subnetwork=${_common_name}-sb \
-  --zone us-central1-a \
-  --num-nodes=1 \
+gcloud beta container get-server-config --region ${_region}
+```
+```
+### Ex.
+
+# gcloud beta container get-server-config --region ${_region}
+channels:
+- channel: RAPID
+  defaultVersion: 1.17.9-gke.1503
+  validVersions:
+  - 1.17.9-gke.1503
+- channel: REGULAR
+  defaultVersion: 1.16.13-gke.1
+  validVersions:
+  - 1.16.13-gke.1
+- channel: STABLE
+  defaultVersion: 1.15.12-gke.2
+  validVersions:
+  - 1.15.12-gke.9
+  - 1.15.12-gke.2
+```
+
++ クラスタの作成
+  + `RAPID` を指定する
+
+```
+gcloud beta container clusters create ${_common}-spver \
+  --network ${_common}-network \
+  --subnetwork ${_common}-subnets \
+  --region ${_region} \
+  --num-nodes 1 \
   --preemptible \
-  --cluster-version=1.12.10-gke.17
+  --release-channel rapid \
+  --project ${_pj}
 ```
 
-+ Node の確認
++ デフォルトのノードプールの削除
 
 ```
-WIP
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-spver \
+  --region ${_region} \
+  --project ${_pj}
 ```
 
-## Kubernetes との認証
-
-GKE と認証が通ってないエラーが出た場合は、以下のコマンドで認証をしましょう。
-
-+ GKE のクラスターとの認証をします。
++ ノードプールの作成
 
 ```
-gcloud auth login
-gcloud config set compute/zone us-central1
-gcloud container clusters get-credentials ${_common_name}
+gcloud beta container node-pools create ${_common}-spver-nodepool \
+  --cluster ${_common}-spver \
+  --region ${_region} \
+  --num-nodes 1 \
+  --preemptible \
+  --project ${_pj}
+```
+
++ GKE との認証
+
+```
+gcloud beta container clusters get-credentials ${_common}-spver \
+  --region ${_region} \
+  --project ${_pj}
 ```
 
 + Node の確認
@@ -201,47 +295,61 @@ OR
 kubectl get node -o wide
 ```
 ```
-### 例(リージョナルで作成した時)
+### Ex.
 
-$ kubectl get node
-NAME                                         STATUS   ROLES    AGE   VERSION
-gke-iganari-k8s-default-pool-483b7289-4cvc   Ready    <none>   50s   v1.13.11-gke.14
-gke-iganari-k8s-default-pool-a6a52aa1-51b0   Ready    <none>   49s   v1.13.11-gke.14
-gke-iganari-k8s-default-pool-e3f4e84e-1lk6   Ready    <none>   50s   v1.13.11-gke.14
+# kubectl get node -o wide
+NAME                                                  STATUS   ROLES    AGE   VERSION            INTERNAL-IP   EXTERNAL-IP      OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-basic-gke-spver-basic-gke-spver-n-8b5878f5-j8hq   Ready    <none>   79s   v1.17.9-gke.1503   172.16.0.45   35.200.77.146    Container-Optimized OS from Google   4.19.112+        docker://19.3.6
+gke-basic-gke-spver-basic-gke-spver-n-b46157e3-909w   Ready    <none>   71s   v1.17.9-gke.1503   172.16.0.46   35.243.72.138    Container-Optimized OS from Google   4.19.112+        docker://19.3.6
+gke-basic-gke-spver-basic-gke-spver-n-e77d6153-cjhx   Ready    <none>   74s   v1.17.9-gke.1503   172.16.0.44   35.243.127.218   Container-Optimized OS from Google   4.19.112+        docker://19.3.6
 ```
 
-## リソースの削除
+# リソースの削除
 
-### K8s クラスターの削除
+## K8s クラスターの削除
 
 + ゾーンクラスタの場合
 
 ```
-gcloud beta container clusters delete ${_common_name} \
-  --zone us-central1-a
+gcloud beta container clusters delete ${_common}-zonal \
+  --zone ${_region}-a \
+  --project ${_pj}
 ```
 
-+ リージョナルクラスターの場合
++ リージョナルクラスタの場合
 
 ```
-gcloud beta container clusters delete ${_common_name} \
-  --region us-central1
+gcloud beta container clusters delete ${_common}-regional \
+  --region ${_region} \
+  --project ${_pj}
 ```
 
-### ネットワークの削除
-
-+ Firewall Rules を削除します。
++ リリースチャンネルを指定したクラスタ(regional)を削除する
 
 ```
-gcloud compute firewall-rules delete ${_common_name}-nw-allow-internal
+gcloud beta container clusters delete ${_common}-spver \
+  --region ${_region} \
+  --project ${_pj}
 ```
 
-+ 実験用の VPC ネットワークとそれに付随するサブネットワークを削除します。
+
+## ネットワークの削除
+
++ Firewall Rules を削除
 
 ```
-gcloud beta compute networks subnets delete ${_common_name}-sb \
-  --region us-central1
+gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
+  --project ${_pj}
+```
+
++ VPC ネットワークとそれに付随するサブネットワークを削除
+
+```
+gcloud beta compute networks subnets delete ${_common}-subnets \
+  --region ${_region} \
+  --project ${_pj}
 ```
 ```
-gcloud beta compute networks delete ${_common_name}-nw
+gcloud beta compute networks delete ${_common}-network \
+  --project ${_pj}
 ```
