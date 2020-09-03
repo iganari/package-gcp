@@ -111,6 +111,15 @@ gcloud beta container clusters create ${_common}-zonal \
   --project ${_pj}
 ```
 
++ デフォルトのノードプールの削除
+
+```
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-zonal \
+  --zone ${_region}-a \
+  --project ${_pj}
+```
+
 + ノードプールの作成
 
 ```
@@ -119,15 +128,6 @@ gcloud beta container node-pools create ${_common}-zonal-nodepool \
   --zone ${_region}-a \
   --num-nodes 3 \
   --preemptible \
-  --project ${_pj}
-```
-
-+ デフォルトのノードプールの削除
-
-```
-gcloud beta container node-pools delete default-pool \
-  --cluster ${_common}-zonal \
-  --zone ${_region}-a \
   --project ${_pj}
 ```
 
@@ -173,6 +173,15 @@ gcloud beta container clusters create ${_common}-regional \
   --project ${_pj}
 ```
 
++ デフォルトのノードプールの削除
+
+```
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-regional \
+  --region ${_region} \
+  --project ${_pj}
+```
+
 + ノードプールの作成
 
 ```
@@ -181,15 +190,6 @@ gcloud beta container node-pools create ${_common}-regional-nodepool \
   --region ${_region} \
   --num-nodes 1 \
   --preemptible \
-  --project ${_pj}
-```
-
-+ デフォルトのノードプールの削除
-
-```
-gcloud beta container node-pools delete default-pool \
-  --cluster ${_common}-regional \
-  --region ${_region} \
   --project ${_pj}
 ```
 
@@ -259,6 +259,15 @@ gcloud beta container clusters create ${_common}-spver \
   --project ${_pj}
 ```
 
++ デフォルトのノードプールの削除
+
+```
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-spver \
+  --region ${_region} \
+  --project ${_pj}
+```
+
 + ノードプールの作成
 
 ```
@@ -267,15 +276,6 @@ gcloud beta container node-pools create ${_common}-spver-nodepool \
   --region ${_region} \
   --num-nodes 1 \
   --preemptible \
-  --project ${_pj}
-```
-
-+ デフォルトのノードプールの削除
-
-```
-gcloud beta container node-pools delete default-pool \
-  --cluster ${_common}-spver \
-  --region ${_region} \
   --project ${_pj}
 ```
 
