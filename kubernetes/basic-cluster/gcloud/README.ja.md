@@ -131,19 +131,6 @@ gcloud beta container node-pools delete default-pool \
   --project ${_pj}
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 + GKE との認証
 
 ```
@@ -163,10 +150,10 @@ kubectl get node -o wide
 ### Ex.
 
 # kubectl get node -o wide
-NAME                                             STATUS   ROLES    AGE     VERSION          INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
-gke-basic-gke-zonal-default-pool-0bf00d79-10f2   Ready    <none>   2m35s   v1.15.12-gke.2   172.16.0.4    35.221.127.36   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
-gke-basic-gke-zonal-default-pool-0bf00d79-4d6h   Ready    <none>   2m35s   v1.15.12-gke.2   172.16.0.2    35.200.93.126   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
-gke-basic-gke-zonal-default-pool-0bf00d79-p819   Ready    <none>   2m35s   v1.15.12-gke.2   172.16.0.3    34.85.37.228    Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+NAME                                                  STATUS   ROLES    AGE    VERSION          INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-basic-gke-zonal-basic-gke-zonal-n-da6ec9dd-8q7h   Ready    <none>   3m5s   v1.15.12-gke.2   172.16.0.21   35.200.77.146   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-basic-gke-zonal-basic-gke-zonal-n-da6ec9dd-fpns   Ready    <none>   3m7s   v1.15.12-gke.2   172.16.0.22   34.84.124.17    Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-basic-gke-zonal-basic-gke-zonal-n-da6ec9dd-zkj2   Ready    <none>   3m5s   v1.15.12-gke.2   172.16.0.20   34.84.183.161   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
 ```
 
 ## リージョナルクラスタ
@@ -211,18 +198,6 @@ gcloud beta container node-pools delete ${_common}-regional-nodepool \
   --region ${_region} \
   --project ${_pj} -q
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
 + GKE との認証
 
