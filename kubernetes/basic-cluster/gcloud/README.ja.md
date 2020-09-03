@@ -294,34 +294,9 @@ kubectl get node
 OR
 kubectl get node -o wide
 ```
-
-## Kubernetes との認証
-
-GKE と認証が通ってないエラーが出た場合は、以下のコマンドで認証をしましょう。
-
-+ GKE のクラスターとの認証をします。
-
 ```
-gcloud auth login
-gcloud config set compute/zone us-central1
-gcloud container clusters get-credentials ${_common_name}
-```
+### Ex.
 
-+ Node の確認
-
-```
-kubectl get node
-OR
-kubectl get node -o wide
-```
-```
-### 例(リージョナルで作成した時)
-
-$ kubectl get node
-NAME                                         STATUS   ROLES    AGE   VERSION
-gke-iganari-k8s-default-pool-483b7289-4cvc   Ready    <none>   50s   v1.13.11-gke.14
-gke-iganari-k8s-default-pool-a6a52aa1-51b0   Ready    <none>   49s   v1.13.11-gke.14
-gke-iganari-k8s-default-pool-e3f4e84e-1lk6   Ready    <none>   50s   v1.13.11-gke.14
 ```
 
 # リソースの削除
@@ -346,23 +321,17 @@ gcloud beta container clusters delete ${_common}-regional \
 
 ## ネットワークの削除
 
-+ Firewall Rules を削除します。
++ Firewall Rules を削除
 
 ```
 gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
   --project ${_pj}
 ```
-```
-gcloud compute firewall-rules create ${_common}-allow-internal-all \
-  --network ${_common}-network \
-  --allow tcp:0-65535,udp:0-65535,icmp \
-  --project ${_pj}
-```
 
-+ 実験用の VPC ネットワークとそれに付随するサブネットワークを削除します。
++ VPC ネットワークとそれに付随するサブネットワークを削除
 
 ```
-gcloud beta compute networks subnets delete ${_common}-subnet \
+gcloud beta compute networks subnets delete ${_common}-subnets \
   --region ${_region}
 ```
 ```
