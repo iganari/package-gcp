@@ -297,6 +297,7 @@ kubectl get node -o wide
 ```
 ### Ex.
 
+
 ```
 
 # リソースの削除
