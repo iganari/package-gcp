@@ -48,7 +48,8 @@
   + また、 GCP 上のプロジェクトID を使用します。
   
 ```
-export _pj='GCP 上のプロジェクトID'
+### Add New Env
+export _pj='GCP のプロジェクトID'
   
   
 gcloud config configurations create ${_pj}
@@ -66,29 +67,33 @@ gcloud auth login -q
 + 実験用の VPC ネットワークとそれに付随するサブネットワークを作成します。
 
 ```
-export _common='iganari-k8s'
+### Add New Env
+export _common='basic-gke'
 export _region='asia-northeast1'
 ```
 ```
 gcloud beta compute networks create ${_common}-network \
-  --subnet-mode=custom
+  --subnet-mode=custom \
+  --project ${_pj}
 ```
 ```
-gcloud beta compute networks subnets create ${_common}-subnet \
+gcloud beta compute networks subnets create ${_common}-subnets \
   --network ${_common}-network \
   --region ${_region} \
-  --range 172.16.0.0/12
+  --range 172.16.0.0/12 \
+  --project ${_pj}
 ```
 
 + Firewall Rules を作成します。
 
 ```
-gcloud compute firewall-rules create ${_common}-allow-internal-all \
+gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   --network ${_common}-network \
-  --allow tcp:0-65535,udp:0-65535,icmp
+  --allow tcp:0-65535,udp:0-65535,icmp \
+  --project ${_pj}
 ```
 
-## ゾーンナルクラスター
+## ゾーンナルクラスタ
 
 + 単一の Zone 内に Node を 3 台立ち上げます。
   + Zone は `asia-northeast1-a` を指定します。 
@@ -99,17 +104,19 @@ gcloud compute firewall-rules create ${_common}-allow-internal-all \
 ```
 gcloud beta container clusters create ${_common}-zonal \
   --network ${_common}-network \
-  --subnetwork ${_common}-subnet \
+  --subnetwork ${_common}-subnets \
   --zone ${_region}-a \
   --num-nodes 3 \
-  --preemptible
+  --preemptible \
+  --project ${_pj}
 ```
 
 + GKE との認証
 
 ```
 gcloud container clusters get-credentials ${_common}-zonal \
-  --zone ${_region}-a
+  --zone ${_region}-a \
+  --project ${_pj}
 ```
 
 + Node の確認
@@ -122,10 +129,14 @@ kubectl get node -o wide
 ```
 ### Ex.
 
-WIP
+# kubectl get node -o wide
+NAME                                             STATUS   ROLES    AGE     VERSION          INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-basic-gke-zonal-default-pool-0bf00d79-10f2   Ready    <none>   2m35s   v1.15.12-gke.2   172.16.0.4    35.221.127.36   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-basic-gke-zonal-default-pool-0bf00d79-4d6h   Ready    <none>   2m35s   v1.15.12-gke.2   172.16.0.2    35.200.93.126   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
+gke-basic-gke-zonal-default-pool-0bf00d79-p819   Ready    <none>   2m35s   v1.15.12-gke.2   172.16.0.3    34.85.37.228    Container-Optimized OS from Google   4.19.112+        docker://19.3.1
 ```
 
-## リージョナルクラスター
+## リージョナルクラスタ
 
 + Region の中の Zone 毎に Node を 1 台立ち上げます。
   + Zone 障害に耐性が着きます
@@ -135,17 +146,19 @@ WIP
 ```
 gcloud beta container clusters create ${_common}-regional \
   --network ${_common}-network \
-  --subnetwork ${_common}-subnet \
+  --subnetwork ${_common}-subnets \
   --region ${_region} \
   --num-nodes 1 \
-  --preemptible
+  --preemptible \
+  --project ${_pj}
 ```
 
 + GKE との認証
 
 ```
 gcloud container clusters get-credentials ${_common}-regional \
-  --region us-central1
+  --region ${_region} \
+  --project ${_pj}
 ```
 
 + Node の確認
@@ -221,14 +234,16 @@ gke-iganari-k8s-default-pool-e3f4e84e-1lk6   Ready    <none>   50s   v1.13.11-gk
 
 ```
 gcloud beta container clusters delete ${_common}-zonal \
-  --zone ${_region}-a
+  --zone ${_region}-a \
+  --project ${_pj}
 ```
 
-+ リージョナルクラスターの場合
++ リージョナルクラスタの場合
 
 ```
 gcloud beta container clusters delete ${_common}-regional \
-  --region ${_region}
+  --region ${_region} \
+  --project ${_pj}
 ```
 
 ## ネットワークの削除
@@ -236,7 +251,14 @@ gcloud beta container clusters delete ${_common}-regional \
 + Firewall Rules を削除します。
 
 ```
-gcloud beta compute firewall-rules delete ${_common}-allow-internal-all
+gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
+  --project ${_pj}
+```
+```
+gcloud compute firewall-rules create ${_common}-allow-internal-all \
+  --network ${_common}-network \
+  --allow tcp:0-65535,udp:0-65535,icmp \
+  --project ${_pj}
 ```
 
 + 実験用の VPC ネットワークとそれに付随するサブネットワークを削除します。
