@@ -209,6 +209,8 @@ OR
 kubectl get node -o wide
 ```
 ```
+### Ex.
+
 # kubectl get node -o wide
 NAME                                                  STATUS   ROLES    AGE   VERSION          INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
 gke-basic-gke-region-basic-gke-region-1b0af31f-0jks   Ready    <none>   92s   v1.15.12-gke.2   172.16.0.25   35.243.72.138   Container-Optimized OS from Google   4.19.112+        docker://19.3.1
@@ -216,27 +218,81 @@ gke-basic-gke-region-basic-gke-region-85628f84-8sbs   Ready    <none>   98s   v1
 gke-basic-gke-region-basic-gke-region-d598db0e-gblr   Ready    <none>   92s   v1.15.12-gke.2   172.16.0.24   34.84.11.94     Container-Optimized OS from Google   4.19.112+        docker://19.3.1
 ```
 
-## K8s のバージョンを固定したい場合
+## GKE のリリースチャンネルを指定する
 
-+ クラスタのバージョンをあえて、古いバージョンに指定して作製します。
-  + 2019/11/18 現在は デフォルトのバージョンは `1.13.11-gke.14` であり、選択出来るバージョンで最も古いのは `1.12.10-gke.17` です。
-
-+ 構築コマンド
++ 指定出来るリリースチャンネルの確認
 
 ```
-gcloud beta container clusters create ${_common_name} \
-  --network=${_common_name}-nw \
-  --subnetwork=${_common_name}-sb \
-  --zone us-central1-a \
-  --num-nodes=1 \
+gcloud beta container get-server-config --region ${_region}
+```
+```
+### Ex.
+
+# gcloud beta container get-server-config --region ${_region}
+channels:
+- channel: RAPID
+  defaultVersion: 1.17.9-gke.1503
+  validVersions:
+  - 1.17.9-gke.1503
+- channel: REGULAR
+  defaultVersion: 1.16.13-gke.1
+  validVersions:
+  - 1.16.13-gke.1
+- channel: STABLE
+  defaultVersion: 1.15.12-gke.2
+  validVersions:
+  - 1.15.12-gke.9
+  - 1.15.12-gke.2
+```
+
++ クラスタの作成
+  + `RAPID` を指定する
+
+```
+gcloud beta container clusters create ${_common}-spver \
+  --network ${_common}-network \
+  --subnetwork ${_common}-subnets \
+  --region ${_region} \
+  --num-nodes 1 \
   --preemptible \
-  --cluster-version=1.12.10-gke.17
+  --release-channel rapid \
+  --project ${_pj}
+```
+
++ ノードプールの作成
+
+```
+gcloud beta container node-pools create ${_common}-spver-nodepool \
+  --cluster ${_common}-spver \
+  --region ${_region} \
+  --num-nodes 1 \
+  --preemptible \
+  --project ${_pj}
+```
+
++ デフォルトのノードプールの削除
+
+```
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-spver \
+  --region ${_region} \
+  --project ${_pj}
+```
+
++ GKE との認証
+
+```
+gcloud beta container clusters get-credentials ${_common}-spver \
+  --region ${_region} \
+  --project ${_pj}
 ```
 
 + Node の確認
 
 ```
-WIP
+kubectl get node
+OR
+kubectl get node -o wide
 ```
 
 ## Kubernetes との認証
