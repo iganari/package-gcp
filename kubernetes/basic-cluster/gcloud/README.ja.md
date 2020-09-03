@@ -346,8 +346,10 @@ gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
 
 ```
 gcloud beta compute networks subnets delete ${_common}-subnets \
-  --region ${_region}
+  --region ${_region} \
+  --project ${_pj}
 ```
 ```
-gcloud beta compute networks delete ${_common}-network
+gcloud beta compute networks delete ${_common}-network \
+  --project ${_pj}
 ```
