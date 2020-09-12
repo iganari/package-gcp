@@ -29,11 +29,13 @@ gcloud auth application-default login
 ```
 
 + Service Account に紐づくキーを用いて認証を行う場合
-  + ブラウザの認証が `不` 必要
+  + ブラウザの認証が不要になる
+  + https://cloud.google.com/sdk/gcloud/reference/auth/activate-service-account?hl=en
 
 ```
-gcloud auth activate-service-account \
-    --key-file=service-account.json
+gcloud auth activate-service-account test-service-account@google.com \
+    --key-file=/path/key.json \
+    --project=testproject
 ```
 
 ## configurations
