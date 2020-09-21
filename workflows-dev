@@ -1,0 +1,52 @@
+# Workflows
+
+:warning: 仮置の PATG
+
++ 公式ドキュメント
+  + https://cloud.google.com/workflows/docs/quickstart-gcloud
+
+## gcloud コマンドでやっていく
+
++ GCP 認証
+
+```
+gcloud auth login -q
+```
+
++ GCP Project の設定
+
+```
+_gcp_id='Your GCP Project ID'
+
+gcloud beta config set project ${_gcp_id}
+```
+
++ Service Account の作成
+
+```
+gcloud beta iam service-accounts create workflows-test
+```
+
++ 作成した Service Account に Workflows の実行権限を付与する
+
+```
+_sa_email=$(gcloud beta iam service-accounts list | grep workflows-test | awk '{print $1}')
+
+gcloud projects add-iam-policy-binding ${_gcp_id} --member "serviceAccount:${_sa_email}" --role "roles/workflows.editor"
+```
+```
+### Ex.
+
+# gcloud projects add-iam-policy-binding ${_gcp_id} --member "serviceAccount:${_sa_email}" --role "roles/workflows.editor"
+
+Updated IAM policy for project ['Your GCP Project ID].
+bindings:
+- members:
+  - user:hogehoge@example.com
+  role: roles/owner
+- members:
+  - serviceAccount:workflows-test@ca-igarashi-test-workflows.iam.gserviceaccount.com
+  role: roles/workflows.editor
+etag: BwWv0vVvnlQ=
+version: 1
+```
