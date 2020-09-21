@@ -132,3 +132,33 @@ updateTime: '2020-09-21T15:48:43.464673277Z'
 ```
 gcloud beta workflows execute myFirstWorkflow
 ```
+```
+### Ex.
+
+# gcloud beta workflows execute myFirstWorkflow
+Created [9d621782-f4c3-4391-a740-241d4c58e801].
+
+To view the workflow status, you can use following command:
+gcloud beta workflows executions describe 9d621782-f4c3-4391-a740-241d4c58e801 --workflow myFirstWorkflow
+```
+
+```
+gcloud beta workflows executions describe 9d621782-f4c3-4391-a740-241d4c58e801 --workflow myFirstWorkflow
+```
+```
+### EX.
+
+# gcloud beta workflows executions describe 9d621782-f4c3-4391-a740-241d4c58e801 --workflow myFirstWorkflow
+argument: 'null'
+endTime: '2020-09-21T16:05:00.054117727Z'
+name: projects/project_number/locations/us-central1/workflows/myFirstWorkflow/executions/9d621782-f4c3-4391-a740-241d4c58e801
+result: '["Monday","Monday Night Football","Monday Night Wars","Monday Night Countdown","Monday
+  Night Golf","Monday Mornings","Monday.com","Monday (The X-Files)","Monday Night
+  Baseball","Monday Monday"]'
+startTime: '2020-09-21T16:04:59.694315927Z'
+state: SUCCEEDED
+workflowRevisionId: 000001-f51
+```
+
+
+OK
