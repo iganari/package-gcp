@@ -161,4 +161,70 @@ workflowRevisionId: 000001-f51
 ```
 
 
-OK
+## ここからは発展
+
+VM Instance を 起動する Functions を作って、それを Workflows でやる -> かつ通知が出来てればいいな
+
++ Compute Engine インスタンスを設定する
+  + 参考: https://cloud.google.com/scheduler/docs/start-and-stop-compute-engine-instances-on-a-schedule?hl=ja#gcloud
+
+
++ API の有効化
+
+```
+gcloud beta services enable compute.googleapis.com -q
+gcloud beta services enable cloudfunctions.googleapis.com -q
+
+gcloud beta services enable cloudbuild.googleapis.com -q
+
+```
+
+
+
++ VM Instance 作成
+
+```
+gcloud beta compute instances create dev-instance \
+    --network default \
+    --zone asia-northeast1-b \
+    --labels=env=dev
+```
+
+
++ VM Instance の確認
+
+```
+gcloud beta compute instances list
+```
+```
+### EX.
+
+# gcloud beta compute instances list
+NAME          ZONE               MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP  STATUS
+dev-instance  asia-northeast1-b  n1-standard-1               10.146.0.2   34.85.14.63  RUNNING
+```
+
+
++ 公式サンプルの clone
+
+```
+git clone https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git
+cd nodejs-docs-samples/functions/scheduleinstance/
+```
+
++ 起動の関数と停止の関数を作成する
+
+```
+gcloud beta functions deploy startInstancePubSub \
+    --trigger-topic start-instance-event \
+    --runtime nodejs10 \
+    --allow-unauthenticated
+```
+```
+gcloud beta functions deploy stopInstancePubSub \
+    --trigger-topic stop-instance-event \
+    --runtime nodejs10 \
+    --allow-unauthenticated
+```
+
+
