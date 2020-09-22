@@ -172,10 +172,11 @@ VM Instance を 起動する Functions を作って、それを Workflows でや
 + API の有効化
 
 ```
-gcloud beta services enable compute.googleapis.com -q
-gcloud beta services enable cloudfunctions.googleapis.com -q
-
-gcloud beta services enable cloudbuild.googleapis.com -q
+gcloud beta services enable compute.googleapis.com -q && \
+gcloud beta services enable cloudfunctions.googleapis.com -q && \
+gcloud beta services enable cloudbuild.googleapis.com -q && \
+gcloud beta services enable run.googleapis.com -q
+                            run.googleapis.com
 
 ```
 
@@ -227,4 +228,51 @@ gcloud beta functions deploy stopInstancePubSub \
     --allow-unauthenticated
 ```
 
+## Cloud Run
 
++ ドキュメント
+  + https://github.com/knative/docs/blob/master/docs/serving/samples/hello-world/helloworld-go/helloworld.go
+
+
+```
+git clone https://github.com/knative/docs.git
+cd cd docs/docs/serving/samples/hello-world/helloworld-go/
+```
+
+```
+gcloud builds submit --tag gcr.io/${_gcp_id}/helloworld
+```
+```
+gcloud beta run deploy helloworld-workflow --image gcr.io/${_gcp_id}/helloworld --platform managed --region asia-northeast1 --allow-unauthenticated
+```
+
+```
+Deploying container to Cloud Run service [helloworld-workflow] in project [Your GCP Project ID] region [asia-northeast1]
+✓ Deploying new service... Done.
+  ✓ Creating Revision...
+  ✓ Routing traffic...
+Done.
+Service [helloworld-workflow] revision [helloworld-workflow-00001-bup] has been deployed and is serving 100 percent of traffic at https://helloworld-workflow-bkkqslakpa-an.a.run.app
+```
+```
+# https://cloud.google.com/workflows/docs/sample-workflows#get-request-function
+
+- callMyFunction:
+    call: http.get
+    args:
+        url: https://helloworld-workflow-bkkqslakpa-an.a.run.app
+        auth:
+            type: OIDC
+        query:
+            someVal: "Hello World"
+            anotherVal: 123
+    result: theMessage
+- returnValue:
+    return: ${theMessage.body}
+```
+
+
+
+```
+localhost:8080/?key=hello%20golangcode.com
+```
