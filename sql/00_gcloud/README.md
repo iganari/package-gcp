@@ -32,6 +32,8 @@ WIP
 
 ## Cloud SQL instance を停止
 
++ [gcloud beta sql instances patch](https://cloud.google.com/sdk/gcloud/reference/beta/sql/instances/patch?hl=en)
+
 ```
 gcloud beta sql instances patch ${_sql_instance_name} \
     --activation-policy NEVER \
@@ -39,6 +41,8 @@ gcloud beta sql instances patch ${_sql_instance_name} \
 ```
 
 ## Cloud SQL instance を停止状態から起動
+
++ [gcloud beta sql instances patch](https://cloud.google.com/sdk/gcloud/reference/beta/sql/instances/patch?hl=en)
 
 ```
 gcloud beta sql instances patch ${_sql_instance_name} \
