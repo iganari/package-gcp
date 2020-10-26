@@ -5,6 +5,14 @@
 + GCP 上で Kubernetes を使うためのサンプルを集めています。
   + つまり、 基本的には GKE のサンプルがメインになります。
 
+## 先にインストールしておきたいコマンド
+
+```
+gcloud components install beta -q &&\
+gcloud components update -q && \
+gcloud components install kubectl -q
+```
+
 ## コンテンツ
 
 + [basic-cluster](./README.md#basic-cluster)
