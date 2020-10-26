@@ -7,13 +7,6 @@ export _project='Your GCP Project ID'
 export _cluster_name='Your GKE Cluster Name'
 export _region='asia-northeast1'
 ```
-```
-export _gcp_pj_id='ca-igarashi-gke-sample'
-export _cluster_name='handson-gke-zonal'
-export _zone='asia-northeast1-a'
-```
-
-
 
 ## コントロールプレーンのバージョンの確認とアップグレード実行
 
@@ -79,17 +72,13 @@ gcloud beta container clusters describe ${_cluster_name} \
 ```
 ### Ex.
 
-# gcloud beta container clusters describe ${_cluster_name
-} \
+# gcloud beta container clusters describe ${_cluster_name} \
 >     --project ${_gcp_pj_id} --zone ${_zone} \
 >     --format json | jq .currentMasterVersion
 "1.16.13-gke.401"
 ```
 
-
-
-
-+ デフォルト以外の特定のバージョンにアップグレード
++ [割愛] デフォルト以外の特定のバージョンにアップグレード
 
 ```
 export _sp_ver='1.17.12-gke.1504'
@@ -100,8 +89,42 @@ gcloud container clusters upgrade cluster-name \
   --master --cluster-version ${_sp_ver}
 ```
 
-## ドキュメント
 
+## ノードプールのバージョンの確認とアップグレード実行
 
-https://cloud.google.com/kubernetes-engine/docs/how-to/upgrading-a-cluster
+https://cloud.google.com/kubernetes-engine/docs/how-to/upgrading-a-cluster#upgrading-nodes
 
++ cluster に入っている node pool の確認
+
+```
+gcloud beta container clusters describe ${_cluster_name} \
+    --project ${_gcp_pj_id} \
+    --zone ${_zone} \
+    --format json | jq .nodePools[].name
+```
+
++ 環境変数に入れる
+
+```
+export _node_pool_name='Your Node Pool Name'
+```
+
++ ノードプールをコントロールプレーンと同じバージョンにアップグレードする
+
+```
+gcloud container clusters upgrade ${_cluster_name} \
+    --node-pool ${_node_pool_name} \
+    --project ${_gcp_pj_id} \
+    --zone ${_zone}
+```
+
++ ノードプールのバージョンを確認する
+
+```
+gcloud beta container clusters describe ${_cluster_name} \
+    --project ${_gcp_pj_id} \
+    --zone ${_zone} \
+    --format json | jq '.nodePools[] | select(.name == "Your Node Pool Name") | .version'
+```
+
+以上
