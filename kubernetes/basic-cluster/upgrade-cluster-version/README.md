@@ -84,12 +84,6 @@ gcloud beta container clusters describe ${_cluster_name} \
 export _sp_ver='1.17.12-gke.1504'
 ```
 
-```
-gcloud container clusters upgrade cluster-name \
-  --master --cluster-version ${_sp_ver}
-```
-
-
 ## ノードプールのバージョンの確認とアップグレード実行
 
 https://cloud.google.com/kubernetes-engine/docs/how-to/upgrading-a-cluster#upgrading-nodes
