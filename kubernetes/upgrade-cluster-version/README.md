@@ -106,7 +106,7 @@ export _node_pool_name='Your Node Pool Name'
 + ノードプールをコントロールプレーンと同じバージョンにアップグレードする
 
 ```
-gcloud container clusters upgrade ${_cluster_name} \
+gcloud beta container clusters upgrade ${_cluster_name} \
     --node-pool ${_node_pool_name} \
     --project ${_gcp_pj_id} \
     --zone ${_zone}
