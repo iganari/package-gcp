@@ -129,6 +129,45 @@ gcloud beta container node-pools create ${_common}-regional-nodepool \
   --project ${_pj}
 ```
 
+## Create NAT 
+
+限定公開クラスターを作っただけだと、内部から(GCPより)外部への通信の経路が無いため、たとえば `apt update` などが、Pod無いから実行できない
+
+pod 内から外部に通信する経路として Cloud NAT を作る
+ 
+ 
++ 静的IPアドレスの予約
+  + Cloud NAT に使用する際は `region` を使う
+
+```
+gcloud beta compute addresses create ${_common}-ip-addr \
+    --region ${_region} \
+    --project ${_pj}
+```
+
++ Cloud Router を作成します
+
+```
+gcloud compute routers create ${_common}-nat-router \
+  --network ${_common}-network \
+  --region ${_region} \
+  --project ${_pj}
+```
+
++ Cloud NAT を作成します
+
+```
+WIP
+gcloud compute routers nats create ${_common}-nat-config \
+  --router-region ${_region} \
+  --router ${_common}-nat-router \
+  --nat-all-subnet-ip-ranges \
+  --auto-allocate-nat-external-ips \
+  --project ${_pj}
+```
+
+
+
 ## auth cluster
 
 + マスター承認ネットワークを設定します。
@@ -153,26 +192,6 @@ gcloud container clusters update ${_common}-regional \
   --region ${_region} \
   --enable-master-authorized-networks \
   --master-authorized-networks 126.73.72.145/32
-```
-
-+ Cloud Router を作成します
-
-```
-gcloud compute routers create ${_common}-nat-router \
-  --network ${_common}-network \
-  --region ${_region} \
-  --project ${_pj}
-```
-
-+ Cloud NAT を作成します
-
-```
-gcloud compute routers nats create ${_common}-nat-config \
-  --router-region ${_region} \
-  --router ${_common}-nat-router \
-  --nat-all-subnet-ip-ranges \
-  --auto-allocate-nat-external-ips \
-  --project ${_pj}
 ```
 
 + GKE と承認をします。
