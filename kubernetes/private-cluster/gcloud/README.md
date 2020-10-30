@@ -157,12 +157,11 @@ gcloud compute routers create ${_common}-nat-router \
 + Cloud NAT を作成します
 
 ```
-WIP
 gcloud compute routers nats create ${_common}-nat-config \
   --router-region ${_region} \
   --router ${_common}-nat-router \
   --nat-all-subnet-ip-ranges \
-  --auto-allocate-nat-external-ips \
+  --nat-external-ip-pool ${_common}-ip-addr \
   --project ${_pj}
 ```
 
