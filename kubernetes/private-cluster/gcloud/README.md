@@ -148,7 +148,7 @@ gcloud beta compute addresses create ${_common}-ip-addr \
 + Cloud Router を作成します
 
 ```
-gcloud compute routers create ${_common}-nat-router \
+gcloud beta compute routers create ${_common}-nat-router \
   --network ${_common}-network \
   --region ${_region} \
   --project ${_pj}
@@ -157,7 +157,7 @@ gcloud compute routers create ${_common}-nat-router \
 + Cloud NAT を作成します
 
 ```
-gcloud compute routers nats create ${_common}-nat-config \
+gcloud beta compute routers nats create ${_common}-nat-config \
   --router-region ${_region} \
   --router ${_common}-nat-router \
   --nat-all-subnet-ip-ranges \
