@@ -74,7 +74,8 @@ gcloud beta compute networks subnets create ${_common}-subnet \
   --region ${_region} \
   --range 172.16.0.0/12 \
   --secondary-range pods-range=10.4.0.0/14,services-range=10.0.32.0/20 \
-  --enable-private-ip-google-access
+  --enable-private-ip-google-access \
+  --project ${_gcp_pj_id}
 ```
 
 + Firewall Rules を作成します。
@@ -134,8 +135,7 @@ gcloud beta container node-pools create ${_common}-regional-nodepool \
 限定公開クラスターを作っただけだと、内部から(GCPより)外部への通信の経路が無いため、たとえば `apt update` などが、Pod無いから実行できない
 
 pod 内から外部に通信する経路として Cloud NAT を作る
- 
- 
+
 + 静的IPアドレスの予約
   + Cloud NAT に使用する際は `region` を使う
 
@@ -165,14 +165,12 @@ gcloud beta compute routers nats create ${_common}-nat-config \
   --project ${_gcp_pj_id}
 ```
 
-
-
 ## auth cluster
 
 + マスター承認ネットワークを設定します。
 
 ```
-gcloud container clusters update ${_common}-regional \
+gcloud beta container clusters update ${_common}-regional \
     --region ${_region} \
     --enable-master-authorized-networks \
     --master-authorized-networks [EXISTING_AUTH_NETS],[SHELL_IP]/32
@@ -187,16 +185,17 @@ dig +short myip.opendns.com @resolver1.opendns.com
 curl ipaddr.io
 
 # マスター承認ネットワークの設定をします。
-gcloud container clusters update ${_common}-regional \
+gcloud beta container clusters update ${_common}-regional \
   --region ${_region} \
   --enable-master-authorized-networks \
-  --master-authorized-networks 126.73.72.145/32
+  --master-authorized-networks 126.73.72.145/32 \
+  --project ${_gcp_pj_id}
 ```
 
 + GKE と承認をします。
 
 ```
-gcloud container clusters get-credentials ${_common}-regional \
+gcloud beta container clusters get-credentials ${_common}-regional \
   --region ${_region} \
   --project ${_gcp_pj_id}
 ```
