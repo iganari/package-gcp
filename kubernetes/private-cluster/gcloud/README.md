@@ -35,11 +35,11 @@
   
 ```
 ### Add New Env
-export _pj='GCP のプロジェクトID'
+export _gcp_pj_id='GCP のプロジェクトID'
   
   
-gcloud config configurations create ${_pj}
-gcloud config set project ${_pj}
+gcloud config configurations create ${_gcp_pj_id}
+gcloud config set project ${_gcp_pj_id}
 gcloud config configurations list
 ```
 
@@ -63,7 +63,7 @@ export _region='asia-northeast1'
 ```
 gcloud beta compute networks create ${_common}-network \
   --subnet-mode=custom \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 + サブネットワークを作成します。
@@ -74,7 +74,8 @@ gcloud beta compute networks subnets create ${_common}-subnet \
   --region ${_region} \
   --range 172.16.0.0/12 \
   --secondary-range pods-range=10.4.0.0/14,services-range=10.0.32.0/20 \
-  --enable-private-ip-google-access
+  --enable-private-ip-google-access \
+  --project ${_gcp_pj_id}
 ```
 
 + Firewall Rules を作成します。
@@ -83,7 +84,7 @@ gcloud beta compute networks subnets create ${_common}-subnet \
 gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   --network ${_common}-network \
   --allow tcp:0-65535,udp:0-65535,icmp \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 ## Create Regional Cluster
@@ -106,7 +107,7 @@ gcloud beta container clusters create ${_common}-regional \
   --num-nodes=1 \
   --release-channel stable \
   --preemptible \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 + デフォルトのノードプールの削除
@@ -115,7 +116,7 @@ gcloud beta container clusters create ${_common}-regional \
 gcloud beta container node-pools delete default-pool \
   --cluster ${_common}-regional \
   --region ${_region} \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 + ノードプールの作成
@@ -126,7 +127,42 @@ gcloud beta container node-pools create ${_common}-regional-nodepool \
   --region ${_region} \
   --num-nodes 1 \
   --preemptible \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
+```
+
+## Create NAT 
+
+限定公開クラスターを作っただけだと、内部から(GCPより)外部への通信の経路が無いため、たとえば `apt update` などが、Pod無いから実行できない
+
+pod 内から外部に通信する経路として Cloud NAT を作る
+
++ 静的IPアドレスの予約
+  + Cloud NAT に使用する際は `region` を使う
+
+```
+gcloud beta compute addresses create ${_common}-ip-addr \
+    --region ${_region} \
+    --project ${_gcp_pj_id}
+```
+
++ Cloud Router を作成します
+
+```
+gcloud beta compute routers create ${_common}-nat-router \
+  --network ${_common}-network \
+  --region ${_region} \
+  --project ${_gcp_pj_id}
+```
+
++ Cloud NAT を作成します
+
+```
+gcloud beta compute routers nats create ${_common}-nat-config \
+  --router-region ${_region} \
+  --router ${_common}-nat-router \
+  --nat-all-subnet-ip-ranges \
+  --nat-external-ip-pool ${_common}-ip-addr \
+  --project ${_gcp_pj_id}
 ```
 
 ## auth cluster
@@ -134,7 +170,7 @@ gcloud beta container node-pools create ${_common}-regional-nodepool \
 + マスター承認ネットワークを設定します。
 
 ```
-gcloud container clusters update ${_common}-regional \
+gcloud beta container clusters update ${_common}-regional \
     --region ${_region} \
     --enable-master-authorized-networks \
     --master-authorized-networks [EXISTING_AUTH_NETS],[SHELL_IP]/32
@@ -149,38 +185,19 @@ dig +short myip.opendns.com @resolver1.opendns.com
 curl ipaddr.io
 
 # マスター承認ネットワークの設定をします。
-gcloud container clusters update ${_common}-regional \
+gcloud beta container clusters update ${_common}-regional \
   --region ${_region} \
   --enable-master-authorized-networks \
-  --master-authorized-networks 126.73.72.145/32
-```
-
-+ Cloud Router を作成します
-
-```
-gcloud compute routers create ${_common}-nat-router \
-  --network ${_common}-network \
-  --region ${_region} \
-  --project ${_pj}
-```
-
-+ Cloud NAT を作成します
-
-```
-gcloud compute routers nats create ${_common}-nat-config \
-  --router-region ${_region} \
-  --router ${_common}-nat-router \
-  --nat-all-subnet-ip-ranges \
-  --auto-allocate-nat-external-ips \
-  --project ${_pj}
+  --master-authorized-networks 126.73.72.145/32 \
+  --project ${_gcp_pj_id}
 ```
 
 + GKE と承認をします。
 
 ```
-gcloud container clusters get-credentials ${_common}-regional \
+gcloud beta container clusters get-credentials ${_common}-regional \
   --region ${_region} \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 + Node を確認をします。
@@ -223,7 +240,7 @@ No resources found in default namespace.
 ```
 gcloud container clusters delete ${_common}-regional \
   --region ${_region} \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 + Cloud NAT を削除します。
@@ -232,7 +249,7 @@ gcloud container clusters delete ${_common}-regional \
 gcloud compute routers nats delete ${_common}-nat-config \
   --router-region ${_region} \
   --router ${_common}-nat-router \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 + Cloud Router を削除します。
@@ -240,14 +257,14 @@ gcloud compute routers nats delete ${_common}-nat-config \
 ```
 gcloud compute routers delete ${_common}-nat-router \
   --region ${_region} \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 + Firewall Rules を削除
 
 ```
 gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 + サブネットワークの削除します。
@@ -255,14 +272,14 @@ gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
 ```
 gcloud beta compute networks subnets delete ${_common}-subnet \
   --region ${_region} \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 + VPC ネットワークを削除します。
 
 ```
 gcloud beta compute networks delete ${_common}-network \
-  --project ${_pj}
+  --project ${_gcp_pj_id}
 ```
 
 ## closing
