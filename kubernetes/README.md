@@ -16,31 +16,31 @@ gcloud components install kubectl -q
 ## コンテンツ
 
 + [basic-cluster](./README.md#basic-cluster)
-+ [helm]
-+ [private-cluster](./README.md#private-cluster)
++ [cluster-private](./README.md#private-cluster)
 + [sample-version]
 + [wordpress](./README.md#wordpress)
 
 
 ## Basic Cluster
 
-WIP
++ [basic-private](./cluster-basic/README.md)
+    + 通常の GKE クラスタ
 
 ## Private Cluster
 
-+ [private-cluster](./private-cluster/README.md)
-  + 限定公開クラスタ と呼ばれる、ノードのネットワークの権限を制御して、よりセキュアなクラスタを構築・運用するためのクラスタです。
++ [cluster-private](./cluster-private/README.md)
+    + 限定公開クラスタ と呼ばれる、ノードのネットワークの権限を制御して、よりセキュアなクラスタを構築・運用するためのクラスタです。
 
 ## WordPress
 
 + [With MySQL Pod]
-  + WIP
+    + WIP
 
 + [With CloudSQL](./wordpress/with-cloudsql)
-  + GKE 上に Cloud SQL を使用した WordPress を作成する
+    + GKE 上に Cloud SQL を使用した WordPress を作成する
 
 + [Costom Container With CloudSQL]
-  + WIP
+    + WIP
 
 
 ## Helm
