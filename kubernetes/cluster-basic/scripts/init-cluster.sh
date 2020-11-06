@@ -3,23 +3,35 @@
 # set -x
 
 ### Usage Example
-# bash operate-basic-cluster.sh {operation} {GCP Project ID} {cluster variable} {Common Value} {Region}
+# bash operate-basic-cluster.sh {operation} {GCP Project ID} {cluster variable} {Common Value} {Region} {Region ID}
+# bash operate-basic-cluster.sh create gcp-iganari-gke-test basic iganari-test region asia-northeast1-b
 
 # echo $1    ## create or delete
-# echo $2    ## Private or Basic
+# echo $2    ## 'private' or 'basic'
 # echo $3    ## Your GCP Project ID
 # echo $4    ## Common Value
-# echo $5    ## Region or Zone
+# echo $5    ## 'region' or 'zone'
+# echo $6    ## region id or zone id
 
 
 # WIP
 
-
 ## Create VPC Network
 
-export _pj=$(echo $2)
-export _common=$(echo $3)
-export _region=$(echo $4)
+export     _pj=$(echo $3)
+export _common=$(echo $4)
+# export _region=$(echo $5)
+
+
+if [ "$5" = "region" ];then
+  echo "hoge"
+  export hoge=hoge
+elif [ "$5" = "zone"];then
+  echo "fuga"
+  exprot hoge
+else
+  echo "Your type is wrong"
+fi
 
 
 create-vpc () {
@@ -112,7 +124,7 @@ delete-vpc () {
 
 
 ### Check Args
-if [ "$#" = '4' ]; then
+if [ "$#" = '6' ]; then
   :
 else
   echo "Your usage is wrong :("
@@ -147,6 +159,7 @@ elif [ $1 = 'delete' ]; then
   exit 0
 
 else
-  echo "Error"
+  echo "Your type is invalid"
+  echo "Please operation is 'create' or 'delete'"
   exit 1
 fi
