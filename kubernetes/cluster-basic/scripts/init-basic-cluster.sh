@@ -3,15 +3,14 @@
 # set -x
 
 ### Usage Example
-# bash operate-basic-cluster.sh {operation} {GCP Project ID} {cluster variable} {Common Value} {Region} {Region ID}
-# bash operate-basic-cluster.sh create gcp-iganari-gke-test basic iganari-test region asia-northeast1-b
+# bash operate-basic-cluster.sh {operation} {GCP Project ID} {Common Value} {Region} {Region ID}
+# bash operate-basic-cluster.sh create gcp-iganari-gke-test iganari-test region asia-northeast1-b
 
 # echo $1    ## create or delete
-# echo $2    ## 'private' or 'basic'
-# echo $3    ## Your GCP Project ID
-# echo $4    ## Common Value
-# echo $5    ## 'region' or 'zone'
-# echo $6    ## region id or zone id
+# echo $2    ## Your GCP Project ID
+# echo $3    ## Common Value
+# echo $4    ## 'region' or 'zone'
+# echo $5    ## region id or zone id
 
 
 # WIP
@@ -124,7 +123,7 @@ delete-vpc () {
 
 
 ### Check Args
-if [ "$#" = '6' ]; then
+if [ "$#" = '5' ]; then
   :
 else
   echo "Your usage is wrong :("
