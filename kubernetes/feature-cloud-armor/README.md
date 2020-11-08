@@ -69,7 +69,7 @@ metadata:
   name: my-backend-config
 spec:
   securityPolicy:
-    name: "ingress-ip-whitelist"
+    name: "ip-addr-whitelist"
 ```
 
 ### manifest で Service に annotations を追加
