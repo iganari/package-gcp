@@ -21,30 +21,43 @@
 + コマンドラインで Cloud Armor を作成
 
 ```
+### 環境変数
+
+export _armor_name='ip-addr-whitelist'
+export _project='Your GCP Project ID'
+
+```
+```
 ### 設定の作成
 
-gcloud beta compute security-policies create ingress-ip-whitelist --description "armor-sample"
+gcloud beta compute security-policies create ${_armor_name} \
+    --description "armor-sample" \
+    --project ${_project}
 ```
 ```
 ### 基本 deny の設定
 
 gcloud compute security-policies rules update 2147483647 \
-    --security-policy ingress-ip-whitelist \
-    --action "deny-403"
+    --security-policy ${_armor_name} \
+    --action "deny-403" \
+    --project ${_project}
 ```
 ```
 ### 許可したい IP アドレスを追加
 
 gcloud compute security-policies rules create 10000 \
-    --security-policy ingress-ip-whitelist \
-    --description "allow traffic from 192.0.2.0/24,172.16.3.0/24" \
+    --security-policy ${_armor_name} \
+    --description "allow traffic from internal" \
     --src-ip-ranges "192.0.2.0/24,172.16.3.0/24" \
     --action "allow"
 ```
 
 + GCP コンソールで確認
+  + この状態ではどのリソースに対しても適用されていないため、 `Apply policy to target` が出ている
 
-WIP
+![](./feature-cloud-armor-01.ong)
+
+![](./feature-cloud-armor-02.ong)
 
 ### manifest で BackendConfig の設定を作成
 
