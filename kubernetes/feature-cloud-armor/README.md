@@ -55,9 +55,9 @@ gcloud compute security-policies rules create 10000 \
 + GCP コンソールで確認
   + この状態ではどのリソースに対しても適用されていないため、 `Apply policy to target` が出ている
 
-![](./feature-cloud-armor-01.ong)
+![](./feature-cloud-armor-01.png)
 
-![](./feature-cloud-armor-02.ong)
+![](./feature-cloud-armor-02.png)
 
 ### manifest で BackendConfig の設定を作成
 
