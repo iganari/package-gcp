@@ -43,12 +43,18 @@ gcloud compute security-policies rules update 2147483647 \
     --project ${_project}
 ```
 ```
-### 許可したい IP アドレスを追加
+### 許可したい IP アドレスを追加(例として、インターナルとイクスターナル(適当)を許可)
 
-gcloud compute security-policies rules create 10000 \
+gcloud compute security-policies rules create 1000 \
     --security-policy ${_armor_name} \
     --description "allow traffic from internal" \
     --src-ip-ranges "192.0.2.0/24,172.16.3.0/24" \
+    --action "allow"
+
+gcloud compute security-policies rules create 1001 \
+    --security-policy ${_armor_name} \
+    --description "allow traffic from extermal" \
+    --src-ip-ranges "192.0.2.0/32,172.16.3.0/32" \
     --action "allow"
 ```
 
