@@ -82,6 +82,8 @@ spec:
 
 + 例として nginx を起動する
 
++ manifest を作る
+
 ```
 apiVersion: apps/v1
 kind: Deployment
@@ -135,28 +137,27 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: mix-ingress
-  namespace: hello-world-mix
-  annotations:
-    kubernetes.io/ingress.global-static-ip-name: "mix-ip-addr"    # Fix IP Address using Static IP Address
+  name: nginx-ingress
+  namespace: default
   labels:
-    app: mix
+    app: nginx
+    env: sample
 spec:
   rules:
   - http:
       paths:
-      - path: /go
-        backend:
-          serviceName: mix-go-service
-          servicePort: 8080
-      - path: /py
-        backend:
-          serviceName: mix-python-service
-          servicePort: 5080
       - path: /*
         backend:
-          serviceName: mix-python-service
-          servicePort: 5080
+          serviceName: nginx-service
+          servicePort: 8080
+
+```
+
+
++ apply
+
+```
+kubectl apply -f k8s.yaml
 ```
 
 
