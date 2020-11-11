@@ -1,4 +1,6 @@
-# Cloud Armor
+# Google Cloud Armor
+
+略して Cloud Armor
 
 ## やりたいこと
 
