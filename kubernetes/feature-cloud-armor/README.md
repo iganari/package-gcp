@@ -54,7 +54,7 @@ gcloud compute security-policies rules create 1000 \
 gcloud compute security-policies rules create 2000 \
     --security-policy ${_armor_name} \
     --description "allow traffic from extermal" \
-    --src-ip-ranges "151.259.189.92/32,151.259.189.93/32" \
+    --src-ip-ranges "216.58.220.142/32,216.58.220.143/32" \
     --action "allow"
 ```
 
