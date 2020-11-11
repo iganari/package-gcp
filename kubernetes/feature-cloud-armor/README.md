@@ -160,6 +160,13 @@ spec:
 kubectl apply -f k8s.yaml
 ```
 
+## イメージ
+
++ ブラウザのイメージ(alloy, deny)
++ GCP コンソールのイメージ
+
+
+
 
 ## 参考
 
