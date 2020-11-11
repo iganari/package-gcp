@@ -80,24 +80,83 @@ spec:
 
 ### manifest で Service に annotations を追加
 
++ 例として nginx を起動する
+
 ```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: default
+  labels:
+    app: nginx
+    env: sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+      env: sample
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: sample
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+
+---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app-service
+  name: nginx-service
   namespace: default
   labels:
-    app: web
+    app: nginx
+    env: sample
   annotations:
     beta.cloud.google.com/backend-config: '{"ports": {"80":"backend-config-sample"}}'  ## Google Cloud Armor
 spec:
   type: NodePort
   selector:
-    app: web
+    app: nginx
+    env: sample
   ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 8080
+    - port: 8080
+      targetPort: 80
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mix-ingress
+  namespace: hello-world-mix
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "mix-ip-addr"    # Fix IP Address using Static IP Address
+  labels:
+    app: mix
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /go
+        backend:
+          serviceName: mix-go-service
+          servicePort: 8080
+      - path: /py
+        backend:
+          serviceName: mix-python-service
+          servicePort: 5080
+      - path: /*
+        backend:
+          serviceName: mix-python-service
+          servicePort: 5080
 ```
 
 
