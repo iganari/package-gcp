@@ -71,8 +71,8 @@ gcloud compute security-policies rules create 2000 \
 apiVersion: cloud.google.com/v1beta1
 kind: BackendConfig
 metadata:
+  name: backend-config-sample
   namespace: default
-  name: my-backend-config
 spec:
   securityPolicy:
     name: "ip-addr-whitelist"
@@ -84,12 +84,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: default
   name: my-app-service
+  namespace: default
   labels:
     app: web
   annotations:
-    beta.cloud.google.com/backend-config: '{"ports": {"80":"my-backend-config"}}'
+    beta.cloud.google.com/backend-config: '{"ports": {"80":"backend-config-sample"}}'  ## Google Cloud Armor
 spec:
   type: NodePort
   selector:
