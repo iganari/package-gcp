@@ -166,17 +166,17 @@ kubectl apply -f k8s.yaml
 
 ## 確認
 
++ アクセスを許可した IP アドレスからアクセスした場合
 
 ![](./feature-cloud-armor-03.png)
+
++ アクセスを許可していない IP アドレスからアクセスした場合
+
 ![](./feature-cloud-armor-04.png)
+
++ Cloud Armor 上に出ていた警告が消えている
+
 ![](./feature-cloud-armor-05.png)
-
-## イメージ
-
-+ ブラウザのイメージ(alloy, deny)
-+ GCP コンソールのイメージ
-
-
 
 
 ## 参考
