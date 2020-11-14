@@ -1,13 +1,10 @@
 # Google Cloud Armor
 
-略して Cloud Armor
-
 ## やりたいこと
 
 + GKE のセキュリティを高めたい
   + Cloud Armor の機能の 1 つに `IP アドレス制限` があるので、それを使う
   + Cloud Armor の機能は他にもあり、 IP アドレス制限は機能の 1 つでしかない
-
 
 ## 出来ること
 
@@ -19,8 +16,9 @@
 1. Cloud Armor の設定
 1. manifest で BackendConfig の設定を作成
 1. manifest で Service に annotations を追加
+1. 確認
 
-### Cloud Armor の設定
+## Cloud Armor の設定
 
 + コマンドラインで Cloud Armor を作成
 
@@ -69,7 +67,7 @@ gcloud compute security-policies rules create 2000 \
 
 ![](./feature-cloud-armor-02.png)
 
-### manifest で BackendConfig の設定を作成
+## manifest で BackendConfig の設定を作成
 
 ```
 apiVersion: cloud.google.com/v1beta1
@@ -82,7 +80,7 @@ spec:
     name: "ip-addr-whitelist"
 ```
 
-### manifest で Service に annotations を追加
+## manifest で Service に annotations を追加
 
 + 例として nginx を起動する
 
@@ -126,7 +124,11 @@ metadata:
     app: nginx
     env: sample
   annotations:
-    beta.cloud.google.com/backend-config: '{"ports": {"80":"backend-config-sample"}}'  ## Google Cloud Armor
+    beta.cloud.google.com/backend-config: '{
+      "ports": {
+        "8080":"backend-config-sample"
+      }
+    }'
 spec:
   type: NodePort
   selector:
