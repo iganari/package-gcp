@@ -191,4 +191,6 @@ kubectl apply -f k8s.yaml
 + https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features?hl=en#cloud_armor
 + https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features?hl=en#exercise
 
+# まとめ
+
 Have fun !! :raised_hands: 
