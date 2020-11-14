@@ -181,6 +181,8 @@ kubectl apply -f k8s.yaml
 
 ### Cloud Armor 上に出ていた警告が消えている
 
++ GKE でアタッチしたため警告が消える
+
 ![](./feature-cloud-armor-05.png)
 
 
@@ -188,3 +190,5 @@ kubectl apply -f k8s.yaml
 
 + https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features?hl=en#cloud_armor
 + https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features?hl=en#exercise
+
+Have fun !! :raised_hands: 
