@@ -3,11 +3,11 @@
 ## やりたいこと
 
 + GKE のセキュリティを高めたい
-  + Cloud Armor の機能の 1 つに `IP アドレス制限` があるので、それを使う
-  + Cloud Armor の機能は他にもあり、 IP アドレス制限は機能の 1 つでしかない
 
 ## 出来ること
 
++ Cloud Armor の機能の 1 つに `IP アドレス制限` があるので、それを使う
+  + Cloud Armor の機能は他にもあり、 IP アドレス制限は機能の 1 つでしかない
 + Cloud Armor の IP アドレス制限を GKE 上の Service につけることが出来る
   + ingress の Service 単位で Cloud Armor の設定をつけることが出来る
 
@@ -30,7 +30,7 @@ export _project='Your GCP Project ID'
 
 ```
 ```
-### 設定の作成
+### Cloud Armor を作成
 
 gcloud beta compute security-policies create ${_armor_name} \
     --description "armor-sample" \
@@ -45,7 +45,7 @@ gcloud compute security-policies rules update 2147483647 \
     --project ${_project}
 ```
 ```
-### 許可したい IP アドレスを追加(例として、インターナルとイクスターナル(適当)を許可)
+### 許可したい IP アドレスを設定(例として、インターナルとイクスターナル(適当)を許可)
 
 gcloud compute security-policies rules create 1000 \
     --security-policy ${_armor_name} \
@@ -69,6 +69,9 @@ gcloud compute security-policies rules create 2000 \
 
 ## manifest で BackendConfig の設定を作成
 
++ manifests を作る
+  + k8s.yaml](./k8s.yaml) に同梱
+
 ```
 apiVersion: cloud.google.com/v1beta1
 kind: BackendConfig
@@ -82,9 +85,10 @@ spec:
 
 ## manifest で Service に annotations を追加
 
-+ 例として nginx を起動する
++ 例として nginx を使用する
 
-+ manifest を作る
++ manifests を作る
+  + k8s.yaml](./k8s.yaml) に同梱
 
 ```
 apiVersion: apps/v1
@@ -159,8 +163,7 @@ spec:
 
 ```
 
-
-+ apply
++ 作成した manifests を apply コマンドで反映させる
 
 ```
 kubectl apply -f k8s.yaml
@@ -168,15 +171,15 @@ kubectl apply -f k8s.yaml
 
 ## 確認
 
-+ アクセスを許可した IP アドレスからアクセスした場合
+### アクセスを許可した IP アドレスからアクセスした場合
 
 ![](./feature-cloud-armor-03.png)
 
-+ アクセスを許可していない IP アドレスからアクセスした場合
+### アクセスを許可していない IP アドレスからアクセスした場合
 
 ![](./feature-cloud-armor-04.png)
 
-+ Cloud Armor 上に出ていた警告が消えている
+### Cloud Armor 上に出ていた警告が消えている
 
 ![](./feature-cloud-armor-05.png)
 
