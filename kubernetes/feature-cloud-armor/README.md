@@ -164,6 +164,13 @@ spec:
 kubectl apply -f k8s.yaml
 ```
 
+## 確認
+
+
+![](./feature-cloud-armor-03.png)
+![](./feature-cloud-armor-04.png)
+![](./feature-cloud-armor-05.png)
+
 ## イメージ
 
 + ブラウザのイメージ(alloy, deny)

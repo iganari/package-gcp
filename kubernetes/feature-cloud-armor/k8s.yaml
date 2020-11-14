@@ -1,3 +1,14 @@
+apiVersion: cloud.google.com/v1beta1
+kind: BackendConfig
+metadata:
+  name: backend-config-sample
+  namespace: default
+spec:
+  securityPolicy:
+    name: "ip-addr-whitelist"
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -35,7 +46,11 @@ metadata:
     app: nginx
     env: sample
   annotations:
-    beta.cloud.google.com/backend-config: '{"ports": {"80":"backend-config-sample"}}'  ## Google Cloud Armor
+    beta.cloud.google.com/backend-config: '{
+      "ports": {
+        "8080":"backend-config-sample"
+      }
+    }'
 spec:
   type: NodePort
   selector:
