@@ -50,3 +50,10 @@ spec:
             - date; echo Hello from the Kubernetes cluster
           restartPolicy: OnFailure
 ```
+
+
+
+参考
+
++ https://cstoku.dev/posts/2018/k8sdojo-14/
++ https://kakakakakku.hatenablog.com/entry/2020/04/07/104457
