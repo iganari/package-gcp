@@ -67,6 +67,8 @@ gcloud compute security-policies rules create 2000 \
 
 ![](./feature-cloud-armor-02.png)
 
+![](./feature-cloud-armor-03.png)
+
 ## manifest で BackendConfig の設定を作成
 
 + manifests を作る
@@ -173,17 +175,17 @@ kubectl apply -f k8s.yaml
 
 ### アクセスを許可した IP アドレスからアクセスした場合
 
-![](./feature-cloud-armor-03.png)
+![](./feature-cloud-armor-04.png)
 
 ### アクセスを許可していない IP アドレスからアクセスした場合
 
-![](./feature-cloud-armor-04.png)
+![](./feature-cloud-armor-05.png)
 
 ### Cloud Armor 上に出ていた警告が消えている
 
 + GKE でアタッチしたため警告が消える
 
-![](./feature-cloud-armor-05.png)
+![](./feature-cloud-armor-06.png)
 
 
 ## 参考
