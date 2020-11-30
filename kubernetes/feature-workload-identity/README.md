@@ -18,7 +18,7 @@
 export _gcp_pj_id='Your GCP Project ID'
 ```
 
-+ 新規クラスターを作る
++ 新規クラスターを作る場合
 
 ```
 gcloud container clusters create ${cluster-name} \
@@ -26,7 +26,7 @@ gcloud container clusters create ${cluster-name} \
   --project ${_gcp_pj_id}
 ```
 
-+ 既存のクラスタで Workload Identity を有効にする
++ 既存のクラスタで Workload Identity を有効にする場合
 
 ```
 gcloud container clusters update ${cluster-name} \
