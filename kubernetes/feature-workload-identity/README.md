@@ -4,11 +4,11 @@
 
 5 ステップある
 
-+ [GKE で Workload Identity を有効にする]
-+ [Kubernetes の Service Account を作成]
-+ [GCP の Service Account を作成]
-+ [GCP の Service Account に Workload Identity の role を付与する]
-+ [Kubernetes の Service Account と GCP の Service Account を紐付ける]
++ [GKE で Workload Identity を有効にする](./README.md#gke-で-workload-identity-を有効にする)
++ [Kubernetes の Service Account を作成](./README.md#kubernetes-の-service-account-を作成)
++ [GCP の Service Account を作成](./README.md#gcp-の-service-account-を作成)
++ [GCP の Service Account に Workload Identity の role を付与する](./README.md#gcp-の-service-account-に-workload-identity-の-role-を付与する)
++ [Kubernetes の Service Account と GCP の Service Account を紐付ける](./README.md#kubernetes-の-service-account-と-gcp-の-service-account-を紐付ける)
 
 ## GKE で Workload Identity を有効にする
 
