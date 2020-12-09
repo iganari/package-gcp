@@ -113,6 +113,7 @@ WIP
     + `k8s-workload-identity-test-sa.yaml`
 
 ```
+cat << __EOF__ > k8s-workload-identity-test-sa.yaml.tmp
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -120,6 +121,7 @@ metadata:
     iam.gke.io/gcp-service-account: ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com
   name: ${_k8s_sa_name}
   namespace: ${_k8s_namespace}
+__EOF__
 ```
 
 + YAML を元にリソース作成
