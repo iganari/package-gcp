@@ -35,13 +35,19 @@ gcloud container clusters update ${_cluster_name} \
   --project ${_gcp_pj_id}
 ```
 
++ GKE Cluster と認証をする
+
+```
+gcloud container clusters get-credentials ${_cluster_name} --project ${_gcp_pj_id}
+```
+
 ## Kubernetes の Service Account を作成
 
 + 環境変数
 
 ```
 export _k8s_namespace='default'
-export _k8s_sa_name='my-k8s-serviceaccount'
+export _k8s_sa_name='workload-identity-test-k8s'
 ```
 
 + 作成コマンド
@@ -50,32 +56,60 @@ export _k8s_sa_name='my-k8s-serviceaccount'
 kubectl create serviceaccount --namespace ${_k8s_namespace} ${_k8s_sa_name}
 ```
 
++ 確認コマンド
+
+```
+kubectl get serviceaccount | grep ${_k8s_sa_name}
+```
+```
+### Ex
+
+# kubectl get serviceaccount | grep ${_k8s_sa_name}
+workload-identity-test-k8s   1         5m18s
+```
+
 ## GCP の Service Account を作成
 
 + 環境変数
 
 ```
-export _gcp_sa_name='my-gcp-serviceaccount'
+export _gcp_sa_name='workload-identity-test-gcp'
 ```
 
 + 作成コマンド
 
 ```
-gcloud iam service-accounts create ${_gcp_sa_name}
+gcloud iam service-accounts create ${_gcp_sa_name} --project ${_gcp_pj_id}
+```
+
++ 確認コマンド
+
+```
+gcloud iam service-accounts list --project ${_gcp_pj_id} | grep ${_gcp_sa_name}
 ```
 
 ## GCP の Service Account に Workload Identity の role を付与する
+
++ 実行コマンド
 
 ```
 gcloud iam service-accounts add-iam-policy-binding \
   --role roles/iam.workloadIdentityUser \
   --member "serviceAccount:${_gcp_pj_id}.svc.id.goog[${_k8s_namespace}/${_k8s_sa_name}]" \
-  ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com
+  ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com \
+  --project ${_gcp_pj_id}
+```
+
++ 確認コマンド
+
+```
+WIP
 ```
 
 ## Kubernetes の Service Account と GCP の Service Account を紐付ける
 
 + YAML の作成
+    + `k8s-workload-identity-test.yaml`
 
 ```
 apiVersion: v1
@@ -87,6 +121,11 @@ metadata:
   namespace: ${_k8s_namespace}
 ```
 
++ YAML を元にリソース作成
+
+```
+
+```
 
 ## 確認方法
 
