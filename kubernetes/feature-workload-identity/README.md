@@ -133,22 +133,22 @@ kubectl apply -f k8s-workload-identity-test-sa.yaml
 + バケットの作成
 
 ```
-gsutil mb -c standard -l asia-northeast1 gs://${_gcp_pj_id}-${_common}
+gsutil mb -c standard -l asia-northeast1 -p ${_gcp_pj_id} gs://${_gcp_pj_id}-${_common}
 ```
 
 + バケットの確認
 
 ```
-gsutil ls | grep ${_gcp_pj_id} | grep ${_common}
+gsutil ls -p ${_gcp_pj_id} | grep ${_gcp_pj_id} | grep ${_common}
 ```
 
 + GCP のサービスアカウントに GCS バケットの閲覧権限を付ける
 
 ```
-WIP
+gcloud projects add-iam-policy-binding ${_gcp_pj_id} \
+    --member "serviceAccount:${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com" \
+    --role roles/storage.admin
 ```
-
-
 
 ## 確認方法
 
@@ -201,17 +201,22 @@ gcloud auth list
 # gcloud auth list
                                Credentialed Accounts
 ACTIVE  ACCOUNT
-*       workload-identity-test-gcp@your-gcp-id.iam.gserviceaccount.com
+*       workload-identity-test-gcp@{your-gcp-id}.iam.gserviceaccount.com
 ```
 
 + Pod の中から GCS のバケットの確認
 
 ```
 gsutil ls
-OR
-gsutil ls | grep ${_gcp_pj_id} | grep ${_common}
+```
+```
+### Ex.
+
+# gsutil ls
+gs://{your-gcp-id}-workload-identity-test/
 ```
 
+Pod の中から GCS のバケットを確認することが出来ました :)
 
 ## 参考 URL
 
