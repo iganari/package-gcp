@@ -10,19 +10,20 @@
 + [GCP の Service Account に Workload Identity の role を付与する](./README.md#gcp-の-service-account-に-workload-identity-の-role-を付与する)
 + [Kubernetes の Service Account と GCP の Service Account を紐付ける](./README.md#kubernetes-の-service-account-と-gcp-の-service-account-を紐付ける)
 
-## GKE で Workload Identity を有効にする
+
+## Workload Identity を有効にした GKE Cluster の作成
 
 + 環境変数
 
 ```
 export _gcp_pj_id='Your GCP Project ID'
-export _cluster_name='workload-identity-test'
+export _common='workload-identity-test'
 ```
 
 + 新規クラスターを作る場合
 
 ```
-gcloud container clusters create ${_cluster_name} \
+gcloud container clusters create ${_common} \
   --workload-pool=${_gcp_pj_id}.svc.id.goog \
   --project ${_gcp_pj_id}
 ```
@@ -30,7 +31,7 @@ gcloud container clusters create ${_cluster_name} \
 + 既存のクラスタで Workload Identity を有効にする場合
 
 ```
-gcloud container clusters update ${_cluster_name} \
+gcloud container clusters update ${_common} \
   --workload-pool=${_gcp_pj_id}.svc.id.goog \
   --project ${_gcp_pj_id}
 ```
@@ -38,7 +39,7 @@ gcloud container clusters update ${_cluster_name} \
 + GKE Cluster と認証をする
 
 ```
-gcloud container clusters get-credentials ${_cluster_name} --project ${_gcp_pj_id}
+gcloud container clusters get-credentials ${_common} --project ${_gcp_pj_id}
 ```
 
 ## Kubernetes の Service Account を作成
@@ -109,7 +110,7 @@ WIP
 ## Kubernetes の Service Account と GCP の Service Account を紐付ける
 
 + YAML の作成
-    + `k8s-workload-identity-test.yaml`
+    + `k8s-workload-identity-test-sa.yaml`
 
 ```
 apiVersion: v1
@@ -124,18 +125,93 @@ metadata:
 + YAML を元にリソース作成
 
 ```
+kubectl apply -f k8s-workload-identity-test-sa.yaml
+```
+
+## テストで使用する GCS のバケットを作成する
+
++ バケットの作成
 
 ```
+gsutil mb -c standard -l asia-northeast1 gs://${_gcp_pj_id}-${_common}
+```
+
++ バケットの確認
+
+```
+gsutil ls | grep ${_gcp_pj_id} | grep ${_common}
+```
+
++ GCP のサービスアカウントに GCS バケットの閲覧権限を付ける
+
+```
+WIP
+```
+
+
 
 ## 確認方法
 
-+ gcloud コマンドが入っているコンテナを立ち上げる
++ gcloud コマンドが入っているコンテナの pod を作成
+    + `k8s-workload-identity-test-pod.yaml`
 
 ```
-kubectl run test --image=gcr.io/cloud-builders/gcloud config list
+cat << __EOF__ > k8s-workload-identity-test-pod.yaml.tmp
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ${_cluster_name}-pod
+  namespace: ${_k8s_namespace}
+spec:
+  containers:
+  - image: google/cloud-sdk:slim
+    name: ${_cluster_name}-pod
+    command: ["sleep","infinity"]
+  serviceAccountName: ${_k8s_sa_name}
+__EOF__
 ```
 
----> これで先程作成した GCP 上の Service Account の設定が見えれば OK
++ 作成
+
+```
+kubectl apply -f k8s-workload-identity-test-pod.yaml
+```
+
++ Pod の確認
+
+```
+kubectl get pod | grep ${_cluster_name}
+```
+
++ Pod にログイン
+
+```
+kubectl exec -it $(kubectl get pod | grep ${_cluster_name} | awk '{print $1}') /bin/bash
+```
+
++ Pod の中の認証情報の確認
+    + 自分で作成した GCP の Service Account( `${_gcp_sa_name}` ) が読み取れれば成功
+
+```
+gcloud auth list
+```
+```
+### Ex.
+
+# gcloud auth list
+                               Credentialed Accounts
+ACTIVE  ACCOUNT
+*       workload-identity-test-gcp@your-gcp-id.iam.gserviceaccount.com
+```
+
++ Pod の中から GCS のバケットの確認
+
+```
+gsutil ls
+OR
+gsutil ls | grep ${_gcp_pj_id} | grep ${_common}
+```
+
 
 ## 参考 URL
 
