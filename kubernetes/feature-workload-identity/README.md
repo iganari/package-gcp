@@ -16,21 +16,22 @@
 
 ```
 export _gcp_pj_id='Your GCP Project ID'
+export _cluster_name='workload-identity-test'
 ```
 
 + 新規クラスターを作る場合
 
 ```
-gcloud container clusters create ${cluster-name} \
-  --workload-pool=${project-id}.svc.id.goog \
+gcloud container clusters create ${_cluster_name} \
+  --workload-pool=${_gcp_pj_id}.svc.id.goog \
   --project ${_gcp_pj_id}
 ```
 
 + 既存のクラスタで Workload Identity を有効にする場合
 
 ```
-gcloud container clusters update ${cluster-name} \
-  --workload-pool=${project-id}.svc.id.goog \
+gcloud container clusters update ${_cluster_name} \
+  --workload-pool=${_gcp_pj_id}.svc.id.goog \
   --project ${_gcp_pj_id}
 ```
 
