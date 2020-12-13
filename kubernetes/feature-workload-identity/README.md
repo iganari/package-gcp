@@ -18,22 +18,23 @@
 ```
 export _gcp_pj_id='Your GCP Project ID'
 export _common='workload-identity-test'
+export _region='asia-northeast1'
 ```
 
 + 新規クラスターを作る場合
 
 ```
 gcloud beta container clusters create ${_common} \
-  --workload-pool=${_gcp_pj_id}.svc.id.goog \
-  --project ${_gcp_pj_id}
+    --workload-pool=${_gcp_pj_id}.svc.id.goog \
+    --project ${_gcp_pj_id}
 ```
 
 + 既存のクラスタで Workload Identity を有効にする場合
 
 ```
 gcloud beta container clusters update ${_common} \
-  --workload-pool=${_gcp_pj_id}.svc.id.goog \
-  --project ${_gcp_pj_id}
+    --workload-pool=${_gcp_pj_id}.svc.id.goog \
+    --project ${_gcp_pj_id}
 ```
 
 + GKE Cluster と認証をする
@@ -80,7 +81,8 @@ export _gcp_sa_name='workload-identity-test-gcp'
 + 作成コマンド
 
 ```
-gcloud iam service-accounts create ${_gcp_sa_name} --project ${_gcp_pj_id}
+gcloud iam service-accounts create ${_gcp_sa_name} \
+    --project ${_gcp_pj_id}
 ```
 
 + 確認コマンド
@@ -95,10 +97,10 @@ gcloud iam service-accounts list --project ${_gcp_pj_id} | grep ${_gcp_sa_name}
 
 ```
 gcloud iam service-accounts add-iam-policy-binding \
-  --role roles/iam.workloadIdentityUser \
-  --member "serviceAccount:${_gcp_pj_id}.svc.id.goog[${_k8s_namespace}/${_k8s_sa_name}]" \
-  ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com \
-  --project ${_gcp_pj_id}
+    --role roles/iam.workloadIdentityUser \
+    --member "serviceAccount:${_gcp_pj_id}.svc.id.goog[${_k8s_namespace}/${_k8s_sa_name}]" \
+    ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com \
+    --project ${_gcp_pj_id}
 ```
 
 + 確認コマンド
@@ -225,10 +227,24 @@ Pod の中から GCS のバケットを確認することが出来ました :)
 + GKE Cluster の削除
 
 ```
-
+gcloud beta container clusters delete ${_common} \
+    --project ${_gcp_pj_id} \
+    -q
 ```
 
++ Service Account の削除
 
+```
+gcloud iam service-accounts delete ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com \
+    --project ${_gcp_pj_id} \
+    -q
+```
+
++ GCS のバケットの削除
+
+```
+gsutil rm -r gs://${_gcp_pj_id}-${_common}
+```
 
 ## 参考 URL
 
