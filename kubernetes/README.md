@@ -16,12 +16,16 @@ gcloud components install kubectl -q
 ## コンテンツ
 
 + [cluster-basic](./cluster-basic)
+    + [gcloud](./cluster-basic/gcloud)
+    + [terraform](./cluster-basic/terraform)
 + [cluster-private](./cluster-private)
+    + [gcloud](./cluster-private/gcloud)
+    + [terraform](./cluster-private/terraform)
 + [cluster-version-upgrade](./cluster-version-upgrade)
 + [configure-backend-service](./configure-backend-service)
-+ [feature-cloud-armor](./feature-cloud-armor)
++ [feature-cloud-armor | Cloud Armor を試す](./feature-cloud-armor)
 + [feature-cronjobs](./feature-cronjobs)
-+ [feature-workload-identity](./feature-workload-identity)
++ [feature-workload-identity | Workload Identity を試す](./feature-workload-identity)
 + [handson](./handson)
 + [helm](./helm)
 + [sample-version](./sample-version)
