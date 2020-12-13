@@ -15,10 +15,13 @@ gcloud components install kubectl -q
 
 ## コンテンツ
 
-+ [basic-cluster](./README.md#basic-cluster)
-+ [cluster-private](./README.md#private-cluster)
-+ [sample-version]
-+ [wordpress](./README.md#wordpress)
++ [cluster-basic](./cluster-basic)
++ [cluster-private](./cluster-private)
++ [cluster-version-upgrade](./cluster-version-upgrade)
++ [configure-backend-service](./configure-backend-service)
++ [feature-cloud-armor](./feature-cloud-armor)
++ [feature-cronjobs](./feature-cronjobs)
++ [feature-workload-identity](./feature-workload-identity)
 
 
 ## Basic Cluster
