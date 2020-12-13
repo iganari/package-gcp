@@ -23,7 +23,7 @@ export _common='workload-identity-test'
 + 新規クラスターを作る場合
 
 ```
-gcloud container clusters create ${_common} \
+gcloud beta container clusters create ${_common} \
   --workload-pool=${_gcp_pj_id}.svc.id.goog \
   --project ${_gcp_pj_id}
 ```
@@ -31,7 +31,7 @@ gcloud container clusters create ${_common} \
 + 既存のクラスタで Workload Identity を有効にする場合
 
 ```
-gcloud container clusters update ${_common} \
+gcloud beta container clusters update ${_common} \
   --workload-pool=${_gcp_pj_id}.svc.id.goog \
   --project ${_gcp_pj_id}
 ```
@@ -222,7 +222,11 @@ Pod の中から GCS のバケットを確認することが出来ました :)
 
 ## リソースの削除
 
++ GKE Cluster の削除
 
+```
+
+```
 
 
 
