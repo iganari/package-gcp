@@ -220,6 +220,12 @@ gs://{your-gcp-id}-workload-identity-test/
 
 Pod の中から GCS のバケットを確認することが出来ました :)
 
+## リソースの削除
+
+
+
+
+
 ## 参考 URL
 
 + [公式] Using Workload Identity
