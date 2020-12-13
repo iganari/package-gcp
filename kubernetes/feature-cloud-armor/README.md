@@ -6,10 +6,10 @@
 
 ## 出来ること
 
-+ Cloud Armor の機能の 1 つに `IP アドレス制限` があるので、それを使う
-  + Cloud Armor の機能は他にもあり、 IP アドレス制限は機能の 1 つでしかない
-+ Cloud Armor の IP アドレス制限を GKE 上の Service につけることが出来る
-  + ingress の Service 単位で Cloud Armor の設定をつけることが出来る
++ Cloud Armor の機能の 1 つに `IP アドレス制限` があるので、それを使います
+  + Cloud Armor の機能は他にもあり、 IP アドレス制限は機能の 1 つでしかないです
++ Cloud Armor の IP アドレス制限を GKE 上の Service につけることが出来ます
+  + ingress の Service 単位で Cloud Armor の設定をつけることが出来ます
 
 ## 設定
 
@@ -20,7 +20,7 @@
 
 ## Cloud Armor の設定
 
-+ コマンドラインで Cloud Armor を作成
++ コマンドラインで Cloud Armor を作成します
 
 ```
 ### 環境変数
@@ -30,14 +30,14 @@ export _project='Your GCP Project ID'
 
 ```
 ```
-### Cloud Armor を作成
+### Cloud Armor を作成します
 
 gcloud beta compute security-policies create ${_armor_name} \
     --description "armor-sample" \
     --project ${_project}
 ```
 ```
-### 基本 deny の設定
+### 基本 deny の設定します
 
 gcloud compute security-policies rules update 2147483647 \
     --security-policy ${_armor_name} \
@@ -45,7 +45,7 @@ gcloud compute security-policies rules update 2147483647 \
     --project ${_project}
 ```
 ```
-### 許可したい IP アドレスを設定(例として、インターナルとイクスターナル(適当)を許可)
+### 許可したい IP アドレスを設定(例として、インターナルとイクスターナル(適当)を許可)します
 
 gcloud compute security-policies rules create 1000 \
     --security-policy ${_armor_name} \
@@ -61,15 +61,18 @@ gcloud compute security-policies rules create 2000 \
 ```
 
 + GCP コンソールで確認
-  + この状態ではどのリソースに対しても適用されていないため、 `Apply policy to target` が出ている
+  + ナビゲーションメニューから `NETWORKING` >> `Network Security` >> `Cloud Armor` と遷移すします
+  + この状態ではどのリソースに対しても適用されていないため、 `Apply policy to target` が出ています
 
 ![](./feature-cloud-armor-01.png)
 
 ![](./feature-cloud-armor-02.png)
 
+![](./feature-cloud-armor-03.png)
+
 ## manifest で BackendConfig の設定を作成
 
-+ manifests を作る
++ manifests を作ります
   + k8s.yaml](./k8s.yaml) に同梱
 
 ```
@@ -85,10 +88,10 @@ spec:
 
 ## manifest で Service に annotations を追加
 
-+ 例として nginx を使用する
++ 例として nginx を使用します
 
-+ manifests を作る
-  + k8s.yaml](./k8s.yaml) に同梱
++ manifests を作成します
+  + k8s.yaml](./k8s.yaml) に同梱します
 
 ```
 apiVersion: apps/v1
@@ -163,7 +166,7 @@ spec:
 
 ```
 
-+ 作成した manifests を apply コマンドで反映させる
++ 作成した manifests を apply コマンドで反映させます
 
 ```
 kubectl apply -f k8s.yaml
@@ -173,17 +176,17 @@ kubectl apply -f k8s.yaml
 
 ### アクセスを許可した IP アドレスからアクセスした場合
 
-![](./feature-cloud-armor-03.png)
+![](./feature-cloud-armor-04.png)
 
 ### アクセスを許可していない IP アドレスからアクセスした場合
 
-![](./feature-cloud-armor-04.png)
+![](./feature-cloud-armor-05.png)
 
 ### Cloud Armor 上に出ていた警告が消えている
 
-+ GKE でアタッチしたため警告が消える
++ GKE でアタッチしたため警告が消えます
 
-![](./feature-cloud-armor-05.png)
+![](./feature-cloud-armor-06.png)
 
 
 ## 参考
