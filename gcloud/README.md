@@ -11,6 +11,9 @@
 gcloud --quiet components update
 gcloud --quiet components install beta
 ```
+```
+gcloud --quiet components install kubectl
+```
 
 ## Auth
 
