@@ -252,6 +252,12 @@ gcloud iam service-accounts delete ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceacc
 gsutil rm -r gs://${_gcp_pj_id}-${_common}
 ```
 
++ YAML ファイルの削除
+
+```
+rm -rfv k8s-workload-identity-test*
+```
+
 ## 参考 URL
 
 + [公式] Using Workload Identity
