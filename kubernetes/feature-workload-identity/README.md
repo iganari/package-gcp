@@ -26,6 +26,9 @@ export _region='asia-northeast1'
 ```
 gcloud beta container clusters create ${_common} \
     --workload-pool=${_gcp_pj_id}.svc.id.goog \
+    --region ${_region} \
+    --num-nodes "1" \
+    --node-locations "asia-northeast1-a" \
     --project ${_gcp_pj_id}
 ```
 
@@ -40,7 +43,9 @@ gcloud beta container clusters update ${_common} \
 + GKE Cluster と認証をする
 
 ```
-gcloud container clusters get-credentials ${_common} --project ${_gcp_pj_id}
+gcloud container clusters get-credentials ${_common} \
+    --region ${_region} \
+    --project ${_gcp_pj_id}
 ```
 
 ## Kubernetes の Service Account を作成
@@ -160,16 +165,16 @@ gcloud projects add-iam-policy-binding ${_gcp_pj_id} \
     + `k8s-workload-identity-test-pod.yaml`
 
 ```
-cat << __EOF__ > k8s-workload-identity-test-pod.yaml.tmp
+cat << __EOF__ > k8s-workload-identity-test-pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ${_cluster_name}-pod
+  name: ${_common}-pod
   namespace: ${_k8s_namespace}
 spec:
   containers:
   - image: google/cloud-sdk:slim
-    name: ${_cluster_name}-pod
+    name: ${_common}-pod
     command: ["sleep","infinity"]
   serviceAccountName: ${_k8s_sa_name}
 __EOF__
@@ -184,13 +189,13 @@ kubectl apply -f k8s-workload-identity-test-pod.yaml
 + Pod の確認
 
 ```
-kubectl get pod | grep ${_cluster_name}
+kubectl get pod | grep ${_common}
 ```
 
 + Pod にログイン
 
 ```
-kubectl exec -it $(kubectl get pod | grep ${_cluster_name} | awk '{print $1}') /bin/bash
+kubectl exec -it $(kubectl get pod | grep ${_common} | awk '{print $1}') /bin/bash
 ```
 
 + Pod の中の認証情報の確認
@@ -228,6 +233,7 @@ Pod の中から GCS のバケットを確認することが出来ました :)
 
 ```
 gcloud beta container clusters delete ${_common} \
+    --region ${_region} \
     --project ${_gcp_pj_id} \
     -q
 ```
