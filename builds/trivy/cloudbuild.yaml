@@ -10,4 +10,4 @@ steps:
         apk update
         apk add curl 
         trivy --exit-code=1 --severity=CRITICAL,HIGH -o /dev/stdout  gcr.io/$PROJECT_ID/$_SERVICE_NAME:latest
-        if [ $? != 0 ];then curl -X POST -H "Content-Type:application/json" -d '{"message":"${PROJECT_ID}環境にて、脆弱性を検知しました"}' ${_GCF_URL}; exit 1;fi
+        if [ $? != 0 ];then curl -X POST -H "Content-Type:application/json" -d '{"message":"${PROJECT_ID}環境にて、脆弱性を検知しました"}' ${_GCF_URL}; exit 1; fi
