@@ -5,6 +5,8 @@
 
 ## サンプル
 
++ cloudbuild.yaml
+
 ```
 # scan Vulnerability of the container image
 steps:
