@@ -1,3 +1,4 @@
+steps:
   - id: "container virus scanning"
     name: 'alpine:edge'
     entrypoint: ash
