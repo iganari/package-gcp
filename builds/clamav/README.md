@@ -6,8 +6,20 @@ WIP
 
 ## ClamAV を Cloud Build 内で使用する
 
-```
-step
++ cloudbuild.yaml
 
-WIP
+```
+steps:
+  - id: "container virus scanning"
+    name: 'alpine:edge'
+    entrypoint: ash
+    dir: 'apps'
+    args:
+      - -c
+      - |
+       apk update && \
+       apk add clamav curl && \
+       freshclam && \
+       clamscan --infected --remove --recursive ./var/www/html
+       if [ "$?" = '0' ]; then :; else echo "As a result of running a scan, a virus was found and cloudbuild removed it." ; fi
 ```
