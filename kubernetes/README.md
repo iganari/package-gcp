@@ -15,34 +15,21 @@ gcloud components install kubectl -q
 
 ## コンテンツ
 
-+ [basic-cluster](./README.md#basic-cluster)
-+ [cluster-private](./README.md#private-cluster)
-+ [sample-version]
-+ [wordpress](./README.md#wordpress)
++ [cluster-basic](./cluster-basic)
+    + [gcloud](./cluster-basic/gcloud)
+    + [terraform](./cluster-basic/terraform)
++ [cluster-private](./cluster-private)
+    + [gcloud](./cluster-private/gcloud)
+    + [terraform](./cluster-private/terraform)
++ [cluster-version-upgrade](./cluster-version-upgrade)
++ [configure-backend-service](./configure-backend-service)
++ [feature-cloud-armor | Cloud Armor を試す](./feature-cloud-armor)
++ [feature-cronjobs](./feature-cronjobs)
++ [feature-workload-identity | Workload Identity を試す](./feature-workload-identity)
++ [handson](./handson)
++ [helm](./helm)
++ [sample-version](./sample-version)
++ [tips](./tips)
++ [tutorials_hello-app](./tutorials_hello-app)
++ [wordpress](./wordpress)
 
-
-## Basic Cluster
-
-+ [basic-private](./cluster-basic/README.md)
-    + 通常の GKE クラスタ
-
-## Private Cluster
-
-+ [cluster-private](./cluster-private/README.md)
-    + 限定公開クラスタ と呼ばれる、ノードのネットワークの権限を制御して、よりセキュアなクラスタを構築・運用するためのクラスタです。
-
-## WordPress
-
-+ [With MySQL Pod]
-    + WIP
-
-+ [With CloudSQL](./wordpress/with-cloudsql)
-    + GKE 上に Cloud SQL を使用した WordPress を作成する
-
-+ [Costom Container With CloudSQL]
-    + WIP
-
-
-## Helm
-
-WIP
