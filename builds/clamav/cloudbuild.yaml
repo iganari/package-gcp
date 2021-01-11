@@ -1,14 +1,3 @@
-# ClamAV
-
-## ClamAV とは
-
-WIP
-
-## ClamAV を Cloud Build 内で使用する
-
-+ cloudbuild.yaml
-
-```
 steps:
   - id: "container virus scanning"
     name: 'alpine:edge'
@@ -22,4 +11,3 @@ steps:
        freshclam && \
        clamscan --infected --remove --recursive ./var/www/html
        if [ "$?" = '0' ]; then :; else echo "As a result of running a scan, a virus was found and cloudbuild removed it." ; fi
-```
