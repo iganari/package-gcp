@@ -37,13 +37,19 @@ RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyri
 RUN apt-get update && apt-get install -y google-cloud-sdk
 
 
-# [Optional] If you need ckubectl command
+# [Optional] If you need kubectl command.
 RUN apt-get install kubectl -y
 
-# [Optional] If you need Terraform command
+# [Optional] If you need Terraform command.
 # ref: https://github.com/hashicorp/terraform/releases
 # ARG _terraform_version='0.13.5'
 # RUN curl https://releases.hashicorp.com/terraform/${_terraform_version}/terraform_${_terraform_version}_linux_amd64.zip -o /usr/local/bin/terraform_${_terraform_version}_linux_amd64.zip \
 #     && cd /usr/local/bin/ \
 #     && unzip terraform_${_terraform_version}_linux_amd64.zip \
 #     && rm -f /usr/local/bin/terraform_${_terraform_version}_linux_amd64.zip
+
+# [Optional] If you need vim and unuse nano.
+RUN apt-get install vim -y && \
+    unlink /etc/alternatives/editor && \
+    ln -s /usr/bin/vim.basic /etc/alternatives/editor && \
+    apt remove nano -y
