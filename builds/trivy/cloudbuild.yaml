@@ -19,4 +19,4 @@ steps:
         apk update
         apk add curl 
         trivy --exit-code=1 --severity=CRITICAL,HIGH -o /dev/stdout gcr.io/$PROJECT_ID/${_container_id}:latest
-        if [ "$?" = '0' ]; then :; else exit 1; fi
+        if [ "$?" = '0' ]; then :; else echo "Detected a vulnerability" && exit 1; fi
