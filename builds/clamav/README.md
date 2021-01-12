@@ -2,7 +2,15 @@
 
 ## ClamAV とは
 
-WIP
+オープンソースのセキュリティソフトのアンチウイルスエンジンです。
+
+ClamAVは、「ファイルスキャン」「電子メールスキャン」「Webスキャン」などエンドポイントセキュリティを含むさまざまな状況で使用されるアンチウイルスエンジンです。
+
+特に、UNIX/Linux環境では定番アンチウイルスツールとして利用されています。
+
+公式HP https://www.clamav.net/
+
+参考 https://www.ossnews.jp/oss_info/ClamAV
 
 ## ClamAV を Cloud Build 内で使用する
 
