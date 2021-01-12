@@ -3,9 +3,10 @@
 ## 環境変数を入れる
 
 ```
-export _project='Your GCP Project ID'
+export _gcp_pj_id='Your GCP Project ID'
 export _cluster_name='Your GKE Cluster Name'
 export _region='asia-northeast1'
+export _zone='asia-northeast1-b'
 ```
 
 ## コントロールプレーンのバージョンの確認とアップグレード実行
@@ -18,16 +19,18 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/upgrading-a-cluster#upgra
   + `zone` か `region` を指定する必要がある
 
 ```
-gcloud beta container get-server-config --project ${_gcp_pj_id} --zone ${_zone}
+gcloud beta container get-server-config --project ${_gcp_pj_id} --zone ${_zone} | head -15
 ```
 
 + クラスタの現在のバージョンを確認
 
 ```
+### 全データ取得
 gcloud beta container clusters describe ${_cluster_name} --project ${_gcp_pj_id} --zone ${_zone} --format json
 gcloud beta container clusters describe ${_cluster_name} --project ${_gcp_pj_id} --zone ${_zone} --format yaml
 ```
 ```
+### jq コマンドを使用して、バージョン情報のみを取得
 gcloud beta container clusters describe ${_cluster_name} \
     --project ${_gcp_pj_id} --zone ${_zone} \
     --format json | jq .currentMasterVersion

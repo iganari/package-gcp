@@ -5,6 +5,16 @@
 + [IAM](./README.md#iam)
 + [monitoring](./README.md#monitoring)
 
+## update
+
+```
+gcloud --quiet components update
+gcloud --quiet components install beta
+```
+```
+gcloud --quiet components install kubectl
+```
+
 ## Auth
 
 [auth](https://cloud.google.com/sdk/gcloud/reference/auth/)
