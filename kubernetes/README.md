@@ -15,6 +15,7 @@ gcloud components install kubectl -q
 
 ## コンテンツ
 
++ [gcloud container clusters](./_gcloud_container_clusters)
 + [cluster-basic](./cluster-basic)
     + [gcloud](./cluster-basic/gcloud)
     + [terraform](./cluster-basic/terraform)
