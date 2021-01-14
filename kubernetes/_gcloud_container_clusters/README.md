@@ -6,6 +6,9 @@
 gcloud container clusters
 ```
 
++ [get-credentials](./README.md#get-credentials)
++ [resize](./README.md#resize)
+
 ## get-credentials
 
 GKE との認証を行う
