@@ -11,7 +11,7 @@ gcloud container clusters
 
 ## get-credentials
 
-GKE との認証を行う
+GKE との認証を行うコマンド
 
 ```
 ### Zonal
@@ -30,7 +30,7 @@ gcloud container clusters get-credentials {cluster-name} \
 
 ## resize
 
-Cluster のノードプールのサイズを変更する
+Cluster のノードプールのサイズを変更するコマンド
 
 ```
 ### Zonal
