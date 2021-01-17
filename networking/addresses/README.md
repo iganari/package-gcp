@@ -7,11 +7,19 @@
 
 ## region
 
++ 使用例
+    + Cloud NAT
+
 ```
-WIP
+gcloud beta compute addresses create ${_common}-ip-addr \
+    --region ${_region} \
+    --project ${_gcp_pj_id}
 ```
 
 ## global
+
++ 使用例
+    + GCLB
 
 ```
 gcloud beta compute addresses create mix-ip-addr \
