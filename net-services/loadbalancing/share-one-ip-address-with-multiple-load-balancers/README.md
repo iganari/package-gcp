@@ -13,3 +13,14 @@
   + lb からの通信許可
   + bastion からの通信許可
 + 
+
+## 要旨
+
++ GCP にログイン
++ WIP
+
+## GCP にログイン
+
+```
+gcloud auth login -q
+```
