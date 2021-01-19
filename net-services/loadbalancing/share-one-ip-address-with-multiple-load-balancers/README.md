@@ -46,6 +46,11 @@ WIP
 WIP
 
 ### Bastion VM で使用する ---> a②
+WIP
+
+### LB で使用する ---> a③
+WIP
+
 ```
 
 + Cloud Router の作成
@@ -55,6 +60,7 @@ WIP
 ```
 
 + Cloud NAT の作成
+    + a① を使用します
 
 ```
 WIP
@@ -72,9 +78,64 @@ WIP
 
 ## VM を作成
 
-+ Bastion VM
++ Bastion VM の作成
     + a② を使用します
 
 ```
 WIP
 ```
+
++ web VM の作成
+    + Ubuntu を使用
+
+```
+WIP
+```
+
+## web VM を設定
+
++ nginx をいれる
+
+```
+apt install nginx
+```
+
++ curl で確認
+
+```
+curl localhost
+```
+
+## template を作る
+
+LB のバックエンドに登録するため
+
+```
+WIP
+```
+
+## LB 作成
+
+なんか色々作る
+
+IP アドレスが共通で使えるとこをやりたい
+
+```
+WIP
+```
+
+## LB でマネージドSSLを設定
+
+```
+WIP
+```
+
+## 確認
+
+GCP 外から確認しよう
+
+複数のLBから来ていることをログから確認しよう
+
+## おわり
+
+:)
