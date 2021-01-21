@@ -63,7 +63,7 @@ gcloud beta compute addresses create ${_common}-ip-nat \
 
 
 ### Bastion VM で使用する ---> a②
-gcloud beta compute addresses create ${_common}-ip-vm \
+gcloud beta compute addresses create ${_common}-ip-vm-bastion \
     --region ${_region} \
     --project ${_gcp_pj_id}
 
@@ -106,7 +106,9 @@ gcloud beta compute routers nats create ${_common}-nat \
 gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
     --network ${_common}-network \
     --allow tcp:0-65535,udp:0-65535,icmp \
+    --source-ranges="10.0.0.0/8" \
     --project ${_gcp_pj_id}
+
 
 ### GCP の LB の IP アドレスからの通信を許可
 gcloud beta compute firewall-rules create ${_common}-allow-gclb \
@@ -114,6 +116,15 @@ gcloud beta compute firewall-rules create ${_common}-allow-gclb \
     --allow tcp:0-65535,udp:0-65535,icmp \
     --source-ranges="130.211.0.0/22,35.191.0.0/16" \
     --project ${_gcp_pj_id}
+
+
+### Bastion Server へ SSH の許可
+gcloud beta compute firewall-rules create ${_common}-allow-ssh-all \
+    --network ${_common}-network \
+    --allow tcp:22 \
+    --source-ranges="0.0.0.0/0" \
+    --project ${_gcp_pj_id}
+
 ```
 
 ## VM を作成
@@ -122,14 +133,39 @@ gcloud beta compute firewall-rules create ${_common}-allow-gclb \
     + a② を使用します
 
 ```
-WIP
+gcloud beta compute instances create ${_common}-vm-bastion \
+    --zone=${_region}-b \
+    --machine-type f1-micro \
+    --subnet ${_common}-subnets \
+    --address ${_common}-ip-vm \
+    --scopes=https://www.googleapis.com/auth/cloud-platform \
+    --image=ubuntu-2004-focal-v20210119a \
+    --image-project=ubuntu-os-cloud \
+    --boot-disk-size=10GB \
+    --boot-disk-type=pd-standard \
+    --no-shielded-secure-boot \
+    --preemptible \
+    --project ${_gcp_pj_id}
 ```
 
 + web VM の作成
     + Ubuntu を使用
 
 ```
-WIP
+gcloud beta compute instances create ${_common}-vm-web \
+    --zone=${_region}-b \
+    --machine-type f1-micro \
+    --subnet ${_common}-subnets \
+    --no-address \
+    --scopes https://www.googleapis.com/auth/cloud-platform \
+    --image ubuntu-2004-focal-v20210119a \
+    --image-project=ubuntu-os-cloud \
+    --boot-disk-size 10GB \
+    --boot-disk-type=pd-standard \
+    --no-shielded-secure-boot \
+    --preemptible \
+    --project ${_gcp_pj_id}
+
 ```
 
 ## web VM を設定
@@ -194,6 +230,21 @@ GCP 外から確認しよう
 ## 削除コマンド
 
 
++ VM
+
+```
+gcloud beta compute instances delete ${_common}-vm-bastion \
+    --zone=${_region}-b \
+    --project ${_gcp_pj_id} \
+    -q
+
+gcloud beta compute instances delete ${_common}-vm-web \
+    --zone=${_region}-b \
+    --project ${_gcp_pj_id} \
+    -q
+```
+
+
 + ネットワーク系の削除
 
 ```
@@ -203,6 +254,10 @@ gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
     -q
 
 gcloud beta compute firewall-rules delete ${_common}-allow-gclb \
+    --project ${_gcp_pj_id} \
+    -q
+
+gcloud beta compute firewall-rules delete ${_common}-allow-ssh-all \
     --project ${_gcp_pj_id} \
     -q
 
@@ -228,7 +283,7 @@ gcloud beta compute addresses delete ${_common}-ip-nat \
     --project ${_gcp_pj_id} \
     -q
 
-gcloud beta compute addresses delete ${_common}-ip-vm \
+gcloud beta compute addresses delete ${_common}-ip-vm-bastion \
     --region ${_region} \
     --project ${_gcp_pj_id} \
     -q
