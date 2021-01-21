@@ -25,55 +25,95 @@
 gcloud auth login -q
 ```
 
++ 環境変数に入れておく
+
+```
+export _gcp_pj_id='Your GCP Project ID'
+export _common='oneipsharelb'
+export _region='asia-northeast1'
+```
+
 ## ネットワークの作成
 
 + VPC ネットワークの作成
 
 ```
-WIP
+gcloud beta compute networks create ${_common}-network \
+    --subnet-mode=custom \
+    --project ${_gcp_pj_id}
 ```
 
 + サブネットの作成
 
 ```
-WIP
+gcloud beta compute networks subnets create ${_common}-subnets \
+    --network ${_common}-network \
+    --region ${_region} \
+    --range 172.16.0.0/12 \
+    --project ${_gcp_pj_id}
 ```
 
 + パブリックIPアドレスの予約
 
 ```
 ### Cloud NAT で使用する ---> a①
-WIP
+gcloud beta compute addresses create ${_common}-ip-nat \
+    --region ${_region} \
+    --project ${_gcp_pj_id}
+
 
 ### Bastion VM で使用する ---> a②
-WIP
+gcloud beta compute addresses create ${_common}-ip-vm \
+    --region ${_region} \
+    --project ${_gcp_pj_id}
 
-### LB で使用する ---> a③
-WIP
 
+### GCLB で使用する ---> a③
+gcloud beta compute addresses create ${_common}-ip-lb \
+    --ip-version=IPV4 \
+    --global \
+    --project ${_gcp_pj_id}
 ```
 
 + Cloud Router の作成
 
 ```
-WIP
+gcloud beta compute routers create ${_common}-router \
+    --network ${_common}-network \
+    --region ${_region} \
+    --project ${_gcp_pj_id}
 ```
 
 + Cloud NAT の作成
     + a① を使用します
 
 ```
-WIP
+gcloud beta compute routers nats create ${_common}-nat \
+    --router-region ${_region} \
+    --router ${_common}-router \
+    --nat-all-subnet-ip-ranges \
+    --nat-external-ip-pool ${_common}-ip-nat \
+    --project ${_gcp_pj_id}
 ```
 
 + Firewall の作成
+    + https://cloud.google.com/load-balancing/docs/https/?hl=en#firewall_rules
+    + https://cloud.google.com/load-balancing/docs/health-check-concepts#ip-ranges
+    + :warning: range などがまだちゃんと精査出来ていない
 
 ```
 ### 同 VPC ネットワーク内はすべて許可
-WIP
+gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
+    --network ${_common}-network \
+    --allow tcp:0-65535,udp:0-65535,icmp \
+    --project ${_gcp_pj_id}
 
 ### GCP の LB の IP アドレスからの通信を許可
-WIP
+gcloud beta compute firewall-rules create ${_common}-allow-gclb \
+    --network ${_common}-network \
+    --allow tcp:0-65535,udp:0-65535,icmp \
+    --source-ranges="130.211.0.0/22,35.191.0.0/16" \
+    --project ${_gcp_pj_id}
 ```
 
 ## VM を作成
@@ -144,10 +184,78 @@ GCP 外から確認しよう
 
 複数のLBから来ていることをログから確認しよう
 
-## おわり
 
-:)
 
 ## 疑問点
 
 + GCLB と TCPLB で IP address の共有は出来るのか?
+
+
+## 削除コマンド
+
+
++ ネットワーク系の削除
+
+```
+### FireWall Rule
+gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
+    --project ${_gcp_pj_id} \
+    -q
+
+gcloud beta compute firewall-rules delete ${_common}-allow-gclb \
+    --project ${_gcp_pj_id} \
+    -q
+
+
+### Cloud NAT
+gcloud beta compute routers nats delete ${_common}-nat \
+    --router-region ${_region} \
+    --router ${_common}-router \
+    --project ${_gcp_pj_id} \
+    -q
+
+
+### Cloud Router
+gcloud beta compute routers delete ${_common}-router \
+    --region ${_region} \
+    --project ${_gcp_pj_id} \
+    -q
+
+
+### External IP Address
+gcloud beta compute addresses delete ${_common}-ip-nat \
+    --region ${_region} \
+    --project ${_gcp_pj_id} \
+    -q
+
+gcloud beta compute addresses delete ${_common}-ip-vm \
+    --region ${_region} \
+    --project ${_gcp_pj_id} \
+    -q
+
+gcloud beta compute addresses delete ${_common}-ip-lb \
+    --global \
+    --project ${_gcp_pj_id} \
+    -q
+
+
+### Subnet
+gcloud beta compute networks subnets delete ${_common}-subnets \
+    --region ${_region} \
+    --project ${_gcp_pj_id} \
+    -q
+
+
+### VPC Network
+gcloud beta compute networks delete ${_common}-network \
+    --project ${_gcp_pj_id} \
+    -q
+```
+
+
+
+## おわり
+
+:)
+
+
