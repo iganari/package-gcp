@@ -124,7 +124,6 @@ gcloud beta compute firewall-rules create ${_common}-allow-ssh-all \
     --allow tcp:22 \
     --source-ranges="0.0.0.0/0" \
     --project ${_gcp_pj_id}
-
 ```
 
 ## VM を作成
@@ -134,10 +133,10 @@ gcloud beta compute firewall-rules create ${_common}-allow-ssh-all \
 
 ```
 gcloud beta compute instances create ${_common}-vm-bastion \
-    --zone=${_region}-b \
+    --zone ${_region}-b \
     --machine-type f1-micro \
     --subnet ${_common}-subnets \
-    --address ${_common}-ip-vm \
+    --address ${_common}-ip-vm-bastion \
     --scopes=https://www.googleapis.com/auth/cloud-platform \
     --image=ubuntu-2004-focal-v20210119a \
     --image-project=ubuntu-os-cloud \
@@ -153,7 +152,7 @@ gcloud beta compute instances create ${_common}-vm-bastion \
 
 ```
 gcloud beta compute instances create ${_common}-vm-web \
-    --zone=${_region}-b \
+    --zone ${_region}-b \
     --machine-type f1-micro \
     --subnet ${_common}-subnets \
     --no-address \
@@ -165,15 +164,30 @@ gcloud beta compute instances create ${_common}-vm-web \
     --no-shielded-secure-boot \
     --preemptible \
     --project ${_gcp_pj_id}
-
 ```
 
 ## web VM を設定
 
++ VM Instance に SSH ログイン
+
+```
+gcloud beta compute ssh oneipsharelb-vm-web \
+    --zone asia-northeast1-b \
+    --project ${_gcp_pj_id}
+```
+
 + nginx をいれる
 
 ```
-apt install nginx
+apt update && \
+apt install -y nginx
+```
+
++ nginx を起動
+    + インストール時に起動しているが、念の為
+
+```
+systemctl start nginx
 ```
 
 + curl で確認
@@ -181,13 +195,49 @@ apt install nginx
 ```
 curl localhost
 ```
+```
+# curl localhost
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
 
-## template を作る
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```
+
+## Instance Groups を作る
 
 LB のバックエンドに登録するため
 
 ```
-WIP
+gcloud beta compute instance-groups unmanaged create ${_common}-unmng-grp \
+    --zone ${_region}-b \
+    --project ${_gcp_pj_id}
+
+
+gcloud beta compute instance-groups unmanaged add-instances ${_common}-unmng-grp \
+    --zone ${_region}-b \
+    --instances oneipsharelb-vm-web \
+    --project ${_gcp_pj_id}
 ```
 
 ## LB 作成
@@ -196,9 +246,72 @@ WIP
 
 IP アドレスが共通で使えるとこをやりたい
 
++ 参考
+    + https://cloud.google.com/load-balancing/docs/https/setting-up-https#gcloud
+
++ ヘルスチェックを作成
+
 ```
-WIP
+gcloud beta compute health-checks create http http-basic-check \
+    --global \
+    --port 80 \
+    --project ${_gcp_pj_id}
 ```
+
++ バックエンド サービスを作成
+
+```
+gcloud beta compute backend-services create web-backend-service \
+    --global-health-checks \
+    --protocol HTTP \
+    --port-name=http \
+    --health-checks http-basic-check \
+    --global \
+    --project ${_gcp_pj_id}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+gcloud beta compute backend-services list --project ${_gcp_pj_id}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## LB でマネージドSSLを設定
 
@@ -230,7 +343,33 @@ GCP 外から確認しよう
 ## 削除コマンド
 
 
-+ VM
++ ヘルスチェックを削除
+
+```
+gcloud beta compute health-checks delete http-basic-check \
+    --project ${_gcp_pj_id} \
+    -q
+```
+
++ バックエンド サービスを作成
+
+```
+gcloud beta compute backend-services delete web-backend-service \
+    --global \
+    --project ${_gcp_pj_id} \
+    -q
+```
+
++ Instance Groups の削除
+
+```
+gcloud beta compute instance-groups unmanaged delete ${_common}-unmng-grp \
+    --zone ${_region}-b \
+    --project ${_gcp_pj_id} \
+    -q
+```
+
++ VM instance
 
 ```
 gcloud beta compute instances delete ${_common}-vm-bastion \
@@ -314,3 +453,4 @@ gcloud beta compute networks delete ${_common}-network \
 :)
 
 
+一条みお
