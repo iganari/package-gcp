@@ -228,12 +228,17 @@ Commercial support is available at
 
 LB のバックエンドに登録するため
 
++ 非マネージドインスタンスグループの作成
+
 ```
 gcloud beta compute instance-groups unmanaged create ${_common}-unmng-grp \
     --zone ${_region}-b \
     --project ${_gcp_pj_id}
+```
 
++ 非マネージドインスタンスグループに VM Instance を組み入れる
 
+```
 gcloud beta compute instance-groups unmanaged add-instances ${_common}-unmng-grp \
     --zone ${_region}-b \
     --instances oneipsharelb-vm-web \
@@ -252,7 +257,7 @@ IP アドレスが共通で使えるとこをやりたい
 + ヘルスチェックを作成
 
 ```
-gcloud beta compute health-checks create http http-basic-check \
+gcloud beta compute health-checks create http ${_common}-health-chk \
     --global \
     --port 80 \
     --project ${_gcp_pj_id}
@@ -261,11 +266,11 @@ gcloud beta compute health-checks create http http-basic-check \
 + バックエンド サービスを作成
 
 ```
-gcloud beta compute backend-services create web-backend-service \
+gcloud beta compute backend-services create ${_common}-backend-service \
     --global-health-checks \
     --protocol HTTP \
     --port-name=http \
-    --health-checks http-basic-check \
+    --health-checks ${_common}-health-chk \
     --global \
     --project ${_gcp_pj_id}
 ```
@@ -342,20 +347,19 @@ GCP 外から確認しよう
 
 ## 削除コマンド
 
-
-+ ヘルスチェックを削除
++ バックエンド サービスを作成
 
 ```
-gcloud beta compute health-checks delete http-basic-check \
+gcloud beta compute backend-services delete ${_common}-backend-service \
+    --global \
     --project ${_gcp_pj_id} \
     -q
 ```
 
-+ バックエンド サービスを作成
++ ヘルスチェックを削除
 
 ```
-gcloud beta compute backend-services delete web-backend-service \
-    --global \
+gcloud beta compute health-checks delete ${_common}-health-chk \
     --project ${_gcp_pj_id} \
     -q
 ```
@@ -382,7 +386,6 @@ gcloud beta compute instances delete ${_common}-vm-web \
     --project ${_gcp_pj_id} \
     -q
 ```
-
 
 + ネットワーク系の削除
 
