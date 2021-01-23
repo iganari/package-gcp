@@ -45,7 +45,7 @@ gcloud beta compute networks create ${_common}-public-network \
 gcloud beta compute networks subnets create ${_common}-public-subnets \
     --network ${_common}-public-network \
     --region ${_region} \
-    --range 172.16.0.0/12 \
+    --range 172.32.0.0/12 \
     --project ${_gcp_pj_id}
 ```
 
@@ -128,13 +128,6 @@ gcloud beta compute firewall-rules create ${_common}-private-allow-internal-all 
 
 
 ### GCP の LB の IP アドレスからの通信を許可
-gcloud beta compute firewall-rules create ${_common}-private-allow-gclb \
-    --network ${_common}-private-network \
-    --allow tcp:80,tcp:22,icmp \
-    --source-ranges="130.211.0.0/22,35.191.0.0/16" \
-    --project ${_gcp_pj_id}
-
-
 gcloud beta compute firewall-rules create ${_common}-private-allow-gclb \
     --network ${_common}-private-network \
     --allow tcp:80,tcp:22,icmp \
