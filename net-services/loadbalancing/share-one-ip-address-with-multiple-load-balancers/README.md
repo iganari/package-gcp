@@ -73,7 +73,7 @@ gcloud beta compute addresses create ${_common}-private-ip-nat \
 
 
 ### Bastion VM で使用する ---> a②
-gcloud beta compute addresses create ${_common}-private-ip-vm-bastion \
+gcloud beta compute addresses create ${_common}-public-ip-vm-bastion \
     --region ${_region} \
     --project ${_gcp_pj_id}
 
@@ -481,7 +481,7 @@ gcloud beta compute addresses delete ${_common}-private-ip-nat \
     --project ${_gcp_pj_id} \
     -q
 
-gcloud beta compute addresses delete ${_common}-private-ip-vm-bastion \
+gcloud beta compute addresses delete ${_common}-public-ip-vm-bastion \
     --region ${_region} \
     --project ${_gcp_pj_id} \
     -q
