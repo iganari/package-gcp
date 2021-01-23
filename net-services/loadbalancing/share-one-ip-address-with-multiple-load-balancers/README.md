@@ -45,7 +45,7 @@ gcloud beta compute networks create ${_common}-public-network \
 gcloud beta compute networks subnets create ${_common}-public-subnets \
     --network ${_common}-public-network \
     --region ${_region} \
-    --range 172.32.0.0/12 \
+    --range 172.24.0.0/13 \
     --project ${_gcp_pj_id}
 ```
 
@@ -59,7 +59,7 @@ gcloud beta compute networks create ${_common}-private-network \
 gcloud beta compute networks subnets create ${_common}-private-subnets \
     --network ${_common}-private-network \
     --region ${_region} \
-    --range 172.16.0.0/12 \
+    --range 172.16.0.0/13 \
     --project ${_gcp_pj_id}
 ```
 
@@ -116,14 +116,14 @@ gcloud beta compute routers nats create ${_common}-private-nat \
 gcloud beta compute firewall-rules create ${_common}-public-allow-internal-all \
     --network ${_common}-public-network \
     --allow tcp:0-65535,udp:0-65535,icmp \
-    --source-ranges="10.0.0.0/8" \
+    --source-ranges="17.16.0.0/12" \
     --project ${_gcp_pj_id}
 
 
 gcloud beta compute firewall-rules create ${_common}-private-allow-internal-all \
     --network ${_common}-private-network \
     --allow tcp:0-65535,udp:0-65535,icmp \
-    --source-ranges="10.0.0.0/8" \
+    --source-ranges="17.16.0.0/12" \
     --project ${_gcp_pj_id}
 
 
@@ -152,8 +152,8 @@ gcloud beta compute firewall-rules create ${_common}-public-allow-ssh-all \
 gcloud beta compute instances create ${_common}-vm-bastion \
     --zone ${_region}-b \
     --machine-type f1-micro \
-    --subnet ${_common}-subnets \
-    --address ${_common}-ip-vm-bastion \
+    --network-interface subnet=${_common}-public-subnets,address=${_common}-public-ip-vm-bastion \
+    --network-interface subnet=${_common}-private-subnets,no-address \
     --scopes=https://www.googleapis.com/auth/cloud-platform \
     --image=ubuntu-2004-focal-v20210119a \
     --image-project=ubuntu-os-cloud \
@@ -162,22 +162,6 @@ gcloud beta compute instances create ${_common}-vm-bastion \
     --no-shielded-secure-boot \
     --preemptible \
     --project ${_gcp_pj_id}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```
 
 + web VM の作成
@@ -187,7 +171,7 @@ gcloud beta compute instances create ${_common}-vm-bastion \
 gcloud beta compute instances create ${_common}-vm-web \
     --zone ${_region}-b \
     --machine-type f1-micro \
-    --subnet ${_common}-subnets \
+    --subnet ${_common}-private-subnets \
     --no-address \
     --scopes https://www.googleapis.com/auth/cloud-platform \
     --image ubuntu-2004-focal-v20210119a \
@@ -204,10 +188,45 @@ gcloud beta compute instances create ${_common}-vm-web \
 + VM Instance に SSH ログイン
 
 ```
-gcloud beta compute ssh oneipsharelb-vm-web \
+gcloud beta compute ssh ${_common}-vm-bastion \
     --zone asia-northeast1-b \
     --project ${_gcp_pj_id}
 ```
+
++ 一般ユーザに変更
+
+```
+su - ubuntu
+```
+
++ 秘密鍵公開鍵の作成
+
+```
+WIP
+```
+
++ 公開鍵をメタデータに登録
+
+```
+WIP
+```
+
++ メタデータに登録した鍵を vm に当てる
+
+```
+WIP
+```
+
++ vm web に SSH ログインする
+
+
+```
+gcloud beta compute ssh 172.16.0.3 --zone ${_region}-b
+
+
+```
+
+
 
 + nginx をいれる
 
@@ -467,7 +486,6 @@ gcloud beta compute routers nats delete ${_common}-private-nat \
     --router ${_common}-private-router \
     --project ${_gcp_pj_id} \
     -q
-
 
 ### Cloud Router
 gcloud beta compute routers delete ${_common}-private-router \
