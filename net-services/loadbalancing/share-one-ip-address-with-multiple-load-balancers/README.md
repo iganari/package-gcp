@@ -35,19 +35,29 @@ export _region='asia-northeast1'
 
 ## ネットワークの作成
 
-+ VPC ネットワークの作成
++ パブリック用の VPC ネットワークとサブネットの作成
 
 ```
-gcloud beta compute networks create ${_common}-network \
-    --subnet-mode=custom \
+gcloud beta compute networks create ${_common}-public-network \
+    --subnet-mode custom \
+    --project ${_gcp_pj_id}
+
+gcloud beta compute networks subnets create ${_common}-public-subnets \
+    --network ${_common}-public-network \
+    --region ${_region} \
+    --range 172.16.0.0/12 \
     --project ${_gcp_pj_id}
 ```
 
-+ サブネットの作成
++ プライベート用の VPC ネットワークとサブネットの作成
 
 ```
-gcloud beta compute networks subnets create ${_common}-subnets \
-    --network ${_common}-network \
+gcloud beta compute networks create ${_common}-private-network \
+    --subnet-mode custom \
+    --project ${_gcp_pj_id}
+
+gcloud beta compute networks subnets create ${_common}-private-subnets \
+    --network ${_common}-private-network \
     --region ${_region} \
     --range 172.16.0.0/12 \
     --project ${_gcp_pj_id}
@@ -57,13 +67,13 @@ gcloud beta compute networks subnets create ${_common}-subnets \
 
 ```
 ### Cloud NAT で使用する ---> a①
-gcloud beta compute addresses create ${_common}-ip-nat \
+gcloud beta compute addresses create ${_common}-private-ip-nat \
     --region ${_region} \
     --project ${_gcp_pj_id}
 
 
 ### Bastion VM で使用する ---> a②
-gcloud beta compute addresses create ${_common}-ip-vm-bastion \
+gcloud beta compute addresses create ${_common}-private-ip-vm-bastion \
     --region ${_region} \
     --project ${_gcp_pj_id}
 
@@ -78,8 +88,8 @@ gcloud beta compute addresses create ${_common}-ip-lb \
 + Cloud Router の作成
 
 ```
-gcloud beta compute routers create ${_common}-router \
-    --network ${_common}-network \
+gcloud beta compute routers create ${_common}-private-router \
+    --network ${_common}-private-network \
     --region ${_region} \
     --project ${_gcp_pj_id}
 ```
@@ -88,11 +98,11 @@ gcloud beta compute routers create ${_common}-router \
     + a① を使用します
 
 ```
-gcloud beta compute routers nats create ${_common}-nat \
+gcloud beta compute routers nats create ${_common}-private-nat \
     --router-region ${_region} \
-    --router ${_common}-router \
+    --router ${_common}-private-router \
     --nat-all-subnet-ip-ranges \
-    --nat-external-ip-pool ${_common}-ip-nat \
+    --nat-external-ip-pool ${_common}-private-ip-nat \
     --project ${_gcp_pj_id}
 ```
 
@@ -103,30 +113,44 @@ gcloud beta compute routers nats create ${_common}-nat \
 
 ```
 ### 同 VPC ネットワーク内はすべて許可
-gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
-    --network ${_common}-network \
+gcloud beta compute firewall-rules create ${_common}-public-allow-internal-all \
+    --network ${_common}-public-network \
+    --allow tcp:0-65535,udp:0-65535,icmp \
+    --source-ranges="10.0.0.0/8" \
+    --project ${_gcp_pj_id}
+
+
+gcloud beta compute firewall-rules create ${_common}-private-allow-internal-all \
+    --network ${_common}-private-network \
     --allow tcp:0-65535,udp:0-65535,icmp \
     --source-ranges="10.0.0.0/8" \
     --project ${_gcp_pj_id}
 
 
 ### GCP の LB の IP アドレスからの通信を許可
-gcloud beta compute firewall-rules create ${_common}-allow-gclb \
-    --network ${_common}-network \
-    --allow tcp:0-65535,udp:0-65535,icmp \
+gcloud beta compute firewall-rules create ${_common}-private-allow-gclb \
+    --network ${_common}-private-network \
+    --allow tcp:80,tcp:22,icmp \
+    --source-ranges="130.211.0.0/22,35.191.0.0/16" \
+    --project ${_gcp_pj_id}
+
+
+gcloud beta compute firewall-rules create ${_common}-private-allow-gclb \
+    --network ${_common}-private-network \
+    --allow tcp:80,tcp:22,icmp \
     --source-ranges="130.211.0.0/22,35.191.0.0/16" \
     --project ${_gcp_pj_id}
 
 
 ### Bastion Server へ SSH の許可
-gcloud beta compute firewall-rules create ${_common}-allow-ssh-all \
-    --network ${_common}-network \
+gcloud beta compute firewall-rules create ${_common}-public-allow-ssh-all \
+    --network ${_common}-public-network \
     --allow tcp:22 \
     --source-ranges="0.0.0.0/0" \
     --project ${_gcp_pj_id}
 ```
 
-## VM を作成
+## [WIP] VM を作成
 
 + Bastion VM の作成
     + a② を使用します
@@ -145,6 +169,22 @@ gcloud beta compute instances create ${_common}-vm-bastion \
     --no-shielded-secure-boot \
     --preemptible \
     --project ${_gcp_pj_id}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
 
 + web VM の作成
@@ -347,7 +387,7 @@ GCP 外から確認しよう
 
 ## 削除コマンド
 
-+ バックエンド サービスを作成
++ [WIP] バックエンド サービスを作成
 
 ```
 gcloud beta compute backend-services delete ${_common}-backend-service \
@@ -356,7 +396,7 @@ gcloud beta compute backend-services delete ${_common}-backend-service \
     -q
 ```
 
-+ ヘルスチェックを削除
++ [WIP] ヘルスチェックを削除
 
 ```
 gcloud beta compute health-checks delete ${_common}-health-chk \
@@ -364,7 +404,7 @@ gcloud beta compute health-checks delete ${_common}-health-chk \
     -q
 ```
 
-+ Instance Groups の削除
++ [WIP] Instance Groups の削除
 
 ```
 gcloud beta compute instance-groups unmanaged delete ${_common}-unmng-grp \
@@ -373,7 +413,7 @@ gcloud beta compute instance-groups unmanaged delete ${_common}-unmng-grp \
     -q
 ```
 
-+ VM instance
++ [WIP] VM instance
 
 ```
 gcloud beta compute instances delete ${_common}-vm-bastion \
@@ -387,45 +427,68 @@ gcloud beta compute instances delete ${_common}-vm-web \
     -q
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 + ネットワーク系の削除
 
 ```
 ### FireWall Rule
-gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
+gcloud beta compute firewall-rules delete ${_common}-private-allow-internal-all \
     --project ${_gcp_pj_id} \
     -q
 
-gcloud beta compute firewall-rules delete ${_common}-allow-gclb \
+gcloud beta compute firewall-rules delete ${_common}-public-allow-internal-all \
     --project ${_gcp_pj_id} \
     -q
 
-gcloud beta compute firewall-rules delete ${_common}-allow-ssh-all \
+gcloud beta compute firewall-rules delete ${_common}-private-allow-gclb \
+    --project ${_gcp_pj_id} \
+    -q
+
+gcloud beta compute firewall-rules delete ${_common}-public-allow-ssh-all \
     --project ${_gcp_pj_id} \
     -q
 
 
 ### Cloud NAT
-gcloud beta compute routers nats delete ${_common}-nat \
+gcloud beta compute routers nats delete ${_common}-private-nat \
     --router-region ${_region} \
-    --router ${_common}-router \
+    --router ${_common}-private-router \
     --project ${_gcp_pj_id} \
     -q
 
 
 ### Cloud Router
-gcloud beta compute routers delete ${_common}-router \
+gcloud beta compute routers delete ${_common}-private-router \
     --region ${_region} \
     --project ${_gcp_pj_id} \
     -q
-
 
 ### External IP Address
-gcloud beta compute addresses delete ${_common}-ip-nat \
+gcloud beta compute addresses delete ${_common}-private-ip-nat \
     --region ${_region} \
     --project ${_gcp_pj_id} \
     -q
 
-gcloud beta compute addresses delete ${_common}-ip-vm-bastion \
+gcloud beta compute addresses delete ${_common}-private-ip-vm-bastion \
     --region ${_region} \
     --project ${_gcp_pj_id} \
     -q
@@ -435,16 +498,24 @@ gcloud beta compute addresses delete ${_common}-ip-lb \
     --project ${_gcp_pj_id} \
     -q
 
-
 ### Subnet
-gcloud beta compute networks subnets delete ${_common}-subnets \
+gcloud beta compute networks subnets delete ${_common}-private-subnets \
+    --region ${_region} \
+    --project ${_gcp_pj_id} \
+    -q
+
+gcloud beta compute networks subnets delete ${_common}-public-subnets \
     --region ${_region} \
     --project ${_gcp_pj_id} \
     -q
 
 
 ### VPC Network
-gcloud beta compute networks delete ${_common}-network \
+gcloud beta compute networks delete ${_common}-private-network \
+    --project ${_gcp_pj_id} \
+    -q
+
+gcloud beta compute networks delete ${_common}-public-network \
     --project ${_gcp_pj_id} \
     -q
 ```
@@ -456,4 +527,3 @@ gcloud beta compute networks delete ${_common}-network \
 :)
 
 
-一条みお
