@@ -185,48 +185,24 @@ gcloud beta compute instances create ${_common}-vm-web \
 
 ## web VM を設定
 
-+ VM Instance に SSH ログイン
 
 ```
-gcloud beta compute ssh ${_common}-vm-bastion \
-    --zone asia-northeast1-b \
+### Web Server へ SSH の許可(一時的)
+gcloud beta compute firewall-rules create ${_common}-private-allow-ssh-all \
+    --network ${_common}-private-network \
+    --allow tcp:22 \
+    --source-ranges="0.0.0.0/0" \
     --project ${_gcp_pj_id}
 ```
 
-+ 一般ユーザに変更
+
++ VM Instance に SSH ログイン
 
 ```
-su - ubuntu
+gcloud beta compute ssh ${_common}-vm-web \
+    --zone asia-northeast1-b \
+    --project ${_gcp_pj_id}
 ```
-
-+ 秘密鍵公開鍵の作成
-
-```
-WIP
-```
-
-+ 公開鍵をメタデータに登録
-
-```
-WIP
-```
-
-+ メタデータに登録した鍵を vm に当てる
-
-```
-WIP
-```
-
-+ vm web に SSH ログインする
-
-
-```
-gcloud beta compute ssh 172.16.0.3 --zone ${_region}-b
-
-
-```
-
-
 
 + nginx をいれる
 
@@ -248,6 +224,8 @@ systemctl start nginx
 curl localhost
 ```
 ```
+### 例
+
 # curl localhost
 <!DOCTYPE html>
 <html>
@@ -276,6 +254,22 @@ Commercial support is available at
 </html>
 ```
 
++ vm-web からログアウトする
+
+```
+exit
+```
+
++ 一時的な FW を削除する
+
+```
+### Web Server へ SSH の許可を削除
+gcloud beta compute firewall-rules delete ${_common}-private-allow-ssh-all \
+    --project ${_gcp_pj_id} \
+    -q
+```
+
+
 ## Instance Groups を作る
 
 LB のバックエンドに登録するため
@@ -295,6 +289,14 @@ gcloud beta compute instance-groups unmanaged add-instances ${_common}-unmng-grp
     --zone ${_region}-b \
     --instances oneipsharelb-vm-web \
     --project ${_gcp_pj_id}
+
+
+# これが必要かも?
+gcloud compute instance-groups unmanaged set-named-ports ${_common}-unmng-grp \
+    --named-ports http:80 \
+    --zone ${_region}-b \
+    --project ${_gcp_pj_id}
+
 ```
 
 ## LB 作成
@@ -304,15 +306,15 @@ gcloud beta compute instance-groups unmanaged add-instances ${_common}-unmng-grp
 IP アドレスが共通で使えるとこをやりたい
 
 + 参考
-    + https://cloud.google.com/load-balancing/docs/https/setting-up-https#gcloud
+    + https://cloud.google.com/load-balancing/docs/https/ext-http-lb-simple
 
 + ヘルスチェックを作成
 
 ```
 gcloud beta compute health-checks create http ${_common}-health-chk \
-    --global \
     --port 80 \
     --project ${_gcp_pj_id}
+
 ```
 
 + バックエンド サービスを作成
@@ -321,9 +323,50 @@ gcloud beta compute health-checks create http ${_common}-health-chk \
 gcloud beta compute backend-services create ${_common}-backend-service \
     --global-health-checks \
     --protocol HTTP \
-    --port-name=http \
+    --port-name http \
     --health-checks ${_common}-health-chk \
     --global \
+    --project ${_gcp_pj_id}
+
+```
+
++ インスタンス グループをバックエンドとしてバックエンド サービスに追加
+
+```
+gcloud beta compute backend-services add-backend ${_common}-backend-service \
+    --instance-group ${_common}-unmng-grp \
+    --instance-group-zone ${_region}-b \
+    --global \
+    --project ${_gcp_pj_id}
+```
+
++ URL マップを作成
+
+```
+gcloud beta compute url-maps create ${_common}-map \
+    --default-service ${_common}-backend-service \
+    --project ${_gcp_pj_id}
+```
+
++ ターゲット HTTP プロキシを作成
+
+```
+gcloud beta compute target-http-proxies create ${_common}-lb-proxy \
+    --url-map ${_common}-map \
+    --project ${_gcp_pj_id}
+```
+
++ 転送ルールを作成
+
+
+```
+### a③ を使用します
+
+gcloud beta compute forwarding-rules create ${_common}-content-rule \
+    --address ${_common}-ip-lb\
+    --global \
+    --target-http-proxy ${_common}-lb-proxy \
+    --ports 80 \
     --project ${_gcp_pj_id}
 ```
 
@@ -331,73 +374,74 @@ gcloud beta compute backend-services create ${_common}-backend-service \
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-```
-gcloud beta compute backend-services list --project ${_gcp_pj_id}
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## LB でマネージドSSLを設定
-
-```
-WIP
-```
-
 ## Cloud Armor をつける
 
-+ L7 の LB にはつけられる
+```
+Google Cloud Armor セキュリティ ポリシーの構成
+https://cloud.google.com/armor/docs/configure-security-policies?hl=ja
+```
+
++ Cloud Armor を作成
 
 ```
-WIP
+gcloud beta compute security-policies create ${_common}-armor \
+    --description "armor-sample" \
+    --project ${_gcp_pj_id}
 ```
+
++ 基本 deny の設定します
+
+```
+gcloud beta compute security-policies rules update 2147483647 \
+    --security-policy ${_common}-armor \
+    --action "deny-403" \
+    --project ${_gcp_pj_id}
+```
+
++ セキュリティ ポリシーをバックエンド サービスに接続
+
+```
+gcloud compute backend-services update ${_common}-backend-service \
+    --security-policy ${_common}-armor \
+    --global \
+    --project ${_gcp_pj_id}
+```
+
 
 ## 確認
 
 GCP 外から確認しよう
 
-複数のLBから来ていることをログから確認しよう
 
+```
+curl IP
+```
 
 
 ## 疑問点
 
 + GCLB と TCPLB で IP address の共有は出来るのか?
 
-
 ## 削除コマンド
+
++ 転送ルールを削除
+
+```
+gcloud beta compute forwarding-rules delete ${_common}-content-rule \
+    --project ${_gcp_pj_id} \
+    -q
+```
+
+
+
++ [WIP] URL マップを作成
+
+```
+gcloud compute url-maps delete ${_common}-map \
+    --project ${_gcp_pj_id} \
+    -q
+```
+
 
 + [WIP] バックエンド サービスを作成
 
