@@ -301,6 +301,8 @@ gcloud compute instance-groups unmanaged set-named-ports ${_common}-unmng-grp \
 
 ## LB 作成
 
+### 80版ポートを作る
+
 なんか色々作る
 
 IP アドレスが共通で使えるとこをやりたい
@@ -370,7 +372,7 @@ gcloud beta compute forwarding-rules create ${_common}-content-rule \
     --project ${_gcp_pj_id}
 ```
 
-
+### LB 443 をつくる
 
 
 
