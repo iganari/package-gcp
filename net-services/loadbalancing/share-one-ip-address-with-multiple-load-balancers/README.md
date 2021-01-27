@@ -584,3 +584,8 @@ gcloud beta compute networks delete ${_common}-public-network \
 :)
 
 
+## めも
+
+[Simple host and path rule](https://cloud.google.com/load-balancing/docs/https/traffic-management#simple_host_and_path_rule)
+
+![](https://cloud.google.com/load-balancing/images/url-map-simple-1.svg)
