@@ -50,3 +50,14 @@ gcloud container clusters resize {cluster-name} \
     --num-nodes {num-nodes} \
     --project {Your GCP Project}
 ```
+
+以下は WIP
+
+```
+create
+delete
+describe
+list
+update
+upgrade
+```
