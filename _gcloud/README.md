@@ -1,19 +1,12 @@
 # gcloud の覚書
 
-+ [Auth](README.md#auth)
-+ configurations
++ [Auth](./README.md#auth)
++ [configurations](./README.md#configurations)
 + [IAM](./README.md#iam)
 + [monitoring](./README.md#monitoring)
++ [update](./README.md#update)
++ [services](./README.md#services)
 
-## update
-
-```
-gcloud --quiet components update
-gcloud --quiet components install beta
-```
-```
-gcloud --quiet components install kubectl
-```
 
 ## Auth
 
@@ -132,24 +125,23 @@ export _pj_id='Your GCP Project Id'
 gcloud alpha monitoring channel-descriptors describe projects/${_pj_id}/notificationChannelDescriptors/slack
 ```
 
-
-
-## めも
-
-+ VPC ネットワーク作成
+## update
 
 ```
-### めんどくさい人向け(非推奨)
-
-gcloud compute networks create auto-network --subnet-mode auto
+gcloud --quiet components update
+gcloud --quiet components install beta
+```
+```
+gcloud --quiet components install kubectl
 ```
 
+
+## services
+
+https://cloud.google.com/sdk/gcloud/reference/services
+
++ リストを表示
+
 ```
-### 日本 に限定して VPC ネットワークの作成
-
-gcloud compute networks create custom-network1 --subnet-mode custom
-
-gcloud compute networks subnets create subnets-us-central-192 --network custom-network1 --region us-central1 --range 192.168.1.0/24
-gcloud compute networks subnets create subnets-europe-west-192 --network custom-network1 --region europe-west1 --range 192.168.5.0/24
-gcloud compute networks subnets create subnets-asia-east-192 --network custom-network1 --region asia-east1 --range 192.168.7.0/24
+gcloud services list --enabled
 ```
