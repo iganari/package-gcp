@@ -1,6 +1,6 @@
 # gcloud の覚書
 
-+ [Auth](./README.md#auth)
++ [auth](./README.md#auth)
 + [configurations](./README.md#configurations)
 + [IAM](./README.md#iam)
 + [monitoring](./README.md#monitoring)
@@ -8,9 +8,10 @@
 + [services](./README.md#services)
 
 
-## Auth
+## auth
 
-[auth](https://cloud.google.com/sdk/gcloud/reference/auth/)
++ 公式ドキュメント
+    + https://cloud.google.com/sdk/gcloud/reference/auth/
 
 認証について
 
@@ -18,22 +19,22 @@
 + Web ブラウザが必要になるので、その環境を用意して下さい。
 
 + そのターミナル上で GCP を操作する場合
-  + ブラウザの認証が必要
+    + ブラウザの認証が必要
 
 ```
 gcloud auth login
 ```
  
 + SDK や Terraform のようなプログラムを介して、 GCP を操作する場合
-  + ブラウザの認証が必要
+    + ブラウザの認証が必要
 
 ```
 gcloud auth application-default login
 ```
 
 + Service Account に紐づくキーを用いて認証を行う場合
-  + ブラウザの認証が不要になる
-  + https://cloud.google.com/sdk/gcloud/reference/auth/activate-service-account?hl=en
+    + ブラウザの認証が不要になる
+    + https://cloud.google.com/sdk/gcloud/reference/auth/activate-service-account?hl=en
 
 ```
 gcloud auth activate-service-account test-service-account@google.com \
@@ -138,7 +139,8 @@ gcloud --quiet components install kubectl
 
 ## services
 
-https://cloud.google.com/sdk/gcloud/reference/services
++ 公式ドキュメント
+    + https://cloud.google.com/sdk/gcloud/reference/services
 
 + リストを表示
 
