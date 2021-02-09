@@ -67,7 +67,8 @@ exit
 kubectl delete -f nginx.yaml
 ```
 
-+ StatefulSet の削除
++ persistentVolumeClaim の削除
+    + StatefulSet の場合はこの作業が必要
 
 ```
 kubectl get pvc | awk 'NR>1 {print $1}' | xargs kubectl delete pvc
