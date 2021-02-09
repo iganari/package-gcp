@@ -25,6 +25,6 @@ kubectl apply -f nginx.yaml
 kubectl delete -f nginx.yaml
 ```
 ```
-kubectl get pvc | awk 'NR>1 {print $1}' | xargs kubectl delete pvc
 kubectl get pv | awk 'NR>1 {print $1}' | xargs kubectl delete pv
+kubectl get pvc | awk 'NR>1 {print $1}' | xargs kubectl delete pvc
 ```
