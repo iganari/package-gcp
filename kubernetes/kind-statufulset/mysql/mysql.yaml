@@ -23,13 +23,13 @@ spec:
           - "--default-authentication-plugin=mysql_native_password"
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: js3mrLWWeuYz3J5pLDV29zbim5s7WyBW
+          value: {YOUR_DB_ROOT_PASSWORD}
         - name: MYSQL_DATABASE
           value: my_database
         - name: MYSQL_USER
           value: my_dbadmin
         - name: MYSQL_PASSWORD
-          value: R7NEScRz6Z8q
+          value: {MYSQL_USER_PASSWORD}
         ports:
         - containerPort: 3306
           name: mysql
