@@ -7,7 +7,7 @@
 + GKE Cluster との認証
 
 ```
-
+gcloud container clusters get-credentials {Your GKE Cluster}
 ```
 
 ### GKE Cluster にデプロイ
@@ -87,7 +87,7 @@ kubectl get pod
 + 起動した Deployment の MySQL にログインする
 
 ```
-kubectl exec -it {POD 名} /bin/sh
+kubectl exec -it $(kubectl get pod | grep mysql-client | awk '{print $1}') /bin/sh
 ```
 
 + Statefulset の MySQL にログインする
