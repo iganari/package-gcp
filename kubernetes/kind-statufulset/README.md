@@ -18,3 +18,7 @@ WIP
 ## [nginx](./nginx)
 
 WIP
+
+## [mysql](./mysql)
+
+WIP

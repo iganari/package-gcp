@@ -12,6 +12,34 @@ gcloud container clusters get-credentials {Your GKE Cluster}
 
 ### GKE Cluster にデプロイ
 
++ base64 でエンコード
+
+```
+export _mysql_root_password=`echo -n '{YOUR DB ROOT PASSWORD}' | base64`
+export _mysql_database=`echo -n 'my_database' | base64`
+export _mysql_user=`echo -n 'my_dbadmin' | base64`
+export _mysql_password=`echo -n '{YOUR MYSQL USER PASSWORD}' | base64`
+```
+
++ 確認
+
+```
+echo "MYSQL_ROOT_PASSWORD is ${_mysql_root_password}"
+echo "MYSQL_DATABASE is ${_mysql_database}"
+echo "MYSQL_USER is ${_mysql_user}"
+echo "MYSQL_PASSWORD is ${_mysql_password}"
+```
+
++ Secret を書き換え
+
+```
+cp -a mysql.yaml.template                                 mysql.yaml
+sed -i "s/_MYSQL_ROOT_PASSWORD/${_mysql_root_password}/g" mysql.yaml
+sed -i "s/_MYSQL_DATABASE/${_mysql_database}/g"           mysql.yaml
+sed -i "s/_MYSQL_USER/${_mysql_user}/g"                   mysql.yaml
+sed -i "s/_MYSQL_PASSWORD/${_mysql_password}/g"           mysql.yaml
+```
+
 + GKE Cluster にデプロイ
 
 ```
@@ -28,6 +56,9 @@ kubectl get service
 ```
 ```
 kubectl get pod
+```
+```
+kubectl get secret
 ```
 
 ### MySQL の Pod の中からログインテスト
@@ -124,7 +155,6 @@ exit
 + リソースの削除
 
 ```
-kubectl delete deployment mysql-client
 kubectl delete -f mysql.yaml
 ```
 

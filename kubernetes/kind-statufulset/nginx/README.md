@@ -12,7 +12,7 @@
 + GKE Cluster との認証
 
 ```
-
+gcloud container clusters get-credentials {Your GKE Cluster}
 ```
 
 ### GKE Cluster にデプロイ
