@@ -1,0 +1,52 @@
+steps:
+  - id: "Check substitutions"
+    name: 'alpine:edge'
+    entrypoint: ash
+    dir: 'scripts'
+    args:
+      - -c
+      - |
+        echo "### ------------------------------------------------------------------------------------ ###"
+        echo "Cloud プロジェクトの ID: $PROJECT_ID"
+        echo "ビルドの ID: $BUILD_ID"
+        echo "### ------------------------------------------------------------------------------------ ###"
+        echo "ビルドに関連付けられた commit ID: $COMMIT_SHA"
+        echo "ビルドに関連付けられた commit ID: $REVISION_ID"
+        echo "COMMIT_SHA の最初の 7 文字: $SHORT_SHA"
+        echo "リポジトリの名前: $REPO_NAME"
+        echo "ブランチの名前: $BRANCH_NAME"
+        echo "タグの名前: $TAG_NAME"
+        echo "### ------------------------------------------------------------------------------------ ###"
+        echo "[GitHub] pull リクエストのヘッドブランチ: $_HEAD_BRANCH"
+        echo "[GitHub] pull リクエストのベースブランチ: $_BASE_BRANCH"
+        echo "[GitHub] pull リクエストのヘッド リポジトリの URL: $_HEAD_REPO_URL"
+        echo "[GitHub] pull リクエストの数: $_PR_NUMBER"
+        echo "### ------------------------------------------------------------------------------------ ###"
+        echo "refs: https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values"
+  - id: "Check cURL"
+    name: 'alpine:edge'
+    entrypoint: ash
+    dir: 'scripts'
+    args:
+      - -c
+      - |
+        apk update
+        apk add curl
+        curl example.com
+  - id: "run local script"
+    name: 'alpine:edge'
+    entrypoint: ash
+    args: ["./check-curl.sh"]
+
+  - id: "Check gcloud cli"
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args: ["gcloud", "version"]
+
+  - id: "gcloud auth 1"
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: ["auth", "list"]
+
+  - id: "gcloud auth 2"
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args: ["gcloud", "auth", "list"]
