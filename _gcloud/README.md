@@ -112,6 +112,18 @@ version: 1
 gcloud iam service-accounts list --project ${GCP Project ID}
 ```
 
++ role を付与する
+
+```
+gcloud projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}
+```
+```
+### 例
+
+gcloud projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}
+```
+
+
 ## monitoring
 
 :warning: WIP
