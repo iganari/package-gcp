@@ -9,7 +9,7 @@ gcloud auth login -q
 ```
 ### 環境変数
 
-export _gcp_pj_id='ca-corporate-website-dev2'
+export _gcp_pj_id='Your GCP Project'
 ```
 
 + Cloud Build の Service Accont を確認する
