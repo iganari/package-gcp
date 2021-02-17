@@ -44,6 +44,8 @@ gcloud projects add-iam-policy-binding ${_gcp_pj_id} --member=serviceAccount:${_
 
 ## リソースの削除
 
+### GKE のリソースの削除
+
 + GKE への認証
 
 ```
@@ -63,3 +65,7 @@ kubectl delete service nginx
 ```
 kubectl delete deployment nginx
 ```
+
+### Cloud Build Trigger の削除
+
+GUI から削除
