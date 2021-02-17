@@ -12,6 +12,10 @@ Cloud Build Trigger の基礎的なサンプル
 
 オープンソースのセキュリティソフトのアンチウイルスエンジン
 
+## [GKE](../kubernetes/builds)
+
+GKE Cluster 上にデプロイする
+
 ## 参考ドキュメント
 
 ```
