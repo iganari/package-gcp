@@ -5,7 +5,7 @@
 ドメインを用意しておく
 
 ```
-multi-domain.hejda.org
+WIP
 ```
 
 ## GCP と認証をする
