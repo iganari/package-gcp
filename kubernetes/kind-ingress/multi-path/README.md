@@ -1,4 +1,4 @@
-# Ingress: Multi Domain
+# Ingress: Multi Path
 
 ## 準備
 
@@ -17,7 +17,7 @@ gcloud auth login -q
 ## Static IP Adress を予約
 
 ```
-gcloud beta compute addresses create multi-domain \
+gcloud beta compute addresses create multi-path \
     --ip-version=IPV4 \
     --global \
     --project ${_gcp_pj_id}
@@ -41,7 +41,7 @@ kubectl apply -f main.yaml
 kubectl delete -f main.yaml
 ```
 ```
-gcloud beta compute addresses delete multi-domain \
+gcloud beta compute addresses delete multi-path \
     --global \
     --project ${_gcp_pj_id}
 ```
