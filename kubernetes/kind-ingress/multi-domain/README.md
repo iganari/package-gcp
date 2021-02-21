@@ -36,6 +36,13 @@ gcloud beta compute addresses create multi-domain \
 kubectl apply -f main.yaml
 ```
 
+## リソース削除
+
+```
+kubectl delete -f main.yaml
+```
+
+
 ## 参考
 
 + ハンズオン
@@ -46,5 +53,3 @@ https://kubernetes.io/ja/docs/tasks/access-application-cluster/ingress-minikube/
 
 参考
 https://kubernetes.io/docs/concepts/services-networking/ingress/#name-based-virtual-hosting
-
-34.120.125.119
