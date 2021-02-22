@@ -2,7 +2,7 @@
 
 ## Google マネージド SSL 証明書を使う
 
-[]
+[package-gcp/kubernetes/kind-managedcertificate](../kind-managedcertificate)
 
 https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs?hl=ja
 
