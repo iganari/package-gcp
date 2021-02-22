@@ -34,3 +34,11 @@ gcloud components install kubectl -q
 + [tutorials_hello-app](./tutorials_hello-app)
 + [wordpress](./wordpress)
 
+### Kind
+
++ [Cron Jobs](./kind-cronjobs)
++ [Ingress](./kind-ingress)
++ [Managed Certificate](./kind-managedcertificate)
++ [Persistent Volume Claim](./kind-persistentvolumeclaim)
++ [Secret](./kind-secret)
++ [StatefulSet](./kind-statufulset)
