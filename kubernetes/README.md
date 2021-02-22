@@ -16,13 +16,6 @@ gcloud components install kubectl -q
 ## コンテンツ
 
 + [gcloud container clusters](./_gcloud_container_clusters)
-+ [cluster-basic](./cluster-basic)
-    + [gcloud](./cluster-basic/gcloud)
-    + [terraform](./cluster-basic/terraform)
-+ [cluster-private](./cluster-private)
-    + [gcloud](./cluster-private/gcloud)
-    + [terraform](./cluster-private/terraform)
-+ [cluster-version-upgrade](./cluster-version-upgrade)
 + [configure-backend-service](./configure-backend-service)
 + [feature-cloud-armor | Cloud Armor を試す](./feature-cloud-armor)
 + [feature-cronjobs](./feature-cronjobs)
@@ -33,6 +26,16 @@ gcloud components install kubectl -q
 + [tips](./tips)
 + [tutorials_hello-app](./tutorials_hello-app)
 + [wordpress](./wordpress)
+
+### cluster
+
++ [cluster-basic](./cluster-basic)
+    + [gcloud](./cluster-basic/gcloud)
+    + [terraform](./cluster-basic/terraform)
++ [cluster-private](./cluster-private)
+    + [gcloud](./cluster-private/gcloud)
+    + [terraform](./cluster-private/terraform)
++ [cluster-version-upgrade](./cluster-version-upgrade)
 
 ### Kind
 
