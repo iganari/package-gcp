@@ -17,25 +17,24 @@ gcloud components install kubectl -q
 
 + [gcloud container clusters](./_gcloud_container_clusters)
 + [configure-backend-service](./configure-backend-service)
-+ [feature-cloud-armor | Cloud Armor を試す](./feature-cloud-armor)
-+ [feature-cronjobs](./feature-cronjobs)
-+ [feature-workload-identity | Workload Identity を試す](./feature-workload-identity)
 + [handson](./handson)
 + [helm](./helm)
 + [sample-version](./sample-version)
 + [tips](./tips)
 + [tutorials_hello-app](./tutorials_hello-app)
-+ [wordpress](./wordpress)
 
 ### Cluster
 
 + [cluster-basic](./cluster-basic)
+    + 通常クラスタ
     + [gcloud](./cluster-basic/gcloud)
     + [terraform](./cluster-basic/terraform)
 + [cluster-private](./cluster-private)
+    + 限定公開クラスタ
     + [gcloud](./cluster-private/gcloud)
     + [terraform](./cluster-private/terraform)
 + [cluster-version-upgrade](./cluster-version-upgrade)
+    + GKE クラスタのアップグレード方法
 
 ### Kind
 
@@ -49,6 +48,11 @@ gcloud components install kubectl -q
 ### Feature
 
 + [Cloud Armor](./modify-readme-only)
-+ [IAP]()
-+ [SSL]()
-+ [Workload Identity]()
++ [IAP](./feature-iap)
++ [SSL](./feature-iap)
++ [Workload Identity](./feature-iap)
+
+### Sample
+
++ [Laravel](./sample-laravel)
++ [WordPress](./sample-wordpress)
