@@ -29,3 +29,11 @@ gsutil mb gs://BUCKET_NAME
 ```
 gsutil mb -p {PROJECT_ID} -c {STORAGE_CLASS} -l {BUCKET_LOCATION} gs://BUCKET_NAME
 ```
+
+## rm
+
++ バケットの削除
+
+```
+gsutil rm -r gs://bucket
+```

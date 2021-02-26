@@ -265,3 +265,9 @@ bq --project_id ${_gcp_pj_id} rm \
   --force \
   ${_gcp_pj_id}:bqdts_gcs
 ```
+
++ GCS を削除
+
+```
+gsutil rm -r gs://${_gcs_bucket_name}
+```
