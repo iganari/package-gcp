@@ -16,7 +16,6 @@ export _gcp_pj_id='Your GCP Project ID'
 export _dataset_location='asia-northeast1'
 export _dataset_name='my_sampele_dataset'
 export _table_name='my_sample_table'
-
 ```
 
 ## データセットの作成
@@ -47,5 +46,6 @@ bq --project_id ${_gcp_pj_id} rm \
 ## データセットの削除
 
 ```
-
+bq --project_id ${_gcp_pj_id} rm \
+  dataset_sample
 ```
