@@ -7,6 +7,11 @@
 + [update](./README.md#update)
 + [services](./README.md#services)
 
+## 準備
+
+```
+export _gcp_pj_id="Your GCP Project ID"
+```
 
 ## auth
 
@@ -140,6 +145,8 @@ gcloud alpha monitoring channel-descriptors describe projects/${_pj_id}/notifica
 
 ## update
 
+gcloud コマンド自体のアップデートを行う
+
 ```
 gcloud --quiet components update
 gcloud --quiet components install beta
@@ -154,8 +161,26 @@ gcloud --quiet components install kubectl
 + 公式ドキュメント
     + https://cloud.google.com/sdk/gcloud/reference/services
 
-+ リストを表示
++ すべてのリストを表示
 
 ```
-gcloud services list --enabled
+gcloud beta services list --project ${_gcp_pj_id}
+```
+
++ 有効化しているリストを表示
+
+```
+gcloud beta services list --enabled --project ${_gcp_pj_id}
+```
+
++ サービスを有効化する
+
+```
+gcloud beta services enable {Services Name} --project ${_gcp_pj_id}
+```
+
++ サービスを無効化する
+
+```
+gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
 ```
