@@ -1,24 +1,32 @@
 steps:
-  - id: "Check cURL"
+  - id: "Check Python Version"
     name: 'python:3.9.2-alpine3.12'
     # entrypoint: ash
     # dir: 'scripts'
-    args: ["--version"]
+    args: ["python3", "--version"]
 
-#   - id: "run local script"
-#     name: 'alpine:edge'
-#     entrypoint: ash
-#     args: ["./check-curl.sh"]
-# 
-#   - id: "Check gcloud cli"
-#     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#     args: ["gcloud", "version"]
-# 
-#   - id: "gcloud auth 1"
-#     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#     entrypoint: 'gcloud'
-#     args: ["auth", "list"]
-# 
-#   - id: "gcloud auth 2"
-#     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#     args: ["gcloud", "auth", "list"]
+  - id: "Check Flask on Public Container"
+    name: 'python:3.9.2-alpine3.12'
+    entrypoint: ash
+    dir: 'python'
+    args:
+      - -c
+      - |
+        pip3 install -r requirements.txt
+        FLASK_APP=main.py FLASK_DEBUG=1 nohup flask run --host='0.0.0.0' --port=5000 >out.log 2>err.log &
+        ps
+        apk update && apk add curl
+        curl 0.0.0.0:5000
+  - id: 'Deploy Image to GCR'
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    dir: 'python'
+    args:
+      - -c
+      - |
+        docker build -f Dockerfile . --tag=gcr.io/${PROJECT_ID}/${_CONTAINER_IMAGE_NAME}:${COMMIT_SHA}
+        docker build -f Dockerfile . --tag=gcr.io/${PROJECT_ID}/${_CONTAINER_IMAGE_NAME}:latest
+        docker push gcr.io/${PROJECT_ID}/${_CONTAINER_IMAGE_NAME}:${COMMIT_SHA}
+        docker push gcr.io/${PROJECT_ID}/${_CONTAINER_IMAGE_NAME}:latest
+substitutions:
+  _CONTAINER_IMAGE_NAME: 'package-gcp-builds-python'
