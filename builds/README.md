@@ -1,6 +1,6 @@
 # Cloud Build
 
-## [Sample](./sample)
+## [Basic Sample](./basic-sample)
 
 Cloud Build Trigger の基礎的なサンプル
 
