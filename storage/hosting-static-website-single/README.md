@@ -23,11 +23,11 @@ export _gcp_pj_id='Your GCP Project ID'
 export _common='hosting-static-website-single'
 ```
 
-+ [GCS の設定]
-    + [GCS バケットを用意する]
-    + [静的サイト用のファイルを GCS にアップロードする]
-    + [GCS バケットの公開設定を行う]
-    + [特殊ページの設定]
++ [GCS の設定](./README.md#gcs-の設定)
+    + [GCS バケットを用意する](./README.md#gcs-バケットを用意する)
+    + [静的サイト用のファイルを GCS にアップロードする](./README.md#静的サイト用のファイルを-gcs-にアップロードする)
+    + [GCS バケットの公開設定を行う](./README.md#gcs-バケットの公開設定を行う)
+    + [特殊ページの設定](./README.md#特殊ページの設定)
 + [Cloud Load Balancing とマネージド SSL 証明書を設定]
 
 
@@ -80,9 +80,9 @@ gsutil web set -m index.html gs://${_gcp_pj_id}-${_common}
 gsutil web set -m index.html -e 404.html gs://${_gcp_pj_id}-${_common}
 ```
 
-## LoadBalancer とマネージド SSL 証明書を設定する
+## Cloud Load Balancing とマネージド SSL 証明書を設定
 
-### LB で使用する External IP Address を予約する
+### GCLB で使用する External IP Address を予約する
 
 + 予約
 
@@ -160,7 +160,7 @@ NAME                                          GCS_BUCKET_NAME                   
 hosting-static-website-single-backend-bucket  xxxxxxxxxxxxxxxxxxxx-hosting-static-website-single  False
 ```
 
-### URL map
+### URL map の作成
 
 + 作成
 
@@ -183,7 +183,7 @@ NAME                                   DEFAULT_SERVICE
 hosting-static-website-single-url-map  backendBuckets/hosting-static-website-single-backend-bucket
 ```
 
-### Certificate
+### Google-managed SSL certificates の作成
 
 ```
 export _my_domain='hosting-static-website-single.iganari.xyz'
@@ -211,7 +211,7 @@ hosting-static-website-single-cert  MANAGED  2021-03-02T06:47:47.105-08:00      
     hosting-static-website-single.iganari.xyz: PROVISIONING
 ```
 
-### Target Proxy
+### Target Proxy の作成
 
 + 作成
 
@@ -236,7 +236,7 @@ NAME                                       SSL_CERTIFICATES                    U
 hosting-static-website-single-https-proxy  hosting-static-website-single-cert  hosting-static-website-single-url-map
 ```
 
-### Forwarding Rule
+### Forwarding Rule の作成
 
 + 作成
 
