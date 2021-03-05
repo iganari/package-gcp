@@ -20,3 +20,7 @@
 209.85.152.0/22
 209.85.204.0/22
 ```
+
+## 参考
+
+https://cloud.google.com/load-balancing/docs/health-checks?hl=ja
