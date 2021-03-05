@@ -9,7 +9,6 @@ steps:
     name: 'python:3.9.2-alpine3.12'
     # entrypoint: ash
     dir: 'python/chk_global_ip'
-    args:
     args: ["python3", "main.py"]
 
   - id: "Check Flask on Public Container"
