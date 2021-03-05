@@ -113,7 +113,7 @@ gcloud compute addresses describe ${_common}-ip \
 hosting-static-website-single.iganari.xyz 34.102.192.124
 ```
 
-![](./img/01.png)
+![](./img/02.png)
 
 + コマンドラインで確認
 
@@ -264,21 +264,21 @@ GCS を一般公開したので以下の URL で見ることが出来る
 https://storage.googleapis.com/${_gcp_pj_id}-${_common}/index.html
 ```
 
-![](./img/02.png)
+![](./img/03.png)
 
 ### LB 越し
 
 + インデックスを指定しない場合に `/` で出るエラー
 
-![](./img/03.png)
+![](./img/04.png)
 
 + `/index.html` でアクセスした場合
 
-![](./img/04.png)
+![](./img/05.png)
 
 + インデックスの指定をすると、 `/` にアクセスしてもちゃんとページが出る
 
-![](./img/05.png)
+![](./img/06.png)
 
 ## リソースの削除
 
