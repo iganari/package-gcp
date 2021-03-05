@@ -23,6 +23,29 @@ export _gcp_pj_id='Your GCP Project ID'
 export _common='hosting-static-website-multi'
 ```
 
++ [GCS の設定](./README.md#gcs-の設定)
+    + [GCS バケットを用意する](./README.md#gcs-バケットを用意する)
+    + [静的サイト用のファイルを GCS にアップロードする](./README.md#静的サイト用のファイルを-gcs-にアップロードする)
+    + [GCS バケットの公開設定を行う](./README.md#gcs-バケットの公開設定を行う)
+    + [特殊ページの設定](./README.md#特殊ページの設定)
++ [Cloud Load Balancing とマネージド SSL 証明書を設定](./README.md#cloud-load-balancing-とマネージド-ssl-証明書を設定)
+    + [GCLB で使用する External IP Address を予約する](./README.md#gclb-で使用する-external-ip-address-を予約する)
+    + [ドメインの準備](./README.md#ドメインの準備)
+    + [Backend Buckets の作成](./README.md#backend-buckets-の作成)
+    + [URL map の作成](./README.md#url-map-の作成)
+    + [Google-managed SSL certificates の作成](./README.md#google-managed-ssl-certificates-の作成)
+    + [Target Proxy の作成](./README.md#target-proxy-の作成)
+    + [Forwarding Rule の作成](./README.md#forwarding-rule-の作成)
+
+
+
+
+
+
+
+
+
+
 ## GCS の設定
 
 ### GCS バケットを用意する
@@ -82,9 +105,9 @@ gsutil web set -m index.html -e 404.html gs://${_gcp_pj_id}-${_common}-03
 gsutil web set -m index.html -e 404.html gs://${_gcp_pj_id}-${_common}-04
 ```
 
-## LoadBalancer とマネージド SSL 証明書を設定する
+## Cloud Load Balancing とマネージド SSL 証明書を設定
 
-### LB で使用する External IP Address を予約する
+### GCLB で使用する External IP Address を予約する
 
 + 予約
 
@@ -188,7 +211,7 @@ hosting-static-website-multi-backend-bucket-03  xxxxxxxxxxxxxxxxxxxx-hosting-sta
 hosting-static-website-multi-backend-bucket-04  xxxxxxxxxxxxxxxxxxxx-hosting-static-website-multi-04  False
 ```
 
-### URL map
+### URL map の作成
 
 + 作成
 
@@ -231,7 +254,7 @@ NAME                                   DEFAULT_SERVICE
 hosting-static-website-multi-url-map   backendBuckets/hosting-static-website-multi-backend-bucket-02
 ```
 
-### Certificate
+### Google-managed SSL certificates の作成
 
 ```
 export _my_domain_02='hosting-static-website-multi-02.iganari.xyz'
@@ -273,7 +296,7 @@ hosting-static-website-multi-cert-04  MANAGED  2021-03-02T16:06:50.213-08:00    
     hosting-static-website-multi-04.iganari.xyz: PROVISIONING
 ```
 
-### Target Proxy
+### Target Proxy の作成
 
 + 作成
 
@@ -312,7 +335,7 @@ hosting-static-website-multi-https-proxy-03  hosting-static-website-multi-cert-0
 hosting-static-website-multi-https-proxy-04  hosting-static-website-multi-cert-04  hosting-static-website-multi-url-map
 ```
 
-### Forwarding Rule
+### Forwarding Rule の作成
 
 + 作成
 
