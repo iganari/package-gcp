@@ -1,5 +1,11 @@
 # 複数の静的ウェブサイトのホスティング
 
+## 概要
+
+以下の構成を作成する
+
+![](./img/01.png)
+
 ## 公式ドキュメント
 
 https://cloud.google.com/storage/docs/hosting-static-website?hl=ja
@@ -129,7 +135,7 @@ hosting-static-website-multi-03.iganari.xyz 34.98.87.59
 hosting-static-website-multi-04.iganari.xyz 34.98.87.59
 ```
 
-![](./img/01.png)
+![](./img/02.png)
 
 + コマンドラインで確認
 
@@ -164,7 +170,6 @@ gcloud beta compute backend-buckets create ${_common}-backend-bucket-04 \
     --gcs-bucket-name ${_gcp_pj_id}-${_common}-04 \
     --project ${_gcp_pj_id}
 ```
-
 
 + 確認
 
@@ -311,7 +316,6 @@ hosting-static-website-multi-https-proxy-04  hosting-static-website-multi-cert-0
 
 + 作成
 
-
 ```
 gcloud beta compute forwarding-rules create ${_common}-https-rule-02 \
     --address=${_common}-ip-02 \
@@ -362,9 +366,9 @@ https://storage.googleapis.com/${_gcp_pj_id}-${_common}-03/index.html
 https://storage.googleapis.com/${_gcp_pj_id}-${_common}-04/index.html
 ```
 
-![](./img/02.png)
 ![](./img/03.png)
 ![](./img/04.png)
+![](./img/05.png)
 
 ### LB 越し
 
@@ -373,6 +377,10 @@ https://hosting-static-website-multi-02.iganari.xyz
 https://hosting-static-website-multi-03.iganari.xyz
 https://hosting-static-website-multi-04.iganari.xyz
 ```
+
+![](./img/06.png)
+![](./img/07.png)
+![](./img/08.png)
 
 ## リソースの削除
 
