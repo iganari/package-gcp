@@ -23,6 +23,14 @@ export _gcp_pj_id='Your GCP Project ID'
 export _common='hosting-static-website-single'
 ```
 
++ [GCS の設定]
+    + [GCS バケットを用意する]
+    + [静的サイト用のファイルを GCS にアップロードする]
+    + [GCS バケットの公開設定を行う]
+    + [特殊ページの設定]
++ [Cloud Load Balancing とマネージド SSL 証明書を設定]
+
+
 ## GCS の設定
 
 ### GCS バケットを用意する
