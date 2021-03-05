@@ -23,4 +23,5 @@
 
 ## 参考
 
-https://cloud.google.com/load-balancing/docs/health-checks?hl=ja
++ https://cloud.google.com/load-balancing/docs/health-checks?hl=ja
++ https://cloud.google.com/load-balancing/docs/health-check-concepts?hl=ja#ip-ranges
