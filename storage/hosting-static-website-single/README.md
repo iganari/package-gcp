@@ -139,7 +139,7 @@ gcloud beta compute backend-buckets list \
 # gcloud beta compute backend-buckets list \
 >     --project ${_gcp_pj_id}
 NAME                                          GCS_BUCKET_NAME                                     ENABLE_CDN
-hosting-static-website-single-backend-bucket  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-website-single  False
+hosting-static-website-single-backend-bucket  xxxxxxxxxxxxxxxxxxxx-hosting-static-website-single  False
 ```
 
 ### URL map
