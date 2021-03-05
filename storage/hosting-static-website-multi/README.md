@@ -4,6 +4,10 @@
 
 https://cloud.google.com/storage/docs/hosting-static-website?hl=ja
 
+## 参考
+
+[単一の静的ウェブサイトのホスティング](../hosting-static-website-single/)
+
 ## 実際にやってみる
 
 ```
@@ -173,7 +177,7 @@ gcloud beta compute backend-buckets list \
 
 # gcloud beta compute backend-buckets list \
 >     --project ${_gcp_pj_id}
-NAME                                            GCS_BUCKET_NAME                                                 ENABLE_CDN
+NAME                                            GCS_BUCKET_NAME                                       ENABLE_CDN
 hosting-static-website-multi-backend-bucket-02  xxxxxxxxxxxxxxxxxxxx-hosting-static-website-multi-02  False
 hosting-static-website-multi-backend-bucket-03  xxxxxxxxxxxxxxxxxxxx-hosting-static-website-multi-03  False
 hosting-static-website-multi-backend-bucket-04  xxxxxxxxxxxxxxxxxxxx-hosting-static-website-multi-04  False

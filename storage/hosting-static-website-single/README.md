@@ -4,6 +4,10 @@
 
 https://cloud.google.com/storage/docs/hosting-static-website?hl=ja
 
+## 参考
+
+[複数の静的ウェブサイトのホスティング](../hosting-static-website-multi/)
+
 ## 実際にやってみる
 
 ```
