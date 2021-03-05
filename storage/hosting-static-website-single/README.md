@@ -28,8 +28,14 @@ export _common='hosting-static-website-single'
     + [静的サイト用のファイルを GCS にアップロードする](./README.md#静的サイト用のファイルを-gcs-にアップロードする)
     + [GCS バケットの公開設定を行う](./README.md#gcs-バケットの公開設定を行う)
     + [特殊ページの設定](./README.md#特殊ページの設定)
-+ [Cloud Load Balancing とマネージド SSL 証明書を設定]
-
++ [Cloud Load Balancing とマネージド SSL 証明書を設定](./README.md#cloud-load-balancing-とマネージド-ssl-証明書を設定)
+    + [GCLB で使用する External IP Address を予約する](./README.md#gclb-で使用する-external-ip-address-を予約する)
+    + [ドメインの準備](./README.md#ドメインの準備)
+    + [Backend Buckets の作成](./README.md#backend-buckets-の作成)
+    + [URL map の作成](./README.md#url-map-の作成)
+    + [Google-managed SSL certificates の作成](./README.md#google-managed-ssl-certificates-の作成)
+    + [Target Proxy の作成](./README.md#target-proxy-の作成)
+    + [Forwarding Rule の作成](./README.md#forwarding-rule-の作成)
 
 ## GCS の設定
 
