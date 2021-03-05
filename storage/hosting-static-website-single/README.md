@@ -1,5 +1,11 @@
 # 単一の静的ウェブサイトのホスティング
 
+## 概要
+
+以下の構成を作成する
+
+![](./img/01.png)
+
 ## 公式ドキュメント
 
 https://cloud.google.com/storage/docs/hosting-static-website?hl=ja
