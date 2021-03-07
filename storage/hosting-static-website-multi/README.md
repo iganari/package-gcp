@@ -37,15 +37,6 @@ export _common='hosting-static-website-multi'
     + [Target Proxy の作成](./README.md#target-proxy-の作成)
     + [Forwarding Rule の作成](./README.md#forwarding-rule-の作成)
 
-
-
-
-
-
-
-
-
-
 ## GCS の設定
 
 ### GCS バケットを用意する
