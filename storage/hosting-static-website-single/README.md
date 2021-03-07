@@ -1,5 +1,11 @@
 # 単一の静的ウェブサイトのホスティング
 
+## 概要
+
+以下の構成を作成する
+
+![](./img/01.png)
+
 ## 公式ドキュメント
 
 https://cloud.google.com/storage/docs/hosting-static-website?hl=ja
@@ -16,6 +22,20 @@ https://cloud.google.com/storage/docs/hosting-static-website?hl=ja
 export _gcp_pj_id='Your GCP Project ID'
 export _common='hosting-static-website-single'
 ```
+
++ [GCS の設定](./README.md#gcs-の設定)
+    + [GCS バケットを用意する](./README.md#gcs-バケットを用意する)
+    + [静的サイト用のファイルを GCS にアップロードする](./README.md#静的サイト用のファイルを-gcs-にアップロードする)
+    + [GCS バケットの公開設定を行う](./README.md#gcs-バケットの公開設定を行う)
+    + [特殊ページの設定](./README.md#特殊ページの設定)
++ [Cloud Load Balancing とマネージド SSL 証明書を設定](./README.md#cloud-load-balancing-とマネージド-ssl-証明書を設定)
+    + [GCLB で使用する External IP Address を予約する](./README.md#gclb-で使用する-external-ip-address-を予約する)
+    + [ドメインの準備](./README.md#ドメインの準備)
+    + [Backend Buckets の作成](./README.md#backend-buckets-の作成)
+    + [URL map の作成](./README.md#url-map-の作成)
+    + [Google-managed SSL certificates の作成](./README.md#google-managed-ssl-certificates-の作成)
+    + [Target Proxy の作成](./README.md#target-proxy-の作成)
+    + [Forwarding Rule の作成](./README.md#forwarding-rule-の作成)
 
 ## GCS の設定
 
@@ -66,9 +86,9 @@ gsutil web set -m index.html gs://${_gcp_pj_id}-${_common}
 gsutil web set -m index.html -e 404.html gs://${_gcp_pj_id}-${_common}
 ```
 
-## LoadBalancer とマネージド SSL 証明書を設定する
+## Cloud Load Balancing とマネージド SSL 証明書を設定
 
-### LB で使用する External IP Address を予約する
+### GCLB で使用する External IP Address を予約する
 
 + 予約
 
@@ -107,7 +127,7 @@ gcloud compute addresses describe ${_common}-ip \
 hosting-static-website-single.iganari.xyz 34.102.192.124
 ```
 
-![](./img/01.png)
+![](./img/02.png)
 
 + コマンドラインで確認
 
@@ -146,7 +166,7 @@ NAME                                          GCS_BUCKET_NAME                   
 hosting-static-website-single-backend-bucket  xxxxxxxxxxxxxxxxxxxx-hosting-static-website-single  False
 ```
 
-### URL map
+### URL map の作成
 
 + 作成
 
@@ -169,7 +189,7 @@ NAME                                   DEFAULT_SERVICE
 hosting-static-website-single-url-map  backendBuckets/hosting-static-website-single-backend-bucket
 ```
 
-### Certificate
+### Google-managed SSL certificates の作成
 
 ```
 export _my_domain='hosting-static-website-single.iganari.xyz'
@@ -197,7 +217,7 @@ hosting-static-website-single-cert  MANAGED  2021-03-02T06:47:47.105-08:00      
     hosting-static-website-single.iganari.xyz: PROVISIONING
 ```
 
-### Target Proxy
+### Target Proxy の作成
 
 + 作成
 
@@ -222,7 +242,7 @@ NAME                                       SSL_CERTIFICATES                    U
 hosting-static-website-single-https-proxy  hosting-static-website-single-cert  hosting-static-website-single-url-map
 ```
 
-### Forwarding Rule
+### Forwarding Rule の作成
 
 + 作成
 
@@ -258,21 +278,21 @@ GCS を一般公開したので以下の URL で見ることが出来る
 https://storage.googleapis.com/${_gcp_pj_id}-${_common}/index.html
 ```
 
-![](./img/02.png)
+![](./img/03.png)
 
 ### LB 越し
 
 + インデックスを指定しない場合に `/` で出るエラー
 
-![](./img/03.png)
+![](./img/04.png)
 
 + `/index.html` でアクセスした場合
 
-![](./img/04.png)
+![](./img/05.png)
 
 + インデックスの指定をすると、 `/` にアクセスしてもちゃんとページが出る
 
-![](./img/05.png)
+![](./img/06.png)
 
 ## リソースの削除
 
@@ -322,14 +342,14 @@ gcloud beta compute backend-buckets delete ${_common}-backend-bucket \
 + External IP Address
 
 ```
-gcloud compute addresses delete ${_common}-ip \
+gcloud beta compute addresses delete ${_common}-ip \
     --global \
     --project ${_gcp_pj_id}
 ```
 
-### GCS
+### GCS の削除
 
-+ GCS バケットの削除
++ GCS バケット
 
 ```
 gsutil rm -r gs://${_gcp_pj_id}-${_common}

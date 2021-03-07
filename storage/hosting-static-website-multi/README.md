@@ -1,5 +1,11 @@
 # 複数の静的ウェブサイトのホスティング
 
+## 概要
+
+以下の構成を作成する
+
+![](./img/01.png)
+
 ## 公式ドキュメント
 
 https://cloud.google.com/storage/docs/hosting-static-website?hl=ja
@@ -16,6 +22,20 @@ https://cloud.google.com/storage/docs/hosting-static-website?hl=ja
 export _gcp_pj_id='Your GCP Project ID'
 export _common='hosting-static-website-multi'
 ```
+
++ [GCS の設定](./README.md#gcs-の設定)
+    + [GCS バケットを用意する](./README.md#gcs-バケットを用意する)
+    + [静的サイト用のファイルを GCS にアップロードする](./README.md#静的サイト用のファイルを-gcs-にアップロードする)
+    + [GCS バケットの公開設定を行う](./README.md#gcs-バケットの公開設定を行う)
+    + [特殊ページの設定](./README.md#特殊ページの設定)
++ [Cloud Load Balancing とマネージド SSL 証明書を設定](./README.md#cloud-load-balancing-とマネージド-ssl-証明書を設定)
+    + [GCLB で使用する External IP Address を予約する](./README.md#gclb-で使用する-external-ip-address-を予約する)
+    + [ドメインの準備](./README.md#ドメインの準備)
+    + [Backend Buckets の作成](./README.md#backend-buckets-の作成)
+    + [URL map の作成](./README.md#url-map-の作成)
+    + [Google-managed SSL certificates の作成](./README.md#google-managed-ssl-certificates-の作成)
+    + [Target Proxy の作成](./README.md#target-proxy-の作成)
+    + [Forwarding Rule の作成](./README.md#forwarding-rule-の作成)
 
 ## GCS の設定
 
@@ -76,9 +96,9 @@ gsutil web set -m index.html -e 404.html gs://${_gcp_pj_id}-${_common}-03
 gsutil web set -m index.html -e 404.html gs://${_gcp_pj_id}-${_common}-04
 ```
 
-## LoadBalancer とマネージド SSL 証明書を設定する
+## Cloud Load Balancing とマネージド SSL 証明書を設定
 
-### LB で使用する External IP Address を予約する
+### GCLB で使用する External IP Address を予約する
 
 + 予約
 
@@ -129,7 +149,7 @@ hosting-static-website-multi-03.iganari.xyz 34.98.87.59
 hosting-static-website-multi-04.iganari.xyz 34.98.87.59
 ```
 
-![](./img/01.png)
+![](./img/02.png)
 
 + コマンドラインで確認
 
@@ -165,7 +185,6 @@ gcloud beta compute backend-buckets create ${_common}-backend-bucket-04 \
     --project ${_gcp_pj_id}
 ```
 
-
 + 確認
 
 ```
@@ -183,7 +202,7 @@ hosting-static-website-multi-backend-bucket-03  xxxxxxxxxxxxxxxxxxxx-hosting-sta
 hosting-static-website-multi-backend-bucket-04  xxxxxxxxxxxxxxxxxxxx-hosting-static-website-multi-04  False
 ```
 
-### URL map
+### URL map の作成
 
 + 作成
 
@@ -226,7 +245,7 @@ NAME                                   DEFAULT_SERVICE
 hosting-static-website-multi-url-map   backendBuckets/hosting-static-website-multi-backend-bucket-02
 ```
 
-### Certificate
+### Google-managed SSL certificates の作成
 
 ```
 export _my_domain_02='hosting-static-website-multi-02.iganari.xyz'
@@ -268,7 +287,7 @@ hosting-static-website-multi-cert-04  MANAGED  2021-03-02T16:06:50.213-08:00    
     hosting-static-website-multi-04.iganari.xyz: PROVISIONING
 ```
 
-### Target Proxy
+### Target Proxy の作成
 
 + 作成
 
@@ -307,10 +326,9 @@ hosting-static-website-multi-https-proxy-03  hosting-static-website-multi-cert-0
 hosting-static-website-multi-https-proxy-04  hosting-static-website-multi-cert-04  hosting-static-website-multi-url-map
 ```
 
-### Forwarding Rule
+### Forwarding Rule の作成
 
 + 作成
-
 
 ```
 gcloud beta compute forwarding-rules create ${_common}-https-rule-02 \
@@ -362,9 +380,9 @@ https://storage.googleapis.com/${_gcp_pj_id}-${_common}-03/index.html
 https://storage.googleapis.com/${_gcp_pj_id}-${_common}-04/index.html
 ```
 
-![](./img/02.png)
 ![](./img/03.png)
 ![](./img/04.png)
+![](./img/05.png)
 
 ### LB 越し
 
@@ -373,6 +391,10 @@ https://hosting-static-website-multi-02.iganari.xyz
 https://hosting-static-website-multi-03.iganari.xyz
 https://hosting-static-website-multi-04.iganari.xyz
 ```
+
+![](./img/06.png)
+![](./img/07.png)
+![](./img/08.png)
 
 ## リソースの削除
 
@@ -450,22 +472,22 @@ gcloud beta compute backend-buckets delete ${_common}-backend-bucket-04 \
 + External IP Address
 
 ```
-gcloud compute addresses delete ${_common}-ip-02 \
+gcloud beta compute addresses delete ${_common}-ip-02 \
     --global \
     --project ${_gcp_pj_id}
 
-gcloud compute addresses delete ${_common}-ip-03 \
+gcloud beta compute addresses delete ${_common}-ip-03 \
     --global \
     --project ${_gcp_pj_id}
 
-gcloud compute addresses delete ${_common}-ip-04 \
+gcloud beta compute addresses delete ${_common}-ip-04 \
     --global \
     --project ${_gcp_pj_id}
 ```
 
-### GCS
+### GCS の削除
 
-+ GCS バケットの削除
++ GCS バケット
 
 ```
 gsutil rm -r gs://${_gcp_pj_id}-${_common}-02
