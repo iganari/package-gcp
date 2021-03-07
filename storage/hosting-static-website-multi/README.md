@@ -481,22 +481,22 @@ gcloud beta compute backend-buckets delete ${_common}-backend-bucket-04 \
 + External IP Address
 
 ```
-gcloud compute addresses delete ${_common}-ip-02 \
+gcloud beta compute addresses delete ${_common}-ip-02 \
     --global \
     --project ${_gcp_pj_id}
 
-gcloud compute addresses delete ${_common}-ip-03 \
+gcloud beta compute addresses delete ${_common}-ip-03 \
     --global \
     --project ${_gcp_pj_id}
 
-gcloud compute addresses delete ${_common}-ip-04 \
+gcloud beta compute addresses delete ${_common}-ip-04 \
     --global \
     --project ${_gcp_pj_id}
 ```
 
-### GCS
+### GCS の削除
 
-+ GCS バケットの削除
++ GCS バケット
 
 ```
 gsutil rm -r gs://${_gcp_pj_id}-${_common}-02
