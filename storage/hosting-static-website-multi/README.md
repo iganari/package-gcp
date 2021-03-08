@@ -358,15 +358,7 @@ https://hosting-static-website-multi-04.iganari.xyz
 + Forwarding Rule
 
 ```
-gcloud beta compute forwarding-rules delete ${_common}-https-rule-02 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute forwarding-rules delete ${_common}-https-rule-03 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute forwarding-rules delete ${_common}-https-rule-04 \
+gcloud beta compute forwarding-rules delete ${_common}-https-rule \
     --global \
     --project ${_gcp_pj_id}
 ```
@@ -374,15 +366,7 @@ gcloud beta compute forwarding-rules delete ${_common}-https-rule-04 \
 + Target Proxy
 
 ```
-gcloud beta compute target-https-proxies delete ${_common}-https-proxy-02 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute target-https-proxies delete ${_common}-https-proxy-03 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute target-https-proxies delete ${_common}-https-proxy-04 \
+gcloud beta compute target-https-proxies delete ${_common}-https-proxy \
     --global \
     --project ${_gcp_pj_id}
 ```
@@ -390,13 +374,7 @@ gcloud beta compute target-https-proxies delete ${_common}-https-proxy-04 \
 + Certificate
 
 ```
-gcloud beta compute ssl-certificates delete ${_common}-cert-02 \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute ssl-certificates delete ${_common}-cert-03 \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute ssl-certificates delete ${_common}-cert-04 \
+gcloud beta compute ssl-certificates delete ${_common}-cert \
     --project ${_gcp_pj_id}
 ```
 
@@ -423,15 +401,7 @@ gcloud beta compute backend-buckets delete ${_common}-backend-bucket-04 \
 + External IP Address
 
 ```
-gcloud beta compute addresses delete ${_common}-ip-02 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute addresses delete ${_common}-ip-03 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute addresses delete ${_common}-ip-04 \
+gcloud beta compute addresses delete ${_common}-ip \
     --global \
     --project ${_gcp_pj_id}
 ```
