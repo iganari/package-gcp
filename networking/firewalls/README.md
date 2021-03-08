@@ -21,7 +21,15 @@
 209.85.204.0/22
 ```
 
+## `IAP` で強化する IP アドレス
+
+```
+35.235.240.0/20
+```
+
 ## 参考
 
 + https://cloud.google.com/load-balancing/docs/health-checks?hl=ja
 + https://cloud.google.com/load-balancing/docs/health-check-concepts?hl=ja#ip-ranges
++ https://cloud.google.com/iap/docs/using-tcp-forwarding#create-firewall-rule
++ 
