@@ -103,17 +103,7 @@ gsutil web set -m index.html -e 404.html gs://${_gcp_pj_id}-${_common}-04
 + 予約
 
 ```
-gcloud compute addresses create ${_common}-ip-02 \
-    --ip-version=IPV4 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud compute addresses create ${_common}-ip-03 \
-    --ip-version=IPV4 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud compute addresses create ${_common}-ip-04 \
+gcloud compute addresses create ${_common}-ip \
     --ip-version=IPV4 \
     --global \
     --project ${_gcp_pj_id}
@@ -122,7 +112,7 @@ gcloud compute addresses create ${_common}-ip-04 \
 + 確認
 
 ```
-gcloud compute addresses describe ${_common}-ip-02 \
+gcloud compute addresses describe ${_common}-ip \
     --format="get(address)" \
     --global \
     --project ${_gcp_pj_id}
@@ -130,11 +120,11 @@ gcloud compute addresses describe ${_common}-ip-02 \
 ```
 ### 例
 
-# gcloud compute addresses describe ${_common}-ip-02 \
+# gcloud compute addresses describe ${_common}-ip \
 >     --format="get(address)" \
 >     --global \
 >     --project ${_gcp_pj_id}
-34.117.177.29
+34.98.71.98
 ```
 
 ### ドメインの準備
@@ -144,9 +134,9 @@ gcloud compute addresses describe ${_common}-ip-02 \
 + 今回は以下のように設定
 
 ```
-hosting-static-website-multi-02.iganari.xyz 34.98.87.59
-hosting-static-website-multi-03.iganari.xyz 34.98.87.59
-hosting-static-website-multi-04.iganari.xyz 34.98.87.59
+hosting-static-website-multi-02.iganari.xyz 34.98.71.98
+hosting-static-website-multi-03.iganari.xyz 34.98.71.98
+hosting-static-website-multi-04.iganari.xyz 34.98.71.98
 ```
 
 ![](./img/02.png)
@@ -162,7 +152,7 @@ dig A hosting-static-website-multi-04.iganari.xyz +short
 ### 例
 
 % dig A hosting-static-website-multi-02.iganari.xyz +short
-34.98.87.59
+34.98.71.98
 ```
 
 ### Backend Buckets の作成
@@ -231,7 +221,6 @@ gcloud beta compute url-maps add-path-matcher ${_common}-url-map \
     --project ${_gcp_pj_id}
 ```
 
-
 + 確認
 
 ```
@@ -248,6 +237,8 @@ hosting-static-website-multi-url-map   backendBuckets/hosting-static-website-mul
 ### Google-managed SSL certificates の作成
 
 ```
+### 環境変数
+
 export _my_domain_02='hosting-static-website-multi-02.iganari.xyz'
 export _my_domain_03='hosting-static-website-multi-03.iganari.xyz'
 export _my_domain_04='hosting-static-website-multi-04.iganari.xyz'
@@ -256,16 +247,8 @@ export _my_domain_04='hosting-static-website-multi-04.iganari.xyz'
 + 作成
 
 ```
-gcloud beta compute ssl-certificates create ${_common}-cert-02 \
-    --domains ${_common}-02.iganari.xyz \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute ssl-certificates create ${_common}-cert-03 \
-    --domains ${_common}-03.iganari.xyz \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute ssl-certificates create ${_common}-cert-04 \
-    --domains ${_common}-04.iganari.xyz \
+gcloud beta compute ssl-certificates create ${_common}-cert \
+    --domains ${_my_domain_02},${_my_domain_03},${_my_domain_04} \
     --project ${_gcp_pj_id}
 ```
 
@@ -278,12 +261,10 @@ gcloud beta compute ssl-certificates list --project ${_gcp_pj_id}
 ### 例
 
 # gcloud beta compute ssl-certificates list --project ${_gcp_pj_id}
-NAME                                  TYPE     CREATION_TIMESTAMP             EXPIRE_TIME                    MANAGED_STATUS
-hosting-static-website-multi-cert-02  MANAGED  2021-03-02T16:06:32.689-08:00                                 PROVISIONING
+NAME                               TYPE     CREATION_TIMESTAMP             EXPIRE_TIME  MANAGED_STATUS
+hosting-static-website-multi-cert  MANAGED  2021-03-08T06:30:38.101-08:00               PROVISIONING
     hosting-static-website-multi-02.iganari.xyz: PROVISIONING
-hosting-static-website-multi-cert-03  MANAGED  2021-03-02T16:06:41.269-08:00                                 PROVISIONING
     hosting-static-website-multi-03.iganari.xyz: PROVISIONING
-hosting-static-website-multi-cert-04  MANAGED  2021-03-02T16:06:50.213-08:00                                 PROVISIONING
     hosting-static-website-multi-04.iganari.xyz: PROVISIONING
 ```
 
@@ -292,20 +273,8 @@ hosting-static-website-multi-cert-04  MANAGED  2021-03-02T16:06:50.213-08:00    
 + 作成
 
 ```
-gcloud beta compute target-https-proxies create ${_common}-https-proxy-02 \
-    --ssl-certificates=${_common}-cert-02 \
-    --url-map=${_common}-url-map \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute target-https-proxies create ${_common}-https-proxy-03 \
-    --ssl-certificates=${_common}-cert-03 \
-    --url-map=${_common}-url-map \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute target-https-proxies create ${_common}-https-proxy-04 \
-    --ssl-certificates=${_common}-cert-04 \
+gcloud beta compute target-https-proxies create ${_common}-https-proxy \
+    --ssl-certificates=${_common}-cert \
     --url-map=${_common}-url-map \
     --global \
     --project ${_gcp_pj_id}
@@ -320,10 +289,8 @@ gcloud beta compute target-https-proxies list --project ${_gcp_pj_id}
 ### 例
 
 # gcloud beta compute target-https-proxies list --project ${_gcp_pj_id}
-NAME                                         SSL_CERTIFICATES                      URL_MAP
-hosting-static-website-multi-https-proxy-02  hosting-static-website-multi-cert-02  hosting-static-website-multi-url-map
-hosting-static-website-multi-https-proxy-03  hosting-static-website-multi-cert-03  hosting-static-website-multi-url-map
-hosting-static-website-multi-https-proxy-04  hosting-static-website-multi-cert-04  hosting-static-website-multi-url-map
+NAME                                      SSL_CERTIFICATES                   URL_MAP
+hosting-static-website-multi-https-proxy  hosting-static-website-multi-cert  hosting-static-website-multi-url-map
 ```
 
 ### Forwarding Rule の作成
@@ -331,23 +298,9 @@ hosting-static-website-multi-https-proxy-04  hosting-static-website-multi-cert-0
 + 作成
 
 ```
-gcloud beta compute forwarding-rules create ${_common}-https-rule-02 \
-    --address=${_common}-ip-02 \
-    --target-https-proxy=${_common}-https-proxy-02 \
-    --global \
-    --ports=443 \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute forwarding-rules create ${_common}-https-rule-03 \
-    --address=${_common}-ip-03 \
-    --target-https-proxy=${_common}-https-proxy-03 \
-    --global \
-    --ports=443 \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute forwarding-rules create ${_common}-https-rule-04 \
-    --address=${_common}-ip-04 \
-    --target-https-proxy=${_common}-https-proxy-04 \
+gcloud beta compute forwarding-rules create ${_common}-https-rule \
+    --address=${_common}-ip \
+    --target-https-proxy=${_common}-https-proxy \
     --global \
     --ports=443 \
     --project ${_gcp_pj_id}
@@ -362,10 +315,8 @@ gcloud beta compute forwarding-rules list --project ${_gcp_pj_id}
 ### 例
 
 # gcloud beta compute forwarding-rules list --project ${_gcp_pj_id}
-NAME                                        REGION  IP_ADDRESS      IP_PROTOCOL  TARGET
-hosting-static-website-multi-https-rule-02          34.117.177.29   TCP          hosting-static-website-multi-https-proxy-02
-hosting-static-website-multi-https-rule-03          34.120.18.82    TCP          hosting-static-website-multi-https-proxy-03
-hosting-static-website-multi-https-rule-04          34.98.105.79    TCP          hosting-static-website-multi-https-proxy-04
+NAME                                     REGION  IP_ADDRESS   IP_PROTOCOL  TARGET
+hosting-static-website-multi-https-rule          34.98.71.98  TCP          hosting-static-website-multi-https-proxy
 ```
 
 ## 確認
@@ -407,15 +358,7 @@ https://hosting-static-website-multi-04.iganari.xyz
 + Forwarding Rule
 
 ```
-gcloud beta compute forwarding-rules delete ${_common}-https-rule-02 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute forwarding-rules delete ${_common}-https-rule-03 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute forwarding-rules delete ${_common}-https-rule-04 \
+gcloud beta compute forwarding-rules delete ${_common}-https-rule \
     --global \
     --project ${_gcp_pj_id}
 ```
@@ -423,15 +366,7 @@ gcloud beta compute forwarding-rules delete ${_common}-https-rule-04 \
 + Target Proxy
 
 ```
-gcloud beta compute target-https-proxies delete ${_common}-https-proxy-02 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute target-https-proxies delete ${_common}-https-proxy-03 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute target-https-proxies delete ${_common}-https-proxy-04 \
+gcloud beta compute target-https-proxies delete ${_common}-https-proxy \
     --global \
     --project ${_gcp_pj_id}
 ```
@@ -439,13 +374,7 @@ gcloud beta compute target-https-proxies delete ${_common}-https-proxy-04 \
 + Certificate
 
 ```
-gcloud beta compute ssl-certificates delete ${_common}-cert-02 \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute ssl-certificates delete ${_common}-cert-03 \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute ssl-certificates delete ${_common}-cert-04 \
+gcloud beta compute ssl-certificates delete ${_common}-cert \
     --project ${_gcp_pj_id}
 ```
 
@@ -472,15 +401,7 @@ gcloud beta compute backend-buckets delete ${_common}-backend-bucket-04 \
 + External IP Address
 
 ```
-gcloud beta compute addresses delete ${_common}-ip-02 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute addresses delete ${_common}-ip-03 \
-    --global \
-    --project ${_gcp_pj_id}
-
-gcloud beta compute addresses delete ${_common}-ip-04 \
+gcloud beta compute addresses delete ${_common}-ip \
     --global \
     --project ${_gcp_pj_id}
 ```
