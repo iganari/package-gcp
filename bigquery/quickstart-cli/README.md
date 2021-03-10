@@ -22,6 +22,8 @@ https://cloud.google.com/bigquery/docs/quickstarts/quickstart-command-line
 https://cloud.google.com/bigquery/docs/quickstarts/quickstart-command-line#step_1_download_the_sample_data
 ```
 
+## サンプルデータを BQ に入れる
+
 + サンプルデータをダウンロード
 
 ```
