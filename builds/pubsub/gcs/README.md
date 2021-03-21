@@ -9,6 +9,21 @@ Cloud Build が Pub/Sub 経由で実行出来るようになったので、GCS �
 https://cloud.google.com/build/release-notes#March_10_2021
 ```
 
+
+```
+GCS にファイルを置くことをトリガーとして Cloud build を動かしたい場合
+今ままで
+GCS -> Pubsub -> functions -> Cloud Build 
+から functionsがなくなる
+
+pubsub からくるイベントをbuild でフィルタを付けることが出来る
+functsion は Cloud Buold の API を叩くやつ
+
+functiosn が減るので上記をコード管理する場合の工数も減る
+```
+
+
+
 ## 構成
 
 下記の構成を作る
@@ -133,98 +148,46 @@ _BUCKET_ID is: XXXXXXXXXXXXXXXXXXXXXx
 _OBJECT_ID is: sample.txt
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
 ### GCS のオブジェクトを上書きする
 
+`OBJECT_DELETE` と `OBJECT_FINALIZE` の 2 回のトリガ実行が起こる
 
-
-+ 置き換え
----> `OBJECT_DELETE` と `OBJECT_FINALIZE` の 2 回のトリガ実行が起こる
-
-
-
-あとは手でやってみる
-
-Cloud Build を作ると subsclibreが出来る
-
-gcb-hogehoge
-
-filter はいらない
-
-
-↑
-イベントだけはとってもいいかもしれない
-
-
-GCS にファイルを置くことをトリガーとして Cloud build を動かしたい場合
-今ままで
-GCS -> Pubsub -> functions -> Cloud Build 
-から functionsがなくなる
-
-pubsub からくるイベントをbuild でフィルタを付けることが出来る
-functsion は Cloud Buold の API を叩くやつ
-
-functiosn が減るので上記をコード管理する場合の工数も減る
+![](./img/14.png)
 
 
 
-# filter を使ってみる
+
+## Filter を使ってみる
 
 `OBJECT_FINALIZE` の時のみ実行するようにする
 
-![](./img/07.png)
+![](./img/15.png)
 
+![](./img/16.png)
 
++ GCS に再アップロードする
 
-+ GCS に再アップロード
-
-``
+```
 gsutil cp sample.txt gs://${_gcp_pj_id}_${_common}/
 ```
 
 ```
-# gcloud beta builds list  --limit 10 --project ${_gcp_pj_id}
+# gcloud beta builds list  --limit 3 --project ${_gcp_pj_id}
 ID                                    CREATE_TIME                DURATION  SOURCE  IMAGES  STATUS
 98348535-90f6-41d4-b94c-fddcb7b562a4  2021-03-21T01:11:52+00:00  11S       -       -       SUCCESS
 d8061dfb-ea54-4589-8ab5-6e4fafb2ed1c  2021-03-21T00:54:24+00:00  10S       -       -       SUCCESS
 f1d602d4-aeaa-446c-8bc5-3ba20b204cee  2021-03-21T00:53:18+00:00  11S       -       -       SUCCESS
-2dcaae89-e108-4185-a37f-0abce09dd731  2021-03-20T14:58:34+00:00  11S       -       -       SUCCESS
-a201f17e-354f-4e6b-9ae9-015d1e11f901  2021-03-20T14:58:34+00:00  11S       -       -       SUCCESS
-db7ec737-1d81-4370-9963-8a028cb8306f  2021-03-20T14:53:09+00:00  12S       -       -       SUCCESS
-22cf081b-0c44-4929-848b-9551c9d2f6a6  2021-03-18T07:40:18+00:00  1M7S      -       -       SUCCESS
-78c50c71-787d-40e6-8678-61cff5467706  2021-03-18T07:40:17+00:00  1M11S     -       -       SUCCESS
-2d202962-3adf-4526-8074-4c7df5ef1099  2021-03-18T07:32:26+00:00  1M9S      -       -       SUCCESS
-db275ca9-eb87-4d7c-aa12-5f9b0e47e799  2021-03-18T07:32:26+00:00  1M10S     -       -       SUCCESS
 ```
 
 
 ```
-# gcloud beta builds list  --limit 10 --project ${_gcp_pj_id}
+# gcloud beta builds list  --limit 3 --project ${_gcp_pj_id}
 ID                                    CREATE_TIME                DURATION  SOURCE  IMAGES  STATUS
-48b13cc3-fd0c-4541-aaac-d1e53afcf902  2021-03-21T01:14:45+00:00  11S       -       -       SUCCESS
+48b13cc3-fd0c-4541-aaac-d1e53afcf902  2021-03-21T01:14:45+00:00  11S       -       -       SUCCESS   <------ 1回だけ実行された 
 98348535-90f6-41d4-b94c-fddcb7b562a4  2021-03-21T01:11:52+00:00  11S       -       -       SUCCESS
 d8061dfb-ea54-4589-8ab5-6e4fafb2ed1c  2021-03-21T00:54:24+00:00  10S       -       -       SUCCESS
-f1d602d4-aeaa-446c-8bc5-3ba20b204cee  2021-03-21T00:53:18+00:00  11S       -       -       SUCCESS
-2dcaae89-e108-4185-a37f-0abce09dd731  2021-03-20T14:58:34+00:00  11S       -       -       SUCCESS
-a201f17e-354f-4e6b-9ae9-015d1e11f901  2021-03-20T14:58:34+00:00  11S       -       -       SUCCESS
-db7ec737-1d81-4370-9963-8a028cb8306f  2021-03-20T14:53:09+00:00  12S       -       -       SUCCESS
-22cf081b-0c44-4929-848b-9551c9d2f6a6  2021-03-18T07:40:18+00:00  1M7S      -       -       SUCCESS
-78c50c71-787d-40e6-8678-61cff5467706  2021-03-18T07:40:17+00:00  1M11S     -       -       SUCCESS
-2d202962-3adf-4526-8074-4c7df5ef1099  2021-03-18T07:32:26+00:00  1M9S      -       -       SUCCESS
 ```
 
----> 一個だけ実行された
 
 # まとめ
 
