@@ -68,11 +68,14 @@ gsutil notification list gs://${_gcp_pj_id}_${_common}
 
 ※ 現状は gcloud コマンドでは出来ないので、GCP コンソールから作成する
 
-```
-name
-cbt-build-pubsub-gcs
-```
-
+設定 | 値
+:- | :-
+Name | `cbt-build-pubsub-gcs` (任意)
+Event | `Pub/Sub message`
+Subscription | `from_gcs_${_common}` (前項で作成した Pub/Sub 通知)
+Source | `連携したい Repository 名` (例: [iganari/package-gcp](https://github.com/iganari/package-gcp))
+Configuration | `連携した Repository 内の cloudbuild.yaml の PATH` (例: [builds/pubsub/gcs/cloudbuild.yaml](./cloudbuild.yaml))
+test | ![](./img/02.png)
 
 ![](./img/02.png)
 
