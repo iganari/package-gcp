@@ -77,14 +77,15 @@ Source | `連携したい Repository 名` <br>(例: [iganari/package-gcp](https:
 Configuration | `連携した Repository 内の cloudbuild.yaml の PATH` <br>(例: [builds/pubsub/gcs/cloudbuild.yaml](./cloudbuild.yaml)) | ![](./img/06.png)
 Advanced | Substitution Variables として以下を設定 <br> `_EVENT_TYPE` = `$(body.message.attributes.eventType)` <br> `_BUCKET_ID` = `$(body.message.attributes.bucketId)` <br> `_OBJECT_ID` = `$(body.message.attributes.objectId)` | ![](./img/07.png)
 
+### 作成完了
 
-
-
-
+![](./img/09.png)
 
 ## 実行
 
-+ アップロードするファイルを作成する
+### GCS にオブジェクトを追加する
+
++ GCS にアップロードするファイルを作成する
 
 ```
 echo "this is Cloud Build Sample By iganari :)" > sample.txt
@@ -94,9 +95,16 @@ zip sample.zip sample.txt
 
 + GCS にアップロード
 
-``
+```
 gsutil cp sample.txt gs://${_gcp_pj_id}_${_common}/
 ```
+
+![](./img/10.png)
+
+![](./img/11.png)
+
+
++ 以下の情報が取れているのが分かる
 
 ```
 _EVENT_TYPE is: OBJECT_FINALIZE
@@ -104,19 +112,41 @@ _BUCKET_ID is: XXXXXXXXXXXXXXXXXXXXXx
 _OBJECT_ID is: sample.txt
 ```
 
+### GCS のオブジェクトを削除する
 
 
-+ 削除
++ GCS のオブジェクトを削除する
 
 ```
 gsutil rm gs://${_gcp_pj_id}_${_common}/sample.txt
 ```
+
+![](./img/12.png)
+
+![](./img/13.png)
+
++ 以下の情報が取れているのが分かる
 
 ```
 _EVENT_TYPE is: OBJECT_DELETE
 _BUCKET_ID is: XXXXXXXXXXXXXXXXXXXXXx
 _OBJECT_ID is: sample.txt
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+### GCS のオブジェクトを上書きする
+
 
 
 + 置き換え
