@@ -69,7 +69,7 @@ gsutil notification list gs://${_gcp_pj_id}_${_common}
 ※ 現状は gcloud コマンドでは出来ないので、GCP コンソールから作成する
 
 設定 | 値 | スクリーンショット
-:- | :-
+:- | :- | :-
 Name | `cbt-build-pubsub-gcs` (任意) | ![](./img/02.png)
 Event | `Pub/Sub message` | ![](./img/03.png)
 Subscription | `from_gcs_${_common}` (前項で作成した Pub/Sub 通知) | ![](./img/04.png)
