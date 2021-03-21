@@ -2,8 +2,8 @@
 
 ## 同 GCP プロジェクト内で GCS から Pub/Sub を通じて Cloud Build を実行する
 
-![](./img/gcs.png)
+![](./gcs/img/01.png)
 
 ## 異 GCP プロジェクト内で GCS から Pub/Sub を通じて Cloud Build を実行する
 
-![](./img/gcs-multi.png)
+![](./gcs-multi/img/01.png)
