@@ -1,4 +1,4 @@
-# Sample
+# Basic Sample
 
 ## 概要
 
