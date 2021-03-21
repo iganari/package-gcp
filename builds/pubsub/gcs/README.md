@@ -74,23 +74,23 @@ cbt-build-pubsub-gcs
 ```
 
 
-![](./img/01.png)
+![](./img/02.png)
 
 ### Event
 
-![](./img/02.png)
+![](./img/03.png)
 
 ### Subscription
 
-![](./img/03.png)
+![](./img/04.png)
 
 ### Source
 
-![](./img/04.png)
+![](./img/05.png)
 
 ### Configuration
 
-![](./img/05.png)
+![](./img/06.png)
 
 ### Advanced
 
@@ -101,7 +101,7 @@ Variable | 	Value
 `_BUCKET_ID`  | `$(body.message.attributes.bucketId)`
 `_OBJECT_ID` | `$(body.message.attributes.objectId)`
 
-![](./img/06.png)
+![](./img/07.png)
 
 
 
@@ -133,7 +133,7 @@ gsutil cp sample.txt gs://${_gcp_pj_id}_${_common}/
 
 ```
 _EVENT_TYPE is: OBJECT_FINALIZE
-_BUCKET_ID is: ca-igarashi-test-gaia-firebase_build-pubsub-gcs
+_BUCKET_ID is: XXXXXXXXXXXXXXXXXXXXXx
 _OBJECT_ID is: sample.txt
 ```
 
@@ -147,7 +147,7 @@ gsutil rm gs://${_gcp_pj_id}_${_common}/sample.txt
 
 ```
 _EVENT_TYPE is: OBJECT_DELETE
-_BUCKET_ID is: ca-igarashi-test-gaia-firebase_build-pubsub-gcs
+_BUCKET_ID is: XXXXXXXXXXXXXXXXXXXXXx
 _OBJECT_ID is: sample.txt
 ```
 
@@ -197,7 +197,7 @@ gsutil cp sample.txt gs://${_gcp_pj_id}_${_common}/
 ```
 
 ```
-# gcloud beta builds list  --limit 10 --project ca-igarashi-test-gaia-firebase
+# gcloud beta builds list  --limit 10 --project ${_gcp_pj_id}
 ID                                    CREATE_TIME                DURATION  SOURCE  IMAGES  STATUS
 98348535-90f6-41d4-b94c-fddcb7b562a4  2021-03-21T01:11:52+00:00  11S       -       -       SUCCESS
 d8061dfb-ea54-4589-8ab5-6e4fafb2ed1c  2021-03-21T00:54:24+00:00  10S       -       -       SUCCESS
@@ -213,7 +213,7 @@ db275ca9-eb87-4d7c-aa12-5f9b0e47e799  2021-03-18T07:32:26+00:00  1M10S     -    
 
 
 ```
-# gcloud beta builds list  --limit 10 --project ca-igarashi-test-gaia-firebase
+# gcloud beta builds list  --limit 10 --project ${_gcp_pj_id}
 ID                                    CREATE_TIME                DURATION  SOURCE  IMAGES  STATUS
 48b13cc3-fd0c-4541-aaac-d1e53afcf902  2021-03-21T01:14:45+00:00  11S       -       -       SUCCESS
 98348535-90f6-41d4-b94c-fddcb7b562a4  2021-03-21T01:11:52+00:00  11S       -       -       SUCCESS
