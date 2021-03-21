@@ -71,47 +71,11 @@ gsutil notification list gs://${_gcp_pj_id}_${_common}
 設定 | 値 | スクリーンショット
 :- | :- | :-
 Name | `cbt-build-pubsub-gcs` (任意) | ![](./img/02.png)
-Event | `Pub/Sub message` | ![](./img/03.png)
-Subscription | `from_gcs_${_common}` (前項で作成した Pub/Sub 通知) | ![](./img/04.png)
-Source | `連携したい Repository 名` (例: [iganari/package-gcp](https://github.com/iganari/package-gcp)) | ![](./img/05.png)
-Configuration | `連携した Repository 内の cloudbuild.yaml の PATH` (例: [builds/pubsub/gcs/cloudbuild.yaml](./cloudbuild.yaml)) | ![](./img/06.png)
-
-
-
-
-### Event
-
-![](./img/03.png)
-
-### Subscription
-
-![](./img/04.png)
-
-### Source
-
-![](./img/05.png)
-
-### Configuration
-
-![](./img/06.png)
-
-### Advanced
-
-
-Variable | 	Value
-:- | :-
-`_EVENT_TYPE` | `$(body.message.attributes.eventType)`
-`_BUCKET_ID`  | `$(body.message.attributes.bucketId)`
-`_OBJECT_ID` | `$(body.message.attributes.objectId)`
-
-![](./img/07.png)
-
-
-
-
-
-
-
+Event | `Pub/Sub message` を選択 | ![](./img/03.png)
+Subscription | `from_gcs_${_common}` を選択 <br>(前項で作成した Pub/Sub 通知) | ![](./img/04.png)
+Source | `連携したい Repository 名` <br>(例: [iganari/package-gcp](https://github.com/iganari/package-gcp)) | ![](./img/05.png)
+Configuration | `連携した Repository 内の cloudbuild.yaml の PATH` <br>(例: [builds/pubsub/gcs/cloudbuild.yaml](./cloudbuild.yaml)) | ![](./img/06.png)
+Advanced | Substitution Variables として以下を設定 <br> `_EVENT_TYPE` = `$(body.message.attributes.eventType)` <br> `_BUCKET_ID` = `$(body.message.attributes.bucketId)` <br> `_OBJECT_ID` = `$(body.message.attributes.objectId)` | ![](./img/07.png)
 
 
 
