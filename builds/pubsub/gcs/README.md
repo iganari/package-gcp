@@ -15,23 +15,14 @@ https://cloud.google.com/build/release-notes#March_10_2021
 
 ![](./img/01.png)
 
-
-# ------------
-
-
-
-## シナリオ
-
-GCS に何かしらのファイルを置く
-
-zip ファイルを unzip して中身をみるくらいでいいでしょ
-
 ## 実際にやってみる
+
+## GCS バケットの作成
 
 ```
 ### 環境変数
 
-export _gcp_pj_id='ca-igarashi-test-gaia-firebase'
+export _gcp_pj_id='Your GCP Project'
 export _common='build-pubsub-gcs'
 ```
 
@@ -41,16 +32,10 @@ export _common='build-pubsub-gcs'
 gsutil mb -p ${_gcp_pj_id} gs://${_gcp_pj_id}_${_common}
 ```
 
-+ 確認
++ GCS バケットの確認
 
 ```
 gsutil ls | grep ${_gcp_pj_id}_${_common}
-```
-```
-### 例
-
-# gsutil ls | grep ${_gcp_pj_id}_${_common}
-gs://ca-igarashi-test-gaia-firebase_build-pubsub-gcs/
 ```
 
 + GCP プロジェクトの設定
@@ -58,7 +43,6 @@ gs://ca-igarashi-test-gaia-firebase_build-pubsub-gcs/
 ```
 gcloud beta config set project ${_gcp_pj_id}
 ```
-
 
 + Pub/Sub 通知を作る
   + https://cloud.google.com/storage/docs/reporting-changes?hl=ja#gsutil
