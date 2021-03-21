@@ -15,7 +15,7 @@ https://cloud.google.com/build/release-notes#March_10_2021
 
 ![](./img/01.png)
 
-## 実際にやってみる
+# 実際にやってみる
 
 ## GCS バケットの作成
 
@@ -38,6 +38,13 @@ gsutil mb -p ${_gcp_pj_id} gs://${_gcp_pj_id}_${_common}
 gsutil ls | grep ${_gcp_pj_id}_${_common}
 ```
 
+## Pub/Sub 通知設定の作成
+
+
+正しくは `Pub/Sub Notifications for Cloud Storage`
+
+https://cloud.google.com/storage/docs/reporting-changes
+
 + GCP プロジェクトの設定
 
 ```
@@ -45,7 +52,6 @@ gcloud beta config set project ${_gcp_pj_id}
 ```
 
 + Pub/Sub 通知を作る
-  + https://cloud.google.com/storage/docs/reporting-changes?hl=ja#gsutil
 
 ```
 gsutil notification create -t from_gcs_${_common} -f json gs://${_gcp_pj_id}_${_common}
