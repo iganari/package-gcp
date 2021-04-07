@@ -165,11 +165,8 @@ _OBJECT_ID is: sample.txt
 
 ![](./img/16.png)
 
-+ GCS に再アップロードする
 
-```
-gsutil cp sample.txt gs://${_gcp_pj_id}_${_common}/
-```
++ gcloud コマンドにて、事前にビルドログの確認
 
 ```
 # gcloud beta builds list  --limit 3 --project ${_gcp_pj_id}
@@ -179,6 +176,14 @@ d8061dfb-ea54-4589-8ab5-6e4fafb2ed1c  2021-03-21T00:54:24+00:00  10S       -    
 f1d602d4-aeaa-446c-8bc5-3ba20b204cee  2021-03-21T00:53:18+00:00  11S       -       -       SUCCESS
 ```
 
++ GCS に再アップロードする
+
+```
+gsutil cp sample.txt gs://${_gcp_pj_id}_${_common}/
+```
+
++ gcloud コマンドにて、事前にビルドログの確認
+  + 1 回だけ実行されるはず。
 
 ```
 # gcloud beta builds list  --limit 3 --project ${_gcp_pj_id}
