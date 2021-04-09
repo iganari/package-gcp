@@ -8,3 +8,6 @@ IAP 越しに パブリック IP アドレスが無い Cloud SQL に パブリ�
 
 ![](./img/iap-to-cloudsql.png)
 
+GCE から Cloud SQL へは VPC Network Reering を使って疎通している図
+
+![](https://cloud.google.com/sql/images/private-ip.svg)
