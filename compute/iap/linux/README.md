@@ -9,11 +9,6 @@ IAP 越しに パブリック IP アドレスが無い GCE( Linux ) にログイ
 https://cloud.google.com/iap/docs/using-tcp-forwarding#gcloud_2
 ```
 
-```
-今ページの最終更新日
-2021/04/09
-```
-
 ## 準備
 
 ※ IAP をユーザ毎に設定するので、 GCP 上で使用出来るユーザの Email が必要になります
@@ -254,3 +249,7 @@ gcloud beta compute networks subnets delete ${_common}-subnets \
 gcloud beta compute networks delete ${_common}-network \
   --project ${_gcp_pj_id} -q
 ```
+
+## 最終更新日
+
+2021/04/09

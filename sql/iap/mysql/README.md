@@ -4,11 +4,6 @@
 
 IAP 越しに パブリック IP アドレスが無い Cloud SQL に パブリック IP アドレスが無い GCE を通じてログインします
 
-```
-今ページの最終更新日
-2021/04/09
-```
-
 ## IAP to GCE
 
 下記のリンク先の環境を構築していることが前提となります
@@ -626,3 +621,7 @@ gcloud beta compute networks subnets delete ${_common}-subnets \
 gcloud beta compute networks delete ${_common}-network \
   --project ${_gcp_pj_id} -q
 ```
+
+## 最終更新日
+
+2021/04/09
