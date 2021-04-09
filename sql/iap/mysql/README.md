@@ -2,8 +2,6 @@
 
 ## 概要
 
-[WIP] 内容的には出来ているが、文章の構成を修正する必要がある
-
 IAP 越しに パブリック IP アドレスが無い Cloud SQL に パブリック IP アドレスが無い GCE を通じてログインします
 
 ```
@@ -38,24 +36,24 @@ export _your_gcp_email='Your GCP Email'
   + https://cloud.google.com/sql/docs/mysql/configure-private-ip?hl=en
 
 
-+ VPC ネットワークでプライベート サービス アクセスを構成する
++ VPC ネットワークでプライベートサービスアクセスを構成する
 
 ```
 ### IP アドレス範囲を割り振る
 gcloud beta compute addresses create google-managed-services-${_common}-network \
-    --global \
-    --purpose "VPC_PEERING" \
-    --prefix-length 16 \
-    --network ${_common}-network \
-    --project ${_gcp_pj_id}
+  --global \
+  --purpose "VPC_PEERING" \
+  --prefix-length 16 \
+  --network ${_common}-network \
+  --project ${_gcp_pj_id}
 
 
 ### プライベート接続の作成
 gcloud beta services vpc-peerings connect \
-    --service servicenetworking.googleapis.com \
-    --ranges google-managed-services-${_common}-network \
-    --network ${_common}-network \
-    --project ${_gcp_pj_id}
+  --service servicenetworking.googleapis.com \
+  --ranges google-managed-services-${_common}-network \
+  --network ${_common}-network \
+  --project ${_gcp_pj_id}
 ```
 
 + Cloud SQL 作成する
@@ -63,13 +61,13 @@ gcloud beta services vpc-peerings connect \
 
 ```
 gcloud beta sql instances create ${_common}-2021 \
-    --network ${_common}-network \
-    --no-assign-ip \
-    --database-version MYSQL_8_0 \
-    --root-password=password123 \
-    --tier db-f1-micro \
-    --region ${_region} \
-    --project ${_gcp_pj_id}
+  --network ${_common}-network \
+  --no-assign-ip \
+  --database-version MYSQL_8_0 \
+  --root-password=password123 \
+  --tier db-f1-micro \
+  --region ${_region} \
+  --project ${_gcp_pj_id}
 ```
 
 + Cloud SQL のプライベート IP アドレスを調べておく
@@ -467,7 +465,21 @@ gcloud beta compute instances add-tags ${_common}-vm \
 + GCE の Network tags を確認
 
 ```
-WIP
+gcloud beta compute instances describe ${_common}-vm \
+  --zone=${_zone} \
+  --project ${_gcp_pj_id} \
+  --format json | jq -r .tags.items[]
+```
+```
+### 例
+
+# gcloud beta compute instances describe ${_common}-vm \
+>   --zone=${_zone} \
+>   --project ${_gcp_pj_id} \
+>   --format json | jq -r .tags.items[]
+iap-gce-cloudsql-linux-allow-db
+iap-gce-cloudsql-linux-allow-internal
+iap-gce-cloudsql-linux-allow-ssh
 ```
 
 + ローカルから GCE に対して IAP for TCP forwarding を貼る
@@ -490,7 +502,7 @@ gcloud beta compute start-iap-tunnel ${_common}-vm 3306 \
 Testing if tunnel connection works.
 Listening on port [13306].
 
----> このコンソールはこのまま
+---> このコンソールはこのまま維持
 ```
 
 + 新しくコンソールを起動し `mysql` コマンドを実行する
@@ -515,7 +527,7 @@ MySQL [(none)]> exit
 Bye
 ```
 
----> これでやりたいことが出来た
+---> これでやりたいことが出来ました :)
 
 # まとめ
 
@@ -527,3 +539,90 @@ Have fun! :)
 
 ## リソースの削除
 
++ Cloud SQL の削除
+
+```
+gcloud beta sql instances delete ${_common}-2021 \
+  --project ${_gcp_pj_id} \
+  -q
+```
+
++ GCE の削除
+
+```
+gcloud beta compute instances delete ${_common}-vm \
+  --zone ${_zone} \
+  --project ${_gcp_pj_id} -q
+```
+
++ Cloud NAT の削除
+
+```
+gcloud beta compute routers nats delete ${_common}-nat \
+  --router-region ${_region} \
+  --router ${_common}-router \
+  --project ${_gcp_pj_id} -q
+```
+
++ Cloud Router の削除
+
+```
+gcloud beta compute routers delete ${_common}-router \
+  --region ${_region} \
+  --project ${_gcp_pj_id} -q
+```
+
++ Cloud NAT 用の外部 IP アドレスを削除
+
+```
+gcloud beta compute addresses delete ${_common}-nat-ip \
+    --region ${_region} \
+    --project ${_gcp_pj_id} -q
+```
+
++ Firewall Rule の削除
+
+```
+gcloud beta compute firewall-rules delete ${_common}-allow-internal \
+  --project ${_gcp_pj_id} -q
+
+gcloud beta compute firewall-rules delete ${_common}-allow-ssh \
+  --project ${_gcp_pj_id} -q
+
+gcloud beta compute firewall-rules delete ${_common}-allow-db \
+  --project ${_gcp_pj_id} -q
+```
+
++ Service Account の削除
+
+```
+gcloud beta iam service-accounts delete ${_common}@${_gcp_pj_id}.iam.gserviceaccount.com \
+  --project ${_gcp_pj_id} -q 
+```
+
++ プライベートサービスアクセスの削除
+
+```
+gcloud beta services vpc-peerings disable-vpc-service-controls \
+  --network ${_common}-network \
+  --project ${_gcp_pj_id} -q
+
+gcloud beta compute addresses delete google-managed-services-${_common}-network \
+  --global \
+  --project ${_gcp_pj_id} -q
+```
+
++ サブネットの削除
+
+```
+gcloud beta compute networks subnets delete ${_common}-subnets \
+  --region ${_region} \
+  --project ${_gcp_pj_id} -q
+```
+
++ VPC ネットワークの作成
+
+```
+gcloud beta compute networks delete ${_common}-network \
+  --project ${_gcp_pj_id} -q
+```

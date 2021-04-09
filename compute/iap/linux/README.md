@@ -184,8 +184,7 @@ UBUNTU_CODENAME=groovy
 Linux iap-linux-vm 5.8.0-1023-gcp #24-Ubuntu SMP Wed Feb 10 01:04:18 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
----> SSH ログイン成功
-
+---> IAP 越しに パブリック IP アドレスが無い GCE( Linux ) に SSH ログインすることが出来ました :)
 
 # まとめ
 
@@ -198,7 +197,7 @@ Have fun! :)
 
 ## リソースの削除
 
-+ VM の削除
++ GCE の削除
 
 ```
 gcloud beta compute instances delete ${_common}-vm \
