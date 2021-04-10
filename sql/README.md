@@ -3,6 +3,7 @@
 ## Tips
 
 + [gcloud コマンド](./00_gcloud/README.md)
++ [database flags](00_flag/README.md)
 
 ## 構築例
 
