@@ -14,8 +14,26 @@ echo ${_sql_instance_name}
 
 ## Cloud SQL instance を作成
 
++ MySQL
+
 ```
-WIP
+gcloud beta sql instances create [Instance Name] \
+  --database-version MYSQL_8_0 \
+  --root-password=password123 \
+  --tier db-f1-micro \
+  --region [Your Region] \
+  --project [GCP Project ID]
+```
+
++ PostgreSQL
+
+```
+gcloud beta sql instances create [Instance Name] \
+  --database-version POSTGRES_9_6 \
+  --root-password=password123 \
+  --tier db-f1-micro \
+  --region [Your Region] \
+  --project [GCP Project ID]
 ```
 
 ## Cloud SQL instance を削除
