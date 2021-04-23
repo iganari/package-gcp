@@ -1,4 +1,4 @@
-# Windows Server から Filestore をマウントする
+# Mount Filestore from Windows Server
 
 ## 公式ドキュメント
 
@@ -6,7 +6,7 @@ https://cloud.google.com/filestore/docs/mounting-fileshares#windows
 
 ## 概要
 
-同じ Zone 、異なる Zone の合計 3 つの VM instances から、1 つの Filestore をマウントします 
+同じ Zone 、異なる Zone の合計 3 つの Windows Server( VM instances ) から、1 つの Filestore をマウントします 
 
 ![](./img/01.png)
 
