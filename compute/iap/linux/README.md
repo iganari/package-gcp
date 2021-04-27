@@ -4,10 +4,13 @@
 
 IAP 越しに パブリック IP アドレスが無い GCE( Linux ) にログインします
 
+![](../img/iap-to-gce.png)
+
 ```
 参考 URL
 https://cloud.google.com/iap/docs/using-tcp-forwarding#gcloud_2
 ```
+
 
 ## 準備
 
