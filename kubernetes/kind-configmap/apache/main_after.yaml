@@ -38,24 +38,24 @@ spec:
         - containerPort: 80
         volumeMounts:
         - name: httpd
-          mountPath: "/usr/local/apache2/conf/httpd.conf"  ## moutPath の名前のディレクトリが生成され、name の名前のファイル(シンボリックリンク)が生成される
+          mountPath: "/usr/local/apache2/conf/httpd.conf"  ## 指定したファイルのみマウントする 
           subPath: "httpd.conf"
-          # readOnly: true
+          readOnly: true
         - name: addconfig
-          mountPath: "/usr/local/apache2/conf/extra/rewrite.conf"  ## moutPath の名前のディレクトリが生成され、name の名前のファイル(シンボリックリンク)が生成される
+          mountPath: "/usr/local/apache2/conf/extra/rewrite.conf"  ## 指定したファイルのみマウントする
           subPath: "rewrite.conf"
-          # readOnly: true
+          readOnly: true
       volumes:
         - name: httpd
           configMap:
             name: apache-configmap
-            items:                           # key と path が一致している場合は記載の必要は無い
+            items:  # key と path が一致している場合は記載の必要は無い
             - key: "httpd.conf"
               path: "httpd.conf"
         - name: addconfig
           configMap:
             name: apache-configmap
-            items:                           # key と path が一致している場合は記載の必要は無い
+            items:  # key と path が一致している場合は記載の必要は無い
             - key: "rewrite.conf"
               path: "rewrite.conf"
 
