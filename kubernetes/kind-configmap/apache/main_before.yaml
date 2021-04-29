@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: apache-service
+  name: pkggcp-k8s-apache-service
   labels:
     app: apache
 spec:
@@ -18,7 +18,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: apache-deployment
+  name: pkggcp-k8s-apache-deployment
   labels:
     app: apache
 spec:
