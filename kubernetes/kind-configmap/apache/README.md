@@ -68,7 +68,7 @@ curl 34.85.81.205
 
 ## 付録
 
-+ [オリジナルの設定ファイル](./conf)
++ [オリジナルの設定ファイル `/usr/local/apache2/conf`](./conf)
   + コンテナイメージ `httpd:2.4.46-alpine` のオリジナルの conf ディレクトリ ( `/usr/local/apache2/conf` ) をバックアップしています
 
 ## リソース削除
