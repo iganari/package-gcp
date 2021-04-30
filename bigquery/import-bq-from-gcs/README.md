@@ -2,7 +2,7 @@
 
 ## 公式ドキュメント
 
-+ Cloud Storage の転送
++ Cloud Storage の転送 | Cloud Storage transfers
   + https://cloud.google.com/bigquery-transfer/docs/cloud-storage-transfer
   + https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv?hl=ja
 
