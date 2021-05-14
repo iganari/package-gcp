@@ -56,3 +56,10 @@ gcloud components install kubectl -q
 
 + [Laravel](./sample-laravel)
 + [WordPress](./sample-wordpress)
+
+## 参考になりそうな URL
+
+```
+Best practices for GKE networking
+https://cloud.google.com/kubernetes-engine/docs/best-practices/networking
+```
