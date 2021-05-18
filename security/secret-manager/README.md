@@ -11,12 +11,6 @@
 gcloud beta services enable secretmanager.googleapis.com --project {Your GCP Project ID}
 ```
 
-
-
-```
-gcloud beta 
-```
-
 + リスト確認
 
 ```
