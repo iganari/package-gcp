@@ -57,17 +57,24 @@ gcloud beta compute networks subnets create ${_common}-subnets \
 ```
 ### 内部通信は全部許可する
 gcloud beta compute firewall-rules create ${_common}-allow-internal \
+  --direction=INGRESS \
+  --priority=1000 \
   --network ${_common}-network \
+  --action ALLOW \
+  --rules tcp:0-65535,udp:0-65535,icmp \
   --source-ranges=10.146.0.0/20 \
-  --allow tcp:0-65535,udp:0-65535,icmp \
-  --target-tags ${_common}-allow-internal \
   --project ${_gcp_pj_id}
+
+
 
 ### IAP からの SSH と ICMP を許可する
 gcloud beta compute firewall-rules create ${_common}-allow-ssh \
+  --direction=INGRESS \
+  --priority=1000 \
   --network ${_common}-network \
+  --action ALLOW \
+  --rules tcp:22,icmp \
   --source-ranges=35.235.240.0/20 \
-  --allow tcp:22,icmp \
   --target-tags ${_common}-allow-ssh \
   --project ${_gcp_pj_id}
 ```
