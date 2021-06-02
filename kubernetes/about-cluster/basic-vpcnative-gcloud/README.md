@@ -1,8 +1,13 @@
 # gcloud にて VPC ネイティブ クラスタの作成する
 
+## これは何?
+
++ GKE を立ち上げる gcloud コマンドのサンプルです。
++ GKE を構築するまでの工程にフォーカスを当てています。
+
 ## gcloud コマンドで構築
 
-+ 環境変数にいれる
++ 環境変数を設定します
 
 ```
 ### New Env
@@ -13,13 +18,13 @@ export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'    ### VPCネットワークの default の値
 ```
 
-+ GCP との認証
++ GCP への認証します
 
 ```
 gcloud auth login -q
 ```
 
-+ ネットワークの作成
++ ネットワークの作成します
 
 ```
 ### VPC 作成
@@ -36,7 +41,7 @@ gcloud beta compute networks subnets create ${_common}-subnets \
   --project ${_gcp_pj_id}
 ```
 
-+ Firewall Rule の作成
++ Firewall Rule の作成します
 
 ```
 ### 内部通信はすべて許可
@@ -50,12 +55,12 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   --project ${_gcp_pj_id}
 ```
 
-+ VPC ネイティブ クラスタの作成
++ VPC ネイティブ クラスタの作成します
   + https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips
-  + `--enable-ip-alias` を明示すれば良い
+  + `--enable-ip-alias` を明示すれば良いです
 
 ```
-### zonal を作ります
+### zonal を作成します
 gcloud container clusters create ${_common}-cst \
   --zone ${_region}-a \
   --release-channel "rapid" \
@@ -72,7 +77,7 @@ gcloud container clusters create ${_common}-cst \
 ---> ここまでで、1台構成のゾーンナルクラスターが出来るが、node-pool にデフォルトであたっているVMのタイプが `e2-medium` で使いづらいので、node-pool をつけ直します
 
 ```
-### 新しい node pool の追加
+### 新しい node pool の追加します
 gcloud beta container node-pools create ${_common}-pool-1 \
   --cluster ${_common}-cst \
   --zone ${_region}-a \
@@ -90,7 +95,7 @@ gcloud beta container node-pools create ${_common}-pool-1 \
   --project ${_gcp_pj_id}
 
 
-### デフォルトで作られた node pool を削除
+### デフォルトで作られた node pool を削除します
 gcloud beta container node-pools delete default-pool \
   --cluster ${_common}-cst \
   --zone ${_region}-a \
@@ -212,3 +217,11 @@ gcloud beta compute networks delete ${_common}-network \
   --project ${_gcp_pj_id} \
   -q
 ```
+
+## ドキュメントリンク集
+
+公式ドキュメント
+
++ https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster
++ https://cloud.google.com/sdk/gcloud/reference/container/clusters/create
++ https://cloud.google.com/sdk/gcloud/reference/container/clusters/delete
