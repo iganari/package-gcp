@@ -55,7 +55,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   + `--enable-ip-alias` を明示すれば良い
 
 ```
-## zonal を作ります
+### zonal を作ります
 gcloud container clusters create ${_common}-cst \
   --zone ${_region}-a \
   --release-channel "rapid" \
@@ -72,8 +72,7 @@ gcloud container clusters create ${_common}-cst \
 ---> ここまでで、1台構成のゾーンナルクラスターが出来るが、node-pool にデフォルトであたっているVMのタイプが `e2-medium` で使いづらいので、node-pool をつけ直します
 
 ```
-## 新しい node pool の追加
-
+### 新しい node pool の追加
 gcloud beta container node-pools create ${_common}-pool-1 \
   --cluster ${_common}-cst \
   --zone ${_region}-a \
@@ -91,8 +90,7 @@ gcloud beta container node-pools create ${_common}-pool-1 \
   --project ${_gcp_pj_id}
 
 
-## デフォルトで作られた node pool を削除
-
+### デフォルトで作られた node pool を削除
 gcloud beta container node-pools delete default-pool \
   --cluster ${_common}-cst \
   --zone ${_region}-a \
@@ -119,8 +117,8 @@ kubectl get node
 
 ## pod をおいてみる
 
-+ 1. manifest を作る
-+ 2. kubectl run コマンドを使う
+1. manifest を作る
+1. kubectl run コマンドを使う
 
 #### 1. manifest を作る
 
