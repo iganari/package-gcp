@@ -13,7 +13,7 @@
 ### New Env
 
 export _gcp_pj_id='Your GCP Project ID'
-export _common='vpcnt-gcloud'
+export _common='basic-vpcnt-gcloud'
 export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'    ### VPCネットワークの default の値
 ```
