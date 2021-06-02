@@ -1,4 +1,4 @@
-# Cron Jobs
+# kind: CronJob
 
 ## 公式 ドキュメント
 
