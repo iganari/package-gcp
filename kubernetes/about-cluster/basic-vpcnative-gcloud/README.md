@@ -1,9 +1,15 @@
-# gcloud にて VPC ネイティブ クラスタの作成する
+# gcloud にて VPC ネイティブクラスタの作成する
 
 ## これは何?
 
 + GKE を立ち上げる gcloud コマンドのサンプルです。
 + GKE を構築するまでの工程にフォーカスを当てています。
+
+## VPC ネイティブクラスタとは
+
+WIP
+
+# 実際に作ってみる
 
 ## gcloud コマンドで構築
 
@@ -160,12 +166,12 @@ kubectl run test-pod --image=ubuntu:focal-20210416 --command -- tail -f /dev/nul
 kubectl exec -it test-pod /bin/bash
 ```
 ```
-## パッケージのインストール
+### パッケージのインストール
 apt update
 apt install -y traceroute iputils-ping iproute2 net-tools
 ```
 ```
-## 外部への疎通確認
+### 外部への疎通確認
 ping -c 3 yahoo.co.jp
 ```
 ```
