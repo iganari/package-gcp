@@ -1,14 +1,20 @@
 # ConfigMap: Apache
 
-## WIP
+## 概要
 
-+ 基本的な Apache のコンテナを立ち上げる
+Apache の VirtualHost を ConfigMap で付け足してみる
+
+## 実際にやってみる
+
++ 基本的な Apache のコンテナを GKE 上に起動する
+  + Deployment と Service を作る
+  + Service は Type: LoadBalancer を使用する
 
 ```
 kubectl apply -f main_before.yaml
 ```
 
-+ IP アドレスの確認
++ Service で自動でアタッチされた IP アドレスを確認する
 
 ```
 kubectl get service
@@ -22,7 +28,7 @@ kubernetes                  ClusterIP      10.60.0.1     <none>         443/TCP 
 pkggcp-k8s-apache-service   LoadBalancer   10.60.14.71   34.85.81.205   80:30085/TCP   113s
 ```
 
-+ コンテンツの確認
++ Web コンテンツを確認する
 
 ```
 curl 34.85.81.205
@@ -34,13 +40,15 @@ curl 34.85.81.205
 <html><body><h1>It works!</h1></body></html>
 ```
 
-+ ConfigMap 付きにする
++ ConfigMap 付きのマニフェストを適用する
+  + :fire: 差分を1つのファイルに追記する形が望ましいが、省略のため 2 つのファイルに分けている
 
 ```
 kubectl apply -f main_after.yaml
 ```
 
-+ コンテンツの確認
++ Web コンテンツを確認する
+  + 先程とは違った挙動(Google にリダイレクトされる)が実現出来ていれば OK
 
 ```
 curl 34.85.81.205
@@ -58,8 +66,14 @@ curl 34.85.81.205
 </body></html>
 ```
 
+## 付録
+
++ [オリジナルの設定ファイル `/usr/local/apache2/conf`](./conf)
+  + コンテナイメージ `httpd:2.4.46-alpine` のオリジナルの conf ディレクトリ ( `/usr/local/apache2/conf` ) をバックアップしています
 
 ## リソース削除
+
++ リソースを纏めて削除する
 
 ```
 kubectl delete -f main_after.yaml
