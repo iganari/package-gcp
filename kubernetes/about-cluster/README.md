@@ -5,8 +5,8 @@
 VPC-native cluster と ルートベース クラスタ があり、VPC-native cluster が推奨 [2021/05時点]
 
 + VPC-native cluster
-  + [gcloud](./vpcnative-gcloud/README.md)
-  + [Terraform](./vpcnative-terraform/README.md)
+  + [gcloud](./basic-vpcnative-gcloud/README.md)
+  + [WIP] Terraform
   + [WIP] Ansible
 + ルートベース クラスタ
   + [WIP] gcloud
@@ -19,5 +19,5 @@ VPC-native cluster と ルートベース クラスタ があり、VPC-native cl
 
 作成方法リンク | VPC-native cluster | ルートベース クラスタ
 :- | :- | :-
-一般公開クラスタ | [gcloud], [terraform] | [gcloud], [terraform]
+一般公開クラスタ | [gcloud](./basic-vpcnative-gcloud/README.md), [terraform] | [gcloud], [terraform]
 限定公開クラスタ | [gcloud], [terraform] | [gcloud], [terraform]
