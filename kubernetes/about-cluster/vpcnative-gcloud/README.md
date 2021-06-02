@@ -69,7 +69,7 @@ gcloud container clusters create ${_common}-cst \
   --project ${_gcp_pj_id}
 ```
 
----> ここまでで、1台構成のゾーンナルクラスターが出来るが、node-pool にデフォルトであたっているVMのタイプが `e2-medium` で使いづらいので、node-pool をつけ直す
+---> ここまでで、1台構成のゾーンナルクラスターが出来るが、node-pool にデフォルトであたっているVMのタイプが `e2-medium` で使いづらいので、node-pool をつけ直します
 
 ```
 ## 新しい node pool の追加
