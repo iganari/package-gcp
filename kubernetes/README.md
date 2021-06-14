@@ -51,7 +51,7 @@ gcloud components install kubectl -q
 
 ## Tips
 
-+ [cidr_ranges_for_clusters](./tips_cidr-ranges-for-clusters)
++ [CIDR ranges for Standard clusters](./tips_cidr-ranges-for-clusters)
 
 
 ## 参考になりそうな URL
