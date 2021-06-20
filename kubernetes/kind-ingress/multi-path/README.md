@@ -46,6 +46,14 @@ gcloud beta compute addresses delete multi-path \
     --project ${_gcp_pj_id}
 ```
 
+## 変更履歴
+
+```
+### 2021/06/20
+Kubenetes v1.19 からは networking.k8s.io/v1beta1 は deprecated になり、v1.22 以降では使えなくなる
+networking.k8s.io/v1 Ingress を新しく使う
+```
+
 ## 参考
 
 + ハンズオン

@@ -80,28 +80,39 @@ spec:
 
 ---
 
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: multi-path
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "multi-path"
 spec:
-  backend:
-    serviceName: apache
-    servicePort: 80
+  defaultBackend:
+    service:
+      name: apache
+      port:
+        number: 80
   rules:
     - http:
         paths:
-        - path: "/"
-          backend:
-            serviceName: nginx
-            servicePort: 80
         - path: "/nginx"
+          pathType: ImplementationSpecific
           backend:
-            serviceName: nginx
-            servicePort: 80
+            service:
+              name: nginx
+              port: 
+                number: 80
         - path: "/apache"
+          pathType: ImplementationSpecific
           backend:
-            serviceName: apache
-            servicePort: 80
+            service:
+              name: apache
+              port:
+                number: 80
+        - path: "/"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: apache
+              port:
+                number: 80
