@@ -1,4 +1,8 @@
-# Autopilot　モードの Private Cluster( 限定公開クラスタ )
+# Private Cluster of Autopilot　mode
+
+
+
+
 
 ```
 cluster mode = Autopilot
