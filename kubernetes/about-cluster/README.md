@@ -28,8 +28,8 @@ VPC-native cluster と ルートベース クラスタ があり、VPC-native cl
 
 作成方法リンク | Public cluster | Private cluster
 :- | :- | :-
-Standard | [gcloud](./basic-vpcnative-gcloud/README.md), [terraform] | [gcloud], [terraform]
-Autopilot | [gcloud], [terraform] | [gcloud], [terraform]
+Standard mode | [gcloud](./basic-vpcnative-gcloud/README.md), [terraform] | [gcloud], [terraform]
+Autopilot mode | [gcloud], [terraform] | [gcloud], [terraform]
 
 
 
