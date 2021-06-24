@@ -16,6 +16,8 @@ VPC-native cluster と ルートベース クラスタ があり、VPC-native cl
 + 一般公開クラスタ
 + 限定公開クラスタ
 
++ Autopilot
+
 
 作成方法リンク | VPC-native cluster | ルートベース クラスタ
 :- | :- | :-
