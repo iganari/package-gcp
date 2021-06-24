@@ -26,10 +26,10 @@ VPC-native cluster と ルートベース クラスタ があり、VPC-native cl
 `Standard` と `Autopilot` はともに `Public cluster` `Private cluster` を作れる
 
 
-作成方法リンク | Standard | Autopilot
+作成方法リンク | Public cluster | Private cluster
 :- | :- | :-
-Public cluster | [gcloud](./basic-vpcnative-gcloud/README.md), [terraform] | [gcloud], [terraform]
-Private cluster | [gcloud], [terraform] | [gcloud], [terraform]
+Standard | [gcloud](./basic-vpcnative-gcloud/README.md), [terraform] | [gcloud], [terraform]
+Autopilot | [gcloud], [terraform] | [gcloud], [terraform]
 
 
 
