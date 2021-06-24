@@ -16,10 +16,22 @@ VPC-native cluster と ルートベース クラスタ があり、VPC-native cl
 + 一般公開クラスタ
 + 限定公開クラスタ
 
+## cluster
+
++ Standard
+  + Kubernetes cluster with node configuration flexibility and pay-per-node.
 + Autopilot
+  + Optimized Kubernetes cluster with a hands-off experience and pay-per-pod.
+
+`Standard` と `Autopilot` はともに `Public cluster` `Private cluster` を作れる
 
 
-作成方法リンク | VPC-native cluster | ルートベース クラスタ
+作成方法リンク | Standard | Autopilot
 :- | :- | :-
-一般公開クラスタ | [gcloud](./basic-vpcnative-gcloud/README.md), [terraform] | [gcloud], [terraform]
-限定公開クラスタ | [gcloud], [terraform] | [gcloud], [terraform]
+Public cluster | [gcloud](./basic-vpcnative-gcloud/README.md), [terraform] | [gcloud], [terraform]
+Private cluster | [gcloud], [terraform] | [gcloud], [terraform]
+
+
+
++ ルートベース クラスタ
+  + 別途記載 
