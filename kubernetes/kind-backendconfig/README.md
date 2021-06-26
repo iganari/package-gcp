@@ -13,6 +13,6 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features?hl=ja#co
 
 色々設定できる
 
-+ IAP
-+ Cloud Armor
++ [IAP](../feature-iap/README.md)
++ [Cloud Armor](../feature-cloud-armor/README.md)
 + 
