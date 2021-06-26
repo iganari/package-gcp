@@ -9,3 +9,10 @@ GKE バージョン 1.16.8-gke.3 以降では、cloud.google.com/v1 API バー�
 ```
 
 https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features?hl=ja#configuring_ingress_features_through_backendconfig_parameters
+
+
+色々設定できる
+
++ IAP
++ Cloud Armor
++ 
