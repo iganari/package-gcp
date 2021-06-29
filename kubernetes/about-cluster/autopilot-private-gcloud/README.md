@@ -76,8 +76,14 @@ gcloud beta compute routers nats create ${_common}-nat-config \
 ```
 
 + クラスタを作成します
-  + Autopilot mode のコマンド `create-auto`
-  + 限定公開クラスタのオプション `--enable-private-nodes`
+  + Autopilot mode のコマンド
+    + `create-auto`
+  + 限定公開クラスタのオプション
+    + `--enable-private-nodes`
+  + 限定公開クラスタ時の認証済ネットワーク
+    + `--master-ipv4-cidr "10.0.0.0/28"`
+    + `--enable-master-authorized-networks`
+    + `--master-authorized-networks`
 
 ```
 gcloud beta container clusters create-auto ${_common}-clt \
