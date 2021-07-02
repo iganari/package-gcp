@@ -22,8 +22,6 @@ export _common='pubstd'
 export _gcp_pj_id='Your GCP Project ID'
 export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'
-
-export _gcp_pj_id='ca-corporate-website-dev2'
 ```
 
 + ネットワークを作成します
