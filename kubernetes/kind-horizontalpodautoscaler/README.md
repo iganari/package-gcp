@@ -1,7 +1,5 @@
 # HorizontalPodAutoscaler
 
-:fire: WIP
-
 ## 概要
 
 ```
@@ -18,6 +16,27 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/horizontal-pod-autoscalin
 ## 設定するもの
 
 + kind
-  +  hoge
+  + HorizontalPodAutoscaler
 + Deployment
-  + spec.template.spac.containers.resources.requests
+  + spec.template.spec.containers.resources.requests
+
+## サンプル
+
+[main.yaml](./main.yaml) ( 2021/07 に動作確認済)
+
+## 負荷を掛ける
+
++ Pod に入り、 stress-ng コマンドを使う
+
+```
+apk update
+apk add stress-ng
+```
+```
+stress-ng -c 1 -q &
+```
+
+## 注意点
+
++ HPA を設定すると、 Deployment の replicas の値は無視される
+  + HPA の min/max の値が優先される
