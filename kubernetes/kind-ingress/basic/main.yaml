@@ -39,19 +39,22 @@ spec:
 
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: pkggcp-k8s-ig-bsc
   annotations:
     kubernetes.io/ingress.allow-http: "true"
   labels:
     app: nginx
-  name: pkggcp-k8s-ig-bsc
 spec:
   rules:
     - http:
         paths:
-        - backend:
-            serviceName: pkggcp-k8s-bc-hl
-            servicePort: 80
-          path: /*
+        - path: /*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: pkggcp-k8s-bc-hl
+              port:
+                number: 80
