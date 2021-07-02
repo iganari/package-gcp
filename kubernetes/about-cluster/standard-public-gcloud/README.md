@@ -1,4 +1,4 @@
-# Create Private Cluster of Standard mode
+# Create Public Cluster of Standard mode
 
 ## キーワード
 
