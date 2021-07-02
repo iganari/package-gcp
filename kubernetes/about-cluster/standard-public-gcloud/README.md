@@ -1,36 +1,32 @@
-# gcloud にて VPC ネイティブクラスタの作成する
+# Create Private Cluster of Standard mode
 
-## これは何?
-
-+ GKE を立ち上げる gcloud コマンドのサンプルです。
-+ GKE を構築するまでの工程にフォーカスを当てています。
-
-## VPC ネイティブクラスタとは
-
-WIP
-
-# 実際に作ってみる
-
-## gcloud コマンドで構築
-
-+ 環境変数を設定します
+## キーワード
 
 ```
-### New Env
-
-export _gcp_pj_id='Your GCP Project ID'
-export _common='basic-vpcnt-gcloud'
-export _region='asia-northeast1'
-export _sub_network_range='10.146.0.0/20'    ### VPCネットワークの default の値
+Standard mode
+Public Cluster
 ```
 
-+ GCP への認証します
+## 実際に作ってみる
+
++ GCP と認証します
 
 ```
 gcloud auth login -q
 ```
 
-+ ネットワークの作成します
+```
+### Env
+
+export _common='pubstd'
+export _gcp_pj_id='Your GCP Project ID'
+export _region='asia-northeast1'
+export _sub_network_range='10.146.0.0/20'
+
+export _gcp_pj_id='ca-corporate-website-dev2'
+```
+
++ ネットワークを作成します
 
 ```
 ### VPC 作成
@@ -38,196 +34,200 @@ gcloud beta compute networks create ${_common}-network \
   --subnet-mode=custom \
   --project ${_gcp_pj_id}
 
-
 ### サブネット作成
 gcloud beta compute networks subnets create ${_common}-subnets \
   --network ${_common}-network \
   --region ${_region} \
   --range ${_sub_network_range} \
   --project ${_gcp_pj_id}
-```
 
-+ Firewall Rule の作成します
-
-```
 ### 内部通信はすべて許可
 gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
-  --direction=INGRESS \
-  --priority=1000 \
   --network ${_common}-network \
   --action ALLOW \
   --rules tcp:0-65535,udp:0-65535,icmp \
   --source-ranges ${_sub_network_range} \
+  --target-tags ${_common}-allow-internal-all \
   --project ${_gcp_pj_id}
 ```
 
-+ VPC ネイティブ クラスタの作成します
-  + https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips
-  + `--enable-ip-alias` を明示すれば良いです
++ クラスタを作成します
+  + Standard mode のコマンド
+    + `create`
 
 ```
-### zonal を作成します
-gcloud container clusters create ${_common}-cst \
-  --zone ${_region}-a \
+gcloud beta container clusters create ${_common}-clt \
+  --region ${_region} \
   --release-channel "rapid" \
   --enable-ip-alias \
   --network ${_common}-network \
   --subnetwork ${_common}-subnets \
   --cluster-ipv4-cidr "/17" \
-  --services-ipv4-cidr "/22"\
-  --num-nodes=1 \
-  --preemptible \
+  --services-ipv4-cidr "/22" \
   --project ${_gcp_pj_id}
 ```
 
----> ここまでで、1台構成のゾーンナルクラスターが出来るが、node-pool にデフォルトであたっているVMのタイプが `e2-medium` で使いづらいので、node-pool をつけ直します
++ Service Account の作成します
 
 ```
-### 新しい node pool の追加します
-gcloud beta container node-pools create ${_common}-pool-1 \
-  --cluster ${_common}-cst \
-  --zone ${_region}-a \
+gcloud beta iam service-accounts create ${_common}-node-sa \
+  --description="Service Account of GKE Cluster's Node" \
+  --display-name="${_common}-node-sa" \
+  --project ${_gcp_pj_id}
+```
+
++ Service Account に role を付与します
+
+```
+### Kubernetes Engine Admin を付与
+gcloud projects add-iam-policy-binding ${_gcp_pj_id} \
+  --member="serviceAccount:${_common}-node-sa@${_gcp_pj_id}.iam.gserviceaccount.com" \
+  --role='roles/container.admin'
+
+### Storage Admin
+gcloud projects add-iam-policy-binding ${_gcp_pj_id} \
+  --member="serviceAccount:${_common}-node-sa@${_gcp_pj_id}.iam.gserviceaccount.com" \
+  --role='roles/storage.admin'
+
+### Storage Object Admin
+gcloud projects add-iam-policy-binding ${_gcp_pj_id} \
+  --member="serviceAccount:${_common}-node-sa@${_gcp_pj_id}.iam.gserviceaccount.com" \
+  --role='roles/storage.objectAdmin'
+```
+
++ Node Pool の追加します
+
+```
+gcloud beta container node-pools create "${_common}-add-pool-1" \
+  --cluster ${_common}-clt \
+  --region ${_region} \
+  --service-account "${_common}-node-sa@${_gcp_pj_id}.iam.gserviceaccount.com" \
   --machine-type "n1-standard-1" \
   --image-type "COS_CONTAINERD" \
   --preemptible \
-  --num-nodes 2 \
+  --num-nodes 1 \
   --enable-autoscaling \
-  --min-nodes 2 \
-  --max-nodes 10 \
+  --min-nodes 1 \
+  --max-nodes 5 \
   --enable-autoupgrade \
   --enable-autorepair \
-  --max-surge-upgrade 2 \
+  --max-surge-upgrade 1 \
   --max-unavailable-upgrade 0 \
   --project ${_gcp_pj_id}
+```
 
++ デフォルトで作られた node pool を削除します
 
-### デフォルトで作られた node pool を削除します
+```
 gcloud beta container node-pools delete default-pool \
-  --cluster ${_common}-cst \
-  --zone ${_region}-a \
+  --cluster ${_common}-clt \
+  --region ${_region} \
   --project ${_gcp_pj_id} \
   -q
 ```
 
-## GKE にて作業をする
+---> ここまででクラスタの作成が完了
 
-+ GKE クラスタに認証を通します
+## Pod をデプロイしてみる
+
++ GKE と認証します
 
 ```
-gcloud beta container clusters get-credentials ${_common}-cst \
-  --zone ${_region}-a \
+gcloud beta container clusters get-credentials ${_common}-clt \
+  --region ${_region} \
   --project ${_gcp_pj_id}
 ```
 
-+ Pod や Node をチェックしてみます
++ GKE 上の Pod を確認します
 
 ```
 kubectl get pod
-kubectl get node
+```
+```
+# kubectl get pod
+No resources found in default namespace.
 ```
 
-## pod をおいてみる
-
-1. manifest を作る
-1. kubectl run コマンドを使う
-
-#### 1. manifest を作る
-
-```
-cat << __EOF__ > pod.yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-pod
-spec:
-  containers:
-  - name: test-pod
-    image: ubuntu:focal-20210416
-    command:
-     - tail
-     - -f
-     - /dev/null
-__EOF__
-```
-
-```
-kubectl apply -f pod.yaml
-```
-
-#### 2. kubectl run コマンドを使う
++ GKE 上に疎通テスト用の pod をデプロイします
 
 ```
 kubectl run test-pod --image=ubuntu:focal-20210416 --command -- tail -f /dev/null
 ```
 
-+ Pod にログインをします
++ 再度、 GKE 上の Pod を確認します
+
+```
+kubectl get pod
+```
+```
+### 例
+
+# kubectl get po
+NAME       READY   STATUS    RESTARTS   AGE
+test-pod   1/1     Running   0          18s
+```
+
++ Pod にログインします
 
 ```
 kubectl exec -it test-pod /bin/bash
 ```
+
++ Pod 内から外部に通信をします
+
 ```
-### パッケージのインストール
 apt update
-apt install -y traceroute iputils-ping iproute2 net-tools
-```
-```
-### 外部への疎通確認
-ping -c 3 yahoo.co.jp
+apt install -y dnsutils curl iputils-ping
+
+ping -c 5 google.com
+dig google.com
+curl www.google.com
 ```
 ```
 exit
 ```
 
----> これで基本的な構成は出来ました :raised_hands:
+---> テスト完了
 
-## 実験
-
-WIP
 
 ## リソースの削除
 
-+ Pod を削除します
++ Pod の削除をします
 
 ```
-kubectl delete -f pod.yaml
+kubectl delete pod test-pod
 ```
 
-+ GKE クラスタを削除します
++ クラスタの削除をします
 
 ```
-gcloud container clusters delete ${_common}-cst \
-  --zone ${_region}-a \
+gcloud beta container clusters delete ${_common}-clt \
+  --region ${_region} \
   --project ${_gcp_pj_id} \
   -q
 ```
 
-+ Firewall Rule を削除します
++ Service Account の削除をします
+
+```
+gcloud beta iam service-accounts delete ${_common}-node-sa@${_gcp_pj_id}.iam.gserviceaccount.com \
+  --project ${_gcp_pj_id} \
+  -q
+```
+
++ ネットワークの削除をします
 
 ```
 gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
   --project ${_gcp_pj_id} \
   -q
-```
 
-+ ネットワークを削除します
-
-```
-### サブネットの削除
-gcloud compute networks subnets delete ${_common}-subnets \
+gcloud beta compute networks subnets delete ${_common}-subnets \
   --region ${_region} \
   --project ${_gcp_pj_id} \
   -q
 
-### VPC ネットワークの削除
 gcloud beta compute networks delete ${_common}-network \
   --project ${_gcp_pj_id} \
   -q
 ```
-
-## ドキュメントリンク集
-
-公式ドキュメント
-
-+ https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster
-+ https://cloud.google.com/sdk/gcloud/reference/container/clusters/create
-+ https://cloud.google.com/sdk/gcloud/reference/container/clusters/delete

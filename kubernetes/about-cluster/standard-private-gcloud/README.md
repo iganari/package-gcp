@@ -22,8 +22,6 @@ export _common='pristd'
 export _gcp_pj_id='Your GCP Project ID'
 export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'
-
-export _gcp_pj_id='ca-corporate-website-dev2'
 ```
 
 + ネットワークを作成します
@@ -101,7 +99,7 @@ gcloud beta container clusters create ${_common}-clt \
   --project ${_gcp_pj_id}
 ```
 
-+ Service Account の作成
++ Service Account の作成します
 
 ```
 gcloud beta iam service-accounts create ${_common}-node-sa \
@@ -110,6 +108,7 @@ gcloud beta iam service-accounts create ${_common}-node-sa \
   --project ${_gcp_pj_id}
 ```
 
++ Service Account に role を付与します
 
 ```
 ### Kubernetes Engine Admin を付与
@@ -128,7 +127,7 @@ gcloud projects add-iam-policy-binding ${_gcp_pj_id} \
   --role='roles/storage.objectAdmin'
 ```
 
-+ Node Pool の追加
++ Node Pool の追加します
 
 ```
 gcloud beta container node-pools create "${_common}-add-pool-1" \
