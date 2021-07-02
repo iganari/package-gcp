@@ -34,3 +34,10 @@ Autopilot mode | [gcloud](./autopilot-public-gcloud/README.md), [terraform] | [g
 
 + ルートベース クラスタ
   + 別途記載 
+
+## 用語
+
++ Master
+  + Kubernetes でいうと control plane
++ Node Pool
+  + Kubernetes でいうと worker node

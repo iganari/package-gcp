@@ -117,6 +117,10 @@ gcloud beta container clusters get-credentials ${_common}-clt \
 ```
 kubectl get pod
 ```
+```
+# kubectl get pod
+No resources found in default namespace.
+```
 
 + GKE 上に疎通テスト用の pod をデプロイします
 
