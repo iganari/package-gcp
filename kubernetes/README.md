@@ -13,17 +13,8 @@ gcloud components update -q && \
 gcloud components install kubectl -q
 ```
 
-## コンテンツ
 
-+ [gcloud container clusters](./_gcloud_container_clusters)
-+ [configure-backend-service](./configure-backend-service)
-+ [handson](./handson)
-+ [helm](./helm)
-+ [sample-version](./sample-version)
-+ [tips](./tips)
-+ [tutorials_hello-app](./tutorials_hello-app)
-
-### Cluster
+## Cluster
 
 + [cluster-basic](./cluster-basic)
     + 通常クラスタ
@@ -36,7 +27,7 @@ gcloud components install kubectl -q
 + [cluster-version-upgrade](./cluster-version-upgrade)
     + GKE クラスタのアップグレード方法
 
-### Kind
+## Kind
 
 + [Cron Jobs](./kind-cronjobs)
 + [Ingress](./kind-ingress)
@@ -45,14 +36,27 @@ gcloud components install kubectl -q
 + [Secret](./kind-secret)
 + [StatefulSet](./kind-statufulset)
 
-### Feature
+## Feature
 
 + [Cloud Armor](./modify-readme-only)
 + [IAP](./feature-iap)
 + [SSL](./feature-iap)
 + [Workload Identity](./feature-iap)
 
-### Sample
+## Sample
 
 + [Laravel](./sample-laravel)
 + [WordPress](./sample-wordpress)
+
+
+## Tips
+
++ [CIDR ranges for Standard clusters](./tips_cidr-ranges-for-clusters)
+
+
+## 参考になりそうな URL
+
+```
+Best practices for GKE networking
+https://cloud.google.com/kubernetes-engine/docs/best-practices/networking
+```

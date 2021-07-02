@@ -2,12 +2,13 @@
 
 ## 公式ドキュメント
 
-+ Cloud Storage の転送
++ Cloud Storage の転送 | Cloud Storage transfers
   + https://cloud.google.com/bigquery-transfer/docs/cloud-storage-transfer
   + https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv?hl=ja
 
 ```
-BigQuery Data Transfer Service for Cloud Storage を使用すると、Cloud Storage から BigQuery への定期的なデータ読み込みをスケジュールできます。
+BigQuery Data Transfer Service for Cloud Storage を使用すると、
+Cloud Storage から BigQuery への定期的なデータ読み込みをスケジュールできます。
 ```
 
 ## やることリスト

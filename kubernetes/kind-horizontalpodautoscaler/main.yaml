@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pkggcp-k8s-hpa
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.20.0-alpine
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "2G"
+          limit:
+            cpu: "600m"
+            memory: "2500M"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pkggcp-k8s-hpa
+  labels:
+    app: nginx
+spec:
+  type: NodePort
+  selector:
+    app: nginx
+  ports:
+  - name: nginx
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pkggcp-k8s-hpa
+  annotations:
+    kubernetes.io/ingress.allow-http: "true"
+  labels:
+    app: nginx
+spec:
+  rules:
+    - http:
+        paths:
+        - path: /*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: pkggcp-k8s-hpa
+              port:
+                number: 80
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: pkggcp-k8s-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: pkggcp-k8s-hpa
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50

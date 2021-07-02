@@ -120,7 +120,7 @@ WIP
     + `k8s-workload-identity-test-sa.yaml`
 
 ```
-cat << __EOF__ > k8s-workload-identity-test-sa.yaml.tmp
+cat << __EOF__ > k8s-workload-identity-test-sa.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
