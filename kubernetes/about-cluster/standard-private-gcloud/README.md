@@ -96,6 +96,7 @@ gcloud beta container clusters create ${_common}-clt \
   --subnetwork ${_common}-subnets \
   --cluster-ipv4-cidr "/17" \
   --services-ipv4-cidr "/22" \
+  --num-nodes 1 \
   --project ${_gcp_pj_id}
 ```
 
