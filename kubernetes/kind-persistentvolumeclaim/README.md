@@ -1,4 +1,4 @@
-# PersistentVolumeClaim
+# kind: PersistentVolumeClaim
 
 WIP
 

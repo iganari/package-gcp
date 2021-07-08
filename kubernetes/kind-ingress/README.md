@@ -1,4 +1,4 @@
-# Ingress
+# kind: Ingress
 
 ## 概要
 

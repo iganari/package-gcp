@@ -1,4 +1,4 @@
-# ManagedCertificate
+# kind: ManagedCertificate
 
 ## ドキュメント
 
