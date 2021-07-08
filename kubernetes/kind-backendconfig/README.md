@@ -1,4 +1,4 @@
-# Kind - BackendConfig
+# kind: BackendConfig
 
 ## :fire: WIP :fire
 

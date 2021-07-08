@@ -1,4 +1,4 @@
-# HorizontalPodAutoscaler
+# kind: HorizontalPodAutoscaler
 
 ## 概要
 

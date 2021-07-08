@@ -1,3 +1,3 @@
-# Kind: Pod
+# kind: Pod
 
 WIP
