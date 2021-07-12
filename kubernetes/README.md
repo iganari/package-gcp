@@ -40,6 +40,8 @@ gcloud components install kubectl -q
 
 + [Cloud Armor](./modify-readme-only)
 + [IAP](./feature-iap)
++ [nodeSelector](./feature-nodeselector)
+  + Pod を特定のノードプールに明示的にデプロイする
 + [SSL](./feature-iap)
 + [Workload Identity](./feature-iap)
 
