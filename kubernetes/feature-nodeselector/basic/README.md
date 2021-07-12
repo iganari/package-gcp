@@ -2,7 +2,7 @@
 
 ## 概要
 
-WIP
+Apache と nginx の Pod を使って、簡単な nodeSelector の挙動確認をします
 
 ## GKE クラスタの作成
 
