@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: mysql
-  serviceName: mysql
+  serviceName:  mysql-svc
   template:
     metadata:
       labels:

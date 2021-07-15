@@ -1,11 +1,10 @@
-# kind: Service/Headless
+# kind: Headless Service
 
 ## 概要
 
+WIP
 
 ## 実際に触ってみる
-
-
 
 ## 変数を設定
 
@@ -15,7 +14,7 @@
 ### Env
 
 export _common='srvhl'
-export _gcp_pj_id='Your GCP Project ID'ca-igarashi-test-softbank
+export _gcp_pj_id='Your GCP Project ID'
 export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'
 ```
@@ -26,7 +25,7 @@ Standard mode の一般公開クラスタを作成します
 
 作成方法はこの Repository の [Create Public Cluster of Standard mode](../../about-cluster/standard-public-gcloud/) を参考にしてください
 
-## manifestをデプロイ
+## マニフェストをデプロイ
 
 + GKE と認証します
 
@@ -36,13 +35,14 @@ gcloud beta container clusters get-credentials ${_common}-clt \
   --project ${_gcp_pj_id}
 ```
 
-+ manifestをしようして、リソースをデプロイします
++ マニフェストを利用して、リソースをデプロイします
   + 内容は [main.yaml](./main.yaml) を参照してください
 
 ```
 kubectl apply -f nginx.yaml
 ```
 
++ Service を確認します
 
 ```
 kubectl get service
@@ -52,6 +52,9 @@ kubectl get service
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 nginx-svc    ClusterIP   None           <none>        80/TCP    16m
 ```
+
++ StatefulSet を確認します
+
 ```
 kubectl get statefulset
 ```
@@ -60,6 +63,9 @@ kubectl get statefulset
 NAME                READY   AGE
 nginx-statefulset   3/3     15m
 ```
+
++ Pod を確認します
+
 ```
 kubectl get pod
 ```
@@ -134,7 +140,7 @@ nginx-statefulset-2   1/1     Running   0          5m29s
 ```
 
 + pod の名前解決
-  + `nginx-statefulset-1` の場合は `nginx-statefulset-1.nginx-svc.default.svc.cluster.local`
+  + 例: `nginx-statefulset-1` の場合は `nginx-statefulset-1.nginx-svc.default.svc.cluster.local`
 
 ```
 ### 実行すべきコマンド
@@ -234,23 +240,22 @@ nginx-statefulset-2.nginx-svc.default.svc.cluster.local. 30 IN A 10.152.6.16
 kubectl rollout restart statefulset nginx-statefulset
 ```
 
-+ Pod が生まれ変わるまで待ちましょう
++ Pod が生まれ変わるのを待ちます
 
 ```
-watch -n1 kubectl get po
+watch -n1 kubectl get pod
 ```
 ```
 ### 例
 
-# kubectl get po
+# kubectl get pod
 NAME                  READY   STATUS    RESTARTS   AGE
 nginx-statefulset-0   1/1     Running   0          27s
 nginx-statefulset-1   1/1     Running   0          44s
 nginx-statefulset-2   1/1     Running   0          60s
 ```
 
-+ 再度、pod の名前解決
-
++ 再度、pod の名前解決をします
 
 ```
 ### nginx-statefulset-0 の場合
@@ -327,8 +332,6 @@ pod "test-pod" deleted
 
 + 上記より以下のことが分かりました
 
-
-
 ```
 ### Pod の再起動前
 nginx-statefulset-0.nginx-svc.default.svc.cluster.local. 30 IN A 10.152.3.10
@@ -379,8 +382,7 @@ pod "test-pod" deleted
 ```
 ### nginx-statefulset-2 の場合
 
-# kubectl run --rm -i test-pod --imag
-e=centos:6 --restart=Never -- curl nginx-statefulset-2.nginx-svc.default.svc.cluster.local/hello.html
+# kubectl run --rm -i test-pod --image=centos:6 --restart=Never -- curl nginx-statefulset-2.nginx-svc.default.svc.cluster.local/hello.html
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
   0    40    0    40    0     0   4815      0 --:--:-- --:--:-- --:--:-- 40000
@@ -397,17 +399,15 @@ kubectl rollout restart statefulset nginx-statefulset
 + Pod が生まれ変わるのを待ちます
 
 ```
-kubectl get pod
+watch -n1 kubectl get pod
 ```
 
 + 再度 curl で確認をします
 
-
 ```
 ### nginx-statefulset-0 の場合
 
-# kubectl run --rm -i test-pod --imag
-e=centos:6 --restart=Never -- curl nginx-statefulset-0.nginx-svc.default.svc.cluster.local/hello.html
+# kubectl run --rm -i test-pod --image=centos:6 --restart=Never -- curl nginx-statefulset-0.nginx-svc.default.svc.cluster.local/hello.html
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
   0    40    0    40    0     0   4308      0 --:--:-- --:--:-- --:--:-- 20000
@@ -417,8 +417,7 @@ pod "test-pod" deleted
 ```
 ### nginx-statefulset-1 の場合
 
-# kubectl run --rm -i test-pod --imag
-e=centos:6 --restart=Never -- curl nginx-statefulset-1.nginx-svc.default.svc.cluster.local/hello.html
+# kubectl run --rm -i test-pod --image=centos:6 --restart=Never -- curl nginx-statefulset-1.nginx-svc.default.svc.cluster.local/hello.html
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
   0    40    0    40    0     0   2181      0 --:--:-- --:--:-- --:--:--  3636
@@ -428,8 +427,7 @@ pod "test-pod" deleted
 ```
 ### nginx-statefulset-2 の場合
 
-# kubectl run --rm -i test-pod --imag
-e=centos:6 --restart=Never -- curl nginx-statefulset-2.nginx-svc.default.svc.cluster.local/hello.html
+# kubectl run --rm -i test-pod --image=centos:6 --restart=Never -- curl nginx-statefulset-2.nginx-svc.default.svc.cluster.local/hello.html
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
   0    40    0    40    0     0   1009      0 --:--:-- --:--:-- --:--:--  1250
@@ -437,7 +435,7 @@ Hello World!! :) in nginx-statefulset-2
 pod "test-pod" deleted
 ```
 
----> (出力は代わっていませんが、) Pod の再起動により、名前解決の向き先の Pod は代わっていない(コンテナは代わっている)ことが分かりました :)
+---> (出力は変わっていませんが、) Pod の再起動により、名前解決の向き先の Pod は代わっていない(コンテナは代わっている)ことが分かりました :)
 
 
 ## MySQL で試してみる
