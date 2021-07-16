@@ -474,35 +474,63 @@ mysql-statefulset-2   1/1     Running   0          28m
 ```
 
 
+```
+kubectl run --rm -i test-pod --image=tutum/dnsutils --restart=Never -- dig mysql-svc.default.svc.cluster.local
+```
+```
+# kubectl run --rm -i test-pod --image=tutum/dnsutils --restart=Never -- dig mysql-svc.default.svc.cluster.local
+
+; <<>> DiG 9.9.5-3ubuntu0.2-Ubuntu <<>> mysql-svc.default.svc.cluster.local
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 20246
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;mysql-svc.default.svc.cluster.local. IN        A
+
+;; ANSWER SECTION:
+mysql-svc.default.svc.cluster.local. 30 IN A    10.152.5.2
+mysql-svc.default.svc.cluster.local. 30 IN A    10.152.2.2
+mysql-svc.default.svc.cluster.local. 30 IN A    10.152.4.2
+
+;; Query time: 1 msec
+;; SERVER: 10.152.128.10#53(10.152.128.10)
+;; WHEN: Fri Jul 16 04:44:24 UTC 2021
+;; MSG SIZE  rcvd: 101
+
+pod "test-pod" deleted
+```
+```
+kubectl run --rm -i test-pod --image=tutum/dnsutils --restart=Never -- dig mysql-statefulset-0.mysql-svc.default.svc.cluster.local
+kubectl run --rm -i test-pod --image=tutum/dnsutils --restart=Never -- dig mysql-statefulset-1.mysql-svc.default.svc.cluster.local
+kubectl run --rm -i test-pod --image=tutum/dnsutils --restart=Never -- dig mysql-statefulset-2.mysql-svc.default.svc.cluster.local
+```
 
 
++ 以下のことが分かりました
+
+```
+mysql-statefulset-0.mysql-svc.default.svc.cluster.local. 30 IN A 10.152.5.2
+mysql-statefulset-1.mysql-svc.default.svc.cluster.local. 30 IN A 10.152.2.2
+mysql-statefulset-2.mysql-svc.default.svc.cluster.local. 30 IN A 10.152.4.2
+```
 
 
+```
+kubectl run --rm -it test-pod --image=mysql:8.0.25 --restart=Never -- /bin/bash
+```
+```
+mysql -hmysql-statefulset-0.mysql-svc.default.svc.cluster.local. -umy_dbadmin -p
+```
+```
+exit
+```
+```
+exit
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+これ以上のテストは割愛
 
 
 
@@ -512,6 +540,7 @@ mysql-statefulset-2   1/1     Running   0          28m
 
 ```
 kubectl delete -f nginx.yaml
+kubectl delete -f mysql.yaml
 ```
 
 + クラスタなどの削除
