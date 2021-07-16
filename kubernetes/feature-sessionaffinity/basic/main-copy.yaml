@@ -57,6 +57,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.allow-http: "true"
 spec:
+  # defaultBackend:
+  #   service:
+  #     name: nginx-srv
+  #     port:
+  #       number: 80
   rules:
     - http:
         paths:
