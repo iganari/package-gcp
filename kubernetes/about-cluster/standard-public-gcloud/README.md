@@ -66,6 +66,16 @@ gcloud beta container clusters create ${_common}-clt \
   --project ${_gcp_pj_id}
 ```
 
++ デフォルトで作られた node pool を削除します
+
+```
+gcloud beta container node-pools delete default-pool \
+  --cluster ${_common}-clt \
+  --region ${_region} \
+  --project ${_gcp_pj_id} \
+  -q
+```
+
 + Service Account の作成します
 
 ```
@@ -113,16 +123,6 @@ gcloud beta container node-pools create "${_common}-add-pool-1" \
   --max-surge-upgrade 1 \
   --max-unavailable-upgrade 0 \
   --project ${_gcp_pj_id}
-```
-
-+ デフォルトで作られた node pool を削除します
-
-```
-gcloud beta container node-pools delete default-pool \
-  --cluster ${_common}-clt \
-  --region ${_region} \
-  --project ${_gcp_pj_id} \
-  -q
 ```
 
 ---> ここまででクラスタの作成が完了

@@ -36,7 +36,7 @@ gcloud beta container clusters get-credentials ${_common}-clt \
 ```
 
 + マニフェストを利用して、リソースをデプロイします
-  + 内容は [main.yaml](./main.yaml) を参照してください
+  + 内容は [nginx.yaml](./nginx.yaml) を参照してください
 
 ```
 kubectl apply -f nginx.yaml
@@ -440,7 +440,70 @@ pod "test-pod" deleted
 
 ## MySQL で試してみる
 
-WIP
++ マニフェストを書き換えます
+
+```
+cp -a mysql.yaml.template mysql.yaml
+```
+```
+export _root_passwd=$(cat /dev/urandom | base64 | fold -w 32 | head -n 1)
+
+echo ${_root_passwd}
+sed -i -e "s|_YOUR_MYSQL_ROOT_PASSWORD|${_root_passwd}|g" mysql.yaml
+```
+```
+export _user_passwd=$(cat /dev/urandom | base64 | fold -w 8 | head -n 1)
+
+echo ${_user_passwd}
+sed -i -e "s|_YOUR_MYSQL_USER_PASSWORD|${_user_passwd}|g" mysql.yaml
+```
+
++ マニフェストを利用して、リソースをデプロイします
+  + 内容は [mysql.yaml](./mysql.yaml) を参照してください
+
+```
+kubectl apply -f mysql.yaml
+```
+
+```
+# kubectl get pod
+NAME                  READY   STATUS    RESTARTS   AGE
+mysql-statefulset-0   1/1     Running   0          17m
+mysql-statefulset-1   1/1     Running   0          28m
+mysql-statefulset-2   1/1     Running   0          28m
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## リソースの削除
 
