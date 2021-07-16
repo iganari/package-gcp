@@ -505,6 +505,9 @@ mysql-statefulset-2   1/1     Running   0          28m
 
 
 
+
+
+
 ## リソースの削除
 
 ```
