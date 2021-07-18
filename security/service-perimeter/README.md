@@ -6,7 +6,7 @@ VPC Service Controls は組織リソースです
 
 ## 概要
 
-+ VPC Service Controls　とは
++ VPC Service Controls とは
 
 ```
 セキュリティ境界(perimeter) を作成し、その境界内入れる API を指定します
