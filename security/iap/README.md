@@ -1,3 +1,3 @@
-# IAP
+# Identity-Aware Proxy
 
 WIP
