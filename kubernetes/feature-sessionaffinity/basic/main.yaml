@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: samplesesafi-dep
+  name: samplesesaffi-dep
   # labels:
-  #   app: samplesesafi-dep
+  #   app: samplesesaffi-dep
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: samplesesafi-dep
+      app: samplesesaffi-dep
   template:
     metadata:
       labels:
-        app: samplesesafi-dep
+        app: samplesesaffi-dep
     spec:
       containers:
-      - name: samplesesafi-dep
+      - name: samplesesaffi-dep
         image: iganarix/code-labo-python:latest
         ports:
         - containerPort: 5000
@@ -25,7 +25,7 @@ spec:
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name: samplesesafi-bkc
+  name: samplesesaffi-bkc
 spec:
   sessionAffinity:
     affinityType: "CLIENT_IP"
@@ -35,20 +35,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: samplesesafi-srv
+  name: samplesesaffi-srv
   # labels:
-  #   app: samplesesafi-srv
+  #   app: samplesesaffi-srv
   annotations:
     cloud.google.com/backend-config: '{
-      "default": "samplesesafi-bkc"
+      "default": "samplesesaffi-bkc"
     }'
 spec:
   type: NodePort
   # type: ClusterIP
   selector:
-    app: samplesesafi-dep
+    app: samplesesaffi-dep
   ports:
-  - name: samplesesafi-srv
+  - name: samplesesaffi-srv
     port: 80
     targetPort: 5000
 
@@ -57,11 +57,11 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: samplesesafi-igr
+  name: samplesesaffi-igr
   annotations:
     kubernetes.io/ingress.allow-http: "true"
   # labels:
-  #   app: samplesesafi-igr
+  #   app: samplesesaffi-igr
 spec:
   rules:
     - http:
@@ -70,6 +70,6 @@ spec:
           pathType: ImplementationSpecific
           backend:
             service:
-              name: samplesesafi-srv
+              name: samplesesaffi-srv
               port:
                 number: 80

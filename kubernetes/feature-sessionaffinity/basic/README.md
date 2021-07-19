@@ -15,7 +15,7 @@ gcloud auth login -q
 ```
 ### Env
 
-export _common='samplesesafi'
+export _common='samplesesaffi'
 export _gcp_pj_id='Your GCP Project ID'
 export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'
