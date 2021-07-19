@@ -311,6 +311,14 @@ spec:
 __EOF__
 ```
 
++ GKE と認証します
+
+```
+gcloud beta container clusters get-credentials ${_common}-clt \
+  --region ${_region} \
+  --project ${_gcp_pj_id}
+```
+
 + デプロイします
 
 ```
