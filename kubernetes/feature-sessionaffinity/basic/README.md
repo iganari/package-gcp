@@ -134,14 +134,12 @@ gcloud beta container clusters delete ${_common}-clt \
 gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
   --project ${_gcp_pj_id} \
   -q
-```
-```
+
 gcloud beta compute networks subnets delete ${_common}-subnets \
   --region ${_region} \
   --project ${_gcp_pj_id} \
   -q
-```
-```
+
 gcloud beta compute networks delete ${_common}-network \
   --project ${_gcp_pj_id} \
   -q
