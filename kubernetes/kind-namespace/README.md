@@ -1,4 +1,4 @@
-# Namespace
+# kind: Namespace
 
 :fire: WIP
 

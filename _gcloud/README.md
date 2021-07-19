@@ -47,6 +47,18 @@ gcloud auth activate-service-account test-service-account@google.com \
     --project=testproject
 ```
 
++ ローカルに保持している auth の情報の確認
+
+```
+gcloud auth list
+```
+
++ アクティブなユーザのみ表示する
+
+```
+gcloud auth list --filter=status:ACTIVE --format="value(account)"
+```
+
 ## configurations
 
 + gcloud コマンドを使う際の設定
