@@ -77,7 +77,6 @@ gcloud compute security-policies rules create 2000 \
 ## manifest で BackendConfig の設定を作成
 
 + manifests を作ります
-  + k8s.yaml](./k8s.yaml) に同梱
 
 ```
 apiVersion: cloud.google.com/v1beta1
@@ -92,10 +91,14 @@ spec:
 
 ## manifest で Service に annotations を追加
 
-+ 例として nginx を使用します
+例として nginx を使用します
 
 + manifests を作成します
-  + k8s.yaml](./k8s.yaml) に同梱します
+  + [k8s.yaml](./k8s.yaml) として保存します
+
+<details>
+<summary>k8s.yaml の全体像</summary>
+
 
 ```
 apiVersion: apps/v1
@@ -169,6 +172,8 @@ spec:
           servicePort: 8080
 
 ```
+
+</details>
 
 + 作成した manifests を apply コマンドで反映させます
 
