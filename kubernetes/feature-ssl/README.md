@@ -10,9 +10,8 @@
 
 ## Google マネージド SSL 証明書を使う
 
-[package-gcp/kubernetes/kind-managedcertificate](../kind-managedcertificate)
-
-https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs?hl=ja
++ 公式ドキュメント
+  + https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs?hl=ja
 
 + メリット
   + Google マネージド SSL 証明書は、ドメイン用に Google Cloud が取得して管理する証明書で、自動的に更新される
@@ -20,6 +19,8 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs?hl=ja
 + デメリット
   + Google マネージド証明書はドメイン認証（DV）証明書です。
   + 証明書に関連付けられた組織や個人の ID を証明せず、ワイルドカードの共通名をサポートしません。(複数設定は可能です)
+
+実際に使ってみる ---> [package-gcp | kind: ManagedCertificate](../kind-managedcertificate)
 
 ## セルフマネージド SSL 証明書のを使う
 
