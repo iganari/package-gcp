@@ -5,8 +5,8 @@
 [SSL certificates overview](https://cloud.google.com/load-balancing/docs/ssl-certificates)
 
 + 以下の証明書が使用できる
-  + 独自のセルフマネージド証明書
-  + Google が取得して管理する Google マネージド証明書
+  + [Google が取得して管理する Google マネージド証明書](./README.md#google-マネージド-ssl-証明書を使う)
+  + [独自のセルフマネージド証明書](./README.md#セルフマネージド-ssl-証明書を使う)
 
 ## Google マネージド SSL 証明書を使う
 
