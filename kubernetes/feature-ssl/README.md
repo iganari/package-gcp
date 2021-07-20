@@ -21,7 +21,7 @@
 
 実際に使ってみる ---> [package-gcp | kind: ManagedCertificate](../kind-managedcertificate)
 
-## セルフマネージド SSL 証明書のを使う
+## セルフマネージド SSL 証明書を使う
 
 https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs?hl=ja
 
