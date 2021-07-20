@@ -25,3 +25,5 @@
 ## セルフマネージド SSL 証明書のを使う
 
 https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs?hl=ja
+
+実際に使ってみる ---> WIP
