@@ -1,10 +1,25 @@
 # SSL 証明書を設定する
 
+## 概要
+
+[SSL certificates overview](https://cloud.google.com/load-balancing/docs/ssl-certificates)
+
++ 以下の証明書が使用できる
+  + 独自のセルフマネージド証明書
+  + Google が取得して管理する Google マネージド証明書
+
 ## Google マネージド SSL 証明書を使う
 
 [package-gcp/kubernetes/kind-managedcertificate](../kind-managedcertificate)
 
 https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs?hl=ja
+
++ メリット
+  + Google マネージド SSL 証明書は、ドメイン用に Google Cloud が取得して管理する証明書で、自動的に更新される
+  + Google マネージド証明書はドメイン認証（DV）証明書です。
++ デメリット
+  + Google マネージド証明書はドメイン認証（DV）証明書です。
+  + 証明書に関連付けられた組織や個人の ID を証明せず、ワイルドカードの共通名をサポートしません。(複数設定は可能です)
 
 ## セルフマネージド SSL 証明書のを使う
 
