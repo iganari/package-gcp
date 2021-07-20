@@ -101,6 +101,17 @@ spec:
 
 
 ```
+apiVersion: cloud.google.com/v1beta1
+kind: BackendConfig
+metadata:
+  name: backend-config-sample
+  namespace: default
+spec:
+  securityPolicy:
+    name: "ip-addr-whitelist"
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -170,7 +181,6 @@ spec:
         backend:
           serviceName: nginx-service
           servicePort: 8080
-
 ```
 
 </details>
