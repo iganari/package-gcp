@@ -101,7 +101,7 @@ spec:
 
 
 ```
-apiVersion: cloud.google.com/v1beta1
+apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
   name: backend-config-sample
