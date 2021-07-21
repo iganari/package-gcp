@@ -1,4 +1,4 @@
-# セルフマネージド SSL 証明書を使う
+# 外部の SSL 証明書を使う
 
 ## 概要
 
@@ -175,10 +175,6 @@ spec:
   - secretName: sslself-tls
 ```
 
-## 有効期限が切れる前に SSL 証明書を置き換えまたは更新する
-
-https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs#replacing-certificates
-
 
 + 確認コマンド
   + Webブラウザからは見れないので
@@ -187,6 +183,16 @@ https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs
 openssl s_client -connect  nginx.iganari.xyz:443 -showcerts < /dev/null 2>&1
 openssl s_client -connect apache.iganari.xyz:443 -showcerts < /dev/null 2>&1
 ```
+
++ :fire: Web ブラウザから見た場合
+
+
+## 有効期限が切れる前に SSL 証明書を置き換えまたは更新する
+
+https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs#replacing-certificates
+
+
+
 
 ## リソースの削除
 

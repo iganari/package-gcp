@@ -21,8 +21,14 @@
 
 実際に使ってみる ---> [package-gcp | kind: ManagedCertificate](../kind-managedcertificate)
 
-## セルフマネージド SSL 証明書を使う
+## 外部の SSL 証明書を使う
 
 https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs?hl=ja
 
-実際に使ってみる ---> WIP
+実際に使ってみる ---> [package-gcp | 外部の SSL 証明書を使う](./external-certs)
+
++ メリット
+  + DV 証明書以外も使用可能(OV（実在認証）、EV（EV認証）)
++ デメリット
+  + Google マネージド証明書はドメイン認証（DV）証明書です。
+  + 証明書に関連付けられた組織や個人の ID を証明せず、ワイルドカードの共通名をサポートしません。(複数設定は可能です)
