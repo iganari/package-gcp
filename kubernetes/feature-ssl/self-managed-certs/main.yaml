@@ -1,0 +1,118 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.19.7-alpine
+        ports:
+        - containerPort: 80
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache
+  labels:
+    app: apache
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apache
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+      - name: apache
+        image: httpd:2.4.46-alpine
+        ports:
+        - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  type: NodePort
+  selector:
+    app: nginx
+  ports:
+  - name: nginx
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache
+  labels:
+    app: apache
+spec:
+  type: NodePort
+  selector:
+    app: apache
+  ports:
+  - name: apache
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: multi-domain
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "multi-domain"
+spec:
+  tls:
+  # - secretName: sslself-tls
+  - secretName: my-tls-secret
+  # defaultBackend: ### LB の IP アドレスの直打ちでアクセスして来た場合の振り先
+  #   service:
+  #     name: nginx
+  #     port:
+  #       number: 80
+  rules:
+    - host: "nginx.iganari.xyz"
+      http:
+        paths:
+        - pathType: ImplementationSpecific
+          path: "/"
+          backend:
+            service:
+              name: nginx
+              port:
+                number: 80
+    - host: "apache.iganari.xyz"
+      http:
+        paths:
+        - pathType: ImplementationSpecific
+          path: "/"
+          backend:
+            service:
+              name: apache
+              port:
+                number: 80

@@ -3,7 +3,7 @@
 ## 概要
 
 + 公式ドキュメント
-  + [Using self-managed SSL certificates](https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs?hl=en)
+  + https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-multi-ssl#secrets
 
 ## やってみる
 
@@ -29,7 +29,8 @@ export _sub_network_range='10.146.0.0/20'
   + [Package GCP | Create Public Cluster of Standard mode](https://github.com/iganari/package-gcp/tree/main/kubernetes/about-cluster/standard-public-gcloud)
 + マルチドメイン設定の Ingress をデプロイする
   + [Package GCP | Ingress: Multi Domain](https://github.com/iganari/package-gcp/tree/main/kubernetes/kind-ingress/multi-domain)
-
+  + `YOUR_DOMAIN` を `iganari.xyz` にして使用します
+    + `cat main.yaml.template | sed -e 's/_YOUR_DOMAIN/iganari.xyz/g' > main.yaml`
 
 ## 秘密鍵と証明書を作成する
 
@@ -112,19 +113,89 @@ sslself.crt
 sslself.csr
 ```
 
-## セルフマネージド SSL 証明書リソースを作成する
+## Ingress 用の証明書を指定する
 
-https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs#createresource
+https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-multi-ssl#secrets
 
-## セルフマネージド SSL 証明書リソースを作成する
++ secret file を作る
++ https://kubernetes.io/ja/docs/concepts/configuration/secret/
 
-https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs#associate-target-proxy
 
 
+
+```
+export _ssl_crt=$(cat ${_common}.crt | awk 'NR>1' | sed '$d' | sed -e "N;s/\n//g")
+export _ssl_crt=$(cat ${_common}.crt | awk 'NR>1' | sed '$d')
+
+echo ${_ssl_crt}
+```
+```
+export _ssl_key=$(cat ${_common}-key.pem | awk 'NR>1' | sed '$d' | sed -e "N;s/\n//g")
+export _ssl_key=$(cat ${_common}-key.pem | awk 'NR>1' | sed '$d')
+
+echo ${_ssl_key}
+```
+
+```
+cat << __EOF__ > secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${_common}-tls
+type: kubernetes.io/tls
+data:
+  tls.crt: |
+    ${_ssl_crt}
+  tls.key: |
+    ${_ssl_key}
+__EOF__
+
+```
+```
+kubectl apply -f secret.yaml
+```
+
+
+
+もしくは
+
+```
+kubectl create secret tls my-tls-secret \
+  --cert sslself.crt \
+  --key sslself-key.pem
+```
+
+
++ ingress を修正
+
+
+```
+spec:
+  tls:
+  - secretName: sslself-tls
+```
 
 ## 有効期限が切れる前に SSL 証明書を置き換えまたは更新する
 
 https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs#replacing-certificates
 
 
++ 確認コマンド
+  + Webブラウザからは見れないので
 
+```
+openssl s_client -connect  nginx.iganari.xyz:443 -showcerts < /dev/null 2>&1
+openssl s_client -connect apache.iganari.xyz:443 -showcerts < /dev/null 2>&1
+```
+
+## リソースの削除
+
++ WIP
+
+```
+kubectl delete -f main.yaml
+kubectl delete -f secret.yaml
+kubectl delete secret my-tls-secret
+```
+
+[リソースの削除](https://github.com/iganari/package-gcp/tree/main/kubernetes/about-cluster/standard-public-gcloud#リソースの削除)
