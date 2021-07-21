@@ -93,7 +93,7 @@ spec:
   #     port:
   #       number: 80
   rules:
-    - host: "nginx.fizzbuzz.com"
+    - host: "nginx._YOUR_DOMAIN"
       http:
         paths:
         - pathType: ImplementationSpecific
@@ -103,7 +103,7 @@ spec:
               name: nginx
               port:
                 number: 80
-    - host: "apache.fizzbuzz.com"
+    - host: "apache._YOUR_DOMAIN"
       http:
         paths:
         - pathType: ImplementationSpecific
