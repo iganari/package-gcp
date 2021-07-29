@@ -12,6 +12,7 @@ Plz have fun and try it! :wink:
 <details>
 <summary>Details</summary>
 
-+ [Kubernetes Engine](/kubernetes)
++ [Cloud Build](./builds)
++ [Kubernetes Engine](./kubernetes)
 + Security
 </details>
