@@ -1,4 +1,4 @@
-# GKE サンプル
+# Kubernetes Engine
 
 ## 説明
 
