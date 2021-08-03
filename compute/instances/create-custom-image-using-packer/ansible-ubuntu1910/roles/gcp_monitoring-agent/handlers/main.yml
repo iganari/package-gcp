@@ -1,0 +1,9 @@
+#
+# roles/gcp_monitoring-agent/handlers/main.yml
+#
+
+- name: restart stackdriver-agent
+  systemd:  
+    name: stackdriver-agent
+    state: restarted
+    enabled: yes

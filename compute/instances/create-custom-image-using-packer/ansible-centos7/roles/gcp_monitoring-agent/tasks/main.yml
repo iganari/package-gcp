@@ -1,0 +1,31 @@
+#
+# roles/gcp_monitoring-agent/tasks/main.yml
+#
+
+# https://cloud.google.com/monitoring/agent/install-agent#agent-install-amazon-centos-rhel
+
+- name: Get add Repository Shell
+  get_url:
+    url: "https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh"
+    dest: "/usr/local/src/add-monitoring-agent-repo.sh"
+    mode: 0755
+
+- name: Run Repository Shell
+  shell: "bash /usr/local/src/add-monitoring-agent-repo.sh"
+
+- name: Upgrade all packages to the latest version
+  yum:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Install Monitoring Agent
+  yum:
+    name: stackdriver-agent
+
+- name: enable Monitoring Service
+  systemd:
+    name: stackdriver-agent
+    state: started
+    enabled: yes
+  notify: restart stackdriver-agent

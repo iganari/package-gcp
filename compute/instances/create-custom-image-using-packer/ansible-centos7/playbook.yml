@@ -1,0 +1,18 @@
+#
+# playbook.yml
+#
+
+- hosts: pkg-gcp-custom-image-centos7
+  remote_user: packer
+  become: yes
+  roles:
+    - role: common
+      tags: common
+    - role: nginx
+      tags: nginx
+    - role: gcp_logging-agent
+      tags: gcp_logging-agent
+    - role: gcp_monitoring-agent
+      tags: gcp_monitoring-agent
+    - role: user
+      tags: user

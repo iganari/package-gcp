@@ -7,9 +7,11 @@ https://cloud.google.com/storage/docs/
 
 ## サンプルコード
 
-Terraform を使ったサンプルコードです。
-
++ [Hosting Static Website Single](./hosting-static-website-single)
+    + 単一の静的ウェブサイトのホスティング
++ [Hosting Static Website Multi](./hosting-static-website-multi)
+    + 複数の静的ウェブサイトのホスティング
 + [sample-basic](./sample-basic/README.md)
-  + シンプルな GCS を構築します。
+    + Terraform を使ったシンプルな GCS を構築します。
 + [sample-access-control](./sample-access-control/README.ja.md)
-  + オブジェクトに権限を付与して、閲覧・削除が出来る条件を付与します。
+    + Terraform を使って、オブジェクトに権限を付与して、閲覧・削除が出来る条件を付与します。

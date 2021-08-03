@@ -1,0 +1,22 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: {certificate-name}
+spec:
+  domains:
+    - {domain-name1}
+    - {domain-name2}
+
+---
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {ingress-name}
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: {address-name}
+    networking.gke.io/managed-certificates: {certificate-name}
+spec:
+  backend:
+    serviceName: {service-name}
+    servicePort: {service-port}

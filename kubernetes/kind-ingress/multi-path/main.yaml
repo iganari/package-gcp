@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pkggcp-codelabo-py
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pkggcp-codelabo-py
+  template:
+    metadata:
+      labels:
+        app: pkggcp-codelabo-py
+    spec:
+      containers:
+      - name: pkggcp-codelabo-py
+        image: iganarix/codelabo-py-sample01:latest
+        ports:
+        - containerPort: 5000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pkggcp-nginx
+  labels:
+    app: pkggcp-nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pkggcp-nginx
+  template:
+    metadata:
+      labels:
+        app: pkggcp-nginx
+    spec:
+      containers:
+      - name: pkggcp-nginx
+        image: nginx:1.19.7-alpine
+        ports:
+        - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pkggcp-codelabo-py
+  labels:
+    app: pkggcp-codelabo-py
+spec:
+  type: NodePort
+  selector:
+    app: pkggcp-codelabo-py
+  ports:
+  - name: pkggcp-codelabo-py
+    port: 5050
+    targetPort: 5000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pkggcp-nginx
+  labels:
+    app: pkggcp-nginx
+spec:
+  type: NodePort
+  selector:
+    app: pkggcp-nginx
+  ports:
+  - name: pkggcp-nginx
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pkggcp-multi-path
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "multi-path"
+spec:
+  defaultBackend:
+    service:
+      name: pkggcp-nginx
+      port:
+        number: 80
+  rules:
+    - http:
+        paths:
+        - path: "/*"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: pkggcp-codelabo-py
+              port: 
+                number: 5050

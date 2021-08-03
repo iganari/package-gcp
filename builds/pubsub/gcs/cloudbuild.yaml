@@ -1,0 +1,11 @@
+steps:
+  - id: "Check Pub/Sub Trigger From GCS"
+    name: 'alpine:edge'
+    entrypoint: ash
+    dir: 'scripts'
+    args:
+      - -c
+      - |
+        echo "_EVENT_TYPE is: $_EVENT_TYPE"
+        echo "_BUCKET_ID is: $_BUCKET_ID"
+        echo "_OBJECT_ID is: $_OBJECT_ID"

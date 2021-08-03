@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-dep
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-dep
+  template:
+    metadata:
+      labels:
+        app: nginx-dep
+    spec:
+      containers:
+      - name: nginx-dep
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+---
+
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: nginx-bkc
+spec:
+  sessionAffinity:
+    affinityType: "CLIENT_IP"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-srv
+  annotations:
+    cloud.google.com/backend-config: '{
+      "default": "nginx-bkc"
+    }'
+spec:
+  type: NodePort
+  # type: ClusterIP
+  selector:
+    app: nginx-dep
+  ports:
+  - name: nginx-srv
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-igr
+  annotations:
+    kubernetes.io/ingress.allow-http: "true"
+spec:
+  # defaultBackend:
+  #   service:
+  #     name: nginx-srv
+  #     port:
+  #       number: 80
+  rules:
+    - http:
+        paths:
+        - path: /*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: nginx-srv
+              port:
+                number: 80

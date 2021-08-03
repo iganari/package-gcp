@@ -1,0 +1,173 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pkggcp-k8s-apache-service
+  labels:
+    app: apache
+spec:
+  type: LoadBalancer
+  selector:
+    app: apache
+  ports:
+  - name: apache
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pkggcp-k8s-apache-deployment
+  labels:
+    app: apache
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apache
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+      - name: apache
+        image: httpd:2.4.46-alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: httpd
+          mountPath: "/usr/local/apache2/conf/httpd.conf"  ## 指定したファイルのみマウントする 
+          subPath: "httpd.conf"
+          readOnly: true
+        - name: addconfig
+          mountPath: "/usr/local/apache2/conf/extra/rewrite.conf"  ## 指定したファイルのみマウントする
+          subPath: "rewrite.conf"
+          readOnly: true
+      volumes:
+        - name: httpd
+          configMap:
+            name: apache-configmap
+            items:  # key と path が一致している場合は記載の必要は無い
+            - key: "httpd.conf"
+              path: "httpd.conf"
+        - name: addconfig
+          configMap:
+            name: apache-configmap
+            items:  # key と path が一致している場合は記載の必要は無い
+            - key: "rewrite.conf"
+              path: "rewrite.conf"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apache-configmap
+data:
+  rewrite.conf: |
+    <VirtualHost *:80>
+      DocumentRoot "/usr/local/apache2/htdocs"
+      <Directory /usr/local/apache2/htdocs>
+        AllowOverride All
+        RewriteEngine On
+        RewriteRule .* https://www.google.com [R=301,L]   # アクセスすると Google に 301 リダイレクトする
+      </Directory>
+    </VirtualHost>
+
+  httpd.conf: |
+    ServerRoot "/usr/local/apache2"
+    Listen 80
+    
+    LoadModule mpm_event_module modules/mod_mpm_event.so
+    LoadModule authn_file_module modules/mod_authn_file.so
+    LoadModule authn_core_module modules/mod_authn_core.so
+    LoadModule authz_host_module modules/mod_authz_host.so
+    LoadModule authz_groupfile_module modules/mod_authz_groupfile.so
+    LoadModule authz_user_module modules/mod_authz_user.so
+    LoadModule authz_core_module modules/mod_authz_core.so
+    LoadModule access_compat_module modules/mod_access_compat.so
+    LoadModule auth_basic_module modules/mod_auth_basic.so
+    LoadModule reqtimeout_module modules/mod_reqtimeout.so
+    LoadModule filter_module modules/mod_filter.so
+    LoadModule mime_module modules/mod_mime.so
+    LoadModule log_config_module modules/mod_log_config.so
+    LoadModule env_module modules/mod_env.so
+    LoadModule headers_module modules/mod_headers.so
+    LoadModule setenvif_module modules/mod_setenvif.so
+    LoadModule version_module modules/mod_version.so
+    LoadModule unixd_module modules/mod_unixd.so
+    LoadModule status_module modules/mod_status.so
+    LoadModule autoindex_module modules/mod_autoindex.so
+    LoadModule rewrite_module modules/mod_rewrite.so
+    <IfModule !mpm_prefork_module>
+            #LoadModule cgid_module modules/mod_cgid.so
+    </IfModule>
+    <IfModule mpm_prefork_module>
+            #LoadModule cgi_module modules/mod_cgi.so
+    </IfModule>
+    LoadModule dir_module modules/mod_dir.so
+    LoadModule alias_module modules/mod_alias.so
+    
+    <IfModule unixd_module>
+    User daemon
+    Group daemon
+    </IfModule>
+    
+    
+    <IfModule dir_module>
+        DirectoryIndex index.html
+    </IfModule>
+    
+    <Files ".ht*">
+        Require all denied
+    </Files>
+    
+    ErrorLog /proc/self/fd/2
+    
+    LogLevel warn
+    
+    <IfModule log_config_module>
+        LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+        LogFormat "%h %l %u %t \"%r\" %>s %b" common
+    
+        <IfModule logio_module>
+          LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio
+        </IfModule>
+    
+        CustomLog /proc/self/fd/1 common
+    </IfModule>
+    
+    <IfModule alias_module>
+        ScriptAlias /cgi-bin/ "/usr/local/apache2/cgi-bin/"
+    </IfModule>
+    
+    <Directory "/usr/local/apache2/cgi-bin">
+        AllowOverride all
+        Options None
+        Require all granted
+    </Directory>
+    
+    <IfModule headers_module>
+        RequestHeader unset Proxy early
+    </IfModule>
+    
+    <IfModule mime_module>
+        TypesConfig conf/mime.types
+        AddType application/x-compress .Z
+        AddType application/x-gzip .gz .tgz
+        AddHandler cgi-script .cgi
+    </IfModule>
+    
+    <IfModule proxy_html_module>
+    Include conf/extra/proxy-html.conf
+    </IfModule>
+    
+    <IfModule ssl_module>
+    SSLRandomSeed startup builtin
+    SSLRandomSeed connect builtin
+    </IfModule>
+    
+    # rewrite
+    Include conf/extra/rewrite.conf
