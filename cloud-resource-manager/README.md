@@ -22,12 +22,17 @@ Google Cloud Project は `組織` の直下、もしくは `フォルダ` の配
 
 ### フォルダは 10 個までネスト出来る
 
++ Web ブラウザから確認
+
 ![](./img/01.png)
 
-11 個目のフォルダを作ろうとすると以下のようなエラーが出る
++ 11 個目のフォルダを作ろうとすると以下のようなエラーが出る
 
 ```
-WIP
+# gcloud resource-manager folders create --display-name test-11 --folder 605610248813
+
+Waiting for [operations/cf.8759230411087616215] to finish...failed.
+ERROR: (gcloud.resource-manager.folders.create) Operation [cf.8759230411087616215] failed: 9: The folder operation violates height constraints.
 ```
 
 ### フォルダ直下の子フォルダの上限は 300 個
@@ -94,17 +99,6 @@ gcloud resource-manager folders create \
 + `FOLDER_ID` は以下のように確認出来ます
 
 ![](./img/04.png)
-
-### ネストに関して
-
-フォルダは 10 個までネスト出来ますが、それ以上の子フォルダを作ろうとすると以下のような Error が出ます
-
-```
-# gcloud resource-manager folders create --display-name test-11 --folder 605610248813
-
-Waiting for [operations/cf.8759230411087616215] to finish...failed.
-ERROR: (gcloud.resource-manager.folders.create) Operation [cf.8759230411087616215] failed: 9: The folder operation violates height constraints.
-```
 
 ## フォルダのリストを表示
 
