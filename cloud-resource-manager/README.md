@@ -20,7 +20,7 @@ Google Cloud Project は `組織` の直下、もしくは `フォルダ` の配
 
 ## 注意点
 
-### フォルダは 10 個までネスト出来る
+### フォルダのネストの上限は 10 個
 
 + Web ブラウザから確認
 
@@ -66,6 +66,37 @@ Waiting for [operations/cf.5097355409447013929] to finish...failed.
 ERROR: (gcloud.resource-manager.folders.create) Operation [cf.5097355409447013929] failed: 9: The folder operation violates fanout constraints.
 ```
 
+### 組織直下の子フォルダの上限は 300 個
+
++ Web ブラウザから確認
+
+![](./img/03.png)
+
++ CLI で確認
+
+```
+# gcloud resource-manager folders list --organization 393527318731
+DISPLAY_NAME  PARENT_NAME                            ID
+231           organizations/393527318731  1001034393417
+117           organizations/393527318731  1004121055097
+.
+.
+.
+```
+```
+# gcloud resource-manager folders list --organization 393527318731 | grep 39352731
+8731 | wc -l
+300
+```
+
++ 301 個目のフォルダを作ろうとするとエラーになる
+
+```
+# gcloud resource-manager folders create --display-name 301 --organization {Organization ID}
+
+Waiting for [operations/cf.5754303482127393954] to finish...failed.
+ERROR: (gcloud.resource-manager.folders.create) Operation [cf.5754303482127393954] failed: 9: The folder operation violates fanout constraints.
+```
 
 ## 実際に作ってみる
 
@@ -84,7 +115,7 @@ gcloud resource-manager folders create \
 
 + `ORGANIZATION_ID` は以下のように確認出来ます
 
-![](./img/03.png)
+![](./img/04.png)
 
 ### 特定のフォルダの下にフォルダを作る場合
 
@@ -98,7 +129,7 @@ gcloud resource-manager folders create \
 
 + `FOLDER_ID` は以下のように確認出来ます
 
-![](./img/04.png)
+![](./img/05.png)
 
 ## フォルダのリストを表示
 
