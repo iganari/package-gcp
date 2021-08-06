@@ -35,42 +35,11 @@ Waiting for [operations/cf.8759230411087616215] to finish...failed.
 ERROR: (gcloud.resource-manager.folders.create) Operation [cf.8759230411087616215] failed: 9: The folder operation violates height constraints.
 ```
 
-### フォルダ直下の子フォルダの上限は 300 個
-
-+ Web ブラウザから確認
-
-![](./img/02.png)
-
-+ CLI で確認
-
-```
-# gcloud resource-manager folders list --folder 76378164060
-DISPLAY_NAME  PARENT_NAME                     ID
-179           folders/76378164060  1004204842702
-229           folders/76378164060  1008564563089
-.
-.
-.
-```
-```
-# gcloud resource-manager folders list --folder 76378164060 | grep 76378164060 | wc -l
-300
-```
-
-+ 301 個目のフォルダを作ろうとするとエラーになる
-
-```
-# gcloud resource-manager folders create --display-name 301 --folder 76378164060
-
-Waiting for [operations/cf.5097355409447013929] to finish...failed.
-ERROR: (gcloud.resource-manager.folders.create) Operation [cf.5097355409447013929] failed: 9: The folder operation violates fanout constraints.
-```
-
 ### 組織直下の子フォルダの上限は 300 個
 
 + Web ブラウザから確認
 
-![](./img/03.png)
+![](./img/02.png)
 
 + CLI で確認
 
@@ -95,6 +64,37 @@ DISPLAY_NAME  PARENT_NAME                            ID
 
 Waiting for [operations/cf.5754303482127393954] to finish...failed.
 ERROR: (gcloud.resource-manager.folders.create) Operation [cf.5754303482127393954] failed: 9: The folder operation violates fanout constraints.
+```
+
+### フォルダ直下の子フォルダの上限は 300 個
+
++ Web ブラウザから確認
+
+![](./img/03.png)
+
++ CLI で確認
+
+```
+# gcloud resource-manager folders list --folder 76378164060
+DISPLAY_NAME  PARENT_NAME                     ID
+179           folders/76378164060  1004204842702
+229           folders/76378164060  1008564563089
+.
+.
+.
+```
+```
+# gcloud resource-manager folders list --folder 76378164060 | grep 76378164060 | wc -l
+300
+```
+
++ 301 個目のフォルダを作ろうとするとエラーになる
+
+```
+# gcloud resource-manager folders create --display-name 301 --folder 76378164060
+
+Waiting for [operations/cf.5097355409447013929] to finish...failed.
+ERROR: (gcloud.resource-manager.folders.create) Operation [cf.5097355409447013929] failed: 9: The folder operation violates fanout constraints.
 ```
 
 ## 実際に作ってみる
