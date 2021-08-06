@@ -75,17 +75,16 @@ ERROR: (gcloud.resource-manager.folders.create) Operation [cf.509735540944701392
 + CLI で確認
 
 ```
-# gcloud resource-manager folders list --organization 393527318731
+# gcloud resource-manager folders list --organization {Organization ID}
 DISPLAY_NAME  PARENT_NAME                            ID
-231           organizations/393527318731  1001034393417
-117           organizations/393527318731  1004121055097
+231           organizations/{Organization ID}  1001034393417
+117           organizations/{Organization ID}  1004121055097
 .
 .
 .
 ```
 ```
-# gcloud resource-manager folders list --organization 393527318731 | grep 39352731
-8731 | wc -l
+# gcloud resource-manager folders list --organization {Organization ID} | grep {Organization ID} | wc -l
 300
 ```
 
