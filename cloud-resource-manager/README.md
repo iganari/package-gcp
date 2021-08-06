@@ -20,12 +20,82 @@ Google Cloud Project は `組織` の直下、もしくは `フォルダ` の配
 
 ## 注意点
 
-+ フォルダは 10 個までネスト出来ます
-+ 1 つ親フォルダの直下の、子フォルダの上限は 300 個です(孫は別)
+### フォルダのネストの上限は 10 個
+
++ Web ブラウザから確認
 
 ![](./img/01.png)
 
-![IMG] <--- `1 つ親フォルダの直下の、子フォルダの上限は 300 個` のスクショが欲しい(実際に３００なくて良い)
++ 11 個目のフォルダを作ろうとすると以下のようなエラーが出る
+
+```
+# gcloud resource-manager folders create --display-name test-11 --folder 605610248813
+
+Waiting for [operations/cf.8759230411087616215] to finish...failed.
+ERROR: (gcloud.resource-manager.folders.create) Operation [cf.8759230411087616215] failed: 9: The folder operation violates height constraints.
+```
+
+### 組織直下の子フォルダの上限は 300 個
+
++ Web ブラウザから確認
+
+![](./img/02.png)
+
++ CLI で確認
+
+```
+# gcloud resource-manager folders list --organization {Organization ID}
+DISPLAY_NAME  PARENT_NAME                            ID
+231           organizations/{Organization ID}  1001034393417
+117           organizations/{Organization ID}  1004121055097
+.
+.
+.
+```
+```
+# gcloud resource-manager folders list --organization {Organization ID} | grep {Organization ID} | wc -l
+300
+```
+
++ 301 個目のフォルダを作ろうとするとエラーになる
+
+```
+# gcloud resource-manager folders create --display-name 301 --organization {Organization ID}
+
+Waiting for [operations/cf.5754303482127393954] to finish...failed.
+ERROR: (gcloud.resource-manager.folders.create) Operation [cf.5754303482127393954] failed: 9: The folder operation violates fanout constraints.
+```
+
+### フォルダ直下の子フォルダの上限は 300 個
+
++ Web ブラウザから確認
+
+![](./img/03.png)
+
++ CLI で確認
+
+```
+# gcloud resource-manager folders list --folder 76378164060
+DISPLAY_NAME  PARENT_NAME                     ID
+179           folders/76378164060  1004204842702
+229           folders/76378164060  1008564563089
+.
+.
+.
+```
+```
+# gcloud resource-manager folders list --folder 76378164060 | grep 76378164060 | wc -l
+300
+```
+
++ 301 個目のフォルダを作ろうとするとエラーになる
+
+```
+# gcloud resource-manager folders create --display-name 301 --folder 76378164060
+
+Waiting for [operations/cf.5097355409447013929] to finish...failed.
+ERROR: (gcloud.resource-manager.folders.create) Operation [cf.5097355409447013929] failed: 9: The folder operation violates fanout constraints.
+```
 
 ## 実際に作ってみる
 
@@ -44,7 +114,7 @@ gcloud resource-manager folders create \
 
 + `ORGANIZATION_ID` は以下のように確認出来ます
 
-![](./img/02.png)
+![](./img/04.png)
 
 ### 特定のフォルダの下にフォルダを作る場合
 
@@ -58,18 +128,7 @@ gcloud resource-manager folders create \
 
 + `FOLDER_ID` は以下のように確認出来ます
 
-![](./img/03.png)
-
-### ネストに関して
-
-フォルダは 10 個までネスト出来ますが、それ以上の子フォルダを作ろうとすると以下のような Error が出ます
-
-```
-# gcloud resource-manager folders create --display-name test-11 --folder 605610248813
-
-Waiting for [operations/cf.8759230411087616215] to finish...failed.
-ERROR: (gcloud.resource-manager.folders.create) Operation [cf.8759230411087616215] failed: 9: The folder operation violates height constraints.
-```
+![](./img/05.png)
 
 ## フォルダのリストを表示
 
