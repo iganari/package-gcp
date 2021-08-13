@@ -42,7 +42,7 @@ gcloud beta container clusters create ${_common} \
 
 ```
 ### GKE クラスタ に適用するコマンド
-gcloud beta container clusters update ${_common} \
+gcloud beta container clusters update {cluster name} \
     --workload-pool=${_gcp_pj_id}.svc.id.goog \
     --project ${_gcp_pj_id}
 ```
