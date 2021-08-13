@@ -20,6 +20,10 @@ Pod と Service の DNS レコードは、Service の `ClusterIP`, `Headless`, `
 
 GKE クラスタが 1 個で試すことが出来る
 
+kube-dns が Cloud DNS になっただけ
+
+メリットは異なる GKE クラスタで、同じ名前が使える
+
 Cluster scope DNS
 
 ### VPC スコープ DNS
