@@ -74,25 +74,38 @@ kubectl apply -f main_after.yaml
   + 先程とは違った挙動(Google にリダイレクトされる)が実現出来ていれば OK
 
 ```
-curl 34.85.81.205
+curl -I -L 34.146.173.95
 ```
 ```
 ### Ex.
 
-# curl 34.85.81.205
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
-<html><head>
-<title>301 Moved Permanently</title>
-</head><body>
-<h1>Moved Permanently</h1>
-<p>The document has moved <a href="https://www.google.com">here</a>.</p>
-</body></html>
+$ curl -I -L 34.146.173.95
+HTTP/1.1 302 Moved Temporarily
+Server: nginx/1.21.1
+Date: Wed, 18 Aug 2021 01:51:08 GMT
+Content-Type: text/html
+Content-Length: 145
+Connection: keep-alive
+Location: https://www.google.com/
+
+HTTP/2 200
+content-type: text/html; charset=ISO-8859-1
+p3p: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+date: Wed, 18 Aug 2021 01:51:08 GMT
+server: gws
+x-xss-protection: 0
+x-frame-options: SAMEORIGIN
+expires: Wed, 18 Aug 2021 01:51:08 GMT
+cache-control: private
+set-cookie: 1P_JAR=2021-08-18-01; expires=Fri, 17-Sep-2021 01:51:08 GMT; path=/; domain=.google.com; Secure
+set-cookie: NID=221=zlfkD5Y0Da41Db3SM2ACnydy3ISJgR_pAbsDYPbM_DATwymYeUdZq5A0Pi9j-m53NttFeabtNZ8ozigGKRqMQbhNPht10IKU0FvIHAGcccZK6nYYuqrnME-ohJIXyiRhAiofO2nETZFFbrwCGgyLC0D-c9Opu5E5ox5RTQpcg2o; expires=Thu, 17-Feb-2022 01:51:08 GMT; path=/; domain=.google.com; HttpOnly
 ```
 
 ## 付録
 
-+ [オリジナルの設定ファイル `/usr/local/apache2/conf`](./conf)
-  + コンテナイメージ `httpd:2.4.46-alpine` のオリジナルの conf ディレクトリ ( `/usr/local/apache2/conf` ) をバックアップしています
++ オリジナルの設定ファイル
+  + [/etc/nginx/nginx.conf](./nginx.conf)
+  + [/etc/nginx/conf.d/](./conf.d)
 
 ## リソース削除
 
@@ -101,3 +114,4 @@ curl 34.85.81.205
 ```
 kubectl delete -f main_after.yaml
 ```
+
