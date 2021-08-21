@@ -21,6 +21,8 @@
 209.85.204.0/22
 ```
 
+---> 詳しくは [Package GCP | Network services](../../net-services)
+
 ## `IAP` 経由で内部の VM にアクセスする等の場合、許可すべき IP アドレス
 
 + 以下を許可
