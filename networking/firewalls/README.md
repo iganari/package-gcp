@@ -1,19 +1,19 @@
 # Firewall
 
+## 大抵の Load Balancing の場合
 
-## `ロードバランサ` の上り（内向き）
-
-+ 内部 TCP / UDP 負荷分散（ヘルスチェック）
-+ 内部 HTTP(S) 負荷分散（ヘルスチェック）
-+ TCP プロキシ負荷分散（ヘルスチェック）
-+ SSL プロキシ負荷分散（ヘルスチェック）
++ 以下を許可
 
 ```
 35.191.0.0/16
 130.211.0.0/22
 ```
 
-## `ネットワーク負荷分散` の上り（内向き）
+---> 詳しくは [Package GCP | Network services](../../net-services)
+
+## Network Load Balancing の場合
+
++ 以下を許可
 
 ```
 35.191.0.0/16
@@ -22,6 +22,8 @@
 ```
 
 ## `IAP` 経由で内部の VM にアクセスする等の場合、許可すべき IP アドレス
+
++ 以下を許可
 
 ```
 35.235.240.0/20
@@ -32,4 +34,4 @@
 + https://cloud.google.com/load-balancing/docs/health-checks?hl=ja
 + https://cloud.google.com/load-balancing/docs/health-check-concepts?hl=ja#ip-ranges
 + https://cloud.google.com/iap/docs/using-tcp-forwarding#create-firewall-rule
-+ 
+
