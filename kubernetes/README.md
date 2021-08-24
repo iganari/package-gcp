@@ -53,7 +53,7 @@ gcloud components install kubectl -q
 
 ## Tips
 
-+ [CIDR ranges for Standard clusters](./tips_cidr-ranges-for-clusters)
++ [Optimizing IP address allocation](./xx_flexible-pod-cidr)
 
 
 ## 参考になりそうな URL
