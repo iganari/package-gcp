@@ -11,10 +11,11 @@
 
 ```
 https://cloud.google.com/armor/docs/rule-tuning?hl=ja#sql_injection_sqli
-https://github.com/coreruleset/coreruleset/tree/master
 https://coreruleset.org/
 https://cloud.google.com/armor/docs/security-policy-overview?hl=ja
 ```
 
++ OWASP ModSecurity Core Rule Set (CRS)
+  + https://github.com/coreruleset/coreruleset/tree/v3.0/master
 + カスタムルールを作りたい時
   + https://cloud.google.com/armor/docs/rules-language-reference?hl=ja
