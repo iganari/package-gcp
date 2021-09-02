@@ -1,4 +1,4 @@
-# Cloud SQL Auth proxy
+# Cloud SQL Auth proxy を使用して Cloud SQL にログインする
 
 ## 概要
 
