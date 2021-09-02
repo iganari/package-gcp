@@ -21,7 +21,7 @@ https://cloud.google.com/sql/docs/mysql/connect-admin-proxy?hl=en
 
 + 以下の条件で Cloud SQL が出来ていることを前提とします
   + Cloud SQL for MySQL を使用
-  + 外部 IP アドレス無し / 内部 IP アドレスのみの Cloud SQL
+  + 外部 IP アドレス有りの Cloud SQL
 
 + Cloud SQL の Connection name を控えておきます
   + 以下のような名前になります
@@ -146,7 +146,7 @@ WantedBy = multi-user.target
 + Systemd として作成した cloud_sql_proxy の起動と確認
 
 ```
-sudo systemctl start cloud_sql_proxy
+sudo systemctl start  cloud_sql_proxy
 sudo systemctl status cloud_sql_proxy
 ```
 
