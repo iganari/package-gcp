@@ -52,13 +52,13 @@ gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} \
 + Key の作成
 
 ```
-gcloud beta iam service-accounts keys create sa-key-cloud-sql-auth-proxy \
+gcloud beta iam service-accounts keys create sa-key-cloud-sql-auth-proxy.json \
   --iam-account=cloud-sql-auth-proxy-test@${_gcp_pj_id}.iam.gserviceaccount.com \
   --project ${_gcp_pj_id}
 ```
 ```
 $ ls | grep sa-key-cloud-sql-auth-proxy
-sa-key-cloud-sql-auth-proxy
+sa-key-cloud-sql-auth-proxy.json
 ```
 
 
@@ -111,7 +111,7 @@ Cloud SQL Auth proxy: 1.24.0+linux.amd64
 ```
 $ ls -1 /usr/local/bin/
 cloud_sql_proxy
-sa-key-cloud-sql-auth-proxy
+sa-key-cloud-sql-auth-proxy.json
 ```
 
 
