@@ -9,5 +9,5 @@
 
 + [IAP to Cloud SQL](./iap/README.md)
   + IAP 越しに パブリック IP アドレスが無い Cloud SQL に パブリック IP アドレスが無い GCE を通じてログインします
-+ [Cloud SQL Auth proxy を使用して Cloud SQL にログインする](./cloud-sql-auth-proxy/README.md)
-  + Cloud SQL Auth proxy を使用して Cloud SQL にログインする
++ [Login to Cloud SQL using the Cloud SQL Auth proxy](./cloud-sql-auth-proxy/README.md)
+  + Cloud SQL Auth proxy を使用して、外部の VM から Cloud SQL にログインします
