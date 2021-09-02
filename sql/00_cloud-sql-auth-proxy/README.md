@@ -143,15 +143,32 @@ Type       = simple
 WantedBy = multi-user.target
 ```
 
-+ Systemd として作成した cloud_sql_proxy の起動と確認
++ Systemd として作成した cloud_sql_proxy の起動と確認します
 
 ```
 sudo systemctl start  cloud_sql_proxy
 sudo systemctl status cloud_sql_proxy
 ```
 
-+ MySQL コマンドを使用して、 Cloud SQL にログインする
++ MySQL コマンドを使用して、 Cloud SQL にログインします
 
 ```
 mysql -u {MySQL User name} -h 0.0.0.0 -p
 ```
+```
+### 例
+
+$ mysql -u {MySQL User name} -h 0.0.0.0 -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 80978
+Server version: 8.0.18-google (Google)
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]>
+```
+
+---> Cloud SQL にログイン出来ました :)
