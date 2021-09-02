@@ -3,7 +3,7 @@ Description = "Cloud SQL Proxy Daemon"
 After = network.target
  
 [Service]
-ExecStart  = /usr/local/bin/cloud_sql_proxy -dir=/cloudsql -instances=_YOUR_CLOUD_SQL_CONNECT_NAME=tcp:0.0.0.0:3306 -credential_file=/usr/local/bin/sa-key-cloud-sql-auth-proxy.json
+ExecStart  = /usr/local/bin/cloud_sql_proxy -dir=/cloudsql -instances=_YOUR_CLOUD_SQL_CONNECTION_NAME=tcp:0.0.0.0:3306 -credential_file=/usr/local/bin/sa-key-cloud-sql-auth-proxy.json
 ExecStop   = /bin/kill ${MAINPID}
 ExecReload = /bin/kill -HUP ${MAINPID}
 Restart    = always
