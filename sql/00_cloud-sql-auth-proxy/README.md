@@ -143,6 +143,15 @@ Type       = simple
 WantedBy = multi-user.target
 ```
 
++ Systemd として作成した cloud_sql_proxy の起動と確認
 
+```
+sudo systemctl start cloud_sql_proxy
+sudo systemctl status cloud_sql_proxy
+```
 
++ MySQL コマンドを使用して、 Cloud SQL にログインする
 
+```
+mysql -u {MySQL User name} -h 0.0.0.0 -p
+```
