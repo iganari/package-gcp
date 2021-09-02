@@ -1,0 +1,14 @@
+[Unit]
+Description = "Cloud SQL Proxy Daemon"
+After = network.target
+ 
+[Service]
+ExecStart = /usr/local/bin/cloud_sql_proxy -dir=/cloudsql -instances=analog-vault-9999999:asia-northeast1:sgdb1 -credential_file=/usr/local/bin/sa-key-cloud-sql-auth-proxy.json
+ExecStop = /bin/kill ${MAINPID}
+ExecReload = /bin/kill -HUP ${MAINPID}
+Restart = always
+Type = simple
+LimitNOFILE=65536
+ 
+[Install]
+WantedBy = multi-user.target
