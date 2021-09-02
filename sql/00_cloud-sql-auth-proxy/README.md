@@ -19,10 +19,16 @@ https://cloud.google.com/sql/docs/mysql/connect-admin-proxy?hl=en
 
 ### Cloud SQL の準備
 
-以下の条件で Cloud SQL が出来ていることを前提とします
++ 以下の条件で Cloud SQL が出来ていることを前提とします
+  + Cloud SQL for MySQL を使用
+  + 外部 IP アドレス無し / 内部 IP アドレスのみの Cloud SQL
 
-+ Cloud SQL for MySQL を使用
-+ 外部 IP アドレス無し / 内部 IP アドレスのみの Cloud SQL
++ Cloud SQL の Connection name を控えておきます
+  + 以下のような名前になります
+
+```
+{Your GCP Project ID}:{Cloud SQL Instance Region}:{Cloud SQL Instance Name}
+```
 
 ### Service Account の作成と role の付与
 
@@ -114,11 +120,28 @@ cloud_sql_proxy
 sa-key-cloud-sql-auth-proxy.json
 ```
 
++ [cloud_sql_proxy.service.sample](./cloud_sql_proxy.service.sample) を参考に systemd のファイルを作成します
+  + `/etc/systemd/system/cloud_sql_proxy.service`
 
-
-
-
-
+```
+'_YOUR_CLOUD_SQL_CONNECTION_NAME'='{Your GCP Project ID}:{Cloud SQL Instance Region}:{Cloud SQL Instance Name}'
+```
+```
+[Unit]
+Description = "Cloud SQL Proxy Daemon"
+After = network.target
+ 
+[Service]
+ExecStart  = /usr/local/bin/cloud_sql_proxy -credential_file=/usr/local/bin/sa-key-cloud-sql-auth-proxy.json -instances=_YOUR_CLOUD_SQL_CONNECTION_NAME=tcp:0.0.0.0:3306
+ExecStop   = /bin/kill ${MAINPID}
+ExecReload = /bin/kill -HUP ${MAINPID}
+Restart    = always
+Type       = simple
+# LimitNOFILE = 65536
+ 
+[Install]
+WantedBy = multi-user.target
+```
 
 
 
