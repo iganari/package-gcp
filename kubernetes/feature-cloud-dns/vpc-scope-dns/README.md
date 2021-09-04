@@ -2,7 +2,7 @@
 
 ## アーキテクチャ
 
-[](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-vpc-scope.svg)
+![](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-vpc-scope.svg)
 
 ## やってみる
 

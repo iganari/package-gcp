@@ -10,11 +10,7 @@ Pod と Service の DNS レコードは、Service の `ClusterIP`, `Headless`, `
 
 ## 注意
 
-kube-dns で使っていた `svc.cluster.local` は使えなくなる
-
-### アーキテクチャ
-
-![](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-architecture.svg)
+:warning: kube-dns で使っていた `svc.cluster.local` は使えなくなる
 
 ## やってみる
 
@@ -31,7 +27,7 @@ Cluster scope DNS
 https://cloud.google.com/kubernetes-engine/docs/how-to/cloud-dns#cluster_scope_dns
 ```
 
-[](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-local-scope.svg)
+![](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-local-scope.svg)
 
 ### VPC スコープ DNS
 
@@ -47,7 +43,7 @@ VPC scope DNS
 https://cloud.google.com/kubernetes-engine/docs/how-to/cloud-dns#vpc_scope_dns
 ```
 
-[](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-vpc-scope.svg)
+![](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-vpc-scope.svg)
 
 ### 共有 VPC で Cloud DNS
 

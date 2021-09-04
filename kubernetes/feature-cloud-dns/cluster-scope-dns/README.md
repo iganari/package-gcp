@@ -2,7 +2,7 @@
 
 ## アーキテクチャ
 
-[](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-local-scope.svg)
+![](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-local-scope.svg)
 
 ## やってみる
 
