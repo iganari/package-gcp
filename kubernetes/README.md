@@ -33,6 +33,7 @@ gcloud components install kubectl -q
 + [Ingress](./kind-ingress)
 + [Managed Certificate](./kind-managedcertificate)
 + [Persistent Volume Claim](./kind-persistentvolumeclaim)
++ [PriorityClass](./kind-priorityclass)
 + [Secret](./kind-secret)
 + [StatefulSet](./kind-statufulset)
 
