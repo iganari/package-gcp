@@ -156,9 +156,6 @@ Non-authoritative answer:
 
 ** server can't find clouddns-test-a.google.internal: NXDOMAIN
 
-** server can't find clouddns-test-a.c.ca-igarashi-test-2021q3.internal: NXDOMAIN
-
-** server can't find clouddns-test-a.c.ca-igarashi-test-2021q3.internal: NXDOMAIN
 
 pod "check-name" deleted
 pod default/check-name terminated (Error)
