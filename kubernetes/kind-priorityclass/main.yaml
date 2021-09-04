@@ -26,8 +26,8 @@ spec:
       priorityClassName: balloon-priority
       terminationGracePeriodSeconds: 0
       containers:
-      - name: ubuntu
-        image: ubuntu
+      - name: alpine
+        image: alpine:latest
         command: ["sleep"]
         args: ["infinity"]
         resources:
