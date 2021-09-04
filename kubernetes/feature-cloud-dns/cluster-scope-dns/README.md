@@ -1,7 +1,8 @@
 # Cluster scope DNS
 
-[え]
+## アーキテクチャ
 
+[](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-local-scope.svg)
 
 ## やってみる
 
@@ -16,13 +17,13 @@ gcloud auth login -q
 + 環境変数
 
 ```
-export _common='clouddns-test'
+export _common='clouddns-cluster'
 export _gcp_pj_id='Your GCP Project ID'
 export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'
 
 
-
+export _gcp_pj_id='ca-igarashi-test-2021q3'
 ```
 
 + API の有効化
@@ -98,7 +99,6 @@ gcloud beta container clusters create ${_common}-1 \
 
 ### pod を置く
 
-
 + GKE と認証します
 
 ```
@@ -123,6 +123,8 @@ kubectl get svc
 NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 clouddns-test-a   ClusterIP   10.222.128.29   <none>        80/TCP    12m
 ```
+
+## 名前引きの確認
 
 + Pod の中から名前引きが出来るか確認する
 
