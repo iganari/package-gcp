@@ -1,3 +1,0 @@
-# Cloud SQL Proxy
-
-WIP
