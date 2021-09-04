@@ -8,13 +8,13 @@ Cloud DNS で Pod と Service の DNS 解決を行うことが出来る
 
 Pod と Service の DNS レコードは、Service の `ClusterIP`, `Headless`, `Externalname ` 向けに Cloud DNS に自動でプロビジョニングされる
 
-### アーキテクチャ
-
-![](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-architecture.svg)
-
 ### :warning: 注意
 
 kube-dns で使っていた `svc.cluster.local` は使えなくなる
+
+### アーキテクチャ
+
+![](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-architecture.svg)
 
 ## やってみる
 
@@ -41,7 +41,6 @@ GKE クラスタが 2 個で試すことが出来る
 
 メリットは異なる GKE クラスタで、同じ名前が使える
 
-
 ```
 VPC scope DNS
 https://cloud.google.com/kubernetes-engine/docs/how-to/cloud-dns#vpc_scope_dns
@@ -54,4 +53,3 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/cloud-dns#vpc_scope_dns
 GCP Project が 2 個、GKE クラスタが 2 個で試すことが出来る
 
 Using Cloud DNS with Shared VPC
-

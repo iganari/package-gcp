@@ -21,9 +21,6 @@ export _common='clouddns-cluster'
 export _gcp_pj_id='Your GCP Project ID'
 export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'
-
-
-export _gcp_pj_id='ca-igarashi-test-2021q3'
 ```
 
 + API の有効化
@@ -81,7 +78,6 @@ gcloud beta container clusters create ${_common}-1 \
   --project ${_gcp_pj_id}
 ```
 
-
 ---> Cloud DNS が出来ている
 
 ### Cloud DNS の確認
@@ -96,6 +92,8 @@ gcloud beta container clusters create ${_common}-1 \
 ![](./img/02.png)
 
 ![](./img/03.png)
+
+![](./img/04.png)
 
 ### pod を置く
 
@@ -116,17 +114,17 @@ kubectl apply -f test-pod-a.yaml
 + Service の IP アドレスを確認する
 
 ```
-kubectl get svc
+kubectl get svc clouddns-test-a
 ```
 ```
-# kubectl get svc
-NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
-clouddns-test-a   ClusterIP   10.222.128.29   <none>        80/TCP    12m
+# kubectl get svc clouddns-test-a
+NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+clouddns-test-a   ClusterIP   10.53.3.148   <none>        80/TCP    27s
 ```
 
 ## 名前引きの確認
 
-+ Pod の中から名前引きが出来るか確認する
++ Pod の中から clouddns-test-a を名前引きが出来るか確認する
 
 ```
 kubectl run --rm -i check-name --image gcr.io/google-samples/hello-app:2.0 --restart=Never -- nslookup clouddns-test-a
@@ -134,22 +132,23 @@ kubectl run --rm -i check-name --image gcr.io/google-samples/hello-app:2.0 --res
 ```
 ### 例
 
-# kubectl run --rm -i check-name --image gcr.io/google-samples/hello-app:2.0 --restart=Never -- nslookup clouddns-test-a
+# kubectl run --rm -i check-name --image gcr.io/google-samples/hello-app:2.0 --restart=Never
+-- nslookup clouddns-test-a
 Server:         169.254.169.254
 Address:        169.254.169.254:53
 
 Non-authoritative answer:
-*** Can't find clouddns-test-a.default.svc.cluster.local: No answer
+Name:   clouddns-test-a.default.svc.cluster.local
+Address: 10.53.3.148
+
+** server can't find clouddns-test-a.svc.cluster.local: NXDOMAIN
 
 Non-authoritative answer:
-Name:   clouddns-test-a.default.svc.cluster.local
-Address: 10.222.128.29
-
-** server can't find clouddns-test-a.svc.cluster.local: NXDOMAIN
-
-** server can't find clouddns-test-a.svc.cluster.local: NXDOMAIN
+*** Can't find clouddns-test-a.default.svc.cluster.local: No answer
 
 ** server can't find clouddns-test-a.cluster.local: NXDOMAIN
+
+** server can't find clouddns-test-a.svc.cluster.local: NXDOMAIN
 
 ** server can't find clouddns-test-a.cluster.local: NXDOMAIN
 
@@ -157,15 +156,15 @@ Address: 10.222.128.29
 
 ** server can't find clouddns-test-a.google.internal: NXDOMAIN
 
-** server can't find clouddns-test-a.c.[your_gcp_pj_id].internal: NXDOMAIN
+** server can't find clouddns-test-a.c.ca-igarashi-test-2021q3.internal: NXDOMAIN
 
-** server can't find clouddns-test-a.c.[your_gcp_pj_id].internal: NXDOMAIN
+** server can't find clouddns-test-a.c.ca-igarashi-test-2021q3.internal: NXDOMAIN
 
 pod "check-name" deleted
 pod default/check-name terminated (Error)
 ```
 
-+ より詳細に Pod の中から名前引きが出来るか確認する
++ より詳細に Pod の中から clouddns-test-a を名前引きが出来るか確認する
 
 ```
 kubectl run --rm -i check-name --image gcr.io/google-samples/hello-app:2.0 --restart=Never -- nslookup clouddns-test-a.default.svc.cluster.local
@@ -173,14 +172,13 @@ kubectl run --rm -i check-name --image gcr.io/google-samples/hello-app:2.0 --res
 ```
 ### 例
 
-# kubectl run --rm -i check-name --image gcr.io/google-samples/hello-app:2.0 --restart=Never -- nslookup clouddns-test-a.default.svc.clus
-ter.local
+# kubectl run --rm -i check-name --image gcr.io/google-samples/hello-app:2.0 --restart=Never -- nslookup clouddns-test-a.default.svc.cluster.local
 Server:         169.254.169.254
 Address:        169.254.169.254:53
 
 Non-authoritative answer:
 Name:   clouddns-test-a.default.svc.cluster.local
-Address: 10.222.128.29
+Address: 10.53.3.148
 
 Non-authoritative answer:
 *** Can't find clouddns-test-a.default.svc.cluster.local: No answer
@@ -190,34 +188,6 @@ pod "check-name" deleted
 
 ---> Service の IP アドレスは見えている
 
-
-```
-# kubectl run --rm -i check-name --image tutum/dnsutils --restart=Never -- nslookup clouddns-test-a
-If you don't see a command prompt, try pressing enter.
-Error attaching, falling back to logs: unable to upgrade connection: container check-name not found in pod check-name_default
-Server:         169.254.169.254
-Address:        169.254.169.254#53
-
-Non-authoritative answer:
-Name:   clouddns-test-a.default.svc.cluster.local
-Address: 10.222.128.29
-
-pod "check-name" deleted
-```
-```
-# kubectl run --rm -i check-name --image tutum/dnsutils --restart=Never -- nslookup clouddns-test-a.default.svc.cluster.local
-If you don't see a command prompt, try pressing enter.
-Error attaching, falling back to logs: unable to upgrade connection: container check-name not found in pod check-name_default
-Server:         169.254.169.254
-Address:        169.254.169.254#53
-
-Non-authoritative answer:
-Name:   clouddns-test-a.default.svc.cluster.local
-Address: 10.222.128.29
-
-pod "check-name" deleted
-```
-
 + Pod の確認
 
 ```
@@ -225,11 +195,10 @@ kubectl get pod -o wide
 ```
 ```
 # kubectl get pod -o wide
-NAME                               READY   STATUS    RESTARTS   AGE   IP            NODE                                             NOMINATED NODE   READINESS GATES
-clouddns-test-a-7dd7fc5c47-pcvb2   1/1     Running   0          16m   10.222.0.14   gke-clouddns-test-1-default-pool-166aff35-7nwn   <none>           <none>
-clouddns-test-a-7dd7fc5c47-sjqn4   1/1     Running   0          16m   10.222.0.13   gke-clouddns-test-1-default-pool-166aff35-7nwn   <none>           <none>
+NAME                               READY   STATUS    RESTARTS   AGE    IP             NODE                                                NOMINATED NODE   READINESS GATES
+clouddns-test-a-7dd7fc5c47-qnrlc   1/1     Running   0          3m3s   10.52.128.12   gke-clouddns-cluster-1-default-pool-13bc1d24-1r1m   <none>           <none>
+clouddns-test-a-7dd7fc5c47-zxshg   1/1     Running   0          3m3s   10.52.128.11   gke-clouddns-cluster-1-default-pool-13bc1d24-1r1m   <none>           <none>
 ```
-
 
 ## リソースの削除
 
