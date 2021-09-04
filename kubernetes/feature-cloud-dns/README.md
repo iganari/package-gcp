@@ -8,9 +8,13 @@ Cloud DNS で Pod と Service の DNS 解決を行うことが出来る
 
 Pod と Service の DNS レコードは、Service の `ClusterIP`, `Headless`, `Externalname ` 向けに Cloud DNS に自動でプロビジョニングされる
 
-## 注意
+### アーキテクチャ
 
-:warning: kube-dns で使っていた `svc.cluster.local` は使えなくなる
+![](https://cloud.google.com/kubernetes-engine/images/gke-cloud-dns-architecture.svg)
+
+### :warning: 注意
+
+kube-dns で使っていた `svc.cluster.local` は使えなくなる
 
 ## やってみる
 
