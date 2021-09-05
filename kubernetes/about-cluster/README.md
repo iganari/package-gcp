@@ -27,3 +27,11 @@ Autopilot mode | [gcloud](./autopilot-public-gcloud/README.md), [terraform] | [g
   + Kubernetes でいうと control plane
 + Node Pool
   + Kubernetes でいうと worker node
+
+## 公式 URL
+
++ [Google Kubernetes Engine （GKE） クラスタ、ノード、GKE API リクエストの割り当てと上限](https://cloud.google.com/kubernetes-engine/quotas)
+
+## 参考 URL
+
++ [medium | 完全マネージドな k8s ! GKE Autopilot を解説する](https://medium.com/google-cloud-jp/gke-autopilot-87f8458ccf74)

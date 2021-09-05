@@ -1,4 +1,4 @@
-# GKE サンプル
+# Kubernetes Engine
 
 ## 説明
 
@@ -33,6 +33,7 @@ gcloud components install kubectl -q
 + [Ingress](./kind-ingress)
 + [Managed Certificate](./kind-managedcertificate)
 + [Persistent Volume Claim](./kind-persistentvolumeclaim)
++ [PriorityClass](./kind-priorityclass)
 + [Secret](./kind-secret)
 + [StatefulSet](./kind-statufulset)
 
@@ -40,6 +41,8 @@ gcloud components install kubectl -q
 
 + [Cloud Armor](./modify-readme-only)
 + [IAP](./feature-iap)
++ [nodeSelector](./feature-nodeselector)
+  + Pod を特定のノードプールに明示的にデプロイする
 + [SSL](./feature-iap)
 + [Workload Identity](./feature-iap)
 
@@ -51,7 +54,7 @@ gcloud components install kubectl -q
 
 ## Tips
 
-+ [CIDR ranges for Standard clusters](./tips_cidr-ranges-for-clusters)
++ [Optimizing IP address allocation](./xx_flexible-pod-cidr)
 
 
 ## 参考になりそうな URL

@@ -13,6 +13,12 @@
 export _gcp_pj_id="Your GCP Project ID"
 ```
 
+## インストール方法
+
+[Google Cloud SDK のインストール](https://cloud.google.com/sdk/docs/install)
+
+上記に `Linux`, `Debian/Ubuntu`, `Red Hat/Fedora/CentOS`, `macOS`, `Windows` が記載されている
+
 ## auth
 
 + 公式ドキュメント
@@ -45,6 +51,18 @@ gcloud auth application-default login
 gcloud auth activate-service-account test-service-account@google.com \
     --key-file=/path/key.json \
     --project=testproject
+```
+
++ ローカルに保持している auth の情報の確認
+
+```
+gcloud auth list
+```
+
++ アクティブなユーザのみ表示する
+
+```
+gcloud auth list --filter=status:ACTIVE --format="value(account)"
 ```
 
 ## configurations

@@ -65,7 +65,7 @@ gcloud beta compute routers create ${_common}-nat-router \
   --project ${_gcp_pj_id}
 
 ### Cloud NAT
-gcloud beta compute routers nats create ${_common}-nat-config \
+gcloud beta compute routers nats create ${_common}-nat \
   --router-region ${_region} \
   --router ${_common}-nat-router \
   --nat-all-subnet-ip-ranges \
@@ -184,7 +184,7 @@ gcloud beta container clusters delete ${_common}-clt \
 + Cloud NAT の削除をします
 
 ```
-gcloud beta compute routers nats delete ${_common}-nat-config \
+gcloud beta compute routers nats delete ${_common}-nat \
   --router-region ${_region} \
   --router ${_common}-nat-router \
   --project ${_gcp_pj_id} \
