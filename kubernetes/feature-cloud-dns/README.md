@@ -10,7 +10,9 @@ Pod と Service の DNS レコードは、Service の `ClusterIP`, `Headless`, `
 
 ### :warning: 注意
 
-kube-dns で使っていた `svc.cluster.local` は使えなくなる
++ kube-dns で使っていた `svc.cluster.local` は使えなくなる
++ Cloud DNS に登録されるのは Service までなので、 Headless Service を用いた Pod の個別の名前解決は出来ない
+
 
 ### アーキテクチャ
 

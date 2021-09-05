@@ -66,7 +66,8 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
 
 ```
 gcloud beta container clusters create ${_common}-1 \
-  --cluster-dns clouddns --cluster-dns-scope cluster \
+  --cluster-dns clouddns \
+  --cluster-dns-scope cluster \
   --zone ${_region}-b \
   --release-channel "rapid" \
   --enable-ip-alias \
@@ -80,7 +81,7 @@ gcloud beta container clusters create ${_common}-1 \
 
 ---> Cloud DNS が出来ている
 
-### Cloud DNS の確認
+### リソースの確認
 
 + 分かること
   + DNS name `cluster.local.`
@@ -122,7 +123,32 @@ NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 clouddns-test-a   ClusterIP   10.53.3.148   <none>        80/TCP    27s
 ```
 
++ Pod の確認をします
+
+```
+kubectl get pod -o wide
+```
+```
+# kubectl get pod -o wide
+NAME                               READY   STATUS    RESTARTS   AGE    IP             NODE                                                NOMINATED NODE   READINESS GATES
+clouddns-test-a-7dd7fc5c47-qnrlc   1/1     Running   0          3m3s   10.52.128.12   gke-clouddns-cluster-1-default-pool-13bc1d24-1r1m   <none>           <none>
+clouddns-test-a-7dd7fc5c47-zxshg   1/1     Running   0          3m3s   10.52.128.11   gke-clouddns-cluster-1-default-pool-13bc1d24-1r1m   <none>           <none>
+```
+
 ## 名前引きの確認
+
++ ドメインの命名規則
+
+```
+[Service の名前].[名前空間(Namespace)の名前].svc.[設定したドメイン名]
+```
+```
+### 例
+
+clouddns-vpc-a.default.svc.clouddns-vpc.local-test.
+```
+
+### Pod の中から Service を名前引きが出来るか確認する
 
 + Pod の中から clouddns-test-a を名前引きが出来るか確認する
 
@@ -183,19 +209,8 @@ Non-authoritative answer:
 pod "check-name" deleted
 ```
 
----> Service の IP アドレスは見えている
+---> Service の IP アドレスは見えていることが分かります :)
 
-+ Pod の確認
-
-```
-kubectl get pod -o wide
-```
-```
-# kubectl get pod -o wide
-NAME                               READY   STATUS    RESTARTS   AGE    IP             NODE                                                NOMINATED NODE   READINESS GATES
-clouddns-test-a-7dd7fc5c47-qnrlc   1/1     Running   0          3m3s   10.52.128.12   gke-clouddns-cluster-1-default-pool-13bc1d24-1r1m   <none>           <none>
-clouddns-test-a-7dd7fc5c47-zxshg   1/1     Running   0          3m3s   10.52.128.11   gke-clouddns-cluster-1-default-pool-13bc1d24-1r1m   <none>           <none>
-```
 
 ## リソースの削除
 
