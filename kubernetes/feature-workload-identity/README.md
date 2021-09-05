@@ -1,5 +1,9 @@
 # Workload Identity を試す
 
+## 概要
+
+Kubernetes の Service Account と GCP の Service を紐付けることにより、GKE 上の Pod 内の GCP に対する権限を、GKE 上の Pod 外の GCP の IAM にて制御可能にする
+
 ## やること
 
 5 ステップある
@@ -33,11 +37,21 @@ gcloud beta container clusters create ${_common} \
 ```
 
 + 既存のクラスタで Workload Identity を有効にする場合
+  + クラスタに適用した後に作成した node pool は Workload Identity が可能
+  + :fire: クラスタに適用する前に作成した既存の node pool には適用されないので、適用コマンドを実行する必要がある
 
 ```
-gcloud beta container clusters update ${_common} \
+### GKE クラスタ に適用するコマンド
+gcloud beta container clusters update {cluster name} \
     --workload-pool=${_gcp_pj_id}.svc.id.goog \
     --project ${_gcp_pj_id}
+```
+```
+### 既存の node pool に適用するコマンド例
+gcloud container node-pools update {node pool name} \
+  --cluster {cluster name} \
+  --region {cluster location} \
+  --workload-metadata GKE_METADATA
 ```
 
 + GKE Cluster と認証をする
