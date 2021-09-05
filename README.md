@@ -8,3 +8,11 @@
 + Depending on when you read this article, reproducibility may not be guaranteed.
 
 Plz have fun and try it! :wink:
+
+<details>
+<summary>Details</summary>
+
++ [Cloud Build](./builds)
++ [Kubernetes Engine](./kubernetes)
++ Security
+</details>

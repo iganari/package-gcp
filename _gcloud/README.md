@@ -13,6 +13,12 @@
 export _gcp_pj_id="Your GCP Project ID"
 ```
 
+## インストール方法
+
+[Google Cloud SDK のインストール](https://cloud.google.com/sdk/docs/install)
+
+上記に `Linux`, `Debian/Ubuntu`, `Red Hat/Fedora/CentOS`, `macOS`, `Windows` が記載されている
+
 ## auth
 
 + 公式ドキュメント
