@@ -67,7 +67,6 @@ $ ls | grep sa-key-cloud-sql-auth-proxy
 sa-key-cloud-sql-auth-proxy.json
 ```
 
-
 ### VM での準備
 
 + 以下の OS の VM があることを前提とします
@@ -91,6 +90,14 @@ UBUNTU_CODENAME=hirsute
 ```
 $ uname -p
 x86_64
+```
+
++ gcloud コマンドをインストールしましょう
+  + [Installing Cloud SDK](https://cloud.google.com/sdk/docs/install?hl=en)
+
+```
+$ gcloud version
+Google Cloud SDK 355.0.0
 ```
 
 + Cloud SQL Auth proxy を取得し、実行可能な状態にします
