@@ -230,11 +230,3 @@ gcloud run services delete ulb-run \
   --project ${_gcp_pj_id} \
   -q
 ```
-
-
-
-
-
-
-
-
