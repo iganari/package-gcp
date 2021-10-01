@@ -157,6 +157,12 @@ sudo systemctl start  cloud_sql_proxy
 sudo systemctl status cloud_sql_proxy
 ```
 
++ VM 起動時に Cloud SQL Auth Proxy も自動で起動するように設定します
+
+```
+sudo systemctl enable cloud_sql_proxy
+```
+
 + MySQL コマンドを使用して、 Cloud SQL にログインします
 
 ```
