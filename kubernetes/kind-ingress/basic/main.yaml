@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pkggcp-k8s-ig-bsc
+  name: pkggcp-k8s-ig-bsc-dep
   labels:
-    app: nginx
+    app: ig-bsc
 spec:
   replicas: 2
   selector:
@@ -15,7 +15,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: nginx
+      - name: my-nginx
         image: nginx:1.20.0-alpine
         ports:
         - containerPort: 80
@@ -25,15 +25,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: pkggcp-k8s-ig-bsc
+  name: pkggcp-k8s-ig-bsc-svc
   labels:
-    app: nginx
+    app: ig-bsc
 spec:
   type: NodePort
   selector:
     app: nginx
   ports:
-  - name: nginx
+  - name: web
     port: 80
     targetPort: 80
 
@@ -46,7 +46,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.allow-http: "true"
   labels:
-    app: nginx
+    app: ig-bsc
 spec:
   rules:
     - http:
@@ -55,6 +55,6 @@ spec:
           pathType: ImplementationSpecific
           backend:
             service:
-              name: pkggcp-k8s-bc-hl
+              name: pkggcp-k8s-ig-bsc-svc
               port:
                 number: 80
