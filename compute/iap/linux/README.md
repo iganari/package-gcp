@@ -53,6 +53,7 @@ gcloud beta compute networks subnets create ${_common}-subnets \
 ```
 
 + Firewall Rule の作成
+  + [package-gcp/networking/firewalls](../../../networking/firewalls)
 
 ```
 ### 内部通信は全部許可する
