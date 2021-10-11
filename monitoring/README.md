@@ -6,6 +6,8 @@ https://cloud.google.com/monitoring/agent/install-agent?hl=en
 
 ## Installing on Linux
 
+---> Opd Agent に切り替わりました
+
 ### CentOS/RHEL
 
 + Add Repository
@@ -42,3 +44,13 @@ udo service stackdriver-agent status
 rpm --query --queryformat '%{NAME} %{VERSION} %{RELEASE} %{ARCH}\n' \
      stackdriver-agent
 ```
+
+## プロセスを監視したい
+
+### Linux のプロセス監視
+
+https://cloud.google.com/monitoring/alerts/ui-conditions-ga?hl=ja#process-health
+
+### Windows のプロセス監視
+
+現状無理
