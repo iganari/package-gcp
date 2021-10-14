@@ -35,3 +35,6 @@ resource "google_monitoring_dashboard" "dashboard" {
 + 下記の API を使えば、既存のダッシュボードを JSON で吐き出すことが出来る
   + https://cloud.google.com/monitoring/api/ref_v3/rest/v1/projects.dashboards/get
   + 故に、ある程度手動で作成し、JSON を吐き出して管理すればいい
+  + JSON の中身の詳細は下記
+    + https://cloud.google.com/monitoring/api/ref_v3/rest/v1/projects.dashboards#Dashboard
+
