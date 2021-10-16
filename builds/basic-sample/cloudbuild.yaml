@@ -52,3 +52,11 @@ steps:
   - id: "gcloud auth 2"
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args: ["gcloud", "auth", "list"]
+
+  - id: "gcloud auth 3"
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gcloud auth list
