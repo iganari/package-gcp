@@ -20,10 +20,18 @@ VPC ネットワークを使用しないサービス(=一度外部のインタ�
 
 ## 参考 URL
 
-[VPC Service Controls](https://cloud.google.com/vpc-service-controls/?hl=ja)
+[VPC Service Controls](https://cloud.google.com/vpc-service-controls)
 
-[サポートされているプロダクトと制限事項](https://cloud.google.com/vpc-service-controls/docs/supported-products?hl=ja)
+[サポートされているプロダクトと制限事項](https://cloud.google.com/vpc-service-controls/docs/supported-products)
 
-
+[VPC Service Controls の概要](https://cloud.google.com/vpc-service-controls/docs/overview)
 
 [Google Cloud Japan | 実例から学ぶ、VPC Service Control Deep Dive](https://www.youtube.com/watch?v=Tx4cIhc2Fqk)
+
+## 図とか
+
+![](https://cloud.google.com/vpc-service-controls/images/service_perimeter.png)
+
+![](https://cloud.google.com/vpc-service-controls/images/service_perimeter_private.png)
+
+![](https://cloud.google.com/vpc-service-controls/images/service_perimeter_internet.png)
