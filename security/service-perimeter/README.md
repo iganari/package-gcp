@@ -28,6 +28,8 @@ VPC ネットワークを使用しないサービス(=一度外部のインタ�
 
 [Google Cloud Japan | 実例から学ぶ、VPC Service Control Deep Dive](https://www.youtube.com/watch?v=Tx4cIhc2Fqk)
 
+[境界ブリッジの例](https://cloud.google.com/vpc-service-controls/docs/share-across-perimeters#example_of_perimeter_bridges)
+
 ## 図とか
 
 ![](https://cloud.google.com/vpc-service-controls/images/service_perimeter.png)
