@@ -1,7 +1,5 @@
 # Secret Manager
 
-:fire: WIP :fire:
-
 ## 概要
 
 Cloud Secret Manager ( 以下、 CMS ) は機密データを GCP 内に保存することが出来、適宜取り出して使用することが出来る
@@ -12,18 +10,13 @@ CMS で管理しているデータは secret という
 
 https://cloud.google.com/secret-manager/docs/overview
 
-
-
-ca-igarashi-test-2021q3
 ## CMS の API の有効化
 
 + 環境変数に GCP Project をいれておく
 
 ```
 export _gcp_pj_id='Your GCP Project ID'
-export _gcp_pj_id='ca-igarashi-test-2021q3'
 ```
-
 
 + GCP Project 内における API の有効化
   + `secretmanager.googleapis.com`
