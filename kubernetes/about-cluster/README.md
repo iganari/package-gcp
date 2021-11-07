@@ -21,6 +21,17 @@ Autopilot mode | [gcloud](./autopilot-public-gcloud/README.md), [terraform] | [g
 + ルートベース クラスタ
   + 別途記載 
 
+## Private Cluster
+
+Private Cluster を使用する際は Cloud NAT を用いて、インターネットへの送信接続を可能にする必要がある
+
+詳細な設定方法は以下の公式ドキュメントを参照
+
+```
+Cloud NAT | Example GKE setup
+https://cloud.google.com/nat/docs/gke-example?hl=en
+```
+
 ## 用語
 
 + Master
