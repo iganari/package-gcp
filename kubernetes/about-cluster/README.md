@@ -27,10 +27,8 @@ Private Cluster を使用する際は Cloud NAT を用いて、インターネ�
 
 詳細な設定方法は以下の公式ドキュメントを参照
 
-```
-Cloud NAT | Example GKE setup
-https://cloud.google.com/nat/docs/gke-example?hl=en
-```
+[Cloud NAT | Example GKE setup](https://cloud.google.com/nat/docs/gke-example)
+
 
 ## 用語
 
