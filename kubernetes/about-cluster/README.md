@@ -35,6 +35,15 @@ Private Cluster を使用する際は Cloud NAT を用いて、インターネ�
 
 [Google Kubernetes Engine pricing](https://cloud.google.com/kubernetes-engine/pricing)
 
+
+## コスト削減
+
+
+[Node Pool に Preemptible VM を使う](https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms)
+
+[Autopilot で Spot Pod を使う](https://cloud.google.com/kubernetes-engine/docs/how-to/autopilot-spot-pods)
+
+
 ## 用語
 
 + Master
