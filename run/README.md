@@ -27,7 +27,7 @@ https://cloud.google.com/run/docs/reference/container-contract#port
 
 ```
 デフォルトの Port 変更する
-gcloud run services update {_run_service_name} --port {_container_port}
+gcloud run services update {_run_service_name} --port {_container_port} --region ${_region} --project ${_gcp_pj_id}
 
 
 https://cloud.google.com/run/docs/configuring/containers?hl=en#configure-port
