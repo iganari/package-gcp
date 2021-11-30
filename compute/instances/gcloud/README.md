@@ -56,7 +56,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
 
 ### Allow Traffic from IAP
 gcloud beta compute firewall-rules create ${_common}-allow-iap \
-  --network ${_common} \
+  --network ${_common}-network \
   --action ALLOW \
   --rules tcp:22 \
   --source-ranges 35.235.240.0/20 \
@@ -65,7 +65,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-iap \
 
 ### Allow Traffic from GCLB
 gcloud beta compute firewall-rules create ${_common}-allow-lb \
-  --network ${_common} \
+  --network ${_common}-network \
   --action ALLOW \
   --rules tcp:80 \
   --source-ranges 35.191.0.0/16,130.211.0.0/22 \
@@ -78,8 +78,8 @@ gcloud beta compute firewall-rules create ${_common}-allow-lb \
 ```
 ### External IP Address
 gcloud beta compute addresses create ${_common}-nat-ip \
-    --region ${_region} \
-    --project ${_gcp_pj_id}
+  --region ${_region} \
+  --project ${_gcp_pj_id}
 
 ### Cloud Router
 gcloud beta compute routers create ${_common}-nat-router \
@@ -96,15 +96,31 @@ gcloud beta compute routers nats create ${_common}-nat \
   --project ${_gcp_pj_id}
 ```
 
++ Create Service Account of VM
+
+```
+gcloud beta iam service-accounts create ${_common} \
+  --display-name ${_common} \
+  --project ${_gcp_pj_id}
+```
+
++ Add Role to Service Account of VM
+
+```
+### WIP
+# gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} \
+#   --member="serviceAccount:${_common}@${_gcp_pj_id}.iam.gserviceaccount.com" \
+#   --role=roles/cloudsql.admin
+```
+
 + Create Instance of Do Not Having External IP Addresss
 
 ```
 export _my_machine_type='e2-medium'
-exoprt _boot_disk='30'
+export _boot_disk='30'
 
 export _my_os_pj='ubuntu-os-cloud'
-export _my_os='2104-hirsute-v20211119'
-
+export _my_os='ubuntu-2104-hirsute-v20211119'
 ```
 ```
 gcloud compute instances create ${_common}-vm \
@@ -122,33 +138,26 @@ gcloud compute instances create ${_common}-vm \
 ```
 
 
-
-WIP
-
-
-
-
-
-
-
-
-
-
-
-+ Login instance by SSH
++ Login to VM
+  + ref: WIP
 
 ```
-gcloud compute ssh ${_common_name}-vm --zone ${_region}-a
+gcloud compute ssh $(gcloud auth list --filter=status:ACTIVE --format="value(account)" | awk -F\@ '{print $1}')@${_common}-vm \
+  --tunnel-through-iap \
+  --zone ${_region}-b \
+  --project ${_gcp_pj_id}
 ```
 
 
-## Delete
+## Delete All
 
 + Delete instance
 
 ```
-gcloud beta compute instances delete ${_common_name}-vm
+gcloud beta compute instances delete ${_common}-vm --zone ${_region}-b --project ${_gcp_pj_id} -q
 ```
+
+WIP
 
 + Delete Firewall Rules
 
