@@ -6,25 +6,10 @@
 
 ## Prepare env
 
-+ Setting gcloud configure
-
-```
-export _my_project_id='your-project-id'
-```
-```
-gcloud config configurations create ${_my_project_id}
-gcloud config set compute/region asia-northeast1
-gcloud config set compute/zone asia-northeast1-a
-gcloud config set project ${_my_project_id}
-```
-```
-gcloud config configurations list
-```
-
 + Auth GCP
 
 ```
-gcloud auth login
+gcloud auth login -q
 ```
 
 ## Create Instance
@@ -32,64 +17,123 @@ gcloud auth login
 + Setting env
 
 ```
-export _common_name='iganari-test'
+export _gcp_pj_id='Your GCP Project ID'
+
+export _common='pkg-gcp-gce'
 export _region='asia-northeast1'
+export _sub_network_range='10.146.0.0/20'
 ```
 
 + Create VPC Network
 
 ```
-gcloud compute networks create ${_common_name}-nw \
-  --subnet-mode=custom
+gcloud beta compute networks create ${_common}-network \
+  --subnet-mode=custom \
+  --project ${_gcp_pj_id}
 ```
 
 + Create Subnet
 
 ```
-gcloud beta compute networks subnets create ${_common_name}-sb \
-  --network ${_common_name}-nw \
+gcloud beta compute networks subnets create ${_common}-subnets \
+  --network ${_common}-network \
   --region ${_region} \
-  --range 172.16.0.0/12
+  --range ${_sub_network_range} \
+  --enable-private-ip-google-access \
+  --project ${_gcp_pj_id}
 ```
 
 + Create Firewall Rules
 
 ```
-gcloud compute firewall-rules create ${_common_name}-nw-allow-internal \
-  --direction=INGRESS \
-  --priority=1000 \
-  --network ${_common_name}-nw \
-  --action=ALLOW \
-  --rules=tcp:22,icmp \
-  --source-ranges=0.0.0.0/0 \
-  --target-tags=${_common_name}-nw-allow-internal
+### Allow ALL Traffic inside the VPC Network
+gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
+  --network ${_common}-network \
+  --action ALLOW \
+  --rules tcp:0-65535,udp:0-65535,icmp \
+  --source-ranges ${_sub_network_range} \
+  --project ${_gcp_pj_id}
+
+### Allow Traffic from IAP
+gcloud beta compute firewall-rules create ${_common}-allow-iap \
+  --network ${_common} \
+  --action ALLOW \
+  --rules tcp:22 \
+  --source-ranges 35.235.240.0/20 \
+  --target-tags ${_common}-allow-iap \
+  --project ${_gcp_pj_id}
+
+### Allow Traffic from GCLB
+gcloud beta compute firewall-rules create ${_common}-allow-lb \
+  --network ${_common} \
+  --action ALLOW \
+  --rules tcp:80 \
+  --source-ranges 35.191.0.0/16,130.211.0.0/22 \
+  --target-tags ${_common}-allow-lb \
+  --project ${_gcp_pj_id}
 ```
 
-+ Create instance
++ Create Cloud NAT
 
 ```
-gcloud beta compute instances create ${_common_name}-vm \
-    --project=${_my_project_id} \
-    --zone=${_region}-a \
-    --machine-type=n1-standard-1 \
-    --subnet=${_common_name}-sb \
-    --network-tier=PREMIUM \
-    --tags=${_common_name}-nw-allow-internal \
-    --no-restart-on-failure \
-    --maintenance-policy=TERMINATE \
-    --preemptible \
-    --service-account=$(gcloud iam service-accounts list | grep 'Compute\ Engine\ default\ service\ account' | awk '{print $6}') \
-    --scopes=https://www.googleapis.com/auth/cloud-platform \
-    --image=ubuntu-1804-bionic-v20200317 \
-    --image-project=ubuntu-os-cloud \
-    --boot-disk-size=10GB \
-    --boot-disk-type=pd-standard \
-    --boot-disk-device-name=vm-test \
-    --no-shielded-secure-boot \
-    --shielded-vtpm \
-    --shielded-integrity-monitoring \
-    --reservation-affinity=any
+### External IP Address
+gcloud beta compute addresses create ${_common}-nat-ip \
+    --region ${_region} \
+    --project ${_gcp_pj_id}
+
+### Cloud Router
+gcloud beta compute routers create ${_common}-nat-router \
+  --network ${_common}-network \
+  --region ${_region} \
+  --project ${_gcp_pj_id}
+
+### Cloud NAT
+gcloud beta compute routers nats create ${_common}-nat \
+  --router-region ${_region} \
+  --router ${_common}-nat-router \
+  --nat-all-subnet-ip-ranges \
+  --nat-external-ip-pool ${_common}-nat-ip \
+  --project ${_gcp_pj_id}
 ```
+
++ Create Instance of Do Not Having External IP Addresss
+
+```
+export _my_machine_type='e2-medium'
+exoprt _boot_disk='30'
+
+export _my_os_pj='ubuntu-os-cloud'
+export _my_os='2104-hirsute-v20211119'
+
+```
+```
+gcloud compute instances create ${_common}-vm \
+  --zone ${_region}-b \
+  --machine-type ${_my_machine_type} \
+  --network-interface=subnet=${_common}-subnets,no-address \
+  --tags=${_common}-allow-iap,${_common}-allow-lb \
+  --service-account=${_common}@${_gcp_pj_id}.iam.gserviceaccount.com \
+  --scopes https://www.googleapis.com/auth/cloud-platform \
+  --image-project ${_my_os_pj} \
+  --image ${_my_os} \
+  --boot-disk-size ${_boot_disk} \
+  --shielded-secure-boot \
+  --project ${_gcp_pj_id}
+```
+
+
+
+WIP
+
+
+
+
+
+
+
+
+
+
 
 + Login instance by SSH
 
