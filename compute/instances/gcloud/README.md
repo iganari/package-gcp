@@ -137,7 +137,6 @@ gcloud compute instances create ${_common}-vm \
   --project ${_gcp_pj_id}
 ```
 
-
 + Login to VM
   + ref: WIP
 
@@ -148,7 +147,6 @@ gcloud compute ssh $(gcloud auth list --filter=status:ACTIVE --format="value(acc
   --project ${_gcp_pj_id}
 ```
 
-
 ## Delete All
 
 + Delete instance
@@ -157,22 +155,59 @@ gcloud compute ssh $(gcloud auth list --filter=status:ACTIVE --format="value(acc
 gcloud beta compute instances delete ${_common}-vm --zone ${_region}-b --project ${_gcp_pj_id} -q
 ```
 
-WIP
++ Delete Service Account
+
+```
+gcloud beta iam service-accounts delete ${_common}@${_gcp_pj_id}.iam.gserviceaccount.com \
+  --project ${_gcp_pj_id} -q
+```
+
++ Create Cloud NAT
+
+```
+gcloud beta compute routers nats delete ${_common}-nat \
+  --router-region ${_region} \
+  --router ${_common}-nat-router \
+  --project ${_gcp_pj_id} -q
+
+gcloud beta compute routers delete ${_common}-nat-router \
+  --region ${_region} \
+  --project ${_gcp_pj_id} -q
+
+gcloud beta compute addresses delete ${_common}-nat-ip \
+  --region ${_region} \
+  --project ${_gcp_pj_id} -q
+```
 
 + Delete Firewall Rules
 
 ```
-gcloud compute firewall-rules delete ${_common_name}-nw-allow-internal
+gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
+  --project ${_gcp_pj_id} -q
+
+
+gcloud beta compute firewall-rules delete ${_common}-allow-iap \
+  --project ${_gcp_pj_id} -q
+
+
+gcloud beta compute firewall-rules delete ${_common}-allow-lb \
+  --project ${_gcp_pj_id} -q
 ```
 
 + Delete subnet
 
 ```
-gcloud beta compute networks subnets delete ${_common_name}-sb
+gcloud beta compute networks subnets delete ${_common}-subnets \
+  --region ${_region} \
+  --project ${_gcp_pj_id} -q
 ```
 
 + Delete VPC network
 
 ```
-gcloud compute networks delete ${_common_name}-nw
+gcloud beta compute networks delete ${_common}-network \
+  --project ${_gcp_pj_id} -q
 ```
+
+
+That's all :)
