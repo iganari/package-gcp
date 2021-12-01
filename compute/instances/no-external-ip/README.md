@@ -1,5 +1,7 @@
 # 外部 IP アドレスがついていない VM instance
 
+![](./01.png)
+
 ## Prepare command
 
 + gcloud
