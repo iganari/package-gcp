@@ -1,4 +1,4 @@
-# Compute Engine using gcloud
+# 外部 IP アドレスがついていない VM instance
 
 ## Prepare command
 
