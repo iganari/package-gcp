@@ -10,13 +10,17 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/region
 
 ## やってみる
 
++ 環境変数を設定
+
 ```
 export _gcp_pj_id='Your GCP Project ID'
 export _region='asia-northeast1'
 export _zone_1=${_region}-b
 export _zone_2=${_region}-c
-
 ```
+
++ リージョン永続ディスクを作成
+
 ```
 gcloud compute disks create pkg-gcp-disk \
   --size 500Gi \
@@ -25,9 +29,8 @@ gcloud compute disks create pkg-gcp-disk \
   --project ${_gcp_pj_id}
 ```
 
-```
-kubectl apply -f main.yaml
-```
++ マニフェストの作成
+
 ```
 cat << __EOF__ > main.yaml
 
@@ -118,8 +121,11 @@ spec:
       volumeMounts:
         - name: pkg-gcp-volume
           mountPath: "/usr/share/nginx/html"
-
 __EOF__
 ```
 
+
+```
+kubectl apply -f main.yaml
+```
 
