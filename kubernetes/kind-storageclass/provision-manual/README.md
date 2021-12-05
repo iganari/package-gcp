@@ -14,7 +14,7 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/region
 export _gcp_pj_id='Your GCP Project ID'
 ```
 ```
-gcloud compute disks create gce-disk-1 \
+gcloud compute disks create pkg-gcp-disk \
   --size 500Gi \
   --region asia-northeast1 \
   --replica-zones asia-northeast1-b,asia-northeast1-c \
