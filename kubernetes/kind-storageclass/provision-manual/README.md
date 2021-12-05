@@ -1,5 +1,13 @@
 # 手動で作成した永続ディスクをマウントする
 
+## 概要
+
+```
+Provisioning regional persistent disks | Manual provisioning
+https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/regional-pd#manual-provisioning
+```
+
+
 ## やってみる
 
 ```
