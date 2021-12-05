@@ -47,7 +47,7 @@ spec:
     - name: pkg-gcp-container
       image: nginx:1.21.4
       ports:
-        - name: "http-serger"
+        - name: "http-port"
           containerPort: 80
       resources:
         limits:
