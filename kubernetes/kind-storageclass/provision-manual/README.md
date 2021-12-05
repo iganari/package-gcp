@@ -75,12 +75,51 @@ spec:
                - ${_zone_1}
                - ${_zone_2}
 
+---
 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pkg-gcp-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Gi
+  storageClassName: ""             ### must be empty
 
+---
 
-
-
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pkg-gcp
+  namespace: default
+spec:
+  volumes:
+    - name: pkg-gcp-volume
+      persistentVolumeClaim:
+        claimName: pkg-gcp-pvc
+  containers:
+    - name: pkg-gcp-container
+      image: nginx:1.21.4
+      ports:
+        - name: "http-port"
+          containerPort: 80
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 300m
+          memory: 500m
+      volumeMounts:
+        - name: pkg-gcp-volume
+          mountPath: "/usr/share/nginx/html"
 
 __EOF__
-
 ```
+
+
