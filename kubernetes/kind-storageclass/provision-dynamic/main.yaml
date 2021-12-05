@@ -1,7 +1,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: pkg-gcp
+  name: sc-pkg-gcp
   namespace: default
 provisioner: pd.csi.storage.gke.io
 parameters:
@@ -21,7 +21,7 @@ allowedTopologies:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pkg-gcp
+  name: pvc-pkg-gcp
   namespace: default
 spec:
   accessModes:
@@ -29,7 +29,7 @@ spec:
   resources:
     requests:
       storage: 500Gi
-  storageClassName: pkg-gcp
+  storageClassName: sc-pkg-gcp
 
 ---
 
@@ -42,7 +42,7 @@ spec:
   volumes:
     - name: pkg-gcp-storage
       persistentVolumeClaim:
-        claimName: pkg-gcp
+        claimName: pvc-pkg-gcp
   containers:
     - name: pkg-gcp-container
       image: nginx:1.21.4
