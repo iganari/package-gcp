@@ -46,4 +46,4 @@ https://cloud.google.com/run/docs/configuring/containers?hl=en#configure-port
 
 ### 内部通信する場合
 
-[Serverless VPC Access](../run/networking/connectors)
+[Serverless VPC Access](../networking/connectors)
