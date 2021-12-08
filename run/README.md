@@ -10,6 +10,20 @@ WIP
 
 ## サンプル
 
++ [Cloud Build to Cloud Run](./build)
+  + Cloud Build を使った Cloud Run のデプロイのサンプル
+
+
+## 必要な Role
+
++ デプロイ時
+  + Cloud Run Admin ( `roles/run.admin` )
+  + Service Account User ( `roles/iam.serviceAccountUser` )
+
+```
+デプロイ時に必要な role
+https://cloud.google.com/run/docs/reference/iam/roles#additional-configuration
+```
 
 ## 注意点
 
