@@ -10,7 +10,7 @@ WIP
 
 ## サンプル
 
-+ [Cloud Build to Cloud Run](./build)
++ [Cloud Build to Cloud Run](./builds)
   + Cloud Build を使った Cloud Run のデプロイのサンプル
 
 
