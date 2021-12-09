@@ -99,6 +99,7 @@ Service URL: https://run-ulb-run-cyuk3qvwqa-an.a.run.app
 ```
 
 + Web ブラウザから確認する
+  + 表示出来れば OK
 
 ![](./01.png)
 
@@ -118,6 +119,7 @@ gcloud run services update ${_item}-run \
 ```
 
 + Web ブラウザから確認する
+  + 403 になれば OK
 
 ![](./02.png)
 
