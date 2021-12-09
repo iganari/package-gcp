@@ -4,7 +4,7 @@
 
 Google Cloud Load Balancing( GCLB ) の下に Cloud run を設置する
 
-serverless NEG を使うところがポイント
+その際に GCLB 経由のみ、アプリケーションを表示するようにしたい ( = Cloud Run の URL を直接開いても表示出来ないようにしたい )
 
 ```
 ### 公式ドキュメント
