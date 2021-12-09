@@ -8,6 +8,12 @@ WIP
 
 WIP
 
+### API の有効化
+
+```
+gcloud beta services enable run.googleapis.com --project { Your GCP Project ID}
+```
+
 ## サンプル
 
 + [Cloud Build to Cloud Run](./builds)
