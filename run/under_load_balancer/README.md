@@ -13,6 +13,8 @@ Setting up a load balancer with Cloud Run, App Engine, or Cloud Functions
 https://cloud.google.com/load-balancing/docs/https/setting-up-https-serverless
 ```
 
+![](./00.png)
+
 ## やってみる
 
 ## Cloud Run をデプロイする
