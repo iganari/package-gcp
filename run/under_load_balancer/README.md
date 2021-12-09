@@ -159,7 +159,9 @@ gcloud beta compute addresses describe ${_item}-ip \
 
 ![](./03.png)
 
-## Google-managed SSL certificate を作る
+## GCLB を作っていく
+
++ Google-managed SSL certificate を作る
 
 ```
 gcloud beta compute ssl-certificates create ${_item}-cer \
@@ -168,7 +170,7 @@ gcloud beta compute ssl-certificates create ${_item}-cer \
   --project ${_gcp_pj_id}
 ```
 
-## serverless NEG を作る
++ serverless NEG を作る
 
 ```
 gcloud beta compute network-endpoint-groups create ${_item}-serverlessneg \
