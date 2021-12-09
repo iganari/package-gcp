@@ -241,37 +241,58 @@ gcloud beta compute forwarding-rules create ${_item}-httpsforwadingrule \
 
 ## リソースの削除
 
++ 環境変数を設定
+
 ```
-gcloud compute forwarding-rules delete ulb-httpsforwadingrule \
+export _gcp_pj_id='Your GCP Project ID'
+export _region='asia-northeast1'
+export _common='pkg-gcp'
+export _item='run-ulb'
+```
+
++ CLI でリソースを削除していく
+
+```
+gcloud beta compute forwarding-rules delete ${_item}-httpsforwadingrule \
   --global \
   --project ${_gcp_pj_id} \
   -q
 
-gcloud compute target-https-proxies delete ulb-httpstargetproxy \
+gcloud beta compute target-https-proxies delete ${_item}-httpstargetproxy \
   --project ${_gcp_pj_id} \
   -q
 
-gcloud compute url-maps delete ulb-urlmap \
+gcloud beta compute url-maps delete ${_item}-urlmap \
   --project ${_gcp_pj_id} \
   -q
 
-gcloud compute backend-services delete ulb-backendservice \
+gcloud beta compute backend-services delete ${_item}-bs \
   --global \
   --project ${_gcp_pj_id} \
   -q
 
-gcloud compute network-endpoint-groups delete ulb-serverlessneg \
+gcloud beta compute network-endpoint-groups delete ${_item}-serverlessneg \
   --region ${_region} \
   --project ${_gcp_pj_id} \
   -q
 
-gcloud compute ssl-certificates delete ulb-cer \
+gcloud beta compute ssl-certificates delete ${_item}-cer \
   --global \
   --project ${_gcp_pj_id} \
   -q
 
-gcloud run services delete ulb-run \
+gcloud beta compute addresses delete ${_item}-ip \
+  --global \
+  --project ${_gcp_pj_id} \
+  -q
+
+gcloud run services delete ${_item}-run \
   --region ${_region} \
+  --project ${_gcp_pj_id} \
+  -q
+
+gcloud beta artifacts repositories delete ${_common} \
+  --location ${_region} \
   --project ${_gcp_pj_id} \
   -q
 ```
