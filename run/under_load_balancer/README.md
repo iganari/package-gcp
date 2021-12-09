@@ -232,19 +232,12 @@ gcloud beta compute forwarding-rules create ${_item}-httpsforwadingrule \
 
 ![](./05.png)
 
++ Cloud Run の素の URL から見ると未だに 403 になる
+
+![](./06.png)
 
 
-
-
-
-
-
-
-
-
-
-
-
+---> これでやりたい構成が出来ました :)
 
 ## リソースの削除
 
