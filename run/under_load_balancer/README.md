@@ -13,6 +13,8 @@ Setting up a load balancer with Cloud Run, App Engine, or Cloud Functions
 https://cloud.google.com/load-balancing/docs/https/setting-up-https-serverless
 ```
 
+![](./00.png)
+
 ## やってみる
 
 ## Cloud Run をデプロイする
@@ -97,6 +99,7 @@ Service URL: https://run-ulb-run-cyuk3qvwqa-an.a.run.app
 ```
 
 + Web ブラウザから確認する
+  + 表示出来れば OK
 
 ![](./01.png)
 
@@ -116,6 +119,7 @@ gcloud run services update ${_item}-run \
 ```
 
 + Web ブラウザから確認する
+  + 403 になれば OK
 
 ![](./02.png)
 
@@ -155,7 +159,9 @@ gcloud beta compute addresses describe ${_item}-ip \
 
 ![](./03.png)
 
-## Google-managed SSL certificate を作る
+## GCLB を作っていく
+
++ Google-managed SSL certificate を作る
 
 ```
 gcloud beta compute ssl-certificates create ${_item}-cer \
@@ -164,7 +170,7 @@ gcloud beta compute ssl-certificates create ${_item}-cer \
   --project ${_gcp_pj_id}
 ```
 
-## serverless NEG を作る
++ serverless NEG を作る
 
 ```
 gcloud beta compute network-endpoint-groups create ${_item}-serverlessneg \
