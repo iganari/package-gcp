@@ -16,6 +16,7 @@ https://cloud.google.com/sql/docs/mysql/connect-admin-proxy?hl=en
 ```
 ![](./01.png)
 
+![](https://cloud.google.com/sql/images/proxyconnection.svg)
 
 ## やってみる
 
