@@ -14,6 +14,8 @@ https://cloud.google.com/sql/docs/mysql/sql-proxy?hl=en
 Connecting using the Cloud SQL Auth proxy
 https://cloud.google.com/sql/docs/mysql/connect-admin-proxy?hl=en
 ```
+![](./01.png)
+
 
 ## やってみる
 
