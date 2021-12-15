@@ -32,3 +32,5 @@ Terraform で import などをする際に `id` が必要になるので注意
 Cloud Console の Monitoring の Uptime Check のページから TEXT の形式で取得できる
 
 ![](./01.png)
+
+IP アドレスの過去のリスト -> [Uptime-check IP addresses](./uptime-check-ip-addresses)
