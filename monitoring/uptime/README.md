@@ -42,3 +42,21 @@ IP アドレスの過去のリスト -> [Uptime-check IP addresses](./uptime-che
 ```
 curl https://raw.githubusercontent.com/iganari/package-gcp/main/monitoring/uptime/uptime-check-ip-addresses/uptime-source-ips-2021-12-15.txt | jq '.[] | select(.region == "ASIA_PACIFIC")'
 ```
+
++ `SOUTH_AMERICA`
+
+```
+curl https://raw.githubusercontent.com/iganari/package-gcp/main/monitoring/uptime/uptime-check-ip-addresses/uptime-source-ips-2021-12-15.txt | jq '.[] | select(.region == "SOUTH_AMERICA")'
+```
+
++ `USA`
+
+```
+curl https://raw.githubusercontent.com/iganari/package-gcp/main/monitoring/uptime/uptime-check-ip-addresses/uptime-source-ips-2021-12-15.txt | jq '.[] | select(.region == "USA")'
+```
+
++ `EUROPE`
+
+```
+curl https://raw.githubusercontent.com/iganari/package-gcp/main/monitoring/uptime/uptime-check-ip-addresses/uptime-source-ips-2021-12-15.txt | jq '.[] | select(.region == "EUROPE")'
+```
