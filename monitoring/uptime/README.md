@@ -34,3 +34,11 @@ Cloud Console の Monitoring の Uptime Check のページから TEXT の形式�
 ![](./01.png)
 
 IP アドレスの過去のリスト -> [Uptime-check IP addresses](./uptime-check-ip-addresses)
+
+上記を jq コマンドを使ってソートしてみる
+
++ `ASIA_PACIFIC`
+
+```
+curl https://raw.githubusercontent.com/iganari/package-gcp/main/monitoring/uptime/uptime-check-ip-addresses/uptime-source-ips-2021-12-15.txt | jq '.[] | select(.region == "ASIA_PACIFIC")'
+```
