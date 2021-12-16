@@ -37,26 +37,31 @@ IP アドレスの過去のリスト -> [Uptime-check IP addresses](./uptime-che
 
 ### 上記を jq コマンドを使ってソートしてみる
 
+
+```
+export source_url='https://raw.githubusercontent.com/iganari/package-gcp/main/monitoring/uptime/uptime-check-ip-addresses/uptime-source-ips-2021-12-15.txt'
+```
+
 + `ASIA_PACIFIC`
 
 ```
-curl https://raw.githubusercontent.com/iganari/package-gcp/main/monitoring/uptime/uptime-check-ip-addresses/uptime-source-ips-2021-12-15.txt | jq '.[] | select(.region == "ASIA_PACIFIC")'
+curl ${source_url} | jq '.[] | select(.region == "ASIA_PACIFIC")'
 ```
 
 + `SOUTH_AMERICA`
 
 ```
-curl https://raw.githubusercontent.com/iganari/package-gcp/main/monitoring/uptime/uptime-check-ip-addresses/uptime-source-ips-2021-12-15.txt | jq '.[] | select(.region == "SOUTH_AMERICA")'
+curl ${source_url} | jq '.[] | select(.region == "SOUTH_AMERICA")'
 ```
 
 + `USA`
 
 ```
-curl https://raw.githubusercontent.com/iganari/package-gcp/main/monitoring/uptime/uptime-check-ip-addresses/uptime-source-ips-2021-12-15.txt | jq '.[] | select(.region == "USA")'
+curl ${source_url} | jq '.[] | select(.region == "USA")'
 ```
 
 + `EUROPE`
 
 ```
-curl https://raw.githubusercontent.com/iganari/package-gcp/main/monitoring/uptime/uptime-check-ip-addresses/uptime-source-ips-2021-12-15.txt | jq '.[] | select(.region == "EUROPE")'
+curl ${source_url} | jq '.[] | select(.region == "EUROPE")'
 ```
