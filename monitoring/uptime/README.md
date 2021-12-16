@@ -46,22 +46,26 @@ export source_url='https://raw.githubusercontent.com/iganari/package-gcp/main/mo
 
 ```
 curl ${source_url} | jq '.[] | select(.region == "ASIA_PACIFIC")'
+curl ${source_url} | jq '.[] | select(.region == "ASIA_PACIFIC") | .ipAddress'
 ```
 
 + `SOUTH_AMERICA`
 
 ```
 curl ${source_url} | jq '.[] | select(.region == "SOUTH_AMERICA")'
+curl ${source_url} | jq '.[] | select(.region == "SOUTH_AMERICA") | .ipAddress'
 ```
 
 + `USA`
 
 ```
 curl ${source_url} | jq '.[] | select(.region == "USA")'
+curl ${source_url} | jq '.[] | select(.region == "USA") | .ipAddress'
 ```
 
 + `EUROPE`
 
 ```
 curl ${source_url} | jq '.[] | select(.region == "EUROPE")'
+curl ${source_url} | jq '.[] | select(.region == "EUROPE") | .ipAddress'
 ```
