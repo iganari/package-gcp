@@ -8,6 +8,12 @@ WIP
 
 WIP
 
+### API の有効化
+
+```
+gcloud beta services enable run.googleapis.com --project { Your GCP Project ID}
+```
+
 ## サンプル
 
 + [Cloud Build to Cloud Run](./builds)
@@ -47,3 +53,7 @@ https://cloud.google.com/run/docs/configuring/containers?hl=en#configure-port
 ### 内部通信する場合
 
 [Serverless VPC Access](../networking/connectors)
+
+## 参考 URL
+
++ [新しい CPU 割り当てコントロールにより Cloud Run 上でさらに多様なワークロードを実行](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-always-on-cpu-allocation)
