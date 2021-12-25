@@ -49,7 +49,8 @@ rpm --query --queryformat '%{NAME} %{VERSION} %{RELEASE} %{ARCH}\n' \
 
 ### Linux のプロセス監視
 
-https://cloud.google.com/monitoring/alerts/ui-conditions-ga?hl=ja#process-health
++ https://cloud.google.com/monitoring/alerts/ui-conditions-ga?hl=ja#process-health
++ https://cloud.google.com/monitoring/api/metrics_opsagent#agent-processes
 
 ### Windows のプロセス監視
 
