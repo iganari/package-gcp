@@ -2,6 +2,12 @@
 
 ![](./01.png)
 
+参考ドキュメント
+
+[Setting up IAP for Compute Engine](https://cloud.google.com/iap/docs/tutorial-gce)
+
+[Enabling IAP for Compute Engine](https://cloud.google.com/iap/docs/enabling-compute-howto)
+
 ## Prepare command
 
 + gcloud
@@ -125,7 +131,7 @@ export _my_os_pj='ubuntu-os-cloud'
 export _my_os='ubuntu-2104-hirsute-v20211119'
 ```
 ```
-gcloud compute instances create ${_common}-vm \
+gcloud beta compute instances create ${_common}-vm \
   --zone ${_region}-b \
   --machine-type ${_my_machine_type} \
   --network-interface=subnet=${_common}-subnets,no-address \
@@ -139,11 +145,21 @@ gcloud compute instances create ${_common}-vm \
   --project ${_gcp_pj_id}
 ```
 
++ Check User Role
+  + IAP-secured Web App User ( `roles/iap.httpsResourceAccessor` )
+  + Compute OS Login ( `roles/compute.osLogin` )
+  + Compute Instance Admin (v1) ( `roles/compute.instanceAdmin.v1` ) / Compute Instance Admin (beta) ( `roles/compute.instanceAdmin` )
+  + Service Account User ( `roles/iam.serviceAccountUser` )
+
+```
+gcloud beta projects get-iam-policy ${_gcp_pj_id}
+```
+
 + Login to VM
   + ref: WIP
 
 ```
-gcloud compute ssh $(gcloud auth list --filter=status:ACTIVE --format="value(account)" | awk -F\@ '{print $1}')@${_common}-vm \
+gcloud beta compute ssh $(gcloud auth list --filter=status:ACTIVE --format="value(account)" | awk -F\@ '{print $1}')@${_common}-vm \
   --tunnel-through-iap \
   --zone ${_region}-b \
   --project ${_gcp_pj_id}
