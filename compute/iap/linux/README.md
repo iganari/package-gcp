@@ -142,7 +142,7 @@ gcloud beta compute ssh ${_common}-vm --tunnel-through-iap --zone ${_zone} --pro
 ```
 ### 例
 
-# gcloud beta compute ssh ${_common}-vm --zone ${_zone} --project ${_gcp_pj_id}
+# gcloud beta compute ssh ${_common}-vm --tunnel-through-iap --zone ${_zone} --project ${_gcp_pj_id}
 External IP address was not found; defaulting to using IAP tunneling.
 Updating project ssh metadata...⠹Updated [https://www.googleapis.com/compute/beta/projects/your_gcp_project_id].
 Updating project ssh metadata...done.
