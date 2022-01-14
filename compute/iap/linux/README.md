@@ -137,7 +137,7 @@ gcloud beta compute instances create ${_common}-vm \
 + 作成した VM に IAP 越しに SSH ログインする
 
 ```
-gcloud beta compute ssh ${_common}-vm --zone ${_zone} --project ${_gcp_pj_id}
+gcloud beta compute ssh ${_common}-vm --tunnel-through-iap --zone ${_zone} --project ${_gcp_pj_id}
 ```
 ```
 ### 例
