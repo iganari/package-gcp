@@ -79,7 +79,7 @@ gcloud beta compute addresses create ${_common}-ip \
 
 ```
 export _os_project='ubuntu-os-cloud'
-export _os_image='ubuntu-minimal-2110-impish-v20211014'
+export _os_image='ubuntu-minimal-2104-hirsute-v20220119'
 ```
 ```
 gcloud beta compute instances create ${_common}-vm \
