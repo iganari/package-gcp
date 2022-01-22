@@ -13,7 +13,7 @@ gcloud auth login -q
 
 export _gcp_pj_id='Your GCP Project ID'
 
-export _common='corporate-test'
+export _common='external-ip'
 export _region='asia-northeast1'
 export _sub_network_range='172.16.0.0/12'
 
