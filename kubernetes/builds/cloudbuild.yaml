@@ -1,0 +1,29 @@
+steps:
+  - id: 'Deploy Image to GCR'
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        docker build -f Dockerfile . --tag=gcr.io/${PROJECT_ID}/${_CONTAINER_IMAGE_NAME}:${COMMIT_SHA}
+        docker build -f Dockerfile . --tag=gcr.io/${PROJECT_ID}/${_CONTAINER_IMAGE_NAME}:latest
+        docker push gcr.io/${PROJECT_ID}/${_CONTAINER_IMAGE_NAME}:${COMMIT_SHA}
+        docker push gcr.io/${PROJECT_ID}/${_CONTAINER_IMAGE_NAME}:latest
+  - id: 'Deploy Manifest to GKE Cluster'
+    name: 'gcr.io/cloud-builders/kubectl'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        # gcloud beta container clusters get-credentials ${_GKE_CLUSTER_NAME} --zone ${_GKE_CLUSTER_ZONE} --project ${PROJECT_ID} -q
+        gcloud container clusters get-credentials ${_GKE_CLUSTER_NAME} --zone ${_GKE_CLUSTER_ZONE} --project ${PROJECT_ID}
+        sed -i -e "s/YOUR_GCP_PROJECT/${PROJECT_ID}/g"                k8s.yaml
+        sed -i -e "s/CONTAINER_IMAGE_NAME/${_CONTAINER_IMAGE_NAME}/g" k8s.yaml
+        sed -i -e "s/_COMMIT_SHA/${COMMIT_SHA}/g"                     k8s.yaml
+        cat k8s.yaml
+        kubectl apply -f k8s.yaml
+        kubectl get pod
+substitutions:
+  _CONTAINER_IMAGE_NAME: 'Your Container Image Name'
+  _GKE_CLUSTER_NAME: 'Your GKE Cluster Name'
+  _GKE_CLUSTER_ZONE: 'Your GKE Cluster Cluster'
