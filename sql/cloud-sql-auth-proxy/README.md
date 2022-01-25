@@ -15,6 +15,7 @@ Connecting using the Cloud SQL Auth proxy
 https://cloud.google.com/sql/docs/mysql/connect-admin-proxy?hl=en
 ```
 
+![](https://cloud.google.com/sql/images/proxyconnection.svg)
 
 ## クライアント PC から Cloud SQL Auth proxy で Cloud SQL に繋ぐ
 

@@ -2,21 +2,11 @@
 
 ## 概要
 
-外部から Cloud SQL にセキュアにログインするための proxy
+一般的な Server 内から Cloud SQL Auth proxy で Cloud SQL に繋ぐ方法
 
-+ 公式ドキュメント
+Cloud SQL Auth proxy をデーモン化することで、他のアプリケーションからも定常的に利用出来る用にしておく
 
-```
-About the Cloud SQL Auth proxy
-https://cloud.google.com/sql/docs/mysql/sql-proxy?hl=en
-```
-```
-Connecting using the Cloud SQL Auth proxy
-https://cloud.google.com/sql/docs/mysql/connect-admin-proxy?hl=en
-```
 ![](./01.png)
-
-![](https://cloud.google.com/sql/images/proxyconnection.svg)
 
 ## やってみる
 
