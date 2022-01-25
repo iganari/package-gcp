@@ -19,12 +19,14 @@ https://cloud.google.com/sql/docs/mysql/connect-admin-proxy?hl=en
 
 ## 必要なもの
 
-+ Cloud SQL Auth Proxy
+### 1. Cloud SQL Auth Proxy
 
 ```
 ### 以下の公式ドキュメントから、 OS にあったアプリをダウンロードする
 https://cloud.google.com/sql/docs/mysql/sql-proxy#install
 ```
+
+### 2. IAM
 
 + IAM にて以下のどれか 1 つの Role を付与する
   + Cloud SQL Client ( roles/cloudsql.client )
