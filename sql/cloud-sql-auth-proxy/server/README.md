@@ -40,6 +40,7 @@ gcloud beta iam service-accounts create cloud-sql-auth-proxy-test \
 ```
 
 + role の付与
+  + Role: `Cloud SQL Admin ( roles/cloudsql.admin )` を付与する
 
 ```
 gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} \

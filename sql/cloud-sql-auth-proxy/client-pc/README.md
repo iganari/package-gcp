@@ -31,8 +31,19 @@ https://cloud.google.com/sql/docs/mysql/connect-admin-proxy?hl=en
 {Your GCP Project ID}:{Cloud SQL Instance Region}:{Cloud SQL Instance Name}
 ```
 
-### クライアント PC での準備
+### IAM にて Role を付与
 
++ role の付与
+  + Role: `Cloud SQL Admin ( roles/cloudsql.admin )` を付与する
+
+```
+gcloud beta projects add-iam-policy-binding {Your GCP Project ID} \
+  --member="user:{Your GCP Account}" \
+  --role="roles/cloudsql.admin" \
+  --project {Your GCP Project ID}
+```
+
+### クライアント PC での準備
 
 + gcloud コマンドをインストールする
   + [Installing Cloud SDK](https://cloud.google.com/sdk/docs/install?hl=en)
