@@ -53,6 +53,7 @@ gcloud beta compute networks subnets create ${_common}-subnets \
 ```
 
 + Firewall Rule の作成
+  + [package-gcp/networking/firewalls](../../../networking/firewalls)
 
 ```
 ### 内部通信は全部許可する
@@ -136,12 +137,12 @@ gcloud beta compute instances create ${_common}-vm \
 + 作成した VM に IAP 越しに SSH ログインする
 
 ```
-gcloud beta compute ssh ${_common}-vm --zone ${_zone} --project ${_gcp_pj_id}
+gcloud beta compute ssh ${_common}-vm --tunnel-through-iap --zone ${_zone} --project ${_gcp_pj_id}
 ```
 ```
 ### 例
 
-# gcloud beta compute ssh ${_common}-vm --zone ${_zone} --project ${_gcp_pj_id}
+# gcloud beta compute ssh ${_common}-vm --tunnel-through-iap --zone ${_zone} --project ${_gcp_pj_id}
 External IP address was not found; defaulting to using IAP tunneling.
 Updating project ssh metadata...⠹Updated [https://www.googleapis.com/compute/beta/projects/your_gcp_project_id].
 Updating project ssh metadata...done.
