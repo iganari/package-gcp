@@ -103,6 +103,10 @@ NAME    TYPE           CLUSTER-IP    EXTERNAL-IP     PORT(S)        AGE
 nginx   LoadBalancer   10.48.3.172   34.146.148.77   80:32625/TCP   2m32s
 ```
 
+## 確認する
+
+### コマンドライン
+
 + cURL で確認します
 
 ```
@@ -131,6 +135,8 @@ Commercial support is available at
 </body>
 </html>
 ```
+
+### スクリーンショット
 
 + GCP コンソールで確認します
 
