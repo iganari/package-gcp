@@ -10,9 +10,9 @@
 
 + ClusterIP
 + NodePort
-+ LoadBalancer
++ [LoadBalancer](./loadbalancer/)
 + ExternalName
-+ Headless
++ [Headless](./headless/)
 
 ## サンプル
 
