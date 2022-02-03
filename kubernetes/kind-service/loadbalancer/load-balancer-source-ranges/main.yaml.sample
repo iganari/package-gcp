@@ -30,7 +30,8 @@ metadata:
     app: nginx
 spec:
   type: LoadBalancer
-  loadBalancerSourceRanges: _YOUR_IP_ADDRESS_RANGES
+  loadBalancerSourceRanges:
+  - "_YOUR_IP_ADDRESS_RANGES"
   selector:
     app: nginx
   ports:
