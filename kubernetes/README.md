@@ -1,4 +1,4 @@
-# GKE サンプル
+# Kubernetes Engine
 
 ## 説明
 
@@ -13,24 +13,53 @@ gcloud components update -q && \
 gcloud components install kubectl -q
 ```
 
-## コンテンツ
 
-+ [gcloud container clusters](./_gcloud_container_clusters)
+## Cluster
+
 + [cluster-basic](./cluster-basic)
+    + 通常クラスタ
     + [gcloud](./cluster-basic/gcloud)
     + [terraform](./cluster-basic/terraform)
 + [cluster-private](./cluster-private)
+    + 限定公開クラスタ
     + [gcloud](./cluster-private/gcloud)
     + [terraform](./cluster-private/terraform)
 + [cluster-version-upgrade](./cluster-version-upgrade)
-+ [configure-backend-service](./configure-backend-service)
-+ [feature-cloud-armor | Cloud Armor を試す](./feature-cloud-armor)
-+ [feature-cronjobs](./feature-cronjobs)
-+ [feature-workload-identity | Workload Identity を試す](./feature-workload-identity)
-+ [handson](./handson)
-+ [helm](./helm)
-+ [sample-version](./sample-version)
-+ [tips](./tips)
-+ [tutorials_hello-app](./tutorials_hello-app)
-+ [wordpress](./wordpress)
+    + GKE クラスタのアップグレード方法
 
+## Kind
+
++ [Cron Jobs](./kind-cronjobs)
++ [Ingress](./kind-ingress)
++ [Managed Certificate](./kind-managedcertificate)
++ [Persistent Volume Claim](./kind-persistentvolumeclaim)
++ [PriorityClass](./kind-priorityclass)
++ [Secret](./kind-secret)
++ [StatefulSet](./kind-statufulset)
+
+## Feature
+
++ [Cloud Armor](./modify-readme-only)
++ [IAP](./feature-iap)
++ [nodeSelector](./feature-nodeselector)
+  + Pod を特定のノードプールに明示的にデプロイする
++ [SSL](./feature-iap)
++ [Workload Identity](./feature-iap)
+
+## Sample
+
++ [Laravel](./sample-laravel)
++ [WordPress](./sample-wordpress)
+
+
+## Tips
+
++ [Optimizing IP address allocation](./xx_flexible-pod-cidr)
+
+
+## 参考になりそうな URL
+
+```
+Best practices for GKE networking
+https://cloud.google.com/kubernetes-engine/docs/best-practices/networking
+```
