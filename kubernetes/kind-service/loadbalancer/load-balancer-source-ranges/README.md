@@ -1,8 +1,6 @@
-# Load balancer source ranges
+# Type LoadBalancer で許可 IP アドレス制限をしたい場合
 
 ## 概要
-
-
 
 `spec.loadBalancerSourceRanges` で IP アドレスを許可した場合、 Firewall Rule にて Allow の設定が自動作成される
 

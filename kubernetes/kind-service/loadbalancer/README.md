@@ -1,16 +1,13 @@
-# kind: Service type LoadBalancer
+# kind: Service Type LoadBalancer
 
 ## 概要
 
 L4 LB が作られる
 
-## Type LoadBalancer で 外部 IP アドレスを固定したい場合
+## 外部 IP アドレスを固定したい場合
 
 [Type LoadBalancer で 外部 IP アドレスを固定したい場合](./loadbalancer-ip/)
 
-## IP アドレスのアクセス制限をする
+## 許可 IP アドレス制限をしたい場合
 
-WIP
-
-
-load-balancer-source-ranges
+[Type LoadBalancer で許可 IP アドレス制限をしたい場合](./load-balancer-source-ranges/)

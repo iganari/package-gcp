@@ -145,3 +145,21 @@ Commercial support is available at
 ![](./02.png)
 
 ![](./03.png)
+
+---> 挙動が確認出来ました :)
+
+## リソースの削除
+
++ K8s のリソースを削除します
+
+```
+kubectl delete -f main.yaml
+```
+
++ IP アドレスをリリースします
+
+```
+gcloud beta compute addresses delete pkg-gcp-addr \
+  --region asia-northeast1 \
+  --project ${_gcp_pj_id}
+```
