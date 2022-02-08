@@ -14,6 +14,7 @@ steps:
 - name: 'ubuntu'
   args: ['sleep', '600']
   timeout: 500s
+
 - name: 'ubuntu'
   args: ['echo', 'hello world, after 600s']
 ```
@@ -26,7 +27,8 @@ steps:
 steps:
 - name: 'ubuntu'
   args: ['sleep', '600']
-timeout: 660s
+
+timeout: timeout: 86400s   ## 24 時間
 ```
 
 

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mysql
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: mysql
@@ -17,25 +17,25 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: mysql:8.0.23
+        image: mysql:8.0.25
         imagePullPolicy: Always
         args:
           - "--default-authentication-plugin=mysql_native_password"
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: {YOUR MYSQL ROOT PASSWORD}
+          value: _YOUR_MYSQL_ROOT_PASSWORD
         - name: MYSQL_DATABASE
           value: my_database
         - name: MYSQL_USER
           value: my_dbadmin
         - name: MYSQL_PASSWORD
-          value: {YOUR MYSQL USER PASSWORD}
+          value: _YOUR_MYSQL_USER_PASSWORD
         ports:
         - containerPort: 3306
           name: mysql
         resources:
           limits:
-            cpu: "1200m"
+            cpu: "800m"
           requests:
             cpu : "600m"
         volumeMounts:
@@ -59,10 +59,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql-svc
-  labels:
-    app: mysql
+  # labels:
+  #   app: mysql
 spec:
-  type: NodePort
+  type: ClusterIP
+  clusterIP: None
   ports:
     - port: 3306
   selector:

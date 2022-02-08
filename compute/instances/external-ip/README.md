@@ -42,6 +42,7 @@ gcloud beta compute networks subnets create ${_common}-subnets \
   --network ${_common}-network \
   --region ${_region} \
   --range ${_sub_network_range} \
+  --enable-private-ip-google-access \
   --project ${_gcp_pj_id}
 ```
 
