@@ -1,5 +1,18 @@
 # Cloud Armor
 
+## 概要
+
+WIP
+
+
+2021/11 の時点では 2 種類存在している
+
++ Google Cloud Armor
+
+## Price
+
+https://cloud.google.com/armor/pricing
+
 ## GKE Cluster 上で Cloud Armor を使用する
 
 [Cloud Armor を試す](../../kubernetes/feature-cloud-armor)
