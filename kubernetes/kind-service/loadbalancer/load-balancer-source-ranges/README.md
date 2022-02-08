@@ -2,6 +2,11 @@
 
 ## 概要
 
+
+
+`spec.loadBalancerSourceRanges` で IP アドレスを許可した場合、 Firewall Rule にて Allow の設定が自動作成される
+
+
 ```
 Configuring TCP/UDP load balancing | Load balancer source ranges
 https://cloud.google.com/kubernetes-engine/docs/how-to/service-parameters#lb_source_ranges
@@ -105,6 +110,12 @@ curl: (28) Connection timed out after 60001 milliseconds
 ```
 
 ---> 挙動が確認出来ました :)
+
+## Firewall の確認
+
+試しに IP アドレス ( `182.22.25.252/32` `183.79.217.124/32` `183.79.250.251/32` ) を許可した場合のスクリーンショット
+
+![](./fw.png)
 
 ## リソースの削除
 
