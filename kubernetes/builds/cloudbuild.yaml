@@ -15,7 +15,8 @@ steps:
     args:
       - -c
       - |
-        gcloud beta container clusters get-credentials ${_GKE_CLUSTER_NAME} --zone ${_GKE_CLUSTER_ZONE} --project ${PROJECT_ID}
+        # gcloud beta container clusters get-credentials ${_GKE_CLUSTER_NAME} --zone ${_GKE_CLUSTER_ZONE} --project ${PROJECT_ID} -q
+        gcloud container clusters get-credentials ${_GKE_CLUSTER_NAME} --zone ${_GKE_CLUSTER_ZONE} --project ${PROJECT_ID}
         sed -i -e "s/YOUR_GCP_PROJECT/${PROJECT_ID}/g"                k8s.yaml
         sed -i -e "s/CONTAINER_IMAGE_NAME/${_CONTAINER_IMAGE_NAME}/g" k8s.yaml
         sed -i -e "s/_COMMIT_SHA/${COMMIT_SHA}/g"                     k8s.yaml
