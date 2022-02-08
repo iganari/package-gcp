@@ -7,6 +7,17 @@
 + [update](./README.md#update)
 + [services](./README.md#services)
 
+## 準備
+
+```
+export _gcp_pj_id="Your GCP Project ID"
+```
+
+## インストール方法
+
+[Google Cloud SDK のインストール](https://cloud.google.com/sdk/docs/install)
+
+上記に `Linux`, `Debian/Ubuntu`, `Red Hat/Fedora/CentOS`, `macOS`, `Windows` が記載されている
 
 ## auth
 
@@ -40,6 +51,18 @@ gcloud auth application-default login
 gcloud auth activate-service-account test-service-account@google.com \
     --key-file=/path/key.json \
     --project=testproject
+```
+
++ ローカルに保持している auth の情報の確認
+
+```
+gcloud auth list
+```
+
++ アクティブなユーザのみ表示する
+
+```
+gcloud auth list --filter=status:ACTIVE --format="value(account)"
 ```
 
 ## configurations
@@ -112,6 +135,18 @@ version: 1
 gcloud iam service-accounts list --project ${GCP Project ID}
 ```
 
++ role を付与する
+
+```
+gcloud projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}
+```
+```
+### 例
+
+gcloud projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}
+```
+
+
 ## monitoring
 
 :warning: WIP
@@ -128,6 +163,8 @@ gcloud alpha monitoring channel-descriptors describe projects/${_pj_id}/notifica
 
 ## update
 
+gcloud コマンド自体のアップデートを行う
+
 ```
 gcloud --quiet components update
 gcloud --quiet components install beta
@@ -142,8 +179,26 @@ gcloud --quiet components install kubectl
 + 公式ドキュメント
     + https://cloud.google.com/sdk/gcloud/reference/services
 
-+ リストを表示
++ すべてのリストを表示
 
 ```
-gcloud services list --enabled
+gcloud beta services list --project ${_gcp_pj_id}
+```
+
++ 有効化しているリストを表示
+
+```
+gcloud beta services list --enabled --project ${_gcp_pj_id}
+```
+
++ サービスを有効化する
+
+```
+gcloud beta services enable {Services Name} --project ${_gcp_pj_id}
+```
+
++ サービスを無効化する
+
+```
+gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
 ```
