@@ -57,3 +57,10 @@ hello-1622101020-mmw2c   0/1     Completed   0          12s
 Thu May 27 07:35:11 UTC 2021
 Hello, World!
 ```
+
+
+## crontab 
+
++ `spec.schedule` は UTC
+  + 故に JST で考えた時に、 `-9 時間` して記載する必要がある
+  + https://cloud.google.com/kubernetes-engine/docs/how-to/cronjobs#schedule

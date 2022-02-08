@@ -12,6 +12,10 @@ export _region='Your Region'  # ex. asia-northeast1
 echo ${_sql_instance_name}
 ```
 
++ 使用できるデータベースのリスト
+  + https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion
+
+
 ## Cloud SQL instance を作成
 
 + MySQL
