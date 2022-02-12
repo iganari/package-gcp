@@ -37,7 +37,7 @@ export _gcp_pj_id='Your GCP PJ ID'
 export _region='asia-northeast1'
 ```
 
-+ Add Tag of Artifact Registry
++ Create Repository of Artifact Registry
 
 ```
 gcloud beta artifacts repositories create pkg-gcp-run \
@@ -52,7 +52,7 @@ gcloud beta artifacts repositories create pkg-gcp-run \
 gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 ```
 
-+ Push Container Image
++ Push Container Image to Repository
 
 ```
 docker build . --file Dockerfile --tag ${_region}-docker.pkg.dev/${_gcp_pj_id}/pkg-gcp-run/${_container_image_name}:v1
@@ -84,7 +84,7 @@ gcloud run deploy ${_run_service} \
   --port=80 \
   --region ${_region} \
   --no-allow-unauthenticated \
-  
+  --project ${_gcp_pj_id}
 ```
 
 ## Check
@@ -122,10 +122,23 @@ Hello World!! :D
 
 ## Shutdown
 
-+ Delete Resource command
++ Delete Run Service
 
 ```
-docker stop  pkg-gcp-run
-docker rm -f pkg-gcp-run
-docker rmi   pkg-gcp-run
+WIP
+```
+
++ Delete Repository of Artifact Registry
+
+```
+WIP
+```
+
++ Delete Local Container Image
+
+```
+docker stop  ${_container_image_name}:v1
+docker rm -f ${_container_image_name}:v1
+docker rmi   ${_container_image_name}:v1
+docker rmi   ${_region}-docker.pkg.dev/${_gcp_pj_id}/pkg-gcp-run/${_container_image_name}:v1
 ```
