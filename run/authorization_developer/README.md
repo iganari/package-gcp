@@ -104,7 +104,7 @@ eyJxbG... ...2b4uiQ
 export _run_service_url='https://pkg-gcp-run-basic-ed5v7cgalq-an.a.run.app'
 ```
 
-## 4.1 X がコマンドラインで確認
+### 4.1 X がコマンドラインで確認
 
 + cURL で確認します
 
