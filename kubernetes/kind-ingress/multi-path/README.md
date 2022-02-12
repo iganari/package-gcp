@@ -2,11 +2,13 @@
 
 ## 準備
 
-ドメインを用意しておく
+専用のコンテナを用意しておく
 
-```
+`/hogehoge` が処理できるコンテナが必要
+
+今回はサンプルで以下のコンテナイメージを使用します
+
 WIP
-```
 
 ## GCP と認証をする
 
@@ -35,6 +37,18 @@ WIP
 kubectl apply -f main.yaml
 ```
 
+## 確認
+
+
+WIP
+
+
+
+
+
+
+
+
 ## リソース削除
 
 ```
@@ -44,6 +58,14 @@ kubectl delete -f main.yaml
 gcloud beta compute addresses delete multi-path \
     --global \
     --project ${_gcp_pj_id}
+```
+
+## 変更履歴
+
+```
+### 2021/06/20
+Kubenetes v1.19 からは networking.k8s.io/v1beta1 は deprecated になり、v1.22 以降では使えなくなる
+networking.k8s.io/v1 Ingress を新しく使う
 ```
 
 ## 参考

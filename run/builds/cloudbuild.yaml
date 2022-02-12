@@ -1,0 +1,23 @@
+steps:
+  - id: "Create and Deploy Container Image"
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: bash
+    dir: 'run'
+    args:
+      - -c
+      - |
+        docker build -f Dockerfile . --tag=gcr.io/${PROJECT_ID}/${_COMMON}:${COMMIT_SHA}
+        docker build -f Dockerfile . --tag=gcr.io/${PROJECT_ID}/${_COMMON}:latest
+        docker push gcr.io/${PROJECT_ID}/${_COMMON}:${COMMIT_SHA}
+        docker push gcr.io/${PROJECT_ID}/${_COMMON}:latest
+  - id: "Deploy Cloud Run"
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: bash
+    dir: 'run'
+    args:
+      - -c
+      - |
+        gcloud run deploy ${_COMMON} --image gcr.io/${PROJECT_ID}/${_COMMON}:${COMMIT_SHA} --port=8080 --region ${_REGION} --allow-unauthenticated --project ${PROJECT_ID}
+substitutions:
+  _COMMON: 'igrs-build-run-test'
+  _REGION: 'asia-northeast1'

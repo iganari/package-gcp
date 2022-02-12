@@ -6,12 +6,19 @@
 + [monitoring](./README.md#monitoring)
 + [update](./README.md#update)
 + [services](./README.md#services)
++ [Option | format]
 
 ## 準備
 
 ```
 export _gcp_pj_id="Your GCP Project ID"
 ```
+
+## インストール方法
+
+[Google Cloud SDK のインストール](https://cloud.google.com/sdk/docs/install)
+
+上記に `Linux`, `Debian/Ubuntu`, `Red Hat/Fedora/CentOS`, `macOS`, `Windows` が記載されている
 
 ## auth
 
@@ -45,6 +52,18 @@ gcloud auth application-default login
 gcloud auth activate-service-account test-service-account@google.com \
     --key-file=/path/key.json \
     --project=testproject
+```
+
++ ローカルに保持している auth の情報の確認
+
+```
+gcloud auth list
+```
+
++ アクティブなユーザのみ表示する
+
+```
+gcloud auth list --filter=status:ACTIVE --format="value(account)"
 ```
 
 ## configurations
@@ -172,6 +191,9 @@ gcloud beta services list --project ${_gcp_pj_id}
 ```
 gcloud beta services list --enabled --project ${_gcp_pj_id}
 ```
+```
+gcloud beta services list --enabled --filter='API Name' --project ${_gcp_pj_id}
+```
 
 + サービスを有効化する
 
@@ -183,4 +205,14 @@ gcloud beta services enable {Services Name} --project ${_gcp_pj_id}
 
 ```
 gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
+```
+
+## Option
+
+### format
+
+出力形式を指定できる
+
+```
+gcloud auth list --format json
 ```

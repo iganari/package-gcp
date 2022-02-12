@@ -6,39 +6,17 @@ https://cloud.google.com/monitoring/agent/install-agent?hl=en
 
 ## Installing on Linux
 
-### CentOS/RHEL
+---> Ops Agent に切り替わりました
 
-+ Add Repository
+[Ops Agent overview](https://cloud.google.com/stackdriver/docs/solutions/agents/ops-agent)
 
-```
-curl -sSO https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh
-sudo bash add-monitoring-agent-repo.sh
-```
+## プロセスを監視したい
 
-+ Install the agent
+### Linux のプロセス監視
 
-```
-sudo yum list    -y stackdriver-agent
-sudo yum install -y stackdriver-agent
-```
++ https://cloud.google.com/monitoring/alerts/ui-conditions-ga?hl=ja#process-health
++ https://cloud.google.com/monitoring/api/metrics_opsagent#agent-processes
 
-+ Start the agent service
+### Windows のプロセス監視
 
-```
-sudo service stackdriver-agent start
-```
-
-+ Check status
-
-```
-udo service stackdriver-agent status
-```
-
-## Check Agent Version
-
-+ CentOS/RHEL
-
-```
-rpm --query --queryformat '%{NAME} %{VERSION} %{RELEASE} %{ARCH}\n' \
-     stackdriver-agent
-```
+現状無理

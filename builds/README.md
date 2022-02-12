@@ -16,6 +16,10 @@ Cloud Build Trigger の基礎的なサンプル
 
 GKE Cluster 上にデプロイする
 
+## Service Account
+
+Service Account について
+
 ## 参考ドキュメント
 
 ```
@@ -25,6 +29,10 @@ https://console.cloud.google.com/cloud-build
 ```
 変数値の置換
 https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values
+```
+```
+ビルド構成ファイルのスキーマ
+https://cloud.google.com/build/docs/build-config-file-schema
 ```
 ```
 Cloud builders
