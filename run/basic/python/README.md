@@ -68,7 +68,7 @@ export _run_service='pkg-gcp-run-basic'
 + Allow ALL User
 
 ```
-gcloud run deploy ${_run_service} \
+gcloud beta run deploy ${_run_service} \
   --image ${_region}-docker.pkg.dev/${_gcp_pj_id}/pkg-gcp-run/${_container_image_name}:v1 \
   --port=80 \
   --region ${_region} \
@@ -79,7 +79,7 @@ gcloud run deploy ${_run_service} \
 + Only Authorized User
 
 ```
-gcloud run deploy ${_run_service} \
+gcloud beta run deploy ${_run_service} \
   --image ${_region}-docker.pkg.dev/${_gcp_pj_id}/pkg-gcp-run/${_container_image_name}:v1 \
   --port=80 \
   --region ${_region} \
@@ -92,18 +92,18 @@ gcloud run deploy ${_run_service} \
 + Check URL
 
 ```
-gcloud run services describe ${_run_service} --region ${_region} --project ${_gcp_pj_id}
+gcloud beta run services describe ${_run_service} --region ${_region} --project ${_gcp_pj_id}
 ```
 
 + Only URL
 
 ```
-gcloud run services describe ${_run_service} --region ${_region} --project ${_gcp_pj_id} --format json | jq .status.url -r
+gcloud beta run services describe ${_run_service} --region ${_region} --project ${_gcp_pj_id} --format json | jq .status.url -r
 ```
 ```
 ### Sample
 
-$ gcloud run services describe ${_run_service} --region ${_region} --project ${_gcp_pj_id} --format json | jq .status.url -r
+$ gcloud beta run services describe ${_run_service} --region ${_region} --project ${_gcp_pj_id} --format json | jq .status.url -r
 https://pkg-gcp-run-basic-ed5v7cgalq-an.a.run.app
 ```
 
@@ -125,13 +125,17 @@ Hello World!! :D
 + Delete Run Service
 
 ```
-WIP
+gcloud beta run services delete ${_run_service} \
+  --region ${_region} \
+  --project ${_gcp_pj_id}
 ```
 
 + Delete Repository of Artifact Registry
 
 ```
-WIP
+gcloud beta artifacts repositories delete pkg-gcp-run \
+  --location ${_region} \
+  --project ${_gcp_pj_id}
 ```
 
 + Delete Local Container Image
