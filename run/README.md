@@ -13,6 +13,9 @@ WIP
 ```
 gcloud beta services enable run.googleapis.com --project { Your GCP Project ID}
 ```
+```
+gcloud beta services list --enabled --filter='run.googleapis.com' --project { Your GCP Project ID}
+```
 
 ## サンプル
 
@@ -57,3 +60,8 @@ https://cloud.google.com/run/docs/configuring/containers?hl=en#configure-port
 ## 参考 URL
 
 + [新しい CPU 割り当てコントロールにより Cloud Run 上でさらに多様なワークロードを実行](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-always-on-cpu-allocation)
+
+## 簡易的な ID トークン 認証
+
+[Authenticating developers](./authorization_developer/)
+

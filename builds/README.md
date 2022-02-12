@@ -31,6 +31,10 @@ https://console.cloud.google.com/cloud-build
 https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values
 ```
 ```
+ビルド構成ファイルのスキーマ
+https://cloud.google.com/build/docs/build-config-file-schema
+```
+```
 Cloud builders
 https://cloud.google.com/build/docs/cloud-builders
 ```

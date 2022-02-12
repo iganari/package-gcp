@@ -6,6 +6,7 @@
 + [monitoring](./README.md#monitoring)
 + [update](./README.md#update)
 + [services](./README.md#services)
++ [Option | format]
 
 ## 準備
 
@@ -190,6 +191,9 @@ gcloud beta services list --project ${_gcp_pj_id}
 ```
 gcloud beta services list --enabled --project ${_gcp_pj_id}
 ```
+```
+gcloud beta services list --enabled --filter='API Name' --project ${_gcp_pj_id}
+```
 
 + サービスを有効化する
 
@@ -201,4 +205,14 @@ gcloud beta services enable {Services Name} --project ${_gcp_pj_id}
 
 ```
 gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
+```
+
+## Option
+
+### format
+
+出力形式を指定できる
+
+```
+gcloud auth list --format json
 ```
