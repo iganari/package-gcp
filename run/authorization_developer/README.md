@@ -17,26 +17,28 @@ https://cloud.google.com/run/docs/authenticating/developers
 
 ### 登場人物
 
-+ Google Account A
++ Google Account 1
+  + Developer の A
   + Cloud Run を使用している GCP Project 内で IAM などを変更出来る強い権限を持っている
-+ Google Account X
++ Google Account 2 = `viewer-xxx@gmail.com`
+  + Viewer の X
   + Cloud Run 上にデプロイされた特定のサービスだけを閲覧のみ出来るユーザ
   + Cloud Run のページすら見れない
 
-
+![](./00.png)
 
 ## 1. A がアプリを用意し、非公開でデプロイ
 
 [package-gcp/run/basic/python]() で、 Cloud Run にデプロイするところまでやる 
 
 ```
-export _gcp_pj_id='Your GCP PJ ID'
-export _region='asia-northeast1'
-export _run_service='pkg-gcp-run-basic'
+export            _gcp_pj_id='Your GCP PJ ID'
+export               _region='asia-northeast1'
+export          _run_service='pkg-gcp-run-basic'
 export _container_image_name='pkg-gcp-run-basic'
 ```
 
-+ Only Authorized User
++ Cloud Run を未公開でデプロイする
 
 ```
 gcloud run deploy ${_run_service} \
@@ -56,14 +58,14 @@ $ gcloud run services describe ${_run_service} --region ${_region} --project ${_
 https://pkg-gcp-run-basic-ed5v7cgalq-an.a.run.app
 ```
 
-## 2. A　が X に対して Role を付与
+## 2. A が X に対して Role を付与
 
 + X に対して、 `Cloud Run Invoker ( roles/run.invoker ) ` の Role を付与する
 
 ```
 gcloud beta run services add-iam-policy-binding ${_run_service} \
   --region=${_region} \
-  --member='user:igaguri.no.freemail@gmail.com' \
+  --member="user:viewer-xxx@gmail.com" \
   --role='roles/run.invoker' \
   --project ${_gcp_pj_id}
 ```
@@ -94,13 +96,13 @@ eyJxbG... ...2b4uiQ
 
 ## 4. アプリが取得できるか確認する
 
-+ Cloud Run 上にデプロイされた特定のサービスの URL を貰う
++ X は A から Cloud Run 上にデプロイされた特定のサービスの URL を貰いましょう
 
 ```
 export _run_service_url='https://pkg-gcp-run-basic-ed5v7cgalq-an.a.run.app'
 ```
 
-## 4.1 コマンドラインで確認
+## 4.1 X がコマンドラインで確認
 
 + cURL で確認する
 
@@ -112,7 +114,7 @@ curl -H "Authorization: Bearer $(gcloud auth print-identity-token $(gcloud auth 
 Hello World!! :D
 ```
 
-### 4.2 Web ブラウザで確認
+### 4.2 X が Web ブラウザで確認
 
 Web ブラウザにてヘッダを修正する必要があります
 
@@ -133,3 +135,6 @@ Request header に `Authorization` を入れ、Value に`Bearer [自分の ID �
 Web ブラウザでも無事に表示できました :D
 
 ![](./04.png)
+
+:warning: ただし ID トークンは有効期限があるのでしばらくすると認証エラーになります。エラーになったらコマンドラインで再度 ID トークンを取得し、 ModHeader を修正しましょう
+
