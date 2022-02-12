@@ -144,3 +144,20 @@ Web ブラウザでも無事に表示できました :D
 
 :warning: ただし ID トークンは有効期限があるのでしばらくすると認証エラーになります。エラーになったらコマンドラインで再度 ID トークンを取得し、 ModHeader を修正しましょう
 
+## 5. 備考
+
++ A が X の ID トークンを発行することも出来ます
+
+```
+gcloud auth print-identity-token viewer-xxx@gmail.com \
+  --audiences="${_run_service_url}"
+```
+
++ X ではなく、 Service Account でも発行することも出来ます
+  + Service Account の Email = `my-account@example.iam.gserviceaccount.com` = `${_sa_email}`
+
+```
+gcloud auth print-identity-token \
+  --impersonate-service-account="${_sa_email}" \
+  --audiences="${_run_service_url}"
+```
