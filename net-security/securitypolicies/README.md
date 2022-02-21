@@ -2,13 +2,15 @@
 
 ## 概要
 
-+ DDoS 攻撃を標準装備
-+ OWASP ModSecurity Core Rule Set (CRS) のルールに則った防御ルールの作成が可能
++ DDoS 攻撃からの保護を標準装備
++ クロスサイトスクリプティング ( XSS ) や、 SQL インジェクション ( SQLi ) などのアプリケーション攻撃からの保護
+  + OWASP ModSecurity Core Rule Set (CRS) のルールに則った防御ルールの作成が可能
 + reCAPTCHA Enterprise を簡単に実装可能
 
-2021/11 の時点では 2 種類存在している
-
-+ Google Cloud Armor
+```
+Google Cloud Armor overview 
+https://cloud.google.com/armor/docs/cloud-armor-overview
+```
 
 ## Price
 
