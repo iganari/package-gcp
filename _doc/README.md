@@ -16,3 +16,7 @@ https://cloud.google.com/blog/topics/developers-practitioners/introducing-google
 VPC Service Controls を使用して Cloud Run でのデータの引き出しリスクを管理する
 https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-enterprise-grade-network-security-with-vpc-sc
 ```
+```
+Google Cloud にデータを転送する方法
+https://cloud.google.com/blog/ja/topics/developers-practitioners/how-transfer-your-data-google-cloud
+```
