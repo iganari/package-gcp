@@ -20,3 +20,7 @@ https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-enterprise-g
 Google Cloud にデータを転送する方法
 https://cloud.google.com/blog/ja/topics/developers-practitioners/how-transfer-your-data-google-cloud
 ```
+```
+GitHub | Google APIs
+https://github.com/googleapis
+```
