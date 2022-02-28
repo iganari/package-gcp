@@ -63,3 +63,7 @@ gcloud components install kubectl -q
 Best practices for GKE networking
 https://cloud.google.com/kubernetes-engine/docs/best-practices/networking
 ```
+```
+GKE のアップグレード戦略を改めて確認しよう
+https://medium.com/google-cloud-jp/gke-upgrade-strategy-8568f450f9d0
+```
