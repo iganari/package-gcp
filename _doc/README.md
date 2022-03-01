@@ -24,3 +24,15 @@ https://cloud.google.com/blog/ja/topics/developers-practitioners/how-transfer-yo
 GitHub | Google APIs
 https://github.com/googleapis
 ```
+```
+Google Cloud セキュリティ ホワイトペーパー
+https://services.google.com/fh/files/misc/security_whitepapers_4_booklet_jp.pdf
+```
+```
+Google Workspace セキュリティ ホワイトペーパー
+https://workspace.google.com/intl/ja/files/google-apps-security-and-compliance-whitepaper.pdf
+```
+```
+Google 検索で「google white paper」で検索する
+https://www.google.com/search?q=google+white+paper
+```
