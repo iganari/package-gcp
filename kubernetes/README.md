@@ -75,3 +75,7 @@ https://cloud.google.com/kubernetes-engine/docs/best-practices/upgrading-cluster
 GKE release notes
 https://cloud.google.com/kubernetes-engine/docs/release-notes
 ```
+```
+クラスタのタイプ
+https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#modes
+```
