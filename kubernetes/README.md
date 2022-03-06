@@ -79,3 +79,7 @@ https://cloud.google.com/kubernetes-engine/docs/release-notes
 クラスタのタイプ
 https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#modes
 ```
+```
+GKE Autopilot 入門
+https://lp.cloudplatformonline.com/rs/808-GJW-314/images/App_Modernization_OnAir_q3_0728_Session1.pdf
+```
