@@ -71,3 +71,7 @@ https://medium.com/google-cloud-jp/gke-upgrade-strategy-8568f450f9d0
 クラスタのアップグレードに関するベスト プラクティス
 https://cloud.google.com/kubernetes-engine/docs/best-practices/upgrading-clusters
 ```
+```
+GKE release notes
+https://cloud.google.com/kubernetes-engine/docs/release-notes
+```
