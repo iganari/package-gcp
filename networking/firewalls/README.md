@@ -46,9 +46,6 @@ Google Cloud 内の同 VPC Network 内の通信でも制御できる
 
 https://cloud.google.com/vpc/docs/firewalls#direction_of_the_rule
 
-
-https://cloud.google.com/vpc/docs/firewalls#direction_of_the_rule
-
 ### ステートフルである
 
 https://cloud.google.com/vpc/docs/firewalls#specifications
