@@ -14,3 +14,5 @@ GCP の同じ組織内の異なる複数の GCP Project で VPC を共有する�
 公式ドキュメント
 Shared VPC overview | https://cloud.google.com/vpc/docs/shared-vpc
 ```
+
+![](https://cloud.google.com/vpc/images/shared-vpc/shared-vpc-example-multiple-host-projects.svg)
