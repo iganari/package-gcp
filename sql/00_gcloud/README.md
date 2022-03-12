@@ -98,7 +98,7 @@ https://cloud.google.com/sdk/gcloud/reference/beta/sql/databases
 + 環境変数に入れる
 
 ```
-export _user_name='pkg-gcp-sql-db'
+export _user_name='iganari'
 export _user_passwd='0123456789abcsd'
 ```
 ```
