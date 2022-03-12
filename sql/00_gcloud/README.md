@@ -43,7 +43,7 @@ export _mysql_ver='MYSQL_8_0'
 export _mysql_root_passwd='password0123'
 ```
 ```
-gcloud beta sql instances create ${_instance_name} \
+gcloud beta sql instances create ms-${_instance_name} \
   --database-version ${_mysql_ver} \
   --root-password "${_mysql_root_passwd}" \
   --tier ${_instance_type} \
@@ -63,7 +63,7 @@ export _psgr_ver='POSTGRES_14'
 export _psgr_passwd='password9876'
 ```
 ```
-gcloud beta sql instances create ${_instance_name} \
+gcloud beta sql instances create ps-${_instance_name} \
   --database-version ${_psgr_ver} \
   --root-password "${_psgr_passwd}" \
   --tier ${_instance_type} \
