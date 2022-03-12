@@ -88,6 +88,36 @@ gcloud beta sql databases create ${_database_name} \
   --async
 ```
 
+```
+gcloud beta sql databases
+https://cloud.google.com/sdk/gcloud/reference/beta/sql/databases
+```
+
+## User の作成
+
++ 環境変数に入れる
+
+```
+export _user_name='pkg-gcp-sql-db'
+export _user_passwd='0123456789abcsd'
+```
+```
+gcloud beta sql users create ${_user_name} \
+  --password ${_user_passwd} \
+  --host "%" \
+  --instance ${_instance_name} \
+  --project ${_gcp_pj_id} \
+  --async
+```
+
+```
+gcloud beta sql users
+https://cloud.google.com/sdk/gcloud/reference/beta/sql/users
+
+gcloud beta sql users create
+https://cloud.google.com/sdk/gcloud/reference/beta/sql/users/create
+```
+
 ## Cloud SQL Auth Proxy を使用してログイン
 
 ```
