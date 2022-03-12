@@ -5,9 +5,14 @@
 
 ```
 export _gcp_pj_id='Your GCP Project ID'
-export _sql_instance_name="cloudsql-test-$(date +'%Y%m%d%H%M')"
 export _region='asia-northeast1'
+
+export _instance_name="pkg-gcp-sql-instance-$(date +'%Y%m%d%H%M')"
 export _instance_type='db-f1-micro'
+
+export _database_name='pkg-gcp-sql-db'
+export _database_character_set='utf8'
+
 
 
 echo ${_sql_instance_name}
@@ -23,19 +28,20 @@ gcloud auth login -q
 ```
 
 
-## Cloud SQL instance を作成
+## Cloud SQL Instance を作成
 
 + MySQL
   + `root` ユーザがデフォルトで作成される
   + デフォルトのポートは `3306`
 
 ```
-gcloud beta sql instances create ${_sql_instance_name} \
+gcloud beta sql instances create ${_instance_name} \
   --database-version MYSQL_8_0 \
   --root-password=password123 \
   --tier ${_instance_type} \
   --region ${_region} \
-  --project ${_gcp_pj_id}
+  --project ${_gcp_pj_id} \
+  --async
 ```
 
 + PostgreSQL
@@ -43,15 +49,25 @@ gcloud beta sql instances create ${_sql_instance_name} \
   + デフォルトのポートは `5432`
 
 ```
-gcloud beta sql instances create ${_sql_instance_name} \
+gcloud beta sql instances create ${_instance_name} \
   --database-version POSTGRES_9_6 \
   --root-password=password123 \
   --tier ${_instance_type} \
-  --region ${_region} \
-  --project ${_gcp_pj_id}
+  --region ${_sql_region} \
+  --project ${_gcp_pj_id} \
+  --async
 ```
 
-## Cloud SQL instance を削除
+## Database の作成
+
+```
+gcloud sql databases create ${_database_name} \
+  --instance ${_instance_name} \
+  --charset ${_database_character_set} \
+  --async
+```
+
+## Cloud SQL Instance を削除
 
 ```
 gcloud beta sql instances delete ${_sql_instance_name}  \
