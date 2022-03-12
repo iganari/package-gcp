@@ -88,6 +88,12 @@ gcloud sql databases create ${_database_name} \
   --async
 ```
 
+## Cloud SQL Auth Proxy を使用してログイン
+
+```
+WIP
+```
+
 ## Cloud SQL Instance を削除
 
 ```
