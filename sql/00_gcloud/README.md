@@ -94,14 +94,6 @@ gcloud sql databases create ${_database_name} \
 WIP
 ```
 
-## Cloud SQL Instance を削除
-
-```
-gcloud beta sql instances delete ${_sql_instance_name}  \
-  --project ${_gcp_pj_id} \
-  -q
-```
-
 ## Cloud SQL instance を再起動
 
 ```
@@ -126,5 +118,13 @@ gcloud beta sql instances patch ${_sql_instance_name} \
 gcloud beta sql instances patch ${_sql_instance_name} \
     --activation-policy ALWAYS \
     --project ${_gcp_pj_id}
+```
+
+## Cloud SQL Instance を削除
+
+```
+gcloud beta sql instances delete ${_sql_instance_name}  \
+  --project ${_gcp_pj_id} \
+  -q
 ```
 
