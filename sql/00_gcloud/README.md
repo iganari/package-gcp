@@ -3,19 +3,11 @@
 
 ## 準備
 
++ 環境変数に入れる
+
 ```
 export _gcp_pj_id='Your GCP Project ID'
 export _region='asia-northeast1'
-
-export _instance_name="pkg-gcp-sql-instance-$(date +'%Y%m%d%H%M')"
-export _instance_type='db-f1-micro'
-
-export _database_name='pkg-gcp-sql-db'
-export _database_character_set='utf8'
-
-
-
-echo ${_sql_instance_name}
 ```
 
 + 使用できるデータベースのリスト
@@ -29,6 +21,16 @@ gcloud auth login -q
 
 
 ## Cloud SQL Instance を作成
+
++ 環境変数に入れる
+
+```
+export _instance_name="pkg-gcp-sql-instance-$(date +'%Y%m%d%H%M')"
+export _instance_type='db-f1-micro'
+
+echo ${_sql_instance_name}
+```
+
 
 ### for MySQL
 
@@ -72,6 +74,12 @@ gcloud beta sql instances create ${_instance_name} \
 
 ## Database の作成
 
++ 環境変数に入れる
+
+```
+export _database_name='pkg-gcp-sql-db'
+export _database_character_set='utf8'
+```
 ```
 gcloud sql databases create ${_database_name} \
   --instance ${_instance_name} \
