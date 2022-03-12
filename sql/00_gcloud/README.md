@@ -6,7 +6,7 @@
 ```
 export _gcp_pj_id='Your GCP Project ID'
 export _sql_instance_name="cloudsql-test-$(date +'%Y%m%d%H%M')"
-export _region='Your Region'  # ex. asia-northeast1
+export _region='asia-northeast1'
 export _instance_type='db-f1-micro'
 
 
@@ -15,6 +15,12 @@ echo ${_sql_instance_name}
 
 + 使用できるデータベースのリスト
   + https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion
+
++ GCP にログインする
+
+```
+gcloud auth login -q
+```
 
 
 ## Cloud SQL instance を作成
