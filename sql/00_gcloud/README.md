@@ -81,7 +81,7 @@ export _database_name='pkg-gcp-sql-db'
 export _database_character_set='utf8'
 ```
 ```
-gcloud sql databases create ${_database_name} \
+gcloud beta sql databases create ${_database_name} \
   --instance ${_instance_name} \
   --charset ${_database_character_set} \
   --project ${_gcp_pj_id} \
