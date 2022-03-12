@@ -7,6 +7,7 @@
 export _gcp_pj_id='Your GCP Project ID'
 export _sql_instance_name="cloudsql-test-$(date +'%Y%m%d%H%M')"
 export _region='Your Region'  # ex. asia-northeast1
+export _instance_type='db-f1-micro'
 
 
 echo ${_sql_instance_name}
@@ -26,8 +27,8 @@ echo ${_sql_instance_name}
 gcloud beta sql instances create ${_sql_instance_name} \
   --database-version MYSQL_8_0 \
   --root-password=password123 \
-  --tier db-f1-micro \
-  --region [Your Region] \
+  --tier ${_instance_type} \
+  --region ${_region} \
   --project ${_gcp_pj_id}
 ```
 
@@ -39,8 +40,8 @@ gcloud beta sql instances create ${_sql_instance_name} \
 gcloud beta sql instances create ${_sql_instance_name} \
   --database-version POSTGRES_9_6 \
   --root-password=password123 \
-  --tier db-f1-micro \
-  --region [Your Region] \
+  --tier ${_instance_type} \
+  --region ${_region} \
   --project ${_gcp_pj_id}
 ```
 
