@@ -42,7 +42,7 @@ export _mysql_root_passwd='password0123'
 ```
 gcloud beta sql instances create ${_instance_name} \
   --database-version ${_mysql_ver} \
-  --root-password="${_mysql_root_passwd}" \
+  --root-password "${_mysql_root_passwd}" \
   --tier ${_instance_type} \
   --region ${_region} \
   --project ${_gcp_pj_id} \
