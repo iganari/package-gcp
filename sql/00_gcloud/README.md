@@ -30,23 +30,29 @@ gcloud auth login -q
 
 ## Cloud SQL Instance を作成
 
-+ MySQL
-  + `root` ユーザがデフォルトで作成される
-  + デフォルトのポートは `3306`
+### for MySQL
+
++ `root` ユーザがデフォルトで作成される
++ デフォルトのポートは `3306`
 
 ```
+export _mysql_ver='MYSQL_8_0'
+export _mysql_root_passwd='password0123'
+```
+```
 gcloud beta sql instances create ${_instance_name} \
-  --database-version MYSQL_8_0 \
-  --root-password=password123 \
+  --database-version ${_mysql_ver} \
+  --root-password="${_mysql_root_passwd}" \
   --tier ${_instance_type} \
   --region ${_region} \
   --project ${_gcp_pj_id} \
   --async
 ```
 
-+ PostgreSQL
-  + `postgres` ユーザがデフォルトで作成される
-  + デフォルトのポートは `5432`
+### PostgreSQL
+
++ `postgres` ユーザがデフォルトで作成される
++ デフォルトのポートは `5432`
 
 ```
 gcloud beta sql instances create ${_instance_name} \
