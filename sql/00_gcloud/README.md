@@ -34,6 +34,7 @@ gcloud auth login -q
 
 + `root` ユーザがデフォルトで作成される
 + デフォルトのポートは `3306`
++ 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
 
 ```
 export _mysql_ver='MYSQL_8_0'
@@ -53,11 +54,16 @@ gcloud beta sql instances create ${_instance_name} \
 
 + `postgres` ユーザがデフォルトで作成される
 + デフォルトのポートは `5432`
++ 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
 
 ```
+export _psgr_ver='POSTGRES_14'
+export _psgr_passwd='password9876'
+```
+```
 gcloud beta sql instances create ${_instance_name} \
-  --database-version POSTGRES_9_6 \
-  --root-password=password123 \
+  --database-version ${_psgr_ver} \
+  --root-password "${_psgr_passwd}" \
   --tier ${_instance_type} \
   --region ${_sql_region} \
   --project ${_gcp_pj_id} \
