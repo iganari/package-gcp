@@ -53,9 +53,15 @@ gcloud run services update {_run_service_name} --port {_container_port} --region
 https://cloud.google.com/run/docs/configuring/containers?hl=en#configure-port
 ```
 
+## ユースケース
+
 ### 内部通信する場合
 
 [Serverless VPC Access](../networking/connectors)
+
+### 外部 IP アドレスが付いていない GCE インスタンスから Cloud Run にアクセスする
+
+TBD
 
 ## 参考 URL
 

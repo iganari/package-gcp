@@ -53,3 +53,7 @@ gcloud beta services list --enabled  --filter='artifactregistry' --project ${_gc
 ```
 gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 ```
+
+## [脆弱性スキャン機能](./vulnerability-scanning)
+
+マネージドの脆弱性スキャン機能がある
