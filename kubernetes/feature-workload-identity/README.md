@@ -2,7 +2,9 @@
 
 ## 概要
 
-Kubernetes の Service Account と GCP の Service を紐付けることにより、GKE 上の Pod 内の GCP に対する権限を、GKE 上の Pod 外の GCP の IAM にて制御可能にする
+`Kubernetes の Service Account` と `GCP の `Service Account` を紐付けることにより、GKE 上の Pod 内の GCP に対する権限を、GKE 上の Pod 外の GCP の IAM にて制御可能にする
+
+![](./image-01.png)
 
 ## やること
 
