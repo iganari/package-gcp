@@ -8,6 +8,9 @@
 
 ![](./image-01.png)
 
+:point_right: GKE ではなく、 on-Prem や 他のパブリッククラウドで使用したい場合は [Workload identity federation](https://cloud.google.com/iam/docs/workload-identity-federation) が使えるか確認する
+
+
 ## やること
 
 5 ステップある
