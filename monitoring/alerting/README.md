@@ -104,3 +104,47 @@ test = {
 }
 /
 ```
+
+
+## Policy の Documentation で使える変数など
+
+
++ 公式ドキュメント
+
+```
+Using Markdown and variables in documentation templates | Using variables
+https://cloud.google.com/monitoring/alerts/doc-variables#doc-vars
+```
+
++ 一緒くたにいれるセット
+  + Slack 上でメンションしたい場合は、 人は `@` で、　 Channel などは `!` をつける
+  + `<>` で囲う
+
+```
+<@iganari>  
+
+<!here>  
+<!channel>  
+
+
+[変数表](https://cloud.google.com/monitoring/alerts/doc-variables#doc-vars)  
+1 = ${condition.name}
+2 = ${condition.display_name}  
+3.1 = ${metadata.system_label.*}  
+3.2 = ${metadata.system_label.\*}  
+4.1 = ${metadata.user_label.*}  
+4.2 = ${metadata.user_label.\*} 
+5 = ${metric.type}  
+6 = ${metric.display_name}  
+7.1 = ${metric.label.*}  
+7.2 = ${metric.label.\*}  
+8 = ${policy.name}  
+9 = ${policy.display_name}  
+10.1 = ${policy.user_label.*}  
+10.2 = ${policy.user_label.\*}  
+11 = ${project}  
+12 = ${resource.type}  
+13 = ${resource.project}  
+14.1 = ${resource.label.*}  
+14.2 = ${resource.label.\*}  
+```

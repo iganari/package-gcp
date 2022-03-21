@@ -23,13 +23,19 @@ export _gcp_pj_id='Your GCP Project ID'
 export _common='iap-linux'
 export _region='asia-northeast1'
 export _zone='asia-northeast1-c'
-export _your_gcp_email='Your GCP Email'
+export _your_gcp_account='Your GCP Account ( Email format ) '
 ```
 
 + GCP との認証
 
 ```
 gcloud auth login -q
+```
+
++ GCP にログインした情報からアカウント名だけ抽出する
+
+```
+export _your_gcp_account_name=$(gcloud auth list --filter=status:ACTIVE --format="value(account)" | awk -F\@ '{print $1}')
 ```
 
 ## ネットワークの作成
@@ -114,7 +120,7 @@ gcloud beta compute routers nats create ${_common}-nat \
 
 ```
 gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} \
-    --member=user:${_your_gcp_email} \
+    --member=user:${_your_gcp_account} \
     --role=roles/iap.tunnelResourceAccessor
 ```
 
@@ -137,7 +143,7 @@ gcloud beta compute instances create ${_common}-vm \
 + 作成した VM に IAP 越しに SSH ログインする
 
 ```
-gcloud beta compute ssh ${_common}-vm --tunnel-through-iap --zone ${_zone} --project ${_gcp_pj_id}
+gcloud beta compute ssh ${_your_gcp_account_name}@${_common}-vm --tunnel-through-iap --zone ${_zone} --project ${_gcp_pj_id}
 ```
 ```
 ### 例

@@ -24,6 +24,12 @@ export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'
 ```
 
++ API を有効化します
+
+```
+gcloud beta services enable container.googleapis.com --project ${_gcp_pj_id}
+```
+
 + ネットワークを作成します
 
 ```

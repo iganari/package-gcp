@@ -7,7 +7,7 @@
 公式ドキュメント
 
 + Artifact Registry
-    + https://cloud.google.com/artifact-registry?hl=en
+  + https://cloud.google.com/artifact-registry?hl=en
 
 
 Overview of Artifact Registry https://cloud.google.com/artifact-registry/docs/overview
@@ -22,10 +22,38 @@ https://cloud.google.com/artifact-registry/docs/transition/transition-from-gcr
 ## 使ってみる
 
 + gar だけ使ってみたい
-    + gar ? にpush してみる
-    + gar から ローカルにpull している
-    + gar から GKE 上で使ってみる
-    + gar を Cloud Run で使ってみる
+  + gar ? にpush してみる
+  + gar から ローカルにpull している
+  + gar から GKE 上で使ってみる
+  + gar を Cloud Run で使ってみる
 + アディショナル
-    + gcr と gar でどう違うの?
-    + gar で出来て、gcrで出来ないことって何?また、その逆は??
+  + gcr と gar でどう違うの?
+  + gar で出来て、gcrで出来ないことって何?また、その逆は??
+
+## Enable Service
+
+```
+export _gcp_pj_id='Your GCP Project ID'
+```
+
++ Enable Service
+
+```
+gcloud beta services enable artifactregistry.googleapis.com --project ${_gcp_pj_id}
+```
+
++ Check enabled
+
+```
+gcloud beta services list --enabled  --filter='artifactregistry' --project ${_gcp_pj_id}
+```
+
++ Configure Docker
+
+```
+gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+```
+
+## [脆弱性スキャン機能](./vulnerability-scanning)
+
+マネージドの脆弱性スキャン機能がある
