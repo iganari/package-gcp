@@ -2,7 +2,14 @@
 
 ## 概要
 
-Kubernetes の Service Account と GCP の Service を紐付けることにより、GKE 上の Pod 内の GCP に対する権限を、GKE 上の Pod 外の GCP の IAM にて制御可能にする
+`Kubernetes の Service Account` と `GCP の Service Account` を紐付けることにより、 `GKE 上の Pod 内の GCP に対する権限を GKE 外の GCP の IAM にて制御可能にする`
+
+これをすることにより、GCP に対する権限情報を K8s 内ではなく GCP 側で制御可能になるので、GCP リソースに対する権限管理をセキュアに行える
+
+![](./image-01.png)
+
+:point_right: GKE ではなく、 on-Prem や 他のパブリッククラウドで使用したい場合は [Workload identity federation](https://cloud.google.com/iam/docs/workload-identity-federation) が使えるか確認する
+
 
 ## やること
 
