@@ -183,6 +183,7 @@ gcloud projects add-iam-policy-binding ${_gcp_pj_id} \
 
 + gcloud コマンドが入っているコンテナの pod を作成
     + `k8s-workload-identity-test-pod.yaml`
+    + 参考 ---> [package-gcp/kubernetes/kind-pod](https://github.com/iganari/package-gcp/tree/main/kubernetes/kind-pod)
 
 ```
 cat << __EOF__ > k8s-workload-identity-test-pod.yaml
