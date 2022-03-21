@@ -10,16 +10,23 @@
 
 :point_right: GKE ではなく、 on-Prem や 他のパブリッククラウドで使用したい場合は [Workload identity federation](https://cloud.google.com/iam/docs/workload-identity-federation) が使えるか確認する
 
+```
+Workload Identity
+https://cloud.google.com/kubernetes-engine/docs/concepts/workload-identity
+```
+
 
 ## やること
 
-5 ステップある
-
-+ [GKE で Workload Identity を有効にする](./README.md#gke-で-workload-identity-を有効にする)
-+ [Kubernetes の Service Account を作成](./README.md#kubernetes-の-service-account-を作成)
-+ [GCP の Service Account を作成](./README.md#gcp-の-service-account-を作成)
-+ [GCP の Service Account に Workload Identity の role を付与する](./README.md#gcp-の-service-account-に-workload-identity-の-role-を付与する)
-+ [Kubernetes の Service Account と GCP の Service Account を紐付ける](./README.md#kubernetes-の-service-account-と-gcp-の-service-account-を紐付ける)
++ 構築 + 設定のための 5 ステップ
+  + [GKE で Workload Identity を有効にする](./README.md#gke-で-workload-identity-を有効にする)
+  + [Kubernetes の Service Account を作成](./README.md#kubernetes-の-service-account-を作成)
+  + [GCP の Service Account を作成](./README.md#gcp-の-service-account-を作成)
+  + [GCP の Service Account に Workload Identity の role を付与する](./README.md#gcp-の-service-account-に-workload-identity-の-role-を付与する)
+  + [Kubernetes の Service Account と GCP の Service Account を紐付ける](./README.md#kubernetes-の-service-account-と-gcp-の-service-account-を紐付ける)
++ 動きの確認のための 2 ステップ
+  + テストで使用する GCS のバケットを作成する
+  + Pod の中から確認する
 
 
 ## Workload Identity を有効にした GKE Cluster の作成
@@ -144,10 +151,10 @@ cat << __EOF__ > k8s-workload-identity-test-sa.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  annotations:
-    iam.gke.io/gcp-service-account: ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com
   name: ${_k8s_sa_name}
   namespace: ${_k8s_namespace}
+  annotations:
+    iam.gke.io/gcp-service-account: ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com
 __EOF__
 ```
 
@@ -179,7 +186,7 @@ gcloud projects add-iam-policy-binding ${_gcp_pj_id} \
     --role roles/storage.admin
 ```
 
-## 確認方法
+## Pod の中から確認する
 
 + gcloud コマンドが入っているコンテナの pod を作成
     + `k8s-workload-identity-test-pod.yaml`
@@ -194,8 +201,8 @@ metadata:
   namespace: ${_k8s_namespace}
 spec:
   containers:
-  - image: google/cloud-sdk:slim
-    name: ${_common}-pod
+  - name: ${_common}-pod
+    image: google/cloud-sdk:slim
     command: ["sleep","infinity"]
   serviceAccountName: ${_k8s_sa_name}
   nodeSelector:
