@@ -25,8 +25,8 @@ https://cloud.google.com/kubernetes-engine/docs/concepts/workload-identity
   + [GCP の Service Account に Workload Identity の role を付与する](./README.md#gcp-の-service-account-に-workload-identity-の-role-を付与する)
   + [Kubernetes の Service Account と GCP の Service Account を紐付ける](./README.md#kubernetes-の-service-account-と-gcp-の-service-account-を紐付ける)
 + 動きの確認のための 2 ステップ
-  + [テストで使用する GCS のバケットを作成する]((./README.m#テストで使用する-gcs-のバケットを作成する))
-  + [Pod の中から確認する](./README.m#pod-の中から確認する)
+  + [テストで使用する GCS のバケットを作成する]((./README.md#テストで使用する-gcs-のバケットを作成する))
+  + [Pod の中から確認する](./README.md#pod-の中から確認する)
 
 
 ## Workload Identity を有効にした GKE Cluster の作成
