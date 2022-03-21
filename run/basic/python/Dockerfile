@@ -7,4 +7,6 @@ RUN pip3 install -r /tmp/requirements.txt
 RUN mkdir -p /app
 ADD ./main.py /app/main.py
 
+ENV PORT 80
+
 CMD [ "/usr/local/bin/python3", "/app/main.py" ]

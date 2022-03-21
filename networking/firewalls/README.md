@@ -31,6 +31,26 @@
 35.235.240.0/20
 ```
 
+## Firewall Rule の仕様
+
+### `上り` と `下り` について
+
++ 上り = 内向き
++ 下り = 外向き
+
+向きはあくまで 送信元 -> 送信先 を表しているので、必ずしも WAN / LAN のことを指している訳では無い
+
+Google Cloud 内の同 VPC Network 内の通信でも制御できる
+
+もちろん WAN  LAN の通信も制御できる
+
+https://cloud.google.com/vpc/docs/firewalls#direction_of_the_rule
+
+### ステートフルである
+
+https://cloud.google.com/vpc/docs/firewalls#specifications
+
+
 ## 参考
 
 + https://cloud.google.com/load-balancing/docs/health-checks?hl=ja
