@@ -1,0 +1,9 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: quiet-pod-02
+spec:
+  containers:
+  - name: quiet-pod
+    image: google/cloud-sdk:slim
+    command: ["sleep","infinity"]
