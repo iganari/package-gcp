@@ -197,6 +197,8 @@ spec:
     name: ${_common}-pod
     command: ["sleep","infinity"]
   serviceAccountName: ${_k8s_sa_name}
+  nodeSelector:
+    iam.gke.io/gke-metadata-server-enabled: "true"
 __EOF__
 ```
 
