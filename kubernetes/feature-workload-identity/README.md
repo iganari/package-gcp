@@ -122,10 +122,9 @@ gcloud iam service-accounts list --project ${_gcp_pj_id} | grep ${_gcp_sa_name}
 + 実行コマンド
 
 ```
-gcloud iam service-accounts add-iam-policy-binding \
+gcloud iam service-accounts add-iam-policy-binding ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com \
     --role roles/iam.workloadIdentityUser \
     --member "serviceAccount:${_gcp_pj_id}.svc.id.goog[${_k8s_namespace}/${_k8s_sa_name}]" \
-    ${_gcp_sa_name}@${_gcp_pj_id}.iam.gserviceaccount.com \
     --project ${_gcp_pj_id}
 ```
 
