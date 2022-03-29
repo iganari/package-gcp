@@ -52,3 +52,10 @@ rpm --query --queryformat '%{NAME} %{VERSION} %{RELEASE} %{ARCH}\n' \
 ```
 protoPayload."@type"="type.googleapis.com/google.cloud.audit.AuditLog"
 ```
+
+## memo
+
+```
+Logging のクエリ言語
+https://cloud.google.com/logging/docs/view/logging-query-language?hl=ja
+```
