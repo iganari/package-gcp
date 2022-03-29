@@ -48,10 +48,17 @@ https://cloud.google.com/blog/ja/topics/onair/cloud-onair-20200326
 https://www.youtube.com/watch?v=ehqpc9vynDg
 ```
 
+## Cloud Run
+
+```
+60 を超える Google Cloud ソースのイベントで Cloud Run をトリガーする
+https://cloud.google.com/blog/ja/products/serverless/build-event-driven-applications-in-cloud-run
+```
+
 ## データベース系
 
 ```
 Cloud SQL のメンテナンスを理解する: 所要時間は？
 https://cloud.google.com/blog/ja/products/databases/how-cloud-sql-maintenance-works-to-keep-instances-updated
-
 ```
+
