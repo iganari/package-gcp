@@ -4,6 +4,7 @@
 
 + [gcloud コマンド](./00_gcloud/README.md)
 + [database flags](00_flag/README.md)
++ [最大同時接続数]()
 
 ## 構築例
 
