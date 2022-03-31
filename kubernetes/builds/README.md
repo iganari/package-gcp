@@ -1,71 +1,11 @@
-# デプロイ方法
+# Cloud Build を使う
 
-## 概要
+## [デプロイ](./deploy/)
 
-Cloud Build を通じて、 GKE 上にデプロイする
+Cloud Build を使って、 GKE Cluster 上に Pod などをデプロイする
 
-## 実際にやってみる
+## [Cloud Build](https://github.com/iganari/package-gcp/tree/main/builds)
 
-+ GCP と認証する
+Cloud Build を使って、様々な処理を行う
 
-```
-gcloud auth login -q
-```
-
-### Cloud Build Trigger の Service Account に role を付与する
-
-```
-### 環境変数
-
-export _gcp_pj_id='Your GCP Project'
-```
-
-+ Cloud Build の Service Accont を確認する
-
-```
-gcloud projects get-iam-policy ${_gcp_pj_id} | grep '@cloudbuild.gserviceaccount.com' | awk -F\: '{print $2}'
-```
-```
-export _service_account=`gcloud projects get-iam-policy ${_gcp_pj_id} | grep '@cloudbuild.gserviceaccount.com' | awk -F\: '{print $2}'`
-
-
-echo ${_service_account}
-```
-
-+ Cloud Build の Service Accont に GKE の管理者のロール( `roles/container.admin` )を付与する
-
-```
-gcloud projects add-iam-policy-binding ${_gcp_pj_id} --member=serviceAccount:${_service_account} --role='roles/container.admin'
-```
-
-### Cloud Build を設定する
-
-+ GCP の Cloud Build にて、 `cloudbuild.yaml` を指定して Trigger を作成する
-
-## リソースの削除
-
-### GKE のリソースの削除
-
-+ GKE への認証
-
-```
-gcloud beta container clusters get-credentials ${_GKE_CLUSTER_NAME} \
-    --zone ${_GKE_CLUSTER_ZONE} \
-    --project ${PROJECT_ID}
-```
-
-+ Service の削除
-
-```
-kubectl delete service nginx
-```
-
-+ Deployment の削除
-
-```
-kubectl delete deployment nginx
-```
-
-### Cloud Build Trigger の削除
-
-GUI から削除
+Trivy, ClamAV, Pluto あたり
