@@ -37,3 +37,16 @@ gsutil mb -p {PROJECT_ID} -c {STORAGE_CLASS} -l {BUCKET_LOCATION} gs://BUCKET_NA
 ```
 gsutil rm -r gs://bucket
 ```
+
+
+## rewrite
+
+いろいろ出来るので、やったことがある順に記載していく
+
++ オブジェクトのストレージクラスの変更 ( https://cloud.google.com/storage/docs/changing-storage-classes#change-object-storage-class )
+
+```
+export _storage_class='NEARLINE'  ## STANDARD/NEARLINE/COLDLINE/ARCHIVE
+
+gsutil rewrite -O -s ${_storage_class} gs://{PATH_TO_OBJECT}
+```
