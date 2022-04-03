@@ -64,7 +64,7 @@ IMG_06
 3-6. `Authorized redirect URIs` に以下のフォーマットで URI を入れて保存する
 
 ```
-https://iap.googleapis.com/v1/oauth/clientIds/{My Client ID}:handleRedirect
+https://iap.googleapis.com/v1/oauth/clientIds/{Your Client ID}:handleRedirect
 ```
 
 ```
@@ -108,5 +108,32 @@ kubectl create secret generic gke-ingress-iap \
 もしくは
 
 ```
+export _client_id='Your Client ID'
+export _client_secret='Your Client secret'
+```
+```
+### Base64 化
 
+
+echo ${_client_id} | base64
+echo ${_client_secret} | base64
+
+---> 改行して表示される場合は 1 行にする
+```
+
+```
+cat << __EOF__ > gke-ingress-iap.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gke-ingress-iap
+data:
+  client_id: {base64 化した Client ID}
+  client_secret: {base64 化した Client secret}
+__EOF__
+```
+```
+### Apply する
+
+kubectl apply -f gke-ingress-iap.yaml
 ```
