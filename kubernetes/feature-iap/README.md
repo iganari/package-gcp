@@ -91,14 +91,22 @@ IMG_4_01
 + GKE と認証をする
 
 ```
-gcloud beta container clusters get-credentials { Your GKE Cluster's Name } --region { Your GKE Cluster's Region } --project ${_gcp_pj_id}
+gcloud beta container clusters get-credentials { Your GKE Cluster's Name } \
+  --region { Your GKE Cluster's Region } \
+  --project ${_gcp_pj_id}
 ```
 
 + Secret の作成をする
+  + 3-4 でコピーした `Client ID` と `Client secret` をいれた Secret を作る
 
 ```
 kubectl create secret generic gke-ingress-iap \
-  --from-literal=client_id=client_id_key \
-  --from-literal=client_secret=client_secret_key
-  
+  --from-literal=client_id={Your Client ID} \
+  --from-literal=client_secret={Your Client secret}
+```
+
+もしくは
+
+```
+
 ```
