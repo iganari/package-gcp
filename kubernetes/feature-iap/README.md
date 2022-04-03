@@ -4,7 +4,6 @@
 
 GKE 上にデプロイしている Ingress に IAP( Identity-Aware Proxy ) をつける
 
-
 ```
 Enabling IAP for GKE
 https://cloud.google.com/iap/docs/enabling-kubernetes-howto
@@ -15,7 +14,6 @@ https://cloud.google.com/iap/docs/enabling-kubernetes-howto
 ### 0. 準備
 
 GKE Cluster が作成されていて、その上に Ingress がデプロイされている前提
-
 
 ### 1. API の有効化
 
@@ -154,6 +152,8 @@ spec:
 
 ### 7. Service に設定する
 
++ Service と Ingress のマニフェスト例
+
 ```
 kind: Service
 apiVersion: v1
@@ -196,3 +196,10 @@ spec:
 ![](./images/iap_gke_7_01.png)
 
 ![](./images/iap_gke_7_02.png)
+
+
+---> これで Ingres で作った GCLB に IAP ( Identity-Aware Proxy ) がつき、よりセキュアに運用することが出来るようになりました :)
+
+## 注意点
+
+一時的に IAP を無効にしたい場合は BackendConfig の `spec.iap.enabled` を false にして下さい
