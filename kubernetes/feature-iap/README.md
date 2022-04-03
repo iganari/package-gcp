@@ -107,11 +107,10 @@ export _client_id='Your Client ID'
 export _client_secret='Your Client secret'
 ```
 ```
-### Base64 化
+### Base64 化 ( -n は必須 )
 
-
-echo ${_client_id} | base64
-echo ${_client_secret} | base64
+echo -n ${_client_id} | base64
+echo -n ${_client_secret} | base64
 
 ---> 改行して表示される場合は 1 行にする
 ```
