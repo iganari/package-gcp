@@ -159,7 +159,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: service-iap-gke
-  namespace: default
+  namespace: {Your Namespace}
   annotations:
     beta.cloud.google.com/backend-config: '{
       "ports": {
