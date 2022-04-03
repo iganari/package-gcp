@@ -147,7 +147,7 @@ kubectl apply -f secret-iap-gke.yaml
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name: bc-iap-gke
+  name: backendconfig-iap-gke
   namespace: {Your Namespace}
 spec:
   iap:
