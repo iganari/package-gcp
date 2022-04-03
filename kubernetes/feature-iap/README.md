@@ -32,6 +32,9 @@ WIP
 
 ### 3. OAuth credentials の作成
 
+`iap-gke` という名前で作っていく
+
+
 3-1. 左上のナビゲーションメニューから `API & Services` -> `Credentials` をクリック
 
 IMG_01
@@ -100,7 +103,7 @@ gcloud beta container clusters get-credentials { Your GKE Cluster's Name } \
   + 3-4 でコピーした `Client ID` と `Client secret` をいれた Secret を作る
 
 ```
-kubectl create secret generic gke-ingress-iap \
+kubectl create secret generic secret-iap-gke \
   --from-literal=client_id={Your Client ID} \
   --from-literal=client_secret={Your Client secret}
 ```
@@ -122,11 +125,11 @@ echo ${_client_secret} | base64
 ```
 
 ```
-cat << __EOF__ > gke-ingress-iap.yaml
+cat << __EOF__ > secret-iap-gke.yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: gke-ingress-iap
+  name: secret-iap-gke
 data:
   client_id: {base64 化した Client ID}
   client_secret: {base64 化した Client secret}
@@ -135,5 +138,20 @@ __EOF__
 ```
 ### Apply する
 
-kubectl apply -f gke-ingress-iap.yaml
+kubectl apply -f secret-iap-gke.yaml
+```
+
+### 6. GKE に BackendConfig を設定する
+
+```
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: bc-secret-iap-gke
+  namespace: {Your Namespace}
+spec:
+  iap:
+    enabled: true
+    oauthclientCredentials:
+      secretName: secret-iap-gke
 ```
