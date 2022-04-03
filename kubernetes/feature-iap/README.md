@@ -37,21 +37,21 @@ WIP
 
 3-1. 左上のナビゲーションメニューから `API & Services` -> `Credentials` をクリック
 
-IMG_01
+![](./images/iap_gke_3_01.png)
 
 3-2. `CREATE CREDENTIALS` -> `OAuth client ID` とクリック
 
-IMG_02
+![](./images/iap_gke_3_02.png)
 
 3-3. `Application type` に `Web application` をクリック。追加で出てきた項目を埋めていき、作成する
 
-IMG_03
+![](./images/iap_gke_3_03.png)
 
-IMG_04
+![](./images/iap_gke_3_04.png)
 
 3-4. `Client ID` と `Client Secret` が表示されるのでコピーしておく
 
-IMG_05
+![](./images/iap_gke_3_05.png)
 
 + コメント
   + Client ID は `hogehoge.apps.googleusercontent.com` の形
@@ -59,10 +59,9 @@ IMG_05
 
 もしコピーし忘れても、 `OAuth 2.0 Client IDs` をクリックすれば確認できる
 
-
 3-5. `OAuth 2.0 Client IDs` のところに先程作成した Client があるのでクリック
 
-IMG_06
+![](./images/iap_gke_3_06.png)
 
 3-6. `Authorized redirect URIs` に以下のフォーマットで URI を入れて保存する
 
@@ -75,21 +74,16 @@ https://iap.googleapis.com/v1/oauth/clientIds/{Your Client ID}:handleRedirect
 https://iap.googleapis.com/v1/oauth/clientIds/hogehoge.apps.googleusercontent.com:handleRedirect
 ```
 
-IMG_07
+![](./images/iap_gke_3_07.png)
 
-3-7. JSON をダウンロードする
-
-IMG_08
-
-IMG_09
 
 ### 4. IAM の設定
 
 IAP & Admin にて ` IAP-secured Web App User` の Role を付与する
 
-IMG_4_01
+![](./images/iap_gke_4_01.png)
 
-### 5. GKE にて Secret を設定する [なぞ1]
+### 5. GKE にて Secret を設定する
 
 + GKE と認証をする
 
@@ -143,6 +137,8 @@ kubectl apply -f secret-iap-gke.yaml
 
 ### 6. GKE に BackendConfig を設定する
 
++ `backendconfig-iap-gke.yaml` を作る
+
 ```
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
@@ -155,3 +151,48 @@ spec:
     oauthclientCredentials:
       secretName: secret-iap-gke
 ```
+
+### 7. Service に設定する
+
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-iap-gke
+  namespace: default
+  annotations:
+    beta.cloud.google.com/backend-config: '{
+      "ports": {
+        "80":"backendconfig-iap-gke"
+      }
+    }'
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-iap-gke
+
+spec:
+  rules:
+  - host: "iap-gke.iganari.org"
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: service-iap-gke
+            port:
+              number: 80
+```
+
+![](./images/iap_gke_7_01.png)
+
+![](./images/iap_gke_7_02.png)
