@@ -41,6 +41,7 @@ gcloud components install kubectl -q
 
 + [Cloud Armor](./modify-readme-only)
 + [IAP](./feature-iap)
+  + Ingress に IAP を付与するやり方 ( 正確には BackendConfig を設定し、 Service に関連付けする ) 
 + [nodeSelector](./feature-nodeselector)
   + Pod を特定のノードプールに明示的にデプロイする
 + [SSL](./feature-iap)
