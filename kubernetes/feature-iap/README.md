@@ -121,6 +121,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: secret-iap-gke
+  namespace: {Your Namespace}
 data:
   client_id: {base64 化した Client ID}
   client_secret: {base64 化した Client secret}
