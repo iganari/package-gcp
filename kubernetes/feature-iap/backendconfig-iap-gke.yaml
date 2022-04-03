@@ -1,0 +1,10 @@
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: backendconfig-iap-gke
+  namespace: {Your Namespace}
+spec:
+  iap:
+    enabled: true
+    oauthclientCredentials:
+      secretName: secret-iap-gke
