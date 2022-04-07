@@ -133,18 +133,18 @@ version: 1
 + IAM の Service Account をリストを表示する
 
 ```
-gcloud iam service-accounts list --project ${GCP Project ID}
+gcloud beta iam service-accounts list --project ${GCP Project ID}
 ```
 
 + role を付与する
 
 ```
-gcloud projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}
+gcloud beta projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}
 ```
 ```
 ### 例
 
-gcloud projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}
+gcloud beta projects add-iam-policy-binding example-project-id-1 --member='user:test-user@gmail.com' --role='roles/editor'
 ```
 
 
