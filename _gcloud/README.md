@@ -149,7 +149,7 @@ gcloud beta projects add-iam-policy-binding example-project-id-1 \
   --role='roles/editor'
 
 
-gcloud projects add-iam-policy-binding example-project-id-1 \
+gcloud beta projects add-iam-policy-binding example-project-id-1 \
   --member='serviceAccount:test-proj1@example.domain.com' \
   --role='roles/editor'
 ```
