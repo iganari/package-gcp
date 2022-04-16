@@ -31,10 +31,14 @@ export _gcp_pj_id="Your GCP Project ID"
 + Web ブラウザが必要になるので、その環境を用意して下さい。
 
 + そのターミナル上で GCP を操作する場合
-    + ブラウザの認証が必要
+  + ブラウザの認証が必要
 
 ```
 gcloud auth login
+
+OR
+
+gcloud auth login --no-launch-browser
 ```
  
 + SDK や Terraform のようなプログラムを介して、 GCP を操作する場合
@@ -42,6 +46,10 @@ gcloud auth login
 
 ```
 gcloud auth application-default login
+
+OR
+
+gcloud auth application-default login --no-launch-browser
 ```
 
 + Service Account に紐づくキーを用いて認証を行う場合
@@ -53,6 +61,7 @@ gcloud auth activate-service-account test-service-account@google.com \
     --key-file=/path/key.json \
     --project=testproject
 ```
+
 
 + ローカルに保持している auth の情報の確認
 
