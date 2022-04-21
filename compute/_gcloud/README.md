@@ -16,3 +16,14 @@ export _region='asia-northeast1'
 ```
 gcloud compute ssh {_user}@${_vm_name} --zone ${_region}-b --project ${_gcp_pj_id} --command="ps -ejH"
 ```
+
+
+## metadata
+
+WIP
+
+## ssh keys
+
+```
+gcloud beta compute os-login ssh-keys list --project {PROJECT ID}
+```
