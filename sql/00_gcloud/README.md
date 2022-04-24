@@ -190,8 +190,8 @@ ac90dc58-d272-4f1e-bc90-ae990000002b  UPDATE           2022-04-24T07:03:34.453+0
   + https://cloud.google.com/sdk/gcloud/reference/sql/operations/wait
 
 ```
-gcloud beta sql operations wait --project cmg-pyxis2v2-dev {job id}
+gcloud beta sql operations wait --project cmg-pyxis2v2-dev {operation name}
 
 
-gcloud beta sql operations wait --project cmg-pyxis2v2-dev {job id} --timeout=unlimited
+gcloud beta sql operations wait --project cmg-pyxis2v2-dev {operation name} --timeout=unlimited
 ```
