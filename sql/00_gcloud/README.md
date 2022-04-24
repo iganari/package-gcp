@@ -192,6 +192,17 @@ ac90dc58-d272-4f1e-bc90-ae990000002b  UPDATE           2022-04-24T07:03:34.453+0
 ```
 gcloud beta sql operations wait --project cmg-pyxis2v2-dev {operation name}
 
+OR
 
 gcloud beta sql operations wait --project cmg-pyxis2v2-dev {operation name} --timeout=unlimited
+```
+```
+### 例
+
+$ gcloud beta sql operations wait --project cmg-pyxis2v2-dev {operation name} --timeout=unlimited
+Waiting for [https://sqladmin.googleapis.com/sql/v1beta4/projects/_your_gcp_pj_id/operations/4503f367-e7b6-48e6-88c6-1e120000002b]...done.                                                                                       
+NAME                                  TYPE    START                          END                            ERROR  STATUS
+4503f367-e7b6-48e6-88c6-1e120000002b  UPDATE  2022-04-24T07:07:30.519+00:00  2022-04-24T07:19:01.768+00:00  -      DONE
+
+$
 ```
