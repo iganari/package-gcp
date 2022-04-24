@@ -136,8 +136,8 @@ WIP
 
 ```
 gcloud beta sql instances patch ${_sql_instance_name} \
-    --activation-policy NEVER \
-    --project ${_gcp_pj_id}
+  --activation-policy NEVER \
+  --project ${_gcp_pj_id}
 ```
 
 ## Cloud SQL instance を停止状態から起動
@@ -146,8 +146,8 @@ gcloud beta sql instances patch ${_sql_instance_name} \
 
 ```
 gcloud beta sql instances patch ${_sql_instance_name} \
-    --activation-policy ALWAYS \
-    --project ${_gcp_pj_id}
+  --activation-policy ALWAYS \
+  --project ${_gcp_pj_id}
 ```
 
 ## Cloud SQL Instance を削除
@@ -158,3 +158,13 @@ gcloud beta sql instances delete ${_sql_instance_name}  \
   -q
 ```
 
+## 非同期ジョブにする
+
++ `--async` をつける
+
+```
+gcloud beta sql instances patch ${_sql_instance_name} \
+  --activation-policy NEVER \
+  --async \
+  --project ${_gcp_pj_id}
+```
