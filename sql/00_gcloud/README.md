@@ -170,7 +170,11 @@ gcloud beta sql instances patch ${_sql_instance_name} \
 ```
 
 + 非同期にした job の状態を見る
+  + https://cloud.google.com/sdk/gcloud/reference/sql/operations/wait
 
 ```
 gcloud beta sql operations wait --project cmg-pyxis2v2-dev {job id}
+
+
+gcloud beta sql operations wait --project cmg-pyxis2v2-dev {job id} --timeout=unlimited
 ```
