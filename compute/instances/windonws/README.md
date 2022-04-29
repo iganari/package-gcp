@@ -5,7 +5,7 @@
 + GCP と認証する
 
 ```
-gcloud auth login -q
+gcloud auth application-default login --no-launch-browser -q
 ```
 
 ```
@@ -92,6 +92,7 @@ gcloud beta compute instances create ${_common}-vm \
 ## Windows のログインパスワードを作成
 
 + gcloud コマンドにて作成
+  + https://cloud.google.com/compute/docs/instances/windows/generating-credentials#gcloud
 
 ```
 gcloud beta compute reset-windows-password ${_common}-vm \
@@ -103,7 +104,17 @@ gcloud beta compute reset-windows-password ${_common}-vm \
 ```
 ### 例
 
-WIP
+$ gcloud beta compute reset-windows-password ${_common}-vm \
+  --zone ${_region}-b \
+  --user iganari \
+  --project ${_gcp_pj_id} \
+  -q
+
+Resetting and retrieving password for [iganari] on [your_gce_instance_name]
+Updated [https://www.googleapis.com/compute/beta/projects/your_gcp_pj_id/zones/asia-northeast1-b/instances/your_gce_instance_name].
+ip_address: your_external_ip_address
+password:   your_rdp_password
+username:   iganari
 ```
 
 ## RDP でログイン
