@@ -119,5 +119,12 @@ username:   iganari
 
 ## RDP でログイン
 
-WIP
+やること | スクリーンショット
+:- | :-
+RDP 接続 | ![](./img/rdp-login-01.png)
+ユーザ、パスワード | ![](./img/rdp-login-02.png)
+ログイン成功 | ![](./img/rdp-login-03.png)
+Server Manager を確認 | ![](./img/rdp-login-04.png)
+IE Enhanced Security Configuration で off にする| ![](./img/rdp-login-05.png)
+Server Manager を確認 | ![](./img/rdp-login-06.png)
 
