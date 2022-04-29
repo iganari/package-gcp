@@ -92,6 +92,7 @@ gcloud beta compute instances create ${_common}-vm \
 ## Windows のログインパスワードを作成
 
 + gcloud コマンドにて作成
+  + https://cloud.google.com/compute/docs/instances/windows/generating-credentials#gcloud
 
 ```
 gcloud beta compute reset-windows-password ${_common}-vm \
