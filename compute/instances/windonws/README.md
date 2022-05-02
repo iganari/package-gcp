@@ -75,11 +75,12 @@ gcloud beta compute addresses create ${_common}-ip \
 ```
 
 + VM Instance の作成
+  + デスクトップが重くなるので、普通くらいのインスタンスタイプ `e2-standard-2` を使用している
 
 ```
 gcloud beta compute instances create ${_common}-vm \
   --zone ${_region}-b \
-  --machine-type e2-small \
+  --machine-type e2-standard-2 \
   --subnet ${_common}-subnets \
   --address ${_common}-ip \
   --tags=${_common}-allow-internal-all,${_common}-allow-rdp \
