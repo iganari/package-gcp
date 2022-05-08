@@ -28,9 +28,19 @@ Autopilot mode | [gcloud](./autopilot-public-gcloud/README.md), [terraform] | [g
 + ルートベース クラスタ
   + 別途記載
 
-### 違い
+### WIP Standard mode と Autopilot mode の違い
+
+```
+Autopilot overview | Comparing Autopilot and Standard modes
+https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview#comparison
+```
+```
+Autopilot によるワークロードの制限
+https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview#limits
+```
 
 WIP
+
 
 ## Private Cluster
 
