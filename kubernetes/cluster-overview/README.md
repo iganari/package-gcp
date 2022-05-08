@@ -4,11 +4,18 @@
 
 VPC-native cluster と ルートベース クラスタ があり、VPC-native cluster が推奨 [2021/05時点]
 
-## Cluster の mode
+## Cluster の 2 つの mode
 
-+ Standard
+### 概要
+
+```
+Types of clusters
+https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters
+```
+
++ Standard mode
   + Kubernetes cluster with node configuration flexibility and pay-per-node.
-+ Autopilot
++ Autopilot mode
   + Optimized Kubernetes cluster with a hands-off experience and pay-per-pod.
 
 `Standard` と `Autopilot` はともに `Public cluster` `Private cluster` を作れる
@@ -19,7 +26,21 @@ Standard mode | [gcloud](./standard-public-gcloud/README.md), [terraform] | [gcl
 Autopilot mode | [gcloud](./autopilot-public-gcloud/README.md), [terraform] | [gcloud](./autopilot-private-gcloud/README.md), [terraform]
 
 + ルートベース クラスタ
-  + 別途記載 
+  + 別途記載
+
+### [:fire: WIP :fire:] Standard mode と Autopilot mode の違い
+
+```
+Autopilot overview | Comparing Autopilot and Standard modes
+https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview#comparison
+```
+```
+Autopilot によるワークロードの制限
+https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview#limits
+```
+
+WIP
+
 
 ## Private Cluster
 
@@ -35,13 +56,11 @@ Private Cluster を使用する際は Cloud NAT を用いて、インターネ�
 
 [Google Kubernetes Engine pricing](https://cloud.google.com/kubernetes-engine/pricing)
 
-
 ## コスト削減
 
++ [Node Pool に Preemptible VM を使う](https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms)
 
-[Node Pool に Preemptible VM を使う](https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms)
-
-[Autopilot で Spot Pod を使う](https://cloud.google.com/kubernetes-engine/docs/how-to/autopilot-spot-pods)
++ [Autopilot で Spot Pod を使う](https://cloud.google.com/kubernetes-engine/docs/how-to/autopilot-spot-pods)
 
 
 ## 用語

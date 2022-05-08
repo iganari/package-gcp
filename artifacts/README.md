@@ -8,16 +8,16 @@
 
 + Artifact Registry
   + https://cloud.google.com/artifact-registry?hl=en
++ Overview of Artifact Registry
+  + https://cloud.google.com/artifact-registry/docs/overview
++ Container Registry からの移行
+  + https://cloud.google.com/artifact-registry/docs/transition/transition-from-gcr?hl=ja
++ Transitioning from Container Registry
+  + https://cloud.google.com/artifact-registry/docs/transition/transition-from-gcr
 
+Tips
 
-Overview of Artifact Registry https://cloud.google.com/artifact-registry/docs/overview
-
-
-Container Registry からの移行 https://cloud.google.com/artifact-registry/docs/transition/transition-from-gcr?hl=ja
-
-Transitioning from Container Registry
-https://cloud.google.com/artifact-registry/docs/transition/transition-from-gcr
-
+1. 公式ドキュメントだと `Google` や `Cloud` は付かず、 `Artifact Registry` と表記されている
 
 ## 使ってみる
 
