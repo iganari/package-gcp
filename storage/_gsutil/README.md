@@ -23,8 +23,11 @@ gsutil mb gs://BUCKET_NAME
 
 + 色々、指定する場合
   + -p: バケットが関連するプロジェクトを指定します。例: `my-project`
-  + -c: バケットのデフォルトのストレージ クラスを指定します。例: `NEARLINE`
-  + -l: バケットのロケーションを指定します。例: `US-EAST1`
+  + -c: バケットのデフォルトのストレージ クラスを指定します。
+    + `STANDARD` , `NEARLINE` , `COLDLINE` , `ARCHIVE`
+    + https://cloud.google.com/storage/docs/storage-classes#classes
+  + -l: バケットのロケーションを指定します。
+    + 例: `US-EAST1`
 
 ```
 gsutil mb -p {PROJECT_ID} -c {STORAGE_CLASS} -l {BUCKET_LOCATION} gs://BUCKET_NAME
