@@ -17,10 +17,11 @@ gcloud components install kubectl -q
 ## Cluster
 
 + [Cluster について](./cluster-overview)
-  + autopilot-private-gcloud
-  + autopilot-public-gcloud
-  + standard-private-gcloud
-  + standard-public-gcloud
+  + [Create Private Cluster of Autopilot mode](./autopilot-private-gcloud)
+  + [Create Public Cluster of Autopilot mode](./autopilot-public-gcloud)
+  + [Create Private Cluster of Standard mode](./standard-private-gcloud)
+  + [Create Public Cluster of Standard mode](./standard-public-gcloud)
+  + WIP [Standard mode と Autopilot mode の違いについて]
 + [cluster-version-upgrade](./cluster-version-upgrade)
     + GKE クラスタのアップグレード方法
 
