@@ -16,16 +16,18 @@ gcloud components install kubectl -q
 
 ## Cluster
 
-+ [cluster-basic](./cluster-basic)
-    + 通常クラスタ
-    + [gcloud](./cluster-basic/gcloud)
-    + [terraform](./cluster-basic/terraform)
-+ [cluster-private](./cluster-private)
-    + 限定公開クラスタ
-    + [gcloud](./cluster-private/gcloud)
-    + [terraform](./cluster-private/terraform)
++ [Cluster について](./cluster-overview)
+  + autopilot-private-gcloud
+  + autopilot-public-gcloud
+  + standard-private-gcloud
+  + standard-public-gcloud
 + [cluster-version-upgrade](./cluster-version-upgrade)
     + GKE クラスタのアップグレード方法
+
+
+
+
+
 
 ## Kind
 
