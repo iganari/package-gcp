@@ -28,7 +28,7 @@ Autopilot mode | [gcloud](./autopilot-public-gcloud/README.md), [terraform] | [g
 + ルートベース クラスタ
   + 別途記載
 
-### WIP Standard mode と Autopilot mode の違い
+### [:fire: WIP :fire:] Standard mode と Autopilot mode の違い
 
 ```
 Autopilot overview | Comparing Autopilot and Standard modes
