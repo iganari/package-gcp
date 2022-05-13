@@ -50,6 +50,15 @@ bq rm ${_dataset_name} --project_id ${_gcp_pj_id}
 
 ### 既存テーブルのスキーマの取得
 
++ 基本形
+
 ```
-bq show --schema --format=prettyjson ${_gcp_pj_id}:{dataset name}.{table name}
+bq show --schema --format=prettyjson ${_gcp_pj_id}:${_dataset_name}.${_table_name}
 ```
+
++ ローカルに保存する場合
+
+```
+bq show --schema --format=prettyjson ${_gcp_pj_id}:${_dataset_name}.${_table_name} > ${_dataset_name}.${_table_name}.json
+```
+
