@@ -59,6 +59,18 @@ bq show --schema --format=prettyjson ${_gcp_pj_id}:${_dataset_name}.${_table_nam
 + ローカルに保存する場合
 
 ```
-bq show --schema --format=prettyjson ${_gcp_pj_id}:${_dataset_name}.${_table_name} > ${_dataset_name}.${_table_name}.json
+bq show --schema --format=prettyjson ${_gcp_pj_id}:${_dataset_name}.${_table_name} > ${_dataset_name}_${_table_name}.json
+```
+
++ 変更
+
+```
+vim ${_dataset_name}_${_table_name}.json
+```
+
++ 修正
+
+```
+bq update ${_gcp_pj_id}:${_dataset_name}.${_table_name} ${_dataset_name}_${_table_name}.json
 ```
 
