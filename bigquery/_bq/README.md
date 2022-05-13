@@ -68,9 +68,14 @@ bq show --schema --format=prettyjson ${_gcp_pj_id}:${_dataset_name}.${_table_nam
 vim ${_dataset_name}_${_table_name}.json
 ```
 
-+ 修正
++ 既存 table の修正
 
 ```
 bq update ${_gcp_pj_id}:${_dataset_name}.${_table_name} ${_dataset_name}_${_table_name}.json
 ```
 
++ 新しい table を作成
+
+```
+bq mk --table --schema ${_dataset_name}_${_table_name}.json ${_gcp_pj_id}:${_dataset_name}.${_table_name}_2
+```
