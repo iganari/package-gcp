@@ -28,9 +28,26 @@ gcloud beta services list --enabled --filter='run.googleapis.com' --project { Yo
   + Cloud Run Admin ( `roles/run.admin` )
   + Service Account User ( `roles/iam.serviceAccountUser` )
 
++ 新規デプロイ時に公開アクセスを許可する場合
+  + Security Admin ( `roles/iam.securityAdmin` ) <- ?
++ 既存サービスに公開アクセスを許可する場合
+  + `allUsers` に `roles/run.invoker` をいれる
+
+```
+  gcloud run services add-iam-policy-binding SERVICE \
+    --member="allUsers" \
+    --role="roles/run.invoker"
+```
+
+
 ```
 デプロイ時に必要な role
 https://cloud.google.com/run/docs/reference/iam/roles#additional-configuration
+```
+
+```
+公開（未認証）アクセスを許可する
+https://cloud.google.com/run/docs/authenticating/public
 ```
 
 ## 注意点
