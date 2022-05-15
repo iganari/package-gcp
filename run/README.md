@@ -88,3 +88,9 @@ TBD
 
 [Authenticating developers](./authorization_developer/)
 
+## Cloud Run での Cloud Storage FUSE の使用
+
+```
+チュートリアル: Cloud Run での Cloud Storage FUSE の使用
+https://cloud.google.com/run/docs/tutorials/network-filesystems-fuse
+```
