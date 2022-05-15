@@ -35,7 +35,7 @@ https://cloud.google.com/storage/docs/hosting-static-website
 
 ## Cloud Run での Cloud Storage FUSE の使用
 
-[Cloud Run での Cloud Storage FUSE の使用](../run/network-filesystems-fuse/)
+:point_right: [Cloud Run での Cloud Storage FUSE の使用](../run/network-filesystems-fuse/)
 
 ## memo
 
