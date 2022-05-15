@@ -38,4 +38,5 @@ https://cloud.google.com/storage/docs/hosting-static-website
 ```
 オブジェクトのキャッシュについて
 https://cloud.google.com/storage/docs/caching
+https://cloud.google.com/storage/docs/metadata#caching_data
 ```
