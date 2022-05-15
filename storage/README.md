@@ -24,6 +24,14 @@ GCS 例外的に IAM と管理 以外でも、アクセス権限を操作する�
 
 + [IAM roles for Cloud Storage | Predefined legacy roles](https://cloud.google.com/storage/docs/access-control/iam-roles#legacy-roles)
 
+## 静的ウェブサイトをホストする
+
+WIP
+
+```
+公式ドキュメント
+https://cloud.google.com/storage/docs/hosting-static-website
+```
 
 ## memo
 
