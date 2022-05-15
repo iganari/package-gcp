@@ -33,6 +33,9 @@ WIP
 https://cloud.google.com/storage/docs/hosting-static-website
 ```
 
+## Cloud Run での Cloud Storage FUSE の使用
+
+
 ## memo
 
 ```
