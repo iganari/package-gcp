@@ -48,3 +48,14 @@ iap.googleapis.com  Cloud Identity-Aware Proxy API
 
 [Using IAP for TCP forwarding](https://cloud.google.com/iap/docs/using-tcp-forwarding)
 
+
+## 制限事項
+
+### Q. IAP のセッションの永続時間は?
+
+A. 非アクティブ状態が 1 時間続くと自動で切れる
+
+```
+Known limitations | Connection length
+https://cloud.google.com/beyondcorp-enterprise/docs/securing-virtual-machines#known_limitations
+```
