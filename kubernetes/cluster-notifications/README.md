@@ -10,3 +10,10 @@
 Cluster notifications
 https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-notifications
 ```
+
+## 参考
+
+```
+GKEクラスタのアップグレードをSlackへ通知する仕組み
+https://heartbeats.jp/hbblog/2021/09/gke-cluster-upgrade-notifier.html
+```
