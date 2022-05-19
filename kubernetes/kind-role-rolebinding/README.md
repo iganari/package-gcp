@@ -1,4 +1,6 @@
-# kind: Role / RoleBinding
+# kind: Role / RoleBinding / ClusterRole / ClusterRoleBinding
+
+:fire: 要検証項目あり -> [要検証](./README.md#要検証)
 
 ## 概要
 
@@ -42,6 +44,7 @@ Project レベルで Permission `container.clusters.get` が必要
 IAM と管理にて付与する必要がありそう
 
 https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control#iam-interaction
+
 
 ## Role と RoleBinding
 
@@ -94,6 +97,12 @@ subjects:
 
 WIP
 
+
+## 要検証
+
+グーグルグループを使う際に RoleBinding で指定するだけでいいのか？
+
+確認済みドメインの Google グループのアドレス `gke-security-groups@ドメイン` がよく分かってない -> [Configure Google Groups for RBAC(RBAC 向け Google グループの構成)](https://cloud.google.com/kubernetes-engine/docs/how-to/google-groups-rbac)
 
 ## memo
 

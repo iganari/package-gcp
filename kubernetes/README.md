@@ -26,10 +26,6 @@ gcloud components install kubectl -q
     + GKE クラスタのアップグレード方法
 
 
-
-
-
-
 ## Kind
 
 + [Cron Jobs](./kind-cronjobs)
@@ -39,12 +35,13 @@ gcloud components install kubectl -q
 + [PriorityClass](./kind-priorityclass)
 + [Secret](./kind-secret)
 + [StatefulSet](./kind-statufulset)
++ [Role / RoleBinding / ClusterRole / ClusterRoleBinding](./kind-role-rolebinding)
 
 ## Feature
 
 + [Cloud Armor](./modify-readme-only)
 + [IAP](./feature-iap)
-  + Ingress に IAP を付与するやり方 ( 正確には BackendConfig を設定し、 Service に関連付けする ) 
+  + Ingress に IAP を付与するやり方 ( 正確には BackendConfig を設定し、 Service に関連付けする )
 + [nodeSelector](./feature-nodeselector)
   + Pod を特定のノードプールに明示的にデプロイする
 + [SSL](./feature-iap)
