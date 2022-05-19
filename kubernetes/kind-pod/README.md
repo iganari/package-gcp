@@ -10,6 +10,7 @@ WIP
 
 ```
 kind: Pod
+apiVersion: v1
 metadata:
   name: quiet-pod-01
 spec:
