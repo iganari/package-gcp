@@ -40,7 +40,7 @@ OR
 
 gcloud auth login --no-launch-browser
 ```
- 
+
 + SDK や Terraform のようなプログラムを介して、 GCP を操作する場合
     + ブラウザの認証が必要
 
