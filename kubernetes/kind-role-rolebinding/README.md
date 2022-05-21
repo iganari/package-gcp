@@ -1,7 +1,5 @@
 # kind: Role / RoleBinding / ClusterRole / ClusterRoleBinding
 
-:fire: 要検証項目あり -> [要検証](./README.md#要検証)
-
 ## 概要
 
 GKE 上で Kubernetes の RBAC を使うことが出来る
@@ -37,14 +35,9 @@ K8s の RBAC の制約 -> https://kubernetes.io/ja/docs/reference/access-authn-a
 
 ### IAM
 
-Project レベルで Permission `container.clusters.get` が必要
+GCP Project レベルで Permission `container.clusters.get` が必要になる
 
-この Permission が含まれる Role は `Kubernetes Engine Cluster Viewer(roles/container.clusterViewer)` や `Kubernetes Engine Viewer(roles/container.viewer)` など。
-
-IAM と管理にて付与する必要がありそう
-
-https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control#iam-interaction
-
+この Permission が含まれる Role は `Kubernetes Engine Cluster Viewer(roles/container.clusterViewer)` や `Kubernetes Engine Viewer(roles/container.viewer)` などであり、 `Kubernetes Engine Cluster Viewer` が一番ミニマムの 事前定義されている Role である
 
 ## Role と RoleBinding
 
@@ -98,11 +91,11 @@ subjects:
 WIP
 
 
-## 要検証
+## Google Groups for RBAC
 
-グーグルグループを使う際に RoleBinding で指定するだけでいいのか？
+RBAC を Google グループ単位で設定することが出来る
 
-確認済みドメインの Google グループのアドレス `gke-security-groups@ドメイン` がよく分かってない -> [Configure Google Groups for RBAC(RBAC 向け Google グループの構成)](https://cloud.google.com/kubernetes-engine/docs/how-to/google-groups-rbac)
+[Google Groups for RBAC を設定してみる](./google-groups-rbac/)
 
 ## memo
 
