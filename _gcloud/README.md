@@ -40,7 +40,7 @@ OR
 
 gcloud auth login --no-launch-browser
 ```
- 
+
 + SDK や Terraform のようなプログラムを介して、 GCP を操作する場合
     + ブラウザの認証が必要
 
@@ -146,6 +146,8 @@ gcloud beta iam service-accounts list --project ${GCP Project ID}
 ```
 
 + role を付与する
+  + `member` は `user:email` `group:email` `serviceAccount:email` `domain:domain`
+
 
 ```
 gcloud beta projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}

@@ -12,7 +12,7 @@ Public Cluster
 + GCP と認証します
 
 ```
-gcloud auth login -q
+gcloud auth login --no-launch-browser -q
 ```
 
 ```

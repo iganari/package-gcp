@@ -12,14 +12,16 @@ Priavte Cluster
 + GCP と認証します
 
 ```
-gcloud auth login -q
+gcloud auth login --no-launch-browser -q
 ```
+
++ 環境変数を設定しておきます
 
 ```
 ### Env
 
-export _common='priauto'
 export _gcp_pj_id='Your GCP Project ID'
+export _common='priauto'
 export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'
 ```
@@ -83,6 +85,8 @@ gcloud beta compute routers nats create ${_common}-nat \
 + クラスタを作成します
   + Autopilot mode のコマンド
     + `create-auto`
+  + リリースチャンネル
+    + `rapid`
   + 限定公開クラスタのオプション
     + `--enable-private-nodes`
   + 限定公開クラスタ時の認証済ネットワーク
@@ -97,7 +101,7 @@ gcloud beta container clusters create-auto ${_common}-clt \
   --enable-private-nodes \
   --master-ipv4-cidr "10.0.0.0/28" \
   --enable-master-authorized-networks \
-  --master-authorized-networks 0.0.0.0/0 \
+  --master-authorized-networks "0.0.0.0/0" \
   --network ${_common}-network \
   --subnetwork ${_common}-subnets \
   --cluster-ipv4-cidr "/17" \

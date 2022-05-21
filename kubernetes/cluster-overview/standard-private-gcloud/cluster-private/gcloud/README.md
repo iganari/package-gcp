@@ -32,12 +32,12 @@
 
 + gcloud コマンドの configure 機能を使用し設定を管理します
   + また、 GCP 上のプロジェクトID を使用します。
-  
+
 ```
 ### Add New Env
 export _gcp_pj_id='GCP のプロジェクトID'
-  
-  
+
+
 gcloud config configurations create ${_gcp_pj_id}
 gcloud config set project ${_gcp_pj_id}
 gcloud config configurations list
@@ -47,7 +47,7 @@ gcloud config configurations list
   + ブラウザを通しての認証を行います。
 
 ```
-gcloud auth login -q
+gcloud auth login --no-launch-browser -q
 ```
 
 ## Create Network
@@ -130,7 +130,7 @@ gcloud beta container node-pools create ${_common}-regional-nodepool \
   --project ${_gcp_pj_id}
 ```
 
-## Create NAT 
+## Create NAT
 
 限定公開クラスターを作っただけだと、内部から(GCPより)外部への通信の経路が無いため、たとえば `apt update` などが、Pod無いから実行できない
 
