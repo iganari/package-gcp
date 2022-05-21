@@ -1,10 +1,27 @@
 # Monitoring
 
+## 概要
+
+Google Cloud の備え付けの監視ツール
+
++ 事前に用意されたダッシュボードがある
+  + 自身でダッシュボードをカスタム作成することも出来る
++ GCE に Ops Agent をいれることで詳細なメトリクスを取得可能
++ Uptime Check ( 外形監視 ) が簡単に実装可能
++ しきい値設定によるアラーティングの設定が可能 -> Mail や Slack などに通知が可能
+
+```
+Cloud Monitoring
+https://cloud.google.com/monitoring
+```
+
+
+
+## Installing on Linux
+
 + 公式ドキュメント
 
 https://cloud.google.com/monitoring/agent/install-agent?hl=en
-
-## Installing on Linux
 
 ---> Ops Agent に切り替わりました
 

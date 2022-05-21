@@ -13,6 +13,9 @@ WIP
 ```
 gcloud beta services enable run.googleapis.com --project { Your GCP Project ID}
 ```
+```
+gcloud beta services list --enabled --filter='run.googleapis.com' --project { Your GCP Project ID}
+```
 
 ## サンプル
 
@@ -25,9 +28,26 @@ gcloud beta services enable run.googleapis.com --project { Your GCP Project ID}
   + Cloud Run Admin ( `roles/run.admin` )
   + Service Account User ( `roles/iam.serviceAccountUser` )
 
++ 新規デプロイ時に公開アクセスを許可する場合
+  + Security Admin ( `roles/iam.securityAdmin` ) <- ?
++ 既存サービスに公開アクセスを許可する場合
+  + `allUsers` に `roles/run.invoker` をいれる
+
+```
+  gcloud run services add-iam-policy-binding SERVICE \
+    --member="allUsers" \
+    --role="roles/run.invoker"
+```
+
+
 ```
 デプロイ時に必要な role
 https://cloud.google.com/run/docs/reference/iam/roles#additional-configuration
+```
+
+```
+公開（未認証）アクセスを許可する
+https://cloud.google.com/run/docs/authenticating/public
 ```
 
 ## 注意点
@@ -50,10 +70,27 @@ gcloud run services update {_run_service_name} --port {_container_port} --region
 https://cloud.google.com/run/docs/configuring/containers?hl=en#configure-port
 ```
 
+## ユースケース
+
 ### 内部通信する場合
 
 [Serverless VPC Access](../networking/connectors)
 
+### 外部 IP アドレスが付いていない GCE インスタンスから Cloud Run にアクセスする
+
+TBD
+
 ## 参考 URL
 
 + [新しい CPU 割り当てコントロールにより Cloud Run 上でさらに多様なワークロードを実行](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-always-on-cpu-allocation)
+
+## 簡易的な ID トークン 認証
+
+[Authenticating developers](./authorization_developer/)
+
+## Cloud Run での Cloud Storage FUSE の使用
+
+```
+チュートリアル: Cloud Run での Cloud Storage FUSE の使用
+https://cloud.google.com/run/docs/tutorials/network-filesystems-fuse
+```

@@ -60,3 +60,18 @@ steps:
       - -c
       - |
         gcloud auth list
+
+  - id: "bash sample"
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        ### Exit immediately if a command exits with a non-zero status.
+        set -e
+        echo 'Hello!! :)'
+
+timeout: 86400s   ### https://cloud.google.com/build/docs/build-config-file-schema#timeout_2
+
+options:
+  machineType: E2_HIGHCPU_8  ### https://cloud.google.com/build/docs/api/reference/rest/v1/projects.builds#machinetype

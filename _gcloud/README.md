@@ -6,6 +6,7 @@
 + [monitoring](./README.md#monitoring)
 + [update](./README.md#update)
 + [services](./README.md#services)
++ [Option | format]
 
 ## 準備
 
@@ -30,17 +31,25 @@ export _gcp_pj_id="Your GCP Project ID"
 + Web ブラウザが必要になるので、その環境を用意して下さい。
 
 + そのターミナル上で GCP を操作する場合
-    + ブラウザの認証が必要
+  + ブラウザの認証が必要
 
 ```
 gcloud auth login
+
+OR
+
+gcloud auth login --no-launch-browser
 ```
- 
+
 + SDK や Terraform のようなプログラムを介して、 GCP を操作する場合
     + ブラウザの認証が必要
 
 ```
 gcloud auth application-default login
+
+OR
+
+gcloud auth application-default login --no-launch-browser
 ```
 
 + Service Account に紐づくキーを用いて認証を行う場合
@@ -52,6 +61,7 @@ gcloud auth activate-service-account test-service-account@google.com \
     --key-file=/path/key.json \
     --project=testproject
 ```
+
 
 + ローカルに保持している auth の情報の確認
 
@@ -132,20 +142,28 @@ version: 1
 + IAM の Service Account をリストを表示する
 
 ```
-gcloud iam service-accounts list --project ${GCP Project ID}
+gcloud beta iam service-accounts list --project ${GCP Project ID}
 ```
 
 + role を付与する
+  + `member` は `user:email` `group:email` `serviceAccount:email` `domain:domain`
+
 
 ```
-gcloud projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}
+gcloud beta projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}
 ```
 ```
 ### 例
 
-gcloud projects add-iam-policy-binding ${GCP Project ID} --member={account} --role={role}
-```
+gcloud beta projects add-iam-policy-binding example-project-id-1 \
+  --member='user:test-user@gmail.com' \
+  --role='roles/editor'
 
+
+gcloud beta projects add-iam-policy-binding example-project-id-1 \
+  --member='serviceAccount:test-proj1@example.domain.com' \
+  --role='roles/editor'
+```
 
 ## monitoring
 
@@ -190,6 +208,9 @@ gcloud beta services list --project ${_gcp_pj_id}
 ```
 gcloud beta services list --enabled --project ${_gcp_pj_id}
 ```
+```
+gcloud beta services list --enabled --filter='API Name' --project ${_gcp_pj_id}
+```
 
 + サービスを有効化する
 
@@ -201,4 +222,14 @@ gcloud beta services enable {Services Name} --project ${_gcp_pj_id}
 
 ```
 gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
+```
+
+## Option
+
+### format
+
+出力形式を指定できる
+
+```
+gcloud auth list --format json
 ```
