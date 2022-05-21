@@ -43,3 +43,19 @@ rpm --query --queryformat '%{NAME} %{VERSION} %{RELEASE} %{ARCH}\n' \
      google-fluentd-catch-all-config \
      google-fluentd-catch-all-config-structured
 ```
+
+
+## log query
+
++ 全部の audit log を取ってくる
+
+```
+protoPayload."@type"="type.googleapis.com/google.cloud.audit.AuditLog"
+```
+
+## memo
+
+```
+Logging のクエリ言語
+https://cloud.google.com/logging/docs/view/logging-query-language?hl=ja
+```

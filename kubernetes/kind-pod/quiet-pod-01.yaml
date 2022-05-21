@@ -1,0 +1,12 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: quiet-pod-01
+spec:
+  containers:
+  - name: quiet-pod
+    image: google/cloud-sdk:slim
+    command:
+    - tail
+    - -f
+    - /dev/null

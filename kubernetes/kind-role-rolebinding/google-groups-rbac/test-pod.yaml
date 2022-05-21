@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rbactest-a-ns
+
+---
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: rbactest-a-pod-1
+  namespace: rbactest-a-ns
+spec:
+  containers:
+  - name: quiet-pod
+    image: google/cloud-sdk:slim
+    command:
+    - tail
+    - -f
+    - /dev/null
+
+---
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: rbactest-a-pod-2
+  namespace: rbactest-a-ns
+spec:
+  containers:
+  - name: quiet-pod
+    image: google/cloud-sdk:slim
+    command:
+    - tail
+    - -f
+    - /dev/null
+
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rbactest-b-ns
+
+---
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: rbactest-b-pod-1
+  namespace: rbactest-b-ns
+spec:
+  containers:
+  - name: quiet-pod
+    image: google/cloud-sdk:slim
+    command:
+    - tail
+    - -f
+    - /dev/null
+
+---
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: rbactest-b-pod-2
+  namespace: rbactest-b-ns
+spec:
+  containers:
+  - name: quiet-pod
+    image: google/cloud-sdk:slim
+    command:
+    - tail
+    - -f
+    - /dev/null

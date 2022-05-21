@@ -16,6 +16,10 @@ Cloud Build Trigger の基礎的なサンプル
 
 GKE Cluster 上にデプロイする
 
+## Service Account
+
+Service Account について
+
 ## 参考ドキュメント
 
 ```
@@ -27,10 +31,18 @@ https://console.cloud.google.com/cloud-build
 https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values
 ```
 ```
+ビルド構成ファイルのスキーマ
+https://cloud.google.com/build/docs/build-config-file-schema
+```
+```
 Cloud builders
 https://cloud.google.com/build/docs/cloud-builders
 ```
 ```
 github.com/GoogleCloudPlatform/cloud-builders
 https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gcloud
+```
+```
+Configuring the order of build steps
+https://cloud.google.com/build/docs/configuring-builds/configure-build-step-order
 ```

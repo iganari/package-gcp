@@ -21,3 +21,7 @@ WIP
 ### [Apache](./apache/README.md)
 
 Apache の VirtualHost を ConfigMap で付け足してみる
+
+### [nginx](./nginx/README.md)
+
+nginx の VirtualHost を ConfigMap で付け足してみる
