@@ -198,7 +198,7 @@ roleRef:
 subjects:
 # Google Group
 - kind: Group
-  name: rbactest-group-aaa@{Your Domain}
+  name: rbactest-group-aaa@{Your_Domain}
 
 ---
 
@@ -210,7 +210,7 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["pods"]
-  verbs: [""]
+  verbs: ["get", "watch", "list"]
 
 ---
 
@@ -226,7 +226,7 @@ roleRef:
 subjects:
 # Google Group
 - kind: Group
-  name: rbactest-group-bbb@{Your Domain}
+  name: rbactest-group-bbb@{Your_Domain}
 ```
 
 + マニフェストを apply する

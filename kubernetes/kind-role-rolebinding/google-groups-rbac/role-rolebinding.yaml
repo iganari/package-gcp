@@ -22,7 +22,7 @@ roleRef:
 subjects:
 # Google Group
 - kind: Group
-  name: rbactest-a@{Your Domain}
+  name: rbactest-group-aaa@{Your_Domain}
 
 ---
 
@@ -50,4 +50,4 @@ roleRef:
 subjects:
 # Google Group
 - kind: Group
-  name: rbactest-b@{Your Domain}
+  name: rbactest-group-bbb@{Your_Domain}
