@@ -2,7 +2,9 @@
 
 ## 概要
 
-Google Groups for RBAC を使用すると、GKE クラスタ上のリソースに対しての操作権限を GCP 管理者や GKE 管理者ではなく、Google Workspace の管理者( つまり GCP の外部の管理者 ) がユーザーとグループを完全に制御出来る運用が出来る
+Google Kubernetes Engine ( GKE ) において Google Groups for RBAC を使用すると、GKE クラスタ上のリソースに対しての操作権限を GCP 管理者や GKE 管理者ではなく、Google Workspace の管理者( つまり GCP の外部の管理者 ) がユーザーとグループを制御することが出来るようになります
+
+GCP において、ユーザの管理は GCP ではなく Google Admin で管理することがベストプラクティスになるため、この Google Groups for RBAC を使いこなせると GCP をうまく使うことが出来るようになります
 
 ```
 Configure Google Groups for RBAC ( RBAC 向け Google グループの構成 )
@@ -37,9 +39,9 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control
 
 ### Google Admin で Google Group を作成
 
-必要な Google Group を作成する
+必要な Google Group を作成します
 
-+ 今回は以下の Google Group を作成する
++ 今回は以下の Google Group を作成します
   + `rbactest-group-aaa@{Your_Domain}`
     + `rbactest-user-xxx@{Your_Domain}` が入っている
   + `rbactest-group-bbb@{Your_Domain}`
@@ -54,10 +56,10 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control
 
 ### GKE Cluster の作成
 
-+ GKE autopilot を作成する
-  + 下記の URL を元に Autopilot mode の GKE Cluster を作成する
++ GKE autopilot を作成します
+  + 下記の URL を元に Autopilot mode の GKE Cluster を作成します
     + [Package GCP | Create Private Cluster of Autopilot mode](https://github.com/iganari/package-gcp/tree/main/kubernetes/cluster-overview/autopilot-private-gcloud)
-    + GKE Cluster に認証するところまでやる
+    + GKE Cluster に認証するところまでやります
 
 ```
 export _gcp_pj_id='Your GCP Project ID'
@@ -71,7 +73,7 @@ export _sub_network_range='10.146.0.0/20'
 
 ### IAM Role を付与
 
-+ `gke-admin@{Your Domain}` に `Kubernetes Engine Admin ( roles/container.admin )` の Role を付与する
++ `gke-admin@{Your Domain}` に `Kubernetes Engine Admin ( roles/container.admin )` の Role を付与します
 
 ```
 ### gke-admin@{Your_Domain} に Role を付与
@@ -80,7 +82,7 @@ gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} \
   --role='roles/container.admin'
 ```
 
-+ `rbactest-group-aaa@{Your_Domain}` と `rbactest-group-bbb@{Your_Domain}` に `Kubernetes Engine Cluster Viewer ( roles/container.clusterViewer )` の Role を付与する
++ `rbactest-group-aaa@{Your_Domain}` と `rbactest-group-bbb@{Your_Domain}` に `Kubernetes Engine Cluster Viewer ( roles/container.clusterViewer )` の Role を付与します
 
 ```
 ### rbactest-group-aaa@{Your_Domain} に Role を付与
@@ -94,7 +96,7 @@ gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} \
   --role='roles/container.clusterViewer'
 ```
 
-+ IAM を確認する
++ IAM を確認します
 
 ```
 gcloud beta projects get-iam-policy ${_gcp_pj_id}
@@ -106,8 +108,8 @@ gcloud beta projects get-iam-policy ${_gcp_pj_id}
 
 ### Google アカウントを変更
 
-+ gcloud auth を使って変更する
-  + `gke-admin@{Your Domain}` でログインする
++ gcloud auth を使って変更します
+  + `gke-admin@{Your Domain}` でログインします
 
 ```
 gcloud auth login --no-launch-browser -q
@@ -115,13 +117,13 @@ gcloud auth login --no-launch-browser -q
 
 ### Pod を配置
 
-+ マニフェストを使用してデプロイする
++ マニフェストを使用してデプロイします
 
 ```
 kubectl apply -f test-pod.yaml
 ```
 
-+ リソースを確認する
++ リソースを確認します
 
 ```
 # kubectl get pod --namespace rbactest-a-ns
@@ -142,7 +144,7 @@ rbactest-b-pod-2   1/1     Running   0          5h28m
 
 ### Configure Google Groups for RBAC の適用
 
-+ 新しい GKE Cluster の作成時に適用する
++ 新しい GKE Cluster の作成時に適用します
 
 ```
 ### Standard mode
@@ -158,7 +160,7 @@ gcloud beta container clusters create-auto ${_common}-clt \
   --project ${_gcp_pj_id}
 ```
 
-+ 既存の GKE Cluster の作成時に適用する
++ 既存の GKE Cluster の作成時に適用します
 
 ```
 gcloud beta container clusters update ${_common}-clt \
@@ -169,9 +171,9 @@ gcloud beta container clusters update ${_common}-clt \
 
 ![](./img/2-02.png)
 
-### Role と RoleBinding をデプロイする
+### Role と RoleBinding をデプロイ
 
-+ マニフェストを作成
++ マニフェストを作成します
 
 ```
 kind: Role
@@ -229,13 +231,13 @@ subjects:
   name: rbactest-group-bbb@{Your_Domain}
 ```
 
-+ マニフェストを apply する
++ マニフェストを apply します
 
 ```
 kubectl apply -f role-rolebinding.yaml
 ```
 
-+ Role を確認する
++ Role を確認します
 
 ```
 # kubectl get role --namespace rbactest-a-ns
@@ -248,7 +250,7 @@ NAME                    CREATED AT
 rbactest-b-pod-reader   2022-05-21T04:27:17Z
 ```
 
-+ RoleBinding を確認する
++ RoleBinding を確認します
 
 ```
 # kubectl get rolebinding --namespace rbactest-a-ns
@@ -265,8 +267,8 @@ rbactest-a-pod-reader-binding   Role/rbactest-a-pod-reader   12h
 
 ### Google アカウントを変更
 
-+ gcloud auth を使って変更する
-  + `rbactest-user-xxx@{Your_Domain}` でログインする
++ gcloud auth を使って変更します
+  + `rbactest-user-xxx@{Your_Domain}` でログインします
 
 ```
 gcloud auth login --no-launch-browser -q
@@ -274,7 +276,7 @@ gcloud auth login --no-launch-browser -q
 
 ### Namespace を確認
 
-+ GKE と認証する
++ GKE と認証します
 
 ```
 gcloud beta container clusters get-credentials ${_common}-clt \
@@ -282,14 +284,14 @@ gcloud beta container clusters get-credentials ${_common}-clt \
   --project ${_gcp_pj_id}
 ```
 
-+ Namespace を確認
++ Namespace を確認します
 
 ```
 $ kubectl get namespace
 Error from server (Forbidden): namespaces is forbidden: User "rbactest-user-xxx@{Your_Domain}" cannot list resource "namespaces" in API group "" at the cluster scope: requires one of ["container.namespaces.list"] permission(s).
 ```
 
-+ Role がある Namespace にて Pod を確認する
++ Role がある Namespace にて Pod を確認します
 
 ```
 $ kubectl get pod --namespace rbactest-a-ns
@@ -298,7 +300,7 @@ rbactest-a-pod-1   1/1     Running   0          3h34m
 rbactest-a-pod-2   1/1     Running   0          3h34m
 ```
 
-+ Role が無い Namespace にて Pod を確認する
++ Role が無い Namespace にて Pod を確認します
 
 ```
 $ kubectl get pod --namespace rbactest-b-ns
@@ -309,8 +311,8 @@ Error from server (Forbidden): pods is forbidden: User "rbactest-user-xxx@{Your_
 
 ### Google アカウントを変更
 
-+ gcloud auth を使って変更する
-  + `rbactest-user-yyy@{Your_Domain}` でログインする
++ gcloud auth を使って変更します
+  + `rbactest-user-yyy@{Your_Domain}` でログインします
 
 ```
 gcloud auth login --no-launch-browser -q
@@ -318,7 +320,7 @@ gcloud auth login --no-launch-browser -q
 
 ### Namespace を確認
 
-+ GKE と認証する
++ GKE と認証します
 
 ```
 gcloud beta container clusters get-credentials ${_common}-clt \
@@ -326,14 +328,14 @@ gcloud beta container clusters get-credentials ${_common}-clt \
   --project ${_gcp_pj_id}
 ```
 
-+ Namespace を確認
++ Namespace を確認します
 
 ```
 $ kubectl get namespace
 Error from server (Forbidden): namespaces is forbidden: User "rbactest-user-yyy@{Your_Domain}" cannot list resource "namespaces" in API group "" at the cluster scope: requires one of ["container.namespaces.list"] permission(s).
 ```
 
-+ Role がある Namespace にて Pod を確認する
++ Role がある Namespace にて Pod を確認します
 
 ```
 $ kubectl get pod --namespace rbactest-b-ns
@@ -342,7 +344,7 @@ rbactest-b-pod-1   1/1     Running   0          3h34m
 rbactest-b-pod-2   1/1     Running   0          3h34m
 ```
 
-+ Role が無い Namespace にて Pod を確認する
++ Role が無い Namespace にて Pod を確認します
 
 ```
 $ kubectl get pod --namespace rbactest-a-ns
