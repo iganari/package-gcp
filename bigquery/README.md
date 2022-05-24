@@ -20,3 +20,7 @@ WIP
 ## [QuickStart CLI](./quickstart-cli)
 
 クイックスタート
+
+## Tips
+
+BigQuery向けのSQL の構文解析ツール -> [tree-sitter for BigQuery's SQL](https://github.com/TKNGUE/tree-sitter-sql-bigquery)
