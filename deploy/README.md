@@ -3,9 +3,14 @@
 ## 概要
 
 ```
-概要
+Google Cloud Deploy の概要
 https://cloud.google.com/deploy/docs/overview
 ```
+```
+クイックスタート: アプリケーションをデプロイする
+https://cloud.google.com/deploy/docs/deploy-app-gke
+```
+
 
 ## API の有効化
 
