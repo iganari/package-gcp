@@ -14,8 +14,8 @@ https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
 ## サンプル
 
 ```
-apiVersion: v1
 kind: Namespace
+apiVersion: v1
 metadata:
   name: <insert-namespace-name-here>
 ```
