@@ -1,0 +1,14 @@
+variable "project" {
+  default = "Your GCP Project ID"
+  description = "hogehoge"
+}
+
+variable "region" {
+  default = "Your GAE Region"
+  description = "hogehoge"
+}
+
+variable "zone" {
+  default = "Your GAE Zone"
+  description = "hogehoge"
+}

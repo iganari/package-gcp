@@ -1,6 +1,0 @@
-variable "common" {
-  default = {
-    region = "Your GAE Region"
-    zone   = "Your GAE Zone"
-  }
-}

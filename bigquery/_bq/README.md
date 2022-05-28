@@ -37,15 +37,45 @@ bq --project_id ${_gcp_pj_id} \
 ## テーブルの削除
 
 ```
-bq --project_id ${_gcp_pj_id} rm \
-  --table \
-  --force \
-  ${_gcp_pj_id}:{dataset name}.{table name}
+bq rm --table --force ${_gcp_pj_id}:${_dataset_name}.${_table_name} --project_id ${_gcp_pj_id}
 ```
 
 ## データセットの削除
 
 ```
-bq --project_id ${_gcp_pj_id} rm \
-  dataset_sample
+bq rm ${_dataset_name} --project_id ${_gcp_pj_id}
+```
+
+## テーブル
+
+### 既存テーブルのスキーマの取得
+
++ 基本形
+
+```
+bq show --schema --format=prettyjson ${_gcp_pj_id}:${_dataset_name}.${_table_name}
+```
+
++ ローカルに保存する場合
+
+```
+bq show --schema --format=prettyjson ${_gcp_pj_id}:${_dataset_name}.${_table_name} > ${_dataset_name}_${_table_name}.json
+```
+
++ 変更
+
+```
+vim ${_dataset_name}_${_table_name}.json
+```
+
++ 既存 table の修正
+
+```
+bq update ${_gcp_pj_id}:${_dataset_name}.${_table_name} ${_dataset_name}_${_table_name}.json
+```
+
++ 新しい table を作成
+
+```
+bq mk --table --schema ${_dataset_name}_${_table_name}.json ${_gcp_pj_id}:${_dataset_name}.${_table_name}_2
 ```
