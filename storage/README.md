@@ -7,6 +7,10 @@
 https://cloud.google.com/storage/docs/
 ```
 
+## gsutil
+
+[gsutil](./_gsutil/)
+
 ## サンプルコード
 
 This Code is What configure Google Cloud Storage using Terraform.
