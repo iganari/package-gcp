@@ -32,6 +32,32 @@ Plz have fun and try it! :wink:
 + [Container Registry](./gcr/)
 + [Hybrid Connectivity](./hybrid/)
 + [IAM & Admin](./iam-admin/)
-                                   
-                                   
++ [Kubernetes Engine](./kubernetes/)
++ [Logging](./logs/)
++ [Monitoring](./monitoring)
++ [Network Security](./net-security/)
++ [Network services](./net-services/)
++ [VPC network](./networking)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </details>
