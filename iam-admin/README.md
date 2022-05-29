@@ -1,4 +1,4 @@
-# IAM & admin
+# IAM & Admin
 
 + GCP との認証の仕方
 
