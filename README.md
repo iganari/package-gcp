@@ -15,4 +15,23 @@ Plz have fun and try it! :wink:
 + [Cloud Build](./builds)
 + [Kubernetes Engine](./kubernetes)
 + Security
+
++ [Anthos](./anthos/)
++ [AlloyDB for PostgreSQL](./alloydb/)
++ [App Engine](./appengine/)
++ [Artifact Registry](./artifacts/)
++ [BigQuery](./bigquery/)
++ [Bigtable](./bigtable/)
++ [Cloud Build](./cloud-build/) <- 変更予定
++ [Pub/Sub](./cloudpubsub/)
++ [Compute Engine](./compute/)
++ [Dataproc](./dataproc)
++ [Cloud Deploy](./deploy/)
++ [Filestore](./filestore/)
++ [Cloud Functions](./functions/)
++ [Container Registry](./gcr/)
++ [Hybrid Connectivity](./hybrid/)
++ [IAM & Admin](./iam-admin/)
+                                   
+                                   
 </details>
