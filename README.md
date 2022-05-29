@@ -43,7 +43,8 @@ Plz have fun and try it! :wink:
 + [SQL](./sql/)
 + [Cloud Storage](./storage/)
 + [Workflows](./workflows/)
-
++ [Memorystore](./memorystore/)
+                                   
 
 + 組織リソース
   + [Manage resources](./cloud-resource-manager/)
