@@ -21,7 +21,7 @@ Plz have fun and try it! :wink:
   + [Artifact Registry](./artifacts/)
   + [BigQuery](./bigquery/)
   + [Bigtable](./bigtable/)
-  + [Cloud Build](./cloud-build/) <- 変更予定
+  + [Cloud Build](./cloud-build/)
   + [Pub/Sub](./cloudpubsub/)
   + [Compute Engine](./compute/)
   + [Dataproc](./dataproc)
@@ -47,15 +47,5 @@ Plz have fun and try it! :wink:
   + [Manage resources](./cloud-resource-manager/)
   + [Billing](./billing/)
   + [Security](./security/)
-
-
-
-
-
-
-
-
-
-
 
 </details>
