@@ -39,8 +39,8 @@ Plz have fun and try it! :wink:
 + [Network services](./net-services/)
 + [VPC network](./networking)
 + [Cloud Run](./run/)
-
-
++ [Spanner](./spanner/)
++ [SQL](./sql/)
 
 
 
