@@ -41,13 +41,13 @@ Plz have fun and try it! :wink:
 + [Cloud Run](./run/)
 + [Spanner](./spanner/)
 + [SQL](./sql/)
++ [Cloud Storage](./storage/)
++ [Workflows](./workflows/)
 
 
-
-
-
-
-
++ 組織リソース
+  + [Manage resources](./cloud-resource-manager/)
+  + [Billing](./billing/)
 
 
 
