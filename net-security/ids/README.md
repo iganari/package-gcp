@@ -10,10 +10,12 @@ WIP
 
 ![](./img/02.png)
 
-## ほげ
+## 準備
 
 + API の有効化
 
 ```
 gcloud beta services enable ids.googleapis.com --project ${_gcp_pj_id}
 ```
+
+WIP
