@@ -22,4 +22,11 @@ WIP
 gcloud beta services enable ids.googleapis.com --project ${_gcp_pj_id}
 ```
 
+## 適用するネットワーク
+
+`Private Google Access` を有効にしている Subnets が必要
+
+
+
+
 WIP
