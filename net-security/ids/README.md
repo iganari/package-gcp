@@ -14,19 +14,6 @@ WIP
 
 ![](./img/02.png)
 
-## 準備
-
-+ API の有効化
-
-```
-gcloud beta services enable ids.googleapis.com --project ${_gcp_pj_id}
-```
-
-## 適用するネットワーク
-
-`Private Google Access` を有効にしている Subnets が必要
-
-
 
 
 WIP
