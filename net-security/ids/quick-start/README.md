@@ -325,3 +325,25 @@ resource.type="ids.googleapis.com/Endpoint" AND jsonPayload.alert_severity="HIGH
 ```
 
 ![](./img/03.png)
+
+## リソースの削除
+
+:fire: WIP
+
++ VM の削除
+
+```
+WIP
+```
+
++ IDS の削除
+
+```
+WIP
+```
+
++ ネットワークの削除
+
+```
+WIP
+```
