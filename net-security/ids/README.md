@@ -2,7 +2,16 @@
 
 ## 概要
 
-WIP
+Cloud IDSとはGCPが提供しているフルマネージドな IDS (Intrusion Detection System) であり、日本語だと `侵入検知システム` です。
+
+VPC ネットワーク内の通信を監視し、セキュリティリスクを発見してくれます。
+
+IDS そのものは Palo Alto のものが使われており、検知可能なシグネチャは Palo Alto のページで確認できます。
+
+```
+Palo Alto Networks Brings Network Threat Detection to Google Cloud
+https://www.paloaltonetworks.com/blog/2021/07/google-cloud-network-threat-detection/
+```
 
 ### YouTube
 
@@ -21,6 +30,12 @@ WIP
 
 ![](./img/02.png)
 
+## 出来ること・出来ないこと
 
+IDS なので `検知` するまで。防止は出来ない。防止をしたい場合は他のソリューションを考える
 
-WIP
+## やってみた
+
+[Quick Start](./quick-start/)
+
+一連の流れを確認
