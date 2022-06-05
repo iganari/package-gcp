@@ -17,7 +17,7 @@
 + Auth GCP
 
 ```
-gcloud auth login -q
+gcloud auth login --no-launch-browser -q
 ```
 
 ## Create Instance
