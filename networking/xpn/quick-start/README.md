@@ -22,10 +22,10 @@ https://cloud.google.com/vpc/docs/provisioning-shared-vpc
 
 ## やってみる
 
-1. 各 PJ の作成
-1. 共有 VPC の有効化
-1. 共有するネットワークの作成
-1. Host Project の Subnets を Service Project に共有する
+1. GCP Project の準備
+1. [共有 VPC の有効化](./README.md#2-共有-vpc-の有効化)
+1. [共有するネットワークの作成](./README.md#3-共有するネットワークの作成)
+1. [Host Project の Subnets を Service Project に共有する](./README.md#4-host-project-の-subnets-を-service-project-に共有する)
 
 
 ## 1. GCP Project の準備
@@ -158,7 +158,7 @@ gcloud beta compute networks subnets create ${_common}-subnets-02 \
 + Firewall Rules の作成
 
 ```
-### 共有用
+### 3 つ用
 gcloud beta compute firewall-rules create ${_common}-cmn-allow-internal-all \
   --network ${_common}-network \
   --action ALLOW \
