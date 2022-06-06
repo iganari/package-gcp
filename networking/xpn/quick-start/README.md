@@ -30,7 +30,7 @@ https://cloud.google.com/vpc/docs/provisioning-shared-vpc
 
 ## 1. GCP Project の準備
 
-既に 3 つの GCP Project があるとします
+既に 3 つの GCP Project を用意します
 
 ```
 export _common='sharedvpc-test'
@@ -192,7 +192,7 @@ gcloud beta compute firewall-rules create ${_common}-02-allow-internal-all \
 
 ## 4. Host Project の Subnets を Service Project に共有する
 
-+ [推奨] Host Project の特定の Subnets のみを Service Project に共有する
++ [推奨] [Host Project の特定の Subnets のみを Service Project に共有する](./README.md#host-project-の特定の-subnets-のみを-service-project-に共有する)
   + よりセキュアになるため、こちらが推奨です
 + Host Project の全ての Subnets を Service Project に共有する
   + このページでは解説していないので、詳細は公式ページを参照してください
