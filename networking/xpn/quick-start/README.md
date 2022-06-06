@@ -345,4 +345,4 @@ gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-cmn subne
   --project ${_sharedvpc_host_id}
 ```
 
-![](./00.png)
+![](./01.png)
