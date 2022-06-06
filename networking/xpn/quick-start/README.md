@@ -1,80 +1,120 @@
 # Quick Start
 
-
-
 ## 概要
 
+3 つの GCP Project を使って、共有 VPC を試してみる
 
 ```
 Provisioning Shared VPC
 https://cloud.google.com/vpc/docs/provisioning-shared-vpc
 ```
 
++ イメージ図
+
+![](./0-01.png)
+
 ## 準備
 
-作業者は以下の 権限 が必要
-
+共有 VPC の作成には、以下の権限 ( Permission ) が必要になります
 
 + `compute.organizations.enableXpnHost`
-  + Compute Shared VPC Admin ( roles/compute.xpnAdmin ) などに入っている
-
-
-## やること
-
-+ 各 PJ の作成
-+ 共有 VPC の有効化
-+ サービス プロジェクトをホストプロジェクトに接続する
-+ サービス プロジェクトからホストプロジェクトを使えるようにする
-
+  + 事前定義された Role: `Compute Shared VPC Admin ( roles/compute.xpnAdmin )` などに入っているので、適宜付与しましょう
 
 ## やってみる
 
-host pj にて
+1. 各 PJ の作成
+1. 共有 VPC の有効化
+1. 共有するネットワークの作成
+1. Host Project の Subnets を Service Project に共有する
+
+
+## 1. GCP Project の準備
+
+既に 3 つの GCP Project があるとします
 
 ```
 export _common='sharedvpc-test'
 
-export _sharedvpc_host_id='iganari-sharedvpc-host'
-export _sharedvpc_svr_01_id='iganari-sharedvpc-service-01'
-export _sharedvpc_svr_02_id='iganari-sharedvpc-service-02'
+
+### 共有 VPC の Host Project ID
+export _sharedvpc_host_id='sharedvpc-host'
+
+
+### 共有 VPC の Service Project ID
+export _sharedvpc_svr_01_id='sharedvpc-service-01'
+export _sharedvpc_svr_02_id='sharedvpc-service-02'
 ```
 
-+ ホスト プロジェクトにする必要のあるプロジェクトに対して、共有 VPC を有効にします
+![](./1-01.png)
 
+## 2. 共有 VPC の有効化
+
++ 共有 VPC の Host Project となる GCP Project に対して、共有 VPC を有効にします
 
 ```
 gcloud beta compute shared-vpc enable ${_sharedvpc_host_id}
 ```
 
-+ サービス プロジェクトの管理者が共有 VPC を使用するには、サービス プロジェクトがホスト プロジェクトに接続されている必要があります。共有 VPC 管理者は、以下の手順で接続を完了する必要があります。
+また、共有 VPC の Service Project の管理者が共有 VPC を使用するには、Service Project が Host Project に **接続されている** 必要があり、共有 VPC 管理者は以下の手順で接続を完了する必要があります。
 
-サービス プロジェクトは 1 つのホスト プロジェクトにのみ接続できますが、ホスト プロジェクトは複数のサービス プロジェクトの接続をサポートしています。詳細については、VPC 割り当てページの共有 VPC に固有の上限をご覧ください。
+制約として、Service Project は 1 つ Host Project にのみ接続できますが、Host Project は複数の Service Project の接続をサポートしています。
 
+その他の制限は [共有 VPC プロジェクトの上限](https://cloud.google.com/vpc/docs/quota#shared-vpc) を参照してください。
+
++ Service Project を Host Project 接続します
 
 ```
+### sharedvpc-host <---> sharedvpc-service-01
 gcloud beta compute shared-vpc associated-projects add ${_sharedvpc_svr_01_id} \
     --host-project ${_sharedvpc_host_id}
 
+
+### sharedvpc-host <---> sharedvpc-service-02
 gcloud beta compute shared-vpc associated-projects add ${_sharedvpc_svr_02_id} \
     --host-project ${_sharedvpc_host_id}
 ```
 
-## host でネットワーク作成
++ 共有 VPC としてができる状態にあるか確認してみる
 
-+ 環境変数
+```
+gcloud beta compute shared-vpc list-associated-resources ${_sharedvpc_host_id}
+```
+```
+### 例
+
+$ gcloud beta compute shared-vpc list-associated-resources ${_sharedvpc_host_id}
+RESOURCE_ID           RESOURCE_TYPE
+sharedvpc-service-01  PROJECT
+sharedvpc-service-02  PROJECT
+```
+
+これで有効化は完了です
+
+## 3. 共有するネットワークの作成
+
+Host Project に Service Project と共有したいネットワークを作成します
+
+今回は以下の 3 つのサブネットを作成します
+
++ `sharedvpc-host` と `sharedvpc-service-01` で共有する Subnets
++ `sharedvpc-host` と `sharedvpc-service-02` で共有する Subnets
++ 3 つの GCP Project で共有する Subnets
+
+[再掲] イメージ図
+
+![](./0-01.png)
+
++ 環境変数を設定しておきます
 
 ```
 ### Env
 
 export _region='asia-northeast1'
+
 export _sub_network_range_cmn='172.16.0.0/12'
 export _sub_network_range_01='172.32.0.0/12'
 export _sub_network_range_02='172.48.0.0/12'
-
-export _my_ip='Your Home IP Address'
-export _other_ip='Your other IP Address'
 ```
-
 
 + VPC Network の作成
 
@@ -84,26 +124,29 @@ gcloud beta compute networks create ${_common}-network \
   --project ${_sharedvpc_host_id}
 ```
 
-+ サブネットの作成
-  + 3種類作る ( 01用, 02用、共有用 )
++ Subnets の作成
+  + 3 種類作成します ( 01 用, 02 用、3 つ用 )
 
 ```
+### 3 つ用
 gcloud beta compute networks subnets create ${_common}-subnets-cmn \
   --network ${_common}-network \
   --region ${_region} \
   --range ${_sub_network_range_cmn} \
   --enable-private-ip-google-access \
   --project ${_sharedvpc_host_id}
-```
-```
+
+
+### 01 用
 gcloud beta compute networks subnets create ${_common}-subnets-01 \
   --network ${_common}-network \
   --region ${_region} \
   --range ${_sub_network_range_01} \
   --enable-private-ip-google-access \
   --project ${_sharedvpc_host_id}
-```
-```
+
+
+### 02 用
 gcloud beta compute networks subnets create ${_common}-subnets-02 \
   --network ${_common}-network \
   --region ${_region} \
@@ -112,10 +155,10 @@ gcloud beta compute networks subnets create ${_common}-subnets-02 \
   --project ${_sharedvpc_host_id}
 ```
 
-+ Firewall
++ Firewall Rules の作成
 
 ```
-### 内部通信
+### 共有用
 gcloud beta compute firewall-rules create ${_common}-cmn-allow-internal-all \
   --network ${_common}-network \
   --action ALLOW \
@@ -124,6 +167,8 @@ gcloud beta compute firewall-rules create ${_common}-cmn-allow-internal-all \
   --target-tags ${_common}-cmn-allow-internal-all \
   --project ${_sharedvpc_host_id}
 
+
+### 01 用
 gcloud beta compute firewall-rules create ${_common}-01-allow-internal-all \
   --network ${_common}-network \
   --action ALLOW \
@@ -132,6 +177,8 @@ gcloud beta compute firewall-rules create ${_common}-01-allow-internal-all \
   --target-tags ${_common}-01-allow-internal-all \
   --project ${_sharedvpc_host_id}
 
+
+### 02 用
 gcloud beta compute firewall-rules create ${_common}-02-allow-internal-all \
   --network ${_common}-network \
   --action ALLOW \
@@ -139,58 +186,39 @@ gcloud beta compute firewall-rules create ${_common}-02-allow-internal-all \
   --source-ranges ${_sub_network_range_01} \
   --target-tags ${_common}-02-allow-internal-all \
   --project ${_sharedvpc_host_id}
-
-
-
-
-# ### SSH
-# gcloud beta compute firewall-rules create ${_common}-allow-ssh \
-#   --network ${_common}-network \
-#   --action ALLOW \
-#   --rules tcp:22,icmp \
-#   --source-ranges ${_my_ip},${_other_ip} \
-#   --target-tags ${_common}-allow-ssh \
-#   --project ${_gcp_pj_id}
 ```
 
-## 共有 VPC として登録ができる状態にあるか確認する
+これでネットワークの作成は完了です
 
-+ 確認
+## 4. Host Project の Subnets を Service Project に共有する
 
-```
-gcloud beta compute shared-vpc list-associated-resources ${_sharedvpc_host_id}
-```
-```
-### 例
++ [推奨] Host Project の特定の Subnets のみを Service Project に共有する
+  + よりセキュアになるため、こちらが推奨です
++ Host Project の全ての Subnets を Service Project に共有する
+  + このページでは解説していないので、詳細は公式ページを参照してください
+  + [Provisioning Shared VPC](https://cloud.google.com/vpc/docs/provisioning-shared-vpc)
 
-$ gcloud beta compute shared-vpc list-associated-resources ${_sharedvpc_host_id}
-RESOURCE_ID                   RESOURCE_TYPE
-iganari-sharedvpc-service-01  PROJECT
-iganari-sharedvpc-service-02  PROJECT
-```
+### Host Project の特定の Subnets のみを Service Project に共有する
 
----> うまく表示されない場合は `共有 VPC を有効` を再度やってみる
-
-
-## サービス プロジェクトからホストプロジェクトを使えるようにする
-
-+ [推奨] ホストプロジェクトの特定のサブネットのみをサービスプロジェクトに共有する
-+ ホストプロジェクトの全てのサブネットのみをサービスプロジェクトに共有する
-
-## [推奨] ホストプロジェクトの特定のサブネットのみをサービスプロジェクトに共有する
-
-+ 先に以下の情報を調べておく
++ 先に Service Project の Google APIs service account を調べておきます
 
 ```
-# Google APIs service account == SERVICE_PROJECT_NUMBER@cloudservices.gserviceaccount.com の形
+Google APIs service account == {SERVICE_PROJECT_NUMBER}@cloudservices.gserviceaccount.com
+の形
+```
 
++ 環境変数に設定します
+
+```
 export _service_pj_01_sa='Service Project 01 の Google APIs service account'
 export _service_pj_02_sa='Service Project 02 の Google APIs service account'
 ```
 
-### 01
+### sharedvpc-host <---> sharedvpc-service-01 の設定
 
-+ 01 の現在の IAM ポリシーを JSON 形式で取得
+![](./4-01.png)
+
++ Subnetst `sharedvpc-service-01` の現在のポリシーバインディングを JSON 形式で取得します
 
 ```
 gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-01 \
@@ -199,6 +227,8 @@ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-01 \
   --format json
 ```
 ```
+### 例
+
 $ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-01 \
   --region ${_region} \
   --project ${_sharedvpc_host_id} \
@@ -208,7 +238,8 @@ $ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-01 \
 }
 ```
 
-+ 01 の現在の IAM ポリシーを JSON 形式で保存
++ Subnets `sharedvpc-service-01` の現在のポリシーバインディングを JSON 形式で保存します
+  + subnet-policy-01.json というファイルに書き出します
 
 ```
 gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-01 \
@@ -216,6 +247,9 @@ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-01 \
   --project ${_sharedvpc_host_id} \
   --format json > subnet-policy-01.json
 ```
+
++ 共有 VPC の設定のために subnet-policy-01.json を修正します
+
 ```
 cat << __EOF__ > subnet-policy-01.json
 {
@@ -232,7 +266,7 @@ cat << __EOF__ > subnet-policy-01.json
 __EOF__
 ```
 
-+ subnet-policy-01.json を使用して、サブネットのポリシー バインディングを更新
++ subnet-policy-01.json を使用して、共有 VPC の Subnets のポリシーバインディングを更新します
 
 ```
 gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-01 subnet-policy-01.json \
@@ -240,9 +274,13 @@ gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-01 subnet
   --project ${_sharedvpc_host_id}
 ```
 
-### 02
+これで sharedvpc-host <---> sharedvpc-service-01 の設定は完了です
 
-+ 02 の現在の IAM ポリシーを JSON 形式で取得
+### sharedvpc-host <---> sharedvpc-service-02 の設定
+
+![](./4-02.png)
+
++ Subnets `sharedvpc-service-02` の現在のポリシーバインディングを JSON 形式で取得します
 
 ```
 gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-02 \
@@ -251,6 +289,8 @@ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-02 \
   --format json
 ```
 ```
+### 例
+
 $ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-02 \
   --region ${_region} \
   --project ${_sharedvpc_host_id} \
@@ -260,7 +300,8 @@ $ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-02 \
 }
 ```
 
-+ 01 の現在の IAM ポリシーを JSON 形式で保存
++ Subnets `sharedvpc-service-02` の現在のポリシーバインディングを JSON 形式で保存します
+  + subnet-policy-02.json というファイルに書き出します
 
 ```
 gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-02 \
@@ -268,6 +309,9 @@ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-02 \
   --project ${_sharedvpc_host_id} \
   --format json > subnet-policy-02.json
 ```
+
++ 共有 VPC の設定のために subnet-policy-02.json を修正します
+
 ```
 cat << __EOF__ > subnet-policy-02.json
 {
@@ -284,7 +328,7 @@ cat << __EOF__ > subnet-policy-02.json
 __EOF__
 ```
 
-+ subnet-policy-02.json を使用して、サブネットのポリシー バインディングを更新
++ subnet-policy-02.json を使用して、共有 VPC の Subnets のポリシーバインディングを更新します
 
 ```
 gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-02 subnet-policy-02.json \
@@ -292,9 +336,14 @@ gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-02 subnet
   --project ${_sharedvpc_host_id}
 ```
 
-### cmn
+これで sharedvpc-host <---> sharedvpc-service-02 の設定は完了です
 
-+ cmn の現在の IAM ポリシーを JSON 形式で取得
+
+### 3 つ用の設定
+
+![](./4-cmn.png)
+
++ Subnets `sharedvpc-service-cmn` の現在のポリシーバインディングを JSON 形式で取得します
 
 ```
 gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-cmn \
@@ -303,6 +352,8 @@ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-cmn \
   --format json
 ```
 ```
+### 例
+
 $ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-cmn \
   --region ${_region} \
   --project ${_sharedvpc_host_id} \
@@ -312,7 +363,8 @@ $ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-cmn \
 }
 ```
 
-+ 01 の現在の IAM ポリシーを JSON 形式で保存
++ Subnets `sharedvpc-service-cmn` の現在のポリシーバインディングを JSON 形式で保存します
+  + subnet-policy-cmn.json というファイルに書き出します
 
 ```
 gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-cmn \
@@ -320,6 +372,9 @@ gcloud beta compute networks subnets get-iam-policy ${_common}-subnets-cmn \
   --project ${_sharedvpc_host_id} \
   --format json > subnet-policy-cmn.json
 ```
+
++ 共有 VPC の設定のために subnet-policy-cmn.json を修正します
+
 ```
 cat << __EOF__ > subnet-policy-cmn.json
 {
@@ -337,7 +392,7 @@ cat << __EOF__ > subnet-policy-cmn.json
 __EOF__
 ```
 
-+ subnet-policy-cmn.json を使用して、サブネットのポリシー バインディングを更新
++ subnet-policy-cmn.json を使用して、共有 VPC の Subnets のポリシーバインディングを更新します
 
 ```
 gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-cmn subnet-policy-cmn.json \
@@ -345,4 +400,22 @@ gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-cmn subne
   --project ${_sharedvpc_host_id}
 ```
 
-![](./01.png)
+これで 3 つ用の設定は完了です
+
+### 確認
+
+ここまでの作業で以下の構成が出来ました
+
+![](./0-01.png)
+
+実際に GUI で見えてみると以下のようになっています
+
+![](./4-gui.png)
+
+これで作りたい構成は出来ました :)
+
+## まとめ
+
+共有 VPC をコマンドラインで作ることが出来ました!
+
+実際に通信が制御できているかは、別途検証したいと思います :)
