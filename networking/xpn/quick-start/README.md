@@ -66,12 +66,12 @@ gcloud beta compute shared-vpc enable ${_sharedvpc_host_id}
 ```
 ### sharedvpc-host <---> sharedvpc-service-01
 gcloud beta compute shared-vpc associated-projects add ${_sharedvpc_svr_01_id} \
-    --host-project ${_sharedvpc_host_id}
+  --host-project ${_sharedvpc_host_id}
 
 
 ### sharedvpc-host <---> sharedvpc-service-02
 gcloud beta compute shared-vpc associated-projects add ${_sharedvpc_svr_02_id} \
-    --host-project ${_sharedvpc_host_id}
+  --host-project ${_sharedvpc_host_id}
 ```
 
 + 共有 VPC としてができる状態にあるか確認してみる
@@ -419,3 +419,69 @@ gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-cmn subne
 共有 VPC をコマンドラインで作ることが出来ました!
 
 実際に通信が制御できているかは、別途検証したいと思います :)
+
+検証がが終わったらリソースを削除しましょう
+
+<details>
+<summary>検証がが終わったらリソースを削除しましょう</summary>
+
+
+```
+export _common='sharedvpc-test'
+export _sharedvpc_host_id='sharedvpc-host'
+export _sharedvpc_svr_01_id='sharedvpc-service-01'
+export _sharedvpc_svr_02_id='sharedvpc-service-02'
+export _region='asia-northeast1'
+```
+
++ Firewall Rules の削除
+
+```
+gcloud beta compute firewall-rules delete ${_common}-02-allow-internal-all \
+  --project ${_sharedvpc_host_id} \
+  -q
+
+gcloud beta compute firewall-rules delete ${_common}-01-allow-internal-all \
+  --project ${_sharedvpc_host_id} \
+  -q
+
+gcloud beta compute firewall-rules delete ${_common}-cmn-allow-internal-all \
+  --project ${_sharedvpc_host_id} \
+  -q
+```
+
++ Subnets の削除
+
+```
+gcloud beta compute networks subnets delete ${_common}-subnets-02 \
+  --region ${_region} \
+  --project ${_sharedvpc_host_id} \
+  -q
+
+gcloud beta compute networks subnets delete ${_common}-subnets-01 \
+  --region ${_region} \
+  --project ${_sharedvpc_host_id} \
+  -q
+
+gcloud beta compute networks subnets delete ${_common}-subnets-cmn \
+  --region ${_region} \
+  --project ${_sharedvpc_host_id} \
+  -q
+```
+
++ 共有 VPC の無効化
+
+```
+gcloud beta compute shared-vpc associated-projects remove ${_sharedvpc_svr_02_id} \
+  --host-project ${_sharedvpc_host_id} \
+  -q
+
+gcloud beta compute shared-vpc associated-projects remove ${_sharedvpc_svr_01_id} \
+  --host-project ${_sharedvpc_host_id} \
+  -q
+```
+```
+gcloud beta compute shared-vpc disable ${_sharedvpc_host_id}
+```
+
+</details>
