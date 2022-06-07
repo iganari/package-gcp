@@ -14,3 +14,7 @@ Shared VPC overview | https://cloud.google.com/vpc/docs/shared-vpc
 ```
 
 ![](https://cloud.google.com/vpc/images/shared-vpc/shared-vpc-example-multiple-host-projects.svg)
+
+## [Quick Start](./quick-start/)
+
+実際に簡単な環境を作ってみる

@@ -11,7 +11,7 @@ https://cloud.google.com/vpc/docs/provisioning-shared-vpc
 
 + イメージ図
 
-![](./0-01.png)
+![](./img/0-01.png)
 
 ## 準備
 
@@ -45,7 +45,7 @@ export _sharedvpc_svr_01_id='sharedvpc-service-01'
 export _sharedvpc_svr_02_id='sharedvpc-service-02'
 ```
 
-![](./1-01.png)
+![](./img/1-01.png)
 
 ## 2. 共有 VPC の有効化
 
@@ -102,7 +102,7 @@ Host Project に Service Project と共有したいネットワークを作成�
 
 [再掲] イメージ図
 
-![](./0-01.png)
+![](./img/0-01.png)
 
 + 環境変数を設定しておきます
 
@@ -216,7 +216,7 @@ export _service_pj_02_sa='Service Project 02 の Google APIs service account'
 
 ### sharedvpc-host <---> sharedvpc-service-01 の設定
 
-![](./4-01.png)
+![](./img/4-01.png)
 
 + Subnetst `sharedvpc-service-01` の現在のポリシーバインディングを JSON 形式で取得します
 
@@ -278,7 +278,7 @@ gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-01 subnet
 
 ### sharedvpc-host <---> sharedvpc-service-02 の設定
 
-![](./4-02.png)
+![](./img/4-02.png)
 
 + Subnets `sharedvpc-service-02` の現在のポリシーバインディングを JSON 形式で取得します
 
@@ -341,7 +341,7 @@ gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-02 subnet
 
 ### 3 つ用の設定
 
-![](./4-cmn.png)
+![](./img/4-cmn.png)
 
 + Subnets `sharedvpc-service-cmn` の現在のポリシーバインディングを JSON 形式で取得します
 
@@ -406,11 +406,11 @@ gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-cmn subne
 
 ここまでの作業で以下の構成が出来ました
 
-![](./0-01.png)
+![](./img/0-01.png)
 
 実際に GUI で見えてみると以下のようになっています
 
-![](./4-gui.png)
+![](./img/4-gui.png)
 
 これで作りたい構成は出来ました :)
 
@@ -420,11 +420,10 @@ gcloud beta compute networks subnets set-iam-policy ${_common}-subnets-cmn subne
 
 実際に通信が制御できているかは、別途検証したいと思います :)
 
-検証がが終わったらリソースを削除しましょう
-
 <details>
 <summary>検証がが終わったらリソースを削除しましょう</summary>
 
++ 環境変数をいれる
 
 ```
 export _common='sharedvpc-test'
