@@ -4,6 +4,12 @@
 
 Cloud Build Trigger の基礎的なサンプル
 
+## [Terraform](./terraform/)
+
+Terraform にまつわるサンプル
+
++ [Terraform のバージョンチェック](./terraform/README.md#terraform-のバージョンチェック)
+
 ## [Trivy](./trivy)
 
 コンテナイメージ内の OS やライブラリやモジュールなどの脆弱性のチェック
