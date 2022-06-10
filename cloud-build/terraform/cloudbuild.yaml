@@ -12,19 +12,15 @@ steps:
         if [ "${_this_tf_ver}" == "${_latest_tf_ver}" ]; then echo '実行している Terraform の Version は最新版のようです!! :)' ; else echo '実行している Terraform の Version は最新版ではありません。 Terraform の Version を確認してください。---> https://github.com/hashicorp/terraform/releases' && exit 1 ; fi
 #   - id: '[Terraform] Init'
 #     name: "hashicorp/terraform:${_TERRAFORM_VERSION}"
-#     dir: ${_STAGE_DIRECTORY}
 #     args: ["init"]
 #   - id: '[Terraform] Validate'
 #     name: "hashicorp/terraform:${_TERRAFORM_VERSION}"
-#     dir: ${_STAGE_DIRECTORY}
 #     args: ["validate"]
 #   - id: '[Terraform] Plan'
 #     name: "hashicorp/terraform:${_TERRAFORM_VERSION}"
-#     dir: ${_STAGE_DIRECTORY}
 #     args: ["plan"]
 #   - id: '[Terraform] Apply'
 #     name: "hashicorp/terraform:${_TERRAFORM_VERSION}"
-#     dir: ${_STAGE_DIRECTORY}
 #     args: ["apply", "-auto-approve"]
 
 substitutions:
