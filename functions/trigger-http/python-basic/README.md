@@ -80,3 +80,11 @@ $ curl -m 70 -X POST https://asia-northeast1-ca-igarashi-test-2022q2.cloudfuncti
 -d '{"name" : "iganari"}'
 Hello iganari!
 ```
+
+## リソースの削除
+
+```
+gcloud beta functions delete hello_http \
+  --region ${_region} \
+  --project ${_gcp_pj_id}
+```
