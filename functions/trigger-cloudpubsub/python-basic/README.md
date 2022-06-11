@@ -41,7 +41,9 @@ gcloud beta functions deploy hello_pubsub \
 + CLI で Topic にメッセージを送る
 
 ```
-gcloud beta pubsub topics publish ${_common}-topic --message="{}" --project ${_gcp_pj_id}
+gcloud beta pubsub topics publish ${_common}-topic \
+  --message="{}" \
+  --project ${_gcp_pj_id}
 ```
 
 ![](./img/1-01.png)
@@ -57,7 +59,9 @@ gcloud beta pubsub topics publish ${_common}-topic --message="{}" --project ${_g
 + CLI で Topic にメッセージを送る
 
 ```
-gcloud beta pubsub topics publish ${_common}-topic --message="{\"name\": \"iganari\", \"msg\": \"Hello\"}" --project ${_gcp_pj_id}
+gcloud beta pubsub topics publish ${_common}-topic \
+  --message="{\"name\": \"iganari\", \"msg\": \"Hello\"}" \
+  --project ${_gcp_pj_id}
 ```
 
 ![](./img/2-01.png)
