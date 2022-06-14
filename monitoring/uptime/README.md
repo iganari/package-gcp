@@ -1,5 +1,11 @@
 # uptime check
 
+
+
+## [プライベートなエンドポイントを外形監視する](./private-checks/)
+
+内部 LB や 外部 IP アドレスがついていない VM の外形監視をしたい場合
+
 ## WIP
 
 WIP
