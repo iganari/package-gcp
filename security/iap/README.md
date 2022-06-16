@@ -65,7 +65,7 @@ https://cloud.google.com/beyondcorp-enterprise/docs/securing-virtual-machines#kn
 
 + IAP を設定直後に Aouth 画面がなかなか反映しない場合 
 
----> IAM が強制号なので5分くらいは待つ。それでもだめな場合は以下を末尾につける
+---> IAM が強制号なので5分くらいは待つ。それでもだめな場合は以下を末尾につける ---> 強制的にアカウント選択画面に遷移する
 
 ```
 https://hogehoge.an.r.appspot.com/
