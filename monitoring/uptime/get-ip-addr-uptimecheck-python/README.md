@@ -128,3 +128,9 @@ $ python3 snippets.py list-uptime-check-ips
        2  Belgium            35.187.114.193
        2  Belgium            35.205.205.242
 ```
+
++ hoge
+
+```
+deactivate
+```
