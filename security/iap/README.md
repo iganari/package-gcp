@@ -59,3 +59,22 @@ A. 非アクティブ状態が 1 時間続くと自動で切れる
 Known limitations | Connection length
 https://cloud.google.com/beyondcorp-enterprise/docs/securing-virtual-machines#known_limitations
 ```
+
+## Tips
+
+
++ IAP を設定直後に Aouth 画面がなかなか反映しない場合 
+
+---> IAM が強制号なので5分くらいは待つ。それでもだめな場合は以下を末尾につける
+
+```
+https://hogehoge.an.r.appspot.com/
+```
+
+```
+/_gcp_iap/clear_login_cookie
+```
+
+```
+https://hogehoge.an.r.appspot.com/_gcp_iap/clear_login_cookie
+```
