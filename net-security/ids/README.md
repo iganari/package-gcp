@@ -39,3 +39,11 @@ IDS なので `検知` するまで。防止は出来ない。防止をしたい
 [Quick Start](./quick-start/)
 
 一連の流れを確認
+
+## OSS の IDS
+
+Cloud IDS の導入が難しい場合は OSS の IDS の導入を検討する必要がある
+
++ OSS の IDS
+  + Suricata
+  + Snort
