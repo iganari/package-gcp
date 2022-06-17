@@ -46,5 +46,6 @@ Cloud IDS の導入が難しい場合は OSS の IDS の導入を検討する必
 
 + OSS の IDS
   + Suricata
+    + [Google Cloud Packet Mirroring with OpenSource IDS](https://www.cloudskillsboost.google/focuses/14864?parent=catalog)
     + [Network Watcher とオープン ソース ツールを使用したネットワーク不正侵入検出の実行](https://docs.microsoft.com/ja-jp/azure/network-watcher/network-watcher-intrusion-detection-open-source-tools)
   + Snort
