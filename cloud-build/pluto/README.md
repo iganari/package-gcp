@@ -1,11 +1,13 @@
 # Pluto by Fairwinds を Cloud Build 上で実行する
 
-Kubernetes のマニフェストの中で `Deprecated` や `REMOVED` を検出する
+## 概要
 
-```
-Pluto
-https://github.com/FairwindsOps/pluto
-```
+Pluto は　Kubernetes のマニフェストの中で `Deprecated` や `REMOVED` を検出する OSS 
+
+これを Cloud Build 上で(定期的に)実行することで、事前に API が古くなっていることを検出することが出来る
+
+
+[GitHub | Pluto by Fairwinds](https://github.com/FairwindsOps/pluto)
 
 ## サンプル
 
