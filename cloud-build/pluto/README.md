@@ -11,7 +11,7 @@ Pluto は　Kubernetes のマニフェストの中で `Deprecated` や `REMOVED`
 
 ## サンプル
 
-+ cloudbuild.yaml
++ [cloudbuild.yaml](./cloudbuild.yaml)
 
 ```
 steps:
@@ -33,7 +33,7 @@ substitutions:
   _PLUTO_VERSION: '5.7.0'
 ```
 
-+ test-deprecated.yaml
++ [test-deprecated.yaml](./test-deprecated.yaml)
   + 敢えて古い API を使ってるマニフェスト
 
 ```
