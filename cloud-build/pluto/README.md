@@ -28,9 +28,11 @@ steps:
         tar -zxvf pluto_${_PLUTO_VERSION}_linux_amd64.tar.gz
         chmod +x pluto
         ./pluto detect-files --output wide --directory ./
+
 substitutions:
   _MANIFEST_DIR: 'builds/pluto'
-  _PLUTO_VERSION: '5.7.0'
+  _PLUTO_VERSION: '5.8.0'            ### https://github.com/FairwindsOps/pluto/releases
+
 ```
 
 + [test-deprecated.yaml](./test-deprecated.yaml)
