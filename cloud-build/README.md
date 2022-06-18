@@ -33,7 +33,7 @@ WIP
 
 WIP
 
-### [Pluto by Fairwinds](./pluto)
+### [Pluto by Fairwinds を Cloud Build 上で実行する](./pluto)
 
 WIP
 
