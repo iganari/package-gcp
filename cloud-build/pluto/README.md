@@ -1,4 +1,4 @@
-# Pluto
+# Pluto by Fairwinds を Cloud Build 上で実行する
 
 Kubernetes のマニフェストの中で `Deprecated` や `REMOVED` を検出する
 
