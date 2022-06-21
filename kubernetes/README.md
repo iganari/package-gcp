@@ -90,3 +90,9 @@ https://lp.cloudplatformonline.com/rs/808-GJW-314/images/App_Modernization_OnAir
 GKE でマイクロ サービスの構築をする基礎から、高度なトラフィックルーティングと SLO 運用に至るまでの流れを解説
 https://www.youtube.com/watch?v=I5Jz6Ay9oBY
 ```
+
+
+```
+GKE: Concepts of Networking
+https://www.youtube.com/watch?v=aVBV4O3h4AY
+```
