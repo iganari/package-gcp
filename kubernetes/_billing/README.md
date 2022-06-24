@@ -30,3 +30,5 @@ https://cloud.google.com/kubernetes-engine/pricing
 [Google Cloud Skills Boost | Managing a GKE Multi-tenant Cluster with Namespaces](https://www.cloudskillsboost.google/focuses/14861?locale=ja&parent=catalog)
 
 [クラスタ リソースの使用方法について](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-usage-metering)
+
+[Cloud Monitoring を使用して費用の最適化のための GKE クラスタをモニタリング](https://cloud.google.com/architecture/monitoring-gke-clusters-for-cost-optimization-using-cloud-monitoring)
