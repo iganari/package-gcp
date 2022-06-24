@@ -1,15 +1,28 @@
 # Billing
 
 
-## 維持費
+## 料金について
 
-+ Standard mode
+```
+Google Kubernetes Engine の料金
+https://cloud.google.com/kubernetes-engine/pricing
+```
+
++ クラスタの管理費 ( ※ Standard mode / Autopilot mode に掛からわず )
   + `$0.10 per cluster per hour` = `$72/month`
+  + 秒課金
++ Standard mode
+  + Node の料金
++ Autopilot mode
+  + Pod が使用している vCPU と Memory の料金
++ 通信費など
 
 
-## URL
 
-https://cloud.google.com/kubernetes-engine/pricing/?hl=en
+
+
+
+
 
 
 ## Namespace 毎にコストを可視化する方法
