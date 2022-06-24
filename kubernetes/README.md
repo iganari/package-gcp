@@ -14,21 +14,23 @@ gcloud components install kubectl -q
 ```
 
 
-## Cluster
+## [Cluster について](./cluster-overview)
 
-+ [Cluster について](./cluster-overview)
++ mode と { Private or Public }
   + [Create Private Cluster of Autopilot mode](./autopilot-private-gcloud)
   + [Create Public Cluster of Autopilot mode](./autopilot-public-gcloud)
   + [Create Private Cluster of Standard mode](./standard-private-gcloud)
   + [Create Public Cluster of Standard mode](./standard-public-gcloud)
   + WIP [Standard mode と Autopilot mode の違いについて]
+
+
 + [cluster-version-upgrade](./cluster-version-upgrade)
   + GKE クラスタのアップグレード方法
   + :fire: [WIP] GKE クラスタのバージョンアップの検討事項
     + https://cloud.google.com/kubernetes-engine/docs/best-practices/upgrading-clusters#continuous-strategy
     + https://kubernetes.io/releases/version-skew-policy
 
-## Kind
+## Kind について
 
 + [Cron Jobs](./kind-cronjobs)
 + [Ingress](./kind-ingress)
@@ -39,7 +41,7 @@ gcloud components install kubectl -q
 + [StatefulSet](./kind-statufulset)
 + [Role / RoleBinding / ClusterRole / ClusterRoleBinding](./kind-role-rolebinding)
 
-## Feature
+## 周辺の機能など
 
 + [Cloud Armor](./modify-readme-only)
 + [IAP](./feature-iap)
@@ -54,11 +56,19 @@ gcloud components install kubectl -q
 + [Laravel](./sample-laravel)
 + [WordPress](./sample-wordpress)
 
+## [コストについて](./_billing/)
+
++ [料金について](./_billing/README.md#料金について)
++ [Namespace 毎にコストを可視化する方法](./_billing/README.md#namespace-毎にコストを可視化する方法)
 
 ## Tips
 
 + [Optimizing IP address allocation](./xx_flexible-pod-cidr)
 
+
+
+
++ [Namespace 毎にコストを可視化する方法]
 
 ## 参考になりそうな URL
 
