@@ -8,11 +8,13 @@ GCP の同じ組織内の異なる複数の GCP Project で VPC を共有する�
 
 組織内で複数の親を作ることは可能ですが、親と子の関係は 1:N の関係であり、共有するサブネット自体も 1:N の関係です
 
-
-
 ```
 公式ドキュメント
 Shared VPC overview | https://cloud.google.com/vpc/docs/shared-vpc
 ```
 
 ![](https://cloud.google.com/vpc/images/shared-vpc/shared-vpc-example-multiple-host-projects.svg)
+
+## [Quick Start](./quick-start/)
+
+実際に簡単な環境を作ってみる

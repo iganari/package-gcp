@@ -1,15 +1,17 @@
-# Pluto
+# Pluto by Fairwinds を Cloud Build 上で実行する
 
-Kubernetes のマニフェストの中で `Deprecated` や `REMOVED` を検出する
+## 概要
 
-```
-Pluto
-https://github.com/FairwindsOps/pluto
-```
+Pluto は　Kubernetes のマニフェストの中で `Deprecated` や `REMOVED` を検出する OSS 
+
+これを Cloud Build 上で(定期的に)実行することで、事前に API が古くなっていることを検出することが出来る
+
+
+[GitHub | Pluto by Fairwinds](https://github.com/FairwindsOps/pluto)
 
 ## サンプル
 
-+ cloudbuild.yaml
++ [cloudbuild.yaml](./cloudbuild.yaml)
 
 ```
 steps:
@@ -26,12 +28,14 @@ steps:
         tar -zxvf pluto_${_PLUTO_VERSION}_linux_amd64.tar.gz
         chmod +x pluto
         ./pluto detect-files --output wide --directory ./
+
 substitutions:
   _MANIFEST_DIR: 'builds/pluto'
-  _PLUTO_VERSION: '5.7.0'
+  _PLUTO_VERSION: '5.8.0'            ### https://github.com/FairwindsOps/pluto/releases
+
 ```
 
-+ test-deprecated.yaml
++ [test-deprecated.yaml](./test-deprecated.yaml)
   + 敢えて古い API を使ってるマニフェスト
 
 ```

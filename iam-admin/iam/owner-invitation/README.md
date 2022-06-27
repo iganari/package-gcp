@@ -4,10 +4,10 @@
 
 ```
 export gcp_pj_id='GCP Peoject ID'
-export _your_address='Owner に招待した Google Address'
+export _your_account='Owner に招待した Google Account'
 ```
 ```
-https://console.cloud.google.com/invitation?project=${gcp_pj_id}&memberEmail=${_your_address}&account=${_your_address}
+https://console.cloud.google.com/invitation?project=${gcp_pj_id}&memberEmail=${_your_account}&account=${_your_account}
 ```
 
 + 実際のメール
