@@ -40,6 +40,7 @@ gcloud components install kubectl -q
 + [Secret](./kind-secret)
 + [StatefulSet](./kind-statufulset)
 + [Role / RoleBinding / ClusterRole / ClusterRoleBinding](./kind-role-rolebinding)
+  + [Google Groups for RBAC を設定してみる](./kind-role-rolebinding/google-groups-rbac/)
 
 ## 周辺の機能など
 
