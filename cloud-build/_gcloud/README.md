@@ -1,5 +1,13 @@
 # gcloud builds
 
+## Service Account
+
+```
+gcloud beta projects add-iam-policy-binding ${GCP Project ID} \
+  --member="serviceAccount:${GCP Project Number}@cloudbuild.gserviceaccount.com" \
+  --role="roles/appengine.appAdmin"
+```
+
 
 ## Trigger の作成
 
