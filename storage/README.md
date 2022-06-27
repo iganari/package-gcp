@@ -1,4 +1,4 @@
-# Google Cloud Storage (GCS)
+# Cloud Storage
 
 ## 概要
 
