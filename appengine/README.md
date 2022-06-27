@@ -2,7 +2,11 @@
 
 ## gcloud
 
-WIP
++ API の有効化
+
+```
+gcloud beta services enable appengine.googleapis.com --project ${_gcp_pj_id}
+```
 
 ## memo
 

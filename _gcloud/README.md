@@ -20,6 +20,10 @@ export _gcp_pj_id="Your GCP Project ID"
 
 上記に `Linux`, `Debian/Ubuntu`, `Red Hat/Fedora/CentOS`, `macOS`, `Windows` が記載されている
 
+最新版をサクッとインストールしたい場合は -> [Using the Google Cloud CLI installer](https://cloud.google.com/sdk/docs/downloads-interactive)
+
+
+
 ## auth
 
 + 公式ドキュメント
