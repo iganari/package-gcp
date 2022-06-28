@@ -30,7 +30,7 @@ gsutil mb gs://BUCKET_NAME
     + 例: `US-EAST1`
 
 ```
-gsutil mb -p {PROJECT_ID} -c {STORAGE_CLASS} -l {BUCKET_LOCATION} gs://BUCKET_NAME
+gsutil mb -p {PROJECT_ID} -c {STORAGE_CLASS} -l {BUCKET_LOCATION} -b on gs://BUCKET_NAME
 ```
 
 ## rm
@@ -46,13 +46,13 @@ gsutil rm -r gs://bucket
 + GCS バケット後に設定を On にする
 
 ```
-gsutil versioning set on -p {PROJECT_ID} gs://BUCKET_NAME
+gsutil versioning set on gs://BUCKET_NAME
 ```
 
 + GCS バケット後に設定を Off にする
 
 ```
-gsutil versioning set off -p {PROJECT_ID} gs://BUCKET_NAME
+gsutil versioning set off gs://BUCKET_NAME
 ```
 
 
