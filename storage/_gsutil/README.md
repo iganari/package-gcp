@@ -55,8 +55,6 @@ gsutil versioning set on gs://BUCKET_NAME
 gsutil versioning set off gs://BUCKET_NAME
 ```
 
-
-
 ## rewrite
 
 いろいろ出来るので、やったことがある順に記載していく
