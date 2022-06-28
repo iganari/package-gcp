@@ -41,6 +41,21 @@ gsutil mb -p {PROJECT_ID} -c {STORAGE_CLASS} -l {BUCKET_LOCATION} gs://BUCKET_NA
 gsutil rm -r gs://bucket
 ```
 
+## オブジェクトのバージョニング ( Object versioning ) 設定する
+
++ GCS バケット後に設定を On にする
+
+```
+gsutil versioning set on -p {PROJECT_ID} gs://BUCKET_NAME
+```
+
++ GCS バケット後に設定を Off にする
+
+```
+gsutil versioning set off -p {PROJECT_ID} gs://BUCKET_NAME
+```
+
+
 
 ## rewrite
 
