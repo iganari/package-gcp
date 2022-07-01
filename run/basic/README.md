@@ -21,6 +21,9 @@ gcloud beta services enable run.googleapis.com --project { Your GCP Project ID}
   + Service Account User ( `roles/iam.serviceAccountUser` )
 + 新規デプロイ時に公開アクセスを許可する場合
   + :fire: Security Admin ( `roles/iam.securityAdmin` ) <- ?
+
+
+
 + 既存サービスに(全体)公開アクセスを許可する場合
   + `allUsers` に `roles/run.invoker` をいれる
 
@@ -30,6 +33,15 @@ gcloud run services add-iam-policy-binding SERVICE \
   --role="roles/run.invoker"
 ```
 
+```
+デプロイ時に必要な role
+https://cloud.google.com/run/docs/reference/iam/roles#additional-configuration
+```
+
+```
+公開（未認証）アクセスを許可する
+https://cloud.google.com/run/docs/authenticating/public
+```
 
 
 ## Python

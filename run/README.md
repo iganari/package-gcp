@@ -12,14 +12,12 @@ https://cloud.google.com/run/docs/overview/what-is-cloud-run
 
 [![](https://img.youtube.com/vi/1t94tdyojs0/0.jpg)](https://www.youtube.com/watch?v=1t94tdyojs0)
 
-## 基本的な動作
-
-
 ## サンプル
 
 + [Cloud Build to Cloud Run](./builds)
   + Cloud Build を使った Cloud Run のデプロイのサンプル
-
++ [ID トークンによる簡易認証](./authorization_developer/)
+  + Google Account の ID トークンを使った Cloud Run の簡易認証
 
 
 ## 注意点
@@ -46,7 +44,6 @@ https://cloud.google.com/run/docs/configuring/containers?hl=en#configure-port
 
 デフォルトで 5 分、 最大 60 分まで延長可能
 
-
 ```
 ### 既存のサービスの設定変更
 gcloud run services update [SERVICE] --timeout=[TIMEOUT]
@@ -57,18 +54,18 @@ OR
 gcloud run deploy --image IMAGE_URL --timeout=[TIMEOUT]
 ```
 
-
 ```
 リクエスト タイムアウトの設定（サービス）
 https://cloud.google.com/run/docs/configuring/request-timeout
 ```
 
+※ ただし、 Cloud Run の最小インスタンスを設定した場合はそちらが優先される
 
 ## ユースケース
 
 ### GCP 内で内部通信したい場合
 
-+ MemoryStore など
++ Memorystore などに繋ぐ際に必要になる
 
 [Serverless VPC Access](../networking/connectors)
 
@@ -76,15 +73,7 @@ https://cloud.google.com/run/docs/configuring/request-timeout
 
 TBD
 
-## 参考 URL
-
-+ [新しい CPU 割り当てコントロールにより Cloud Run 上でさらに多様なワークロードを実行](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-always-on-cpu-allocation)
-
-## 簡易的な ID トークン 認証
-
-[Authenticating developers](./authorization_developer/)
-
-## Cloud Run で永続的な Disk に書き込みしたい
+### Cloud Run で永続的な Disk に書き込みしたい
 
 + Cloud Run で Cloud Storage FUSE を使うことで、FileStote と繋げることが出来る
 
@@ -92,3 +81,19 @@ TBD
 チュートリアル: Cloud Run での Cloud Storage FUSE の使用
 https://cloud.google.com/run/docs/tutorials/network-filesystems-fuse
 ```
+
+### 常時起動させておきたい
+
+最小インスタンス数を設定することでウォーム状態を維持し、いつでもリクエストを処理できるコンテナインスタンスを維持する
+
+:fire: ただし、課金が常に発生する
+
+```
+最小インスタンス数（サービス）
+https://cloud.google.com/run/docs/configuring/min-instances
+```
+
+## 参考 URL
+
++ [新しい CPU 割り当てコントロールにより Cloud Run 上でさらに多様なワークロードを実行](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-always-on-cpu-allocation)
+
