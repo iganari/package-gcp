@@ -10,3 +10,5 @@ WIP
 Configuring Serverless VPC Access
 https://cloud.google.com/vpc/docs/configure-serverless-vpc-access
 ```
+
+[Serverless VPC Access](../../networking/connectors)

@@ -14,11 +14,23 @@ https://cloud.google.com/run/docs/overview/what-is-cloud-run
 
 ## サンプル
 
-+ [Cloud Build to Cloud Run](./builds)
-  + Cloud Build を使った Cloud Run のデプロイのサンプル
-+ [ID トークンによる簡易認証](./authorization_developer/)
-  + Google Account の ID トークンを使った Cloud Run の簡易認証
++ [基本的な使い方](./_basic/)
+  + Cloud Run の基本的な使い方を見ていく
 
+## 周辺の機能など
+
++ [ID トークンによる簡易認証](./feature-authorization-developer/)
+  + Google Account の ID トークンを使った Cloud Run の簡易認証
++ <WIP> [Cloud Build to Cloud Run](./feature-builds/)
+  + Cloud Build を使った Cloud Run のデプロイのサンプル
++ <WIP> [カスタムドメインのマッピング](./feature-mapping-custom-domains/)
+  + Cloud Run が提供するデフォルトのアドレスではなく、独自のドメイン(カスタムドメイン)を設定したい
++ <WIP> [Cloud Storage と接続する](./feature-network-filesystems-fuse/)
+  + GCS をネットワークファイルシステムとしてマウントすることが出来る
++ <WIP> [Serverless VPC Access](./feature-serverless-vpc-access/)
+  + GCP 内で内部通信したい場合(Memorystore など)に繋ぐ際に必要になる
++ [Setting up a load balancer with Cloud Run](./feature-under-load-balancer/)
+  + Google Cloud Load Balancing( GCLB ) の下に Cloud run を設置する
 
 ## 注意点
 
@@ -63,12 +75,6 @@ https://cloud.google.com/run/docs/configuring/request-timeout
 
 ## ユースケース
 
-### GCP 内で内部通信したい場合
-
-+ Memorystore などに繋ぐ際に必要になる
-
-[Serverless VPC Access](../networking/connectors)
-
 ### 外部 IP アドレスが付いていない GCE インスタンスから Cloud Run にアクセスする
 
 TBD
@@ -77,10 +83,6 @@ TBD
 
 + Cloud Run で Cloud Storage FUSE を使うことで、FileStote と繋げることが出来る
 
-```
-チュートリアル: Cloud Run での Cloud Storage FUSE の使用
-https://cloud.google.com/run/docs/tutorials/network-filesystems-fuse
-```
 
 ### 常時起動させておきたい
 
