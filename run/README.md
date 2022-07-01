@@ -31,6 +31,9 @@ https://cloud.google.com/run/docs/overview/what-is-cloud-run
   + GCP 内で内部通信したい場合(Memorystore など)に繋ぐ際に必要になる
 + [Setting up a load balancer with Cloud Run](./feature-under-load-balancer/)
   + Google Cloud Load Balancing( GCLB ) の下に Cloud run を設置する
++ [WIP] 外部 IP アドレスが付いていない GCE インスタンスから Cloud Run にアクセスする
+  + WIP
+
 
 ## 注意点
 
@@ -75,15 +78,6 @@ https://cloud.google.com/run/docs/configuring/request-timeout
 
 ## ユースケース
 
-### 外部 IP アドレスが付いていない GCE インスタンスから Cloud Run にアクセスする
-
-TBD
-
-### Cloud Run で永続的な Disk に書き込みしたい
-
-+ Cloud Run で Cloud Storage FUSE を使うことで、FileStote と繋げることが出来る
-
-
 ### 常時起動させておきたい
 
 最小インスタンス数を設定することでウォーム状態を維持し、いつでもリクエストを処理できるコンテナインスタンスを維持する
@@ -98,4 +92,4 @@ https://cloud.google.com/run/docs/configuring/min-instances
 ## 参考 URL
 
 + [新しい CPU 割り当てコントロールにより Cloud Run 上でさらに多様なワークロードを実行](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-always-on-cpu-allocation)
-
++ [Cloud Run を最大限使いこなすに䛿](https://lp.cloudplatformonline.com/rs/808-GJW-314/images/App_Modernization_OnAir_q1_0217_Session.pdf)
