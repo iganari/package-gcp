@@ -2,53 +2,25 @@
 
 ## 概要
 
-WIP
+Google のスケーラブルなインフラストラクチャ上でコンテナを直接実行できるマネージド コンピューティング プラットフォーム
+
+
+```
+Cloud Run とは
+https://cloud.google.com/run/docs/overview/what-is-cloud-run
+```
+
+[![](https://img.youtube.com/vi/1t94tdyojs0/0.jpg)](https://www.youtube.com/watch?v=1t94tdyojs0)
 
 ## 基本的な動作
 
-WIP
-
-### API の有効化
-
-```
-gcloud beta services enable run.googleapis.com --project { Your GCP Project ID}
-```
-```
-gcloud beta services list --enabled --filter='run.googleapis.com' --project { Your GCP Project ID}
-```
 
 ## サンプル
 
 + [Cloud Build to Cloud Run](./builds)
   + Cloud Build を使った Cloud Run のデプロイのサンプル
 
-## 必要な Role
 
-+ デプロイ時
-  + Cloud Run Admin ( `roles/run.admin` )
-  + Service Account User ( `roles/iam.serviceAccountUser` )
-
-+ 新規デプロイ時に公開アクセスを許可する場合
-  + Security Admin ( `roles/iam.securityAdmin` ) <- ?
-+ 既存サービスに公開アクセスを許可する場合
-  + `allUsers` に `roles/run.invoker` をいれる
-
-```
-  gcloud run services add-iam-policy-binding SERVICE \
-    --member="allUsers" \
-    --role="roles/run.invoker"
-```
-
-
-```
-デプロイ時に必要な role
-https://cloud.google.com/run/docs/reference/iam/roles#additional-configuration
-```
-
-```
-公開（未認証）アクセスを許可する
-https://cloud.google.com/run/docs/authenticating/public
-```
 
 ## 注意点
 
@@ -65,14 +37,38 @@ https://cloud.google.com/run/docs/reference/container-contract#port
 ```
 デフォルトの Port 変更する
 gcloud run services update {_run_service_name} --port {_container_port} --region ${_region} --project ${_gcp_pj_id}
-
-
+```
+```
 https://cloud.google.com/run/docs/configuring/containers?hl=en#configure-port
 ```
 
+### リクエストのタイムアウト
+
+デフォルトで 5 分、 最大 60 分まで延長可能
+
+
+```
+### 既存のサービスの設定変更
+gcloud run services update [SERVICE] --timeout=[TIMEOUT]
+
+OR
+
+### Cloud Run のデプロイ時に設定
+gcloud run deploy --image IMAGE_URL --timeout=[TIMEOUT]
+```
+
+
+```
+リクエスト タイムアウトの設定（サービス）
+https://cloud.google.com/run/docs/configuring/request-timeout
+```
+
+
 ## ユースケース
 
-### 内部通信する場合
+### GCP 内で内部通信したい場合
+
++ MemoryStore など
 
 [Serverless VPC Access](../networking/connectors)
 
@@ -88,7 +84,9 @@ TBD
 
 [Authenticating developers](./authorization_developer/)
 
-## Cloud Run での Cloud Storage FUSE の使用
+## Cloud Run で永続的な Disk に書き込みしたい
+
++ Cloud Run で Cloud Storage FUSE を使うことで、FileStote と繋げることが出来る
 
 ```
 チュートリアル: Cloud Run での Cloud Storage FUSE の使用
