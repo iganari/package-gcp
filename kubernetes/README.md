@@ -103,7 +103,10 @@ https://lp.cloudplatformonline.com/rs/808-GJW-314/images/App_Modernization_OnAir
 GKE でマイクロ サービスの構築をする基礎から、高度なトラフィックルーティングと SLO 運用に至るまでの流れを解説
 https://www.youtube.com/watch?v=I5Jz6Ay9oBY
 ```
-
+```
+Node pool upgrade strategies
+https://cloud.google.com/kubernetes-engine/docs/concepts/node-pool-upgrade-strategies#blue-green-upgrade-strategy
+```
 
 ```
 GKE: Concepts of Networking
