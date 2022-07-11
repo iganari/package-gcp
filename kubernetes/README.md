@@ -23,12 +23,13 @@ gcloud components install kubectl -q
   + [Create Public Cluster of Standard mode](./standard-public-gcloud)
   + WIP [Standard mode と Autopilot mode の違いについて]
 
-
-+ [cluster-version-upgrade](./cluster-version-upgrade)
-  + GKE クラスタのアップグレード方法
-  + :fire: [WIP] GKE クラスタのバージョンアップの検討事項
-    + https://cloud.google.com/kubernetes-engine/docs/best-practices/upgrading-clusters#continuous-strategy
++ GKE クラスタのアップグレード方法
+  + [cluster-version-upgrade](./cluster-version-upgrade)
+    + :fire: [WIP] GKE クラスタのバージョンアップの検討事項
     + https://kubernetes.io/releases/version-skew-policy
++ GKE クラスタのアップグレード戦略
+  + [継続的なアップグレード戦略を作成する](https://cloud.google.com/kubernetes-engine/docs/best-practices/upgrading-clusters#continuous-strategy)
+  + <WIP> [Zenn | GKE クラスタのアップグレード戦略を考える]()
 
 ## Kind について
 
