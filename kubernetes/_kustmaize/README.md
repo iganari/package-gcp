@@ -28,7 +28,7 @@ exit
 + 確認
 
 ```
-kustomize --version
+kustomize version
 ```
 
 ### macOS
