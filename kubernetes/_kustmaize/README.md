@@ -11,9 +11,25 @@ https://kubectl.docs.kubernetes.io/installation/kustomize/
 
 ## インストール方法
 
-### Linux
+### Linux 全般
 
-WIP
++ バイナリをダウンロード
+
+```
+sudo su -
+
+cd /usr/local/bin
+curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+chmod 0755 kustomize
+
+exit
+```
+
++ 確認
+
+```
+kustomize --version
+```
 
 ### macOS
 
