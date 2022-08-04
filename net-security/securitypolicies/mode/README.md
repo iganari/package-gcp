@@ -17,7 +17,8 @@ WIP
 
 WIP
 
-+ [ASN で許可/拒否する](./README.md#asn-で許可拒否する)
++ 設定例
+  + [ASN で許可/拒否する](./README.md#asn-で許可拒否する)
 
 ### ASN で許可/拒否する
 
