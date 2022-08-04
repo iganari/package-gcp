@@ -7,6 +7,7 @@ Google Cloud のマネージドの Web Application Firewall ( WAF )
 + DDoS 攻撃からの保護を標準装備
 + クロスサイトスクリプティング ( XSS ) や、 SQL インジェクション ( SQLi ) などのアプリケーション攻撃からの保護
   + OWASP ModSecurity Core Rule Set (CRS) のルールに則った防御ルールの作成が可能
+  + ASN( Autonomous System number ) も可
 + reCAPTCHA Enterprise を簡単に実装可能
 
 ```
