@@ -2,53 +2,38 @@
 
 ## 概要
 
-WIP
+Google のスケーラブルなインフラストラクチャ上でコンテナを直接実行できるマネージド コンピューティング プラットフォーム
 
-## 基本的な動作
-
-WIP
-
-### API の有効化
 
 ```
-gcloud beta services enable run.googleapis.com --project { Your GCP Project ID}
+Cloud Run とは
+https://cloud.google.com/run/docs/overview/what-is-cloud-run
 ```
-```
-gcloud beta services list --enabled --filter='run.googleapis.com' --project { Your GCP Project ID}
-```
+
+[![](https://img.youtube.com/vi/1t94tdyojs0/0.jpg)](https://www.youtube.com/watch?v=1t94tdyojs0)
 
 ## サンプル
 
-+ [Cloud Build to Cloud Run](./builds)
++ [基本的な使い方](./_basic/)
+  + Cloud Run の基本的な使い方を見ていく
+
+## 周辺の機能など
+
++ [ID トークンによる簡易認証](./feature-authorization-developer/)
+  + Google Account の ID トークンを使った Cloud Run の簡易認証
++ <WIP> [Cloud Build to Cloud Run](./feature-builds/)
   + Cloud Build を使った Cloud Run のデプロイのサンプル
++ <WIP> [カスタムドメインのマッピング](./feature-mapping-custom-domains/)
+  + Cloud Run が提供するデフォルトのアドレスではなく、独自のドメイン(カスタムドメイン)を設定したい
++ <WIP> [Cloud Storage と接続する](./feature-network-filesystems-fuse/)
+  + GCS をネットワークファイルシステムとしてマウントすることが出来る
++ <WIP> [Serverless VPC Access](./feature-serverless-vpc-access/)
+  + GCP 内で内部通信したい場合(Memorystore など)に繋ぐ際に必要になる
++ [Setting up a load balancer with Cloud Run](./feature-under-load-balancer/)
+  + Google Cloud Load Balancing( GCLB ) の下に Cloud run を設置する
++ [WIP] 外部 IP アドレスが付いていない GCE インスタンスから Cloud Run にアクセスする
+  + WIP
 
-## 必要な Role
-
-+ デプロイ時
-  + Cloud Run Admin ( `roles/run.admin` )
-  + Service Account User ( `roles/iam.serviceAccountUser` )
-
-+ 新規デプロイ時に公開アクセスを許可する場合
-  + Security Admin ( `roles/iam.securityAdmin` ) <- ?
-+ 既存サービスに公開アクセスを許可する場合
-  + `allUsers` に `roles/run.invoker` をいれる
-
-```
-  gcloud run services add-iam-policy-binding SERVICE \
-    --member="allUsers" \
-    --role="roles/run.invoker"
-```
-
-
-```
-デプロイ時に必要な role
-https://cloud.google.com/run/docs/reference/iam/roles#additional-configuration
-```
-
-```
-公開（未認証）アクセスを許可する
-https://cloud.google.com/run/docs/authenticating/public
-```
 
 ## 注意点
 
@@ -65,32 +50,46 @@ https://cloud.google.com/run/docs/reference/container-contract#port
 ```
 デフォルトの Port 変更する
 gcloud run services update {_run_service_name} --port {_container_port} --region ${_region} --project ${_gcp_pj_id}
-
-
+```
+```
 https://cloud.google.com/run/docs/configuring/containers?hl=en#configure-port
 ```
 
+### リクエストのタイムアウト
+
+デフォルトで 5 分、 最大 60 分まで延長可能
+
+```
+### 既存のサービスの設定変更
+gcloud run services update [SERVICE] --timeout=[TIMEOUT]
+
+OR
+
+### Cloud Run のデプロイ時に設定
+gcloud run deploy --image IMAGE_URL --timeout=[TIMEOUT]
+```
+
+```
+リクエスト タイムアウトの設定（サービス）
+https://cloud.google.com/run/docs/configuring/request-timeout
+```
+
+※ ただし、 Cloud Run の最小インスタンスを設定した場合はそちらが優先される
+
 ## ユースケース
 
-### 内部通信する場合
+### 常時起動させておきたい
 
-[Serverless VPC Access](../networking/connectors)
+最小インスタンス数を設定することでウォーム状態を維持し、いつでもリクエストを処理できるコンテナインスタンスを維持する
 
-### 外部 IP アドレスが付いていない GCE インスタンスから Cloud Run にアクセスする
+:fire: ただし、課金が常に発生する
 
-TBD
+```
+最小インスタンス数（サービス）
+https://cloud.google.com/run/docs/configuring/min-instances
+```
 
 ## 参考 URL
 
 + [新しい CPU 割り当てコントロールにより Cloud Run 上でさらに多様なワークロードを実行](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-always-on-cpu-allocation)
-
-## 簡易的な ID トークン 認証
-
-[Authenticating developers](./authorization_developer/)
-
-## Cloud Run での Cloud Storage FUSE の使用
-
-```
-チュートリアル: Cloud Run での Cloud Storage FUSE の使用
-https://cloud.google.com/run/docs/tutorials/network-filesystems-fuse
-```
++ [Cloud Run を最大限使いこなすに䛿](https://lp.cloudplatformonline.com/rs/808-GJW-314/images/App_Modernization_OnAir_q1_0217_Session.pdf)
