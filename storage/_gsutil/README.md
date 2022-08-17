@@ -22,15 +22,18 @@ gsutil mb gs://BUCKET_NAME
 ```
 
 + 色々、指定する場合
-  + -p: バケットが関連するプロジェクトを指定します。例: `my-project`
-  + -c: バケットのデフォルトのストレージ クラスを指定します。
+  + `-p`: バケットが関連するプロジェクトを指定します。例: `my-project`
+  + `-c`: バケットのデフォルトのストレージ クラスを指定します。
     + `STANDARD` , `NEARLINE` , `COLDLINE` , `ARCHIVE`
     + https://cloud.google.com/storage/docs/storage-classes#classes
-  + -l: バケットのロケーションを指定します。
+  + `-l` : バケットのロケーションを指定します。
     + 例: `US-EAST1`
+  + `-b` : bucket-level access の設定
+    + on: Uniform
+    + off: Fine-grained
 
 ```
-gsutil mb -p {PROJECT_ID} -c {STORAGE_CLASS} -l {BUCKET_LOCATION} gs://BUCKET_NAME
+gsutil mb -p {PROJECT_ID} -c {STORAGE_CLASS} -l {BUCKET_LOCATION} -b on gs://BUCKET_NAME
 ```
 
 ## rm
@@ -41,6 +44,19 @@ gsutil mb -p {PROJECT_ID} -c {STORAGE_CLASS} -l {BUCKET_LOCATION} gs://BUCKET_NA
 gsutil rm -r gs://bucket
 ```
 
+## オブジェクトのバージョニング ( Object versioning ) 設定する
+
++ GCS バケット後に設定を On にする
+
+```
+gsutil versioning set on gs://BUCKET_NAME
+```
+
++ GCS バケット後に設定を Off にする
+
+```
+gsutil versioning set off gs://BUCKET_NAME
+```
 
 ## rewrite
 
