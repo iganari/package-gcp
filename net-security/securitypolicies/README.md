@@ -4,16 +4,21 @@
 
 Google Cloud のマネージドの Web Application Firewall ( WAF )
 
-+ DDoS 攻撃からの保護を標準装備
-+ クロスサイトスクリプティング ( XSS ) や、 SQL インジェクション ( SQLi ) などのアプリケーション攻撃からの保護
-  + OWASP ModSecurity Core Rule Set (CRS) のルールに則った防御ルールの作成が可能
-  + ASN( Autonomous System number ) も可
-+ reCAPTCHA Enterprise を簡単に実装可能
+2021/11 の時点では 2 種類存在している
+
++ Google Cloud Armor
+  + DDoS 攻撃からの保護を標準装備
+  + クロスサイトスクリプティング ( XSS ) や、 SQL インジェクション ( SQLi ) などのアプリケーション攻撃からの保護
+    + OWASP ModSecurity Core Rule Set (CRS) のルールに則った防御ルールの作成が可能
+    + ASN( Autonomous System number ) も可
+  + reCAPTCHA Enterprise を簡単に実装可能
+
 
 ```
-Google Cloud Armor overview 
+Google Cloud Armor overview
 https://cloud.google.com/armor/docs/cloud-armor-overview
 ```
+
 
 ## Price
 
@@ -22,7 +27,6 @@ https://cloud.google.com/armor/pricing
 ## GKE Cluster 上で Cloud Armor を使用する
 
 [Cloud Armor を試す](../../kubernetes/feature-cloud-armor)
-
 
 ## memo
 
