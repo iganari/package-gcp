@@ -5,6 +5,8 @@ WIP
 
 ## Artifact Registry を使った例
 
+### Artifact Registry を準備する
+
 + GCP Project ID とリージョンを環境変数に用意する
 
 ```
@@ -32,18 +34,45 @@ gcloud beta artifacts repositories list --project ${_gcp_pj_id}
 gcloud beta artifacts repositories describe ${_ar_repo} --location ${_region} --project ${_gcp_pj_id}
 ```
 
++ Artifact Registry Docker リポジトリに対する認証を構成する
+  + asia-northeast1 のみ設定する
+  + https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper
+
+```
+gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+```
+
+### コンテナイメージを Artifact Registry にアップロードする
+
 + コンテナイメージを作成
 
 ```
-docker tag nginx:latest ${_region}-docker.pkg.dev/${_gcp_pj_id}/${_ar_repo}/{}/images:tag
-
-docker tag nginx:latest asia-northeast1-docker.pkg.dev/p2v3-dev/dbproxy/images:latest
+export _container_name='Your Container Name'
+export _TAG='tag version'
+```
+```
+docker tag nginx:latest ${_region}-docker.pkg.dev/${_gcp_pj_id}/${_ar_repo}/${_container_name}:${_TAG}
 ```
 
-
-
-## Artifact Registry を使用する時のコンテナイメージのタグの例
++ コンテナイメージを Artifact Registry にアップロードする
 
 ```
-${_region}-docker.pkg.dev/${_gcp_pj_id}/${_ar_repo}/{}/images:tag
+docker push ${_region}-docker.pkg.dev/${_gcp_pj_id}/${_ar_repo}/${_container_name}:${_TAG}
+```
+
+### Cloud Run にデプロイする
+
+WIP
+
+
+
+
+
+
+
+
+### Artifact Registry を使用する時のコンテナイメージのタグの例
+
+```
+${_region}-docker.pkg.dev/${_gcp_pj_id}/${_ar_repo}/${_container_name}:${_TAG}
 ```
