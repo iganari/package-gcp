@@ -68,7 +68,17 @@ docker push ${_region}-docker.pkg.dev/${_gcp_pj_id}/${_ar_repo}/${_container_nam
 
 ### Cloud Run にデプロイする
 
-WIP
+```
+export _run_service='Cloud Run Service Name'
+```
+```
+gcloud beta run deploy run-basic \
+  --image ${_region}-docker.pkg.dev/${_gcp_pj_id}/${_ar_repo}/${_container_name}:${_TAG} \
+  --platform managed \
+  --region ${_region} \
+  --allow-unauthenticated \
+  --project ${_gcp_pj_id}
+```
 
 
 
