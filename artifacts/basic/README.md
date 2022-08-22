@@ -1,31 +1,40 @@
 # Basic
 
-## Create repository
+WIP
 
+
+## Artifact Registry を使った例
+
+### Artifact Registry を準備する
+
++ GCP Project ID とリージョンを環境変数に用意する
 
 ```
 export _gcp_pj_id='Your GCP Project ID'
 export _region='asia-northeast1'
 ```
 
-+ Create Docker Repository
++ Artifact Registry のリポジトリを用意する
+  + フォーマットは一番簡単な `Docker` で作成
 
 ```
-gcloud beta artifacts repositories create my-repos \
+export _ar_repo='Your Repository Name of Artifact Registry's'
+```
+```
+gcloud beta artifacts repositories create ${_ar_repo} \
   --repository-format docker \
   --location ${_region} \
   --project ${_gcp_pj_id}
 ```
 
-+ Check Repository
++ Artifact Registry のリポジトリの確認
 
 ```
 gcloud beta artifacts repositories list --project ${_gcp_pj_id}
-gcloud beta artifacts repositories describe pkg-gcp-run --location ${_region} --project ${_gcp_pj_id}
+gcloud beta artifacts repositories describe ${_ar_repo} --location ${_region} --project ${_gcp_pj_id}
 ```
 
-+ Tags URL Sample
+## Cloud Run を使った例
 
-```
-${_region}-docker.pkg.dev/${_gcp_pj_id}/my-repos/my-container/images:tag
-```
++ [nginx のサンプル](../../run/_basic/nginx/)
++ [Python のサンプル](../../run/_basic/python/)

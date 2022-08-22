@@ -48,11 +48,20 @@ gcloud beta services enable artifactregistry.googleapis.com --project ${_gcp_pj_
 gcloud beta services list --enabled  --filter='artifactregistry' --project ${_gcp_pj_id}
 ```
 
-+ Configure Docker
++ Artifact Registry Docker リポジトリに対する認証を構成する
+  + asia-northeast1 のみ設定する
+  + https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper
 
 ```
 gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 ```
+```
+### 上記をしない場合は以下のようなエラーが出る(非常に分かりづらい)
+
+denied: Permission "artifactregistry.repositories.downloadArtifacts" denied on resource "${_region}-docker.pkg.dev/${_gcp_pj_id}/${_ar_repo}" (or it may not exist)
+```
+
+
 
 ## [脆弱性スキャン機能](./vulnerability-scanning)
 
