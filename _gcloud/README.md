@@ -234,6 +234,34 @@ gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
 
 出力形式を指定できる
 
++ JSON
+
 ```
 gcloud auth list --format json
+```
+
++ Table
+
+```
+$ gcloud beta compute instances list --project ${_gcp_pj_id} --format='table(name, zone)'
+NAME     ZONE
+bastion  asia-northeast1-b
+dbproxy  asia-northeast1-b
+hoge-01    asia-northeast1-b
+hoge-02    asia-northeast1-b
+fuga-01   asia-northeast1-b
+fuga-02   asia-northeast1-b
+```
+
++ CSV
+
+```
+$ gcloud beta compute instances list --project ${_gcp_pj_id} --format='csv(name, zone)'
+name,zone
+bastion,asia-northeast1-b
+dbproxy,asia-northeast1-b
+hoge-01,asia-northeast1-b
+hoge-02,asia-northeast1-b
+fuga-01,asia-northeast1-b
+fuga-02,asia-northeast1-b
 ```
