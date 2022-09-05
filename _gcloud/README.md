@@ -169,6 +169,12 @@ gcloud beta projects add-iam-policy-binding example-project-id-1 \
   --role='roles/editor'
 ```
 
+### Tips
+
++ GCP の API の仕様で roles/owner はつけることが出来ない
+  + https://cloud.google.com/iam/docs/understanding-roles#invitation_flow
+
+
 ## monitoring
 
 :warning: WIP
@@ -182,11 +188,6 @@ export _pj_id='Your GCP Project Id'
 ```
 gcloud alpha monitoring channel-descriptors describe projects/${_pj_id}/notificationChannelDescriptors/slack
 ```
-
-### Tips
-
-+ GCP の API の仕様で roles/owner はつけることが出来ない
-  + https://cloud.google.com/iam/docs/understanding-roles#invitation_flow
 
 
 ## update
