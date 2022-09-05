@@ -183,6 +183,12 @@ export _pj_id='Your GCP Project Id'
 gcloud alpha monitoring channel-descriptors describe projects/${_pj_id}/notificationChannelDescriptors/slack
 ```
 
+### Tips
+
++ GCP の API の仕様で roles/owner はつけることが出来ない
+  + https://cloud.google.com/iam/docs/understanding-roles#invitation_flow
+
+
 ## update
 
 gcloud コマンド自体のアップデートを行う
