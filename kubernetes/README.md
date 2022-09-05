@@ -50,8 +50,8 @@ gcloud components install kubectl -q
   + Ingress に IAP を付与するやり方 ( 正確には BackendConfig を設定し、 Service に関連付けする )
 + [nodeSelector](./feature-nodeselector)
   + Pod を特定のノードプールに明示的にデプロイする
-+ [SSL](./feature-iap)
-+ [Workload Identity](./feature-iap)
++ [SSL](./feature-ssl)
++ [Workload Identity](./feature-workload-identity)
 
 ## Sample
 
