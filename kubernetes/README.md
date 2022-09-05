@@ -45,7 +45,9 @@ gcloud components install kubectl -q
 
 ## 周辺の機能など
 
-+ [Cloud Armor](./modify-readme-only)
++ [Cloud Armor](./feature-cloud-armor)
++ [Cloud DNS](./feature-cloud-dns)
++ [Config Connector](./feature-config-connector)
 + [IAP](./feature-iap)
   + Ingress に IAP を付与するやり方 ( 正確には BackendConfig を設定し、 Service に関連付けする )
 + [nodeSelector](./feature-nodeselector)
