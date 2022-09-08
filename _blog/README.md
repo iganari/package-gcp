@@ -11,6 +11,7 @@
 + [クラウド デプロイのセキュリティを保護するための基本的なベスト プラクティス](https://cloud.google.com/blog/ja/topics/developers-practitioners/foundational-best-practices-securing-your-cloud-deployment)
 + [VPC Service Controls を使用して Cloud Run でのデータの引き出しリスクを管理する](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-enterprise-grade-network-security-with-vpc-sc)
 + [Google Cloud にデータを転送する方法](https://cloud.google.com/blog/ja/topics/developers-practitioners/how-transfer-your-data-google-cloud)
++ [Cloud SQL のメンテナンスを理解する: 所要時間は？](https://cloud.google.com/blog/ja/products/databases/how-cloud-sql-maintenance-works-to-keep-instances-updated)
 
 ### 2020
 
