@@ -29,6 +29,10 @@ Google Cloud セキュリティ ホワイトペーパー
 https://services.google.com/fh/files/misc/security_whitepapers_4_booklet_jp.pdf
 ```
 ```
+セキュリティ ホワイトペーパー
+https://cloud.google.com/docs/security
+```
+```
 Google Workspace セキュリティ ホワイトペーパー
 https://workspace.google.com/intl/ja/files/google-apps-security-and-compliance-whitepaper.pdf
 ```
