@@ -15,7 +15,7 @@
 ### 2020
 
 + [Google Cloud Load Balancing、Cloud CDN、Google Cloud Armor を併用するメリット](https://cloud.google.com/blog/ja/products/networking/using-cloud-armor-and-cloud-cdn-with-your-google-load-balancer)
-
++ [60 を超える Google Cloud ソースのイベントで Cloud Run をトリガーする](https://cloud.google.com/blog/ja/products/serverless/build-event-driven-applications-in-cloud-run)
 
 ## 有用なブログ
 
