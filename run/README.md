@@ -87,13 +87,15 @@ https://cloud.google.com/run/docs/configuring/request-timeout
 https://cloud.google.com/run/docs/configuring/min-instances
 ```
 
-### Cloud SQL に接続する
+### Cloud SQL に接続する時の情報
 
 + Cloud SQL のパブリックIPアドレスに接続する場合
-  + 自動的に Cloud SQL Auth Proxy 経由で繋げる
+  + 自動的に Cloud SQL Auth Proxy 経由で繋げる  
 + Cloud SQL の内部IPアドレスに接続する場合
   + Serverless VPC Access を事前に準備をする必要があるが、 Cloud SQL Auth Proxy は使わずに繋げる
-
++ instance name の場合はどちらになるか?
+  + 要確認
+  
 https://cloud.google.com/sql/docs/postgres/connect-instance-cloud-run?hl=ja#deploy_sample_app_to
 
 
