@@ -1,5 +1,19 @@
 # Filestore
 
+## 概要
+
+クラウドホスト型の NoSQL ドキュメント指向データベース
+
+```
+公式ドキュメント
+https://firebase.google.com/docs/firestore/data-model
+```
+
+[![](https://img.youtube.com/vi/v_hR4K4auoQ/0.jpg)](https://www.youtube.com/watch?v=v_hR4K4auoQ)
+
+
+---> Firebase の再生リスト [Get to know Cloud Firestore](https://www.youtube.com/playlist?list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ)
+
 
 ## パフォーマンスについて
 

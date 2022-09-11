@@ -76,8 +76,6 @@ https://cloud.google.com/run/docs/configuring/request-timeout
 
 ※ ただし、 Cloud Run の最小インスタンスを設定した場合はそちらが優先される
 
-## ユースケース
-
 ### 常時起動させておきたい
 
 最小インスタンス数を設定することでウォーム状態を維持し、いつでもリクエストを処理できるコンテナインスタンスを維持する
@@ -89,7 +87,24 @@ https://cloud.google.com/run/docs/configuring/request-timeout
 https://cloud.google.com/run/docs/configuring/min-instances
 ```
 
+### Cloud SQL に接続する時の情報
+
++ Cloud SQL のパブリックIPアドレスに接続する場合
+  + 自動的に Cloud SQL Auth Proxy 経由で繋げる  
++ Cloud SQL の内部IPアドレスに接続する場合
+  + Serverless VPC Access を事前に準備をする必要があるが、 Cloud SQL Auth Proxy は使わずに繋げる
++ instance name の場合はどちらになるか?
+  + 要確認
+  
+https://cloud.google.com/sql/docs/postgres/connect-instance-cloud-run?hl=ja#deploy_sample_app_to
+
+
+
 ## 参考 URL
 
-+ [新しい CPU 割り当てコントロールにより Cloud Run 上でさらに多様なワークロードを実行](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-always-on-cpu-allocation)
-+ [Cloud Run を最大限使いこなすに䛿](https://lp.cloudplatformonline.com/rs/808-GJW-314/images/App_Modernization_OnAir_q1_0217_Session.pdf)
++ 公式ドキュメント or 公式ブログ
+  + [60 を超える Google Cloud ソースのイベントで Cloud Run をトリガーする](https://cloud.google.com/blog/ja/products/serverless/build-event-driven-applications-in-cloud-run)
+  + [新しい CPU 割り当てコントロールにより Cloud Run 上でさらに多様なワークロードを実行](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-always-on-cpu-allocation)
+  + [Cloud Run を最大限使いこなすには](https://lp.cloudplatformonline.com/rs/808-GJW-314/images/App_Modernization_OnAir_q1_0217_Session.pdf)
++ 他の記事
+  + TBD
