@@ -17,6 +17,8 @@
 
 + [Google Cloud Load Balancing、Cloud CDN、Google Cloud Armor を併用するメリット](https://cloud.google.com/blog/ja/products/networking/using-cloud-armor-and-cloud-cdn-with-your-google-load-balancer)
 + [60 を超える Google Cloud ソースのイベントで Cloud Run をトリガーする](https://cloud.google.com/blog/ja/products/serverless/build-event-driven-applications-in-cloud-run)
++ [CentOS サポート終了に伴い、Rocky Linux Optimized for Google Cloud をご紹介](https://cloud.google.com/blog/ja/products/application-modernization/introducing-rocky-linux-optimized-for-google-cloud)
+
 
 ## 有用なブログ
 
