@@ -245,3 +245,7 @@ gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
 ```
 gcloud auth list --format json
 ```
+
+```
+gcloud compute instances describe test-instance --format="yaml(name,status,disks)"
+```
