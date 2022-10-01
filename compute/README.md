@@ -7,7 +7,12 @@ GCE 上の VM に　Ops Agent をインストールして利用する際のや�
 
 ## VM の中から取得できる GCP のデータ 
 
++ 公式
+  + [VM メタデータにクエリを実行する](https://cloud.google.com/compute/docs/metadata/querying-metadata)
+
 ### GCP Project ID
+
++ テンプレート
 
 ```
 curl "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google"
@@ -20,8 +25,7 @@ my_gcp_pj
 
 ### metadata
 
-+ 公式
-  + [VM メタデータにクエリを実行する](https://cloud.google.com/compute/docs/metadata/querying-metadata)
++ テンプレート
 
 ```
 curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/{meta key}" -H "Metadata-Flavor: Google"
