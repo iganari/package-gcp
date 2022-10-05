@@ -4,8 +4,10 @@
 
 ## 実際に構築する
 
++ Google Cloud に認証を通す
+
 ```
-gcloud auth login -q
+gcloud auth login --no-launch-browser -q
 ```
 
 ```
@@ -21,13 +23,13 @@ export _my_ip='Your Home IP Address'
 export _other_ip='Your other IP Address'
 ```
 
-+ API を enable
++ API を enable 化します
 
 ```
 gcloud beta services enable compute.googleapis.com --project ${_gcp_pj_id}
 ```
 
-+ VPC Network の作成
++ VPC Network の作成します
 
 ```
 gcloud beta compute networks create ${_common}-network \
@@ -36,6 +38,7 @@ gcloud beta compute networks create ${_common}-network \
 ```
 
 + サブネットの作成
+  + `限定公開の Google アクセス` を On にしておく
 
 ```
 gcloud beta compute networks subnets create ${_common}-subnets \
@@ -108,4 +111,4 @@ echo ${_account}
 gcloud beta compute ssh ${_account}@${_common}-vm --zone ${_region}-b --project ${_gcp_pj_id}
 ```
 
----> これでログイン出来るはず
+---> これでログイン出来るはずです :)
