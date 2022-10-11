@@ -41,4 +41,5 @@ https://www.youtube.com/watch?v=ehqpc9vynDg
 
 ## 整理中
 
-[Cloud アーキテクチャセンター](https://cloud.google.com/architecture)
++ [Cloud アーキテクチャセンター](https://cloud.google.com/architecture)
+  + Google Cloud でワークロードをビルドまたは移行するためのリファレンス アーキテクチャ、図、設計パターン、ガイダンス、ベスト プラクティスを示します。
