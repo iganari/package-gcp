@@ -16,7 +16,7 @@ export _region='asia-northeast1'
 + GCP にログインする
 
 ```
-gcloud auth login -q
+gcloud auth login --no-launch-browser -q
 ```
 
 
