@@ -16,9 +16,14 @@ export _region='asia-northeast1'
 + GCP にログインする
 
 ```
-gcloud auth login -q
+gcloud auth login --no-launch-browser -q
 ```
 
++ API の有効化をする
+
+```
+gcloud beta services enable sqladmin.googleapis.com --project ${_gcp_pj_id}
+```
 
 ## Cloud SQL Instance を作成
 

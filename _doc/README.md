@@ -39,3 +39,12 @@ https://cloud.google.com/blog/ja/topics/onair/cloud-onair-20200326
 https://www.youtube.com/watch?v=ehqpc9vynDg
 ```
 
+## 整理中
+
++ [Cloud アーキテクチャセンター](https://cloud.google.com/architecture)
+  + Google Cloud でワークロードをビルドまたは移行するためのリファレンス アーキテクチャ、図、設計パターン、ガイダンス、ベスト プラクティスを示します。
++ [Google Cloud セキュリティ ベスト プラクティス センター](https://cloud.google.com/security/best-practices)
+  + Google Cloud にワークロードをデプロイする際に、セキュリティとコンプライアンスの目標を達成するためのベスト プラクティスをご紹介します。
++ [Google Cloud 設定チェックリスト](https://cloud.google.com/docs/enterprise/setup-checklist)
+  + 本番環境に対応したスケーラブルなエンタープライズ ワークロード向けに Google Cloud をセットアップする際に役立ちます
+
