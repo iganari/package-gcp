@@ -74,9 +74,17 @@ gcloud auth list
 ```
 
 + アクティブなユーザのみ表示する
+  + 例 `hogehoge@fizzbuzz.com`
 
 ```
 gcloud auth list --filter=status:ACTIVE --format="value(account)"
+```
+
++ アクティブなユーザのユーザネームのみを表示する
+  + 例 `hogehoge`
+
+```
+gcloud auth list --filter=status:ACTIVE --format="value(account)" | awk -F\@ '{print $1}'
 ```
 
 ## configurations
@@ -237,3 +245,4 @@ gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
 ```
 gcloud auth list --format json
 ```
+

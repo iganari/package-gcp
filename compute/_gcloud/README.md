@@ -27,3 +27,14 @@ WIP
 ```
 gcloud beta compute os-login ssh-keys list --project {PROJECT ID}
 ```
+
+## Option
+
+### format
+
+出力形式を指定できる
+
+
+```
+gcloud compute instances describe test-instance --format="yaml(name,status,disks)"
+```
