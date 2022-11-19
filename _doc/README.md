@@ -47,3 +47,4 @@ https://www.youtube.com/watch?v=ehqpc9vynDg
   + Google Cloud にワークロードをデプロイする際に、セキュリティとコンプライアンスの目標を達成するためのベスト プラクティスをご紹介します。
 + [Google Cloud 設定チェックリスト](https://cloud.google.com/docs/enterprise/setup-checklist)
   + 本番環境に対応したスケーラブルなエンタープライズ ワークロード向けに Google Cloud をセットアップする際に役立ちます
+

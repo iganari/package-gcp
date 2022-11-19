@@ -177,6 +177,12 @@ gcloud beta projects add-iam-policy-binding example-project-id-1 \
   --role='roles/editor'
 ```
 
+### Tips
+
++ GCP の API の仕様で roles/owner はつけることが出来ない
+  + https://cloud.google.com/iam/docs/understanding-roles#invitation_flow
+
+
 ## monitoring
 
 :warning: WIP
@@ -190,6 +196,7 @@ export _pj_id='Your GCP Project Id'
 ```
 gcloud alpha monitoring channel-descriptors describe projects/${_pj_id}/notificationChannelDescriptors/slack
 ```
+
 
 ## update
 
@@ -242,7 +249,34 @@ gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
 
 出力形式を指定できる
 
++ JSON
+
 ```
 gcloud auth list --format json
 ```
 
++ Table
+
+```
+$ gcloud beta compute instances list --project ${_gcp_pj_id} --format='table(name, zone)'
+NAME     ZONE
+bastion  asia-northeast1-b
+dbproxy  asia-northeast1-b
+hoge-01    asia-northeast1-b
+hoge-02    asia-northeast1-b
+fuga-01   asia-northeast1-b
+fuga-02   asia-northeast1-b
+```
+
++ CSV
+
+```
+$ gcloud beta compute instances list --project ${_gcp_pj_id} --format='csv(name, zone)'
+name,zone
+bastion,asia-northeast1-b
+dbproxy,asia-northeast1-b
+hoge-01,asia-northeast1-b
+hoge-02,asia-northeast1-b
+fuga-01,asia-northeast1-b
+fuga-02,asia-northeast1-b
+```
