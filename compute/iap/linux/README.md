@@ -248,14 +248,14 @@ gcloud beta compute instances delete ${_common}-vm \
 ```
 gcloud beta compute routers nats delete ${_common}-nat \
   --router-region ${_region} \
-  --router ${_common}-router \
+  --router ${_common}-nat-router \
   --project ${_gcp_pj_id} -q
 ```
 
 + Cloud Router の削除
 
 ```
-gcloud beta compute routers delete ${_common}-router \
+gcloud beta compute routers delete ${_common}-nat-router \
   --region ${_region} \
   --project ${_gcp_pj_id} -q
 ```
@@ -264,17 +264,17 @@ gcloud beta compute routers delete ${_common}-router \
 
 ```
 gcloud beta compute addresses delete ${_common}-nat-ip \
-    --region ${_region} \
-    --project ${_gcp_pj_id} -q
+  --region ${_region} \
+  --project ${_gcp_pj_id} -q
 ```
 
 + Firewall Rule の削除
 
 ```
-gcloud beta compute firewall-rules delete ${_common}-allow-internal \
+gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
   --project ${_gcp_pj_id} -q
 
-gcloud beta compute firewall-rules delete ${_common}-allow-ssh \
+gcloud beta compute firewall-rules delete ${_common}-allow-iap-ssh \
   --project ${_gcp_pj_id} -q
 ```
 
@@ -295,4 +295,4 @@ gcloud beta compute networks delete ${_common}-network \
 
 ## 最終更新日
 
-2021/04/09
+2022/12/03
