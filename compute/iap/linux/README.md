@@ -29,7 +29,7 @@ export _your_gcp_account='Your GCP Account ( Email format ) '
 + GCP との認証
 
 ```
-gcloud auth login -q
+gcloud auth login --no-launch-browser -q
 ```
 
 + GCP にログインした情報からアカウント名だけ抽出する
