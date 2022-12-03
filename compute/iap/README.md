@@ -2,11 +2,23 @@
 
 ## 概要
 
-IAP 越しに パブリック IP アドレスが無い GCE にログインします
+IAP 越しに外部 IP アドレスが無い GCE にログインします
 
-+ [Linux 編](./linux/README.md)
-+ [WIP] Windows 編
+### [SSH login to Linux Server from macOS( or Linux )](./ssh-linux-from-macos/README.md)
 
-イメージ図
+外部 IP アドレスが無い GCE ( Linux ) に SSH ログインをするやり方です
 
-![](./img/iap-to-gce.png)
+![](./ssh-linux-from-macos/01.png)
+
+### [RDP login to Windows Server from macOS( or Linux )]()
+
+WIP
+
+### [SSH login to Linux from Windows]()
+
+WIP
+
+### [RDP login to Windows Server from Windows]()
+
+WIP
+

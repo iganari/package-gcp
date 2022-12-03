@@ -4,17 +4,17 @@
 
 IAP 越しに パブリック IP アドレスが無い GCE( Linux ) にログインします
 
-![](../img/iap-to-gce.png)
+![](01.png)
 
-```
-参考 URL
-https://cloud.google.com/iap/docs/using-tcp-forwarding#gcloud_2
-```
+
++ 参考 URL
+  + [Setting up IAP for Compute Engine](https://cloud.google.com/iap/docs/tutorial-gce)
+  + [Enabling IAP for Compute Engine](https://cloud.google.com/iap/docs/enabling-compute-howto)
 
 
 ## 準備
 
-※ IAP をユーザ毎に設定するので、 GCP 上で使用出来るユーザの Email が必要になります
+※ GCP を操作できる Google アカウントが必要です
 
 ```
 export _gcp_pj_id='Your GCP Project ID'
