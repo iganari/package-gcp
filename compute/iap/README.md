@@ -335,7 +335,12 @@ Have fun! :)
 + GCE の削除
 
 ```
-gcloud beta compute instances delete ${_common}-vm \
+gcloud beta compute instances delete ${_common}-linux \
+  --zone ${_zone} \
+  --project ${_gcp_pj_id} -q
+```
+```
+gcloud beta compute instances delete ${_common}-win \
   --zone ${_zone} \
   --project ${_gcp_pj_id} -q
 ```
