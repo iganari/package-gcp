@@ -18,7 +18,7 @@ IAP 越しに外部 IP アドレスが無い GCE にログインします
 ```
 export _gcp_pj_id='Your GCP Project ID'
 
-export _common='iap-linux'
+export _common='iap-test'
 export _region='asia-northeast1'
 export _zone='asia-northeast1-c'
 export _sub_network_range='10.146.0.0/20'
@@ -241,7 +241,7 @@ $ gcloud beta compute ssh ${_your_gcp_account_name}@${_common}-linux --tunnel-th
 Welcome to Ubuntu 22.04.1 LTS (GNU/Linux 5.15.0-1025-gcp x86_64)
 Last login: Fri Dec  2 23:30:07 2022 from 35.235.242.49
 
-iganari@iap-linux-linux:~$
+iganari@iap-test-linux:~$
 ```
 
 + OS の確認
@@ -263,7 +263,7 @@ UBUNTU_CODENAME=jammy
 ```
 ```
 $ uname -a
-Linux iap-linux-vm 5.15.0-1025-gcp #32-Ubuntu SMP Wed Nov 23 21:46:01 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+Linux iap-test-linux 5.15.0-1025-gcp #32-Ubuntu SMP Wed Nov 23 21:46:01 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
 ---> IAP 越しに パブリック IP アドレスが無い GCE( Linux ) に SSH ログインすることが出来ました :)
@@ -284,7 +284,7 @@ gcloud beta compute reset-windows-password ${_common}-win --zone ${_zone} --user
 ### 例
 $ gcloud beta compute reset-windows-password ${_common}-win --zone ${_zone} --user=iganari --project ${_gcp_pj_id}
 
-password: JtKd*Js9Dbgdd+R
+password: ********    # <----- 本来は表示されます
 username: iganari
 ```
 
