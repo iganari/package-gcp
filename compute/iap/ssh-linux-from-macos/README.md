@@ -41,6 +41,9 @@ echo ${_your_gcp_account_name}
 
 ## ネットワークの作成
 
+<details>
+<summary>Details</summary>
+
 + VPC ネットワークの作成
 
 ```
@@ -75,7 +78,6 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   --project ${_gcp_pj_id}
 
 
-
 ### IAP からの SSH と ICMP を許可する
 gcloud beta compute firewall-rules create ${_common}-allow-iap-ssh \
   --network ${_common}-network \
@@ -84,6 +86,18 @@ gcloud beta compute firewall-rules create ${_common}-allow-iap-ssh \
   --rules tcp:22,icmp \
   --source-ranges=35.235.240.0/20 \
   --target-tags ${_common}-allow-ssh \
+  --priority=1010 \
+  --project ${_gcp_pj_id}
+
+
+### IAP からの RDP と ICMP を許可する
+gcloud beta compute firewall-rules create ${_common}-allow-iap-rdp \
+  --network ${_common}-network \
+  --direction=INGRESS \
+  --action ALLOW \
+  --rules tcp:3389,icmp \
+  --source-ranges=35.235.240.0/20 \
+  --target-tags ${_common}-allow-rdp \
   --priority=1010 \
   --project ${_gcp_pj_id}
 ```
@@ -116,10 +130,12 @@ gcloud beta compute routers nats create ${_common}-nat \
   --project ${_gcp_pj_id}
 ```
 
+</details>
 
+## IAM の設定
 
-
-## IAM
+<details>
+<summary>Details</summary>
 
 + Create Service Account of VM
 
@@ -129,13 +145,15 @@ gcloud beta iam service-accounts create ${_common} \
   --project ${_gcp_pj_id}
 ```
 
-+ IAP を使用するための Role を付与
++ [WIP] IAP を使用するための Role を付与
 
 ```
-gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} \
-    --member=user:${_your_gcp_account} \
-    --role=roles/iap.tunnelResourceAccessor
+# gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} \
+#   --member=user:${_your_gcp_account} \
+#   --role=roles/iap.tunnelResourceAccessor
 ```
+
+</details>
 
 ## GCE の作成
 
