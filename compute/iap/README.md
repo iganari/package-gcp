@@ -4,11 +4,11 @@
 
 IAP 越しに外部 IP アドレスが無い GCE にログインします
 
+![](./ssh-linux-from-macos/01.png)
+
 ### [SSH login to Linux Server from macOS( or Linux )](./ssh-linux-from-macos/README.md)
 
-外部 IP アドレスが無い GCE ( Linux ) に SSH ログインをするやり方です
-
-![](./ssh-linux-from-macos/01.png)
+外部 IP アドレスが無い GCE ( Linux Server ) に対して SSH ログインをするやり方です
 
 ### [RDP login to Windows Server from macOS( or Linux )]()
 
