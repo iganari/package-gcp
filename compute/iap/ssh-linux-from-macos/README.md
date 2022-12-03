@@ -155,10 +155,14 @@ gcloud beta iam service-accounts create ${_common} \
 
 </details>
 
-## GCE の作成
+## GCE Instance の作成
 
-+ 静的外部 IP アドレスが付いていない VM の作成
+静的外部 IP アドレスが付いていない VM の作成
 
+### Linux ( Ubuntu ) の場合
+
+<details>
+<summary>Details</summary>
 
 ```
 export _vm_type='e2-medium'
@@ -167,7 +171,7 @@ export _os_image='ubuntu-2204-jammy-v20221201'
 export _boot_disk_size='30'
 ```
 ```
-gcloud beta compute instances create ${_common}-vm \
+gcloud beta compute instances create ${_common}-linux \
   --zone ${_zone} \
   --machine-type ${_vm_type} \
   --network-interface=subnet=${_common}-subnets,no-address \
@@ -183,6 +187,39 @@ gcloud beta compute instances create ${_common}-vm \
   --reservation-affinity=any \
   --project ${_gcp_pj_id}
 ```
+
+</details>
+
+### Windows Server の場合
+
+<details>
+<summary>Details</summary>
+
+```
+export _vm_type='e2-medium'
+export _os_family='windows-cloud'
+export _os_image='windows-server-2022-dc-v20221109'
+export _boot_disk_size='50'
+```
+```
+gcloud beta compute instances create ${_common}-win \
+  --zone ${_zone} \
+  --machine-type ${_vm_type} \
+  --network-interface=subnet=${_common}-subnets,no-address \
+  --tags=${_common}-allow-rdp \
+  --service-account=${_common}@${_gcp_pj_id}.iam.gserviceaccount.com \
+  --scopes https://www.googleapis.com/auth/cloud-platform \
+  --image-project=${_os_family} \
+  --image=${_os_image} \
+  --boot-disk-size ${_boot_disk_size} \
+  --shielded-secure-boot \
+  --shielded-vtpm \
+  --shielded-integrity-monitoring \
+  --reservation-affinity=any \
+  --project ${_gcp_pj_id}
+```
+
+</details>
 
 ## 接続確認
 
