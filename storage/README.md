@@ -55,6 +55,10 @@ Object Lifecycle Management
 https://cloud.google.com/storage/docs/lifecycle
 ```
 
+## metadata
+
++ [Get bucket size and metadata](https://cloud.google.com/storage/docs/getting-bucket-size-and-metadata)
+
 ## memo
 
 ```
