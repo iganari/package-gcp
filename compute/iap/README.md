@@ -1,4 +1,4 @@
-# IAP to GCE
+# IAP for TCP forwarding to GCE
 
 ## 概要
 
