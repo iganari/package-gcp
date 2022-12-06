@@ -223,7 +223,7 @@ gcloud beta compute instances create ${_common}-win \
 
 作成した VM に IAP 越しに SSH ログインします
 
-### Linux ( Ubuntu ) の場合
+### Linux ( Ubuntu ) の場合 〜Tunneling SSH connections〜
 
 <details>
 <summary>Details</summary>
@@ -270,7 +270,7 @@ Linux iap-test-linux 5.15.0-1025-gcp #32-Ubuntu SMP Wed Nov 23 21:46:01 UTC 2022
 
 </details>
 
-### Windows Server の場合
+### Windows Server の場合 〜Tunneling RDP connections〜
 
 <details>
 <summary>Details</summary>
@@ -318,6 +318,16 @@ Listening on port [13389].
 ---> IAP 越しに パブリック IP アドレスが無い GCE( Windows Server ) に SSH ログインすることが出来ました :)
 
 </details>
+
+### Windows Server の場合 〜IAP Desktop〜
+
+<details>
+<summary>Details</summary>
+
+[IAP Desktop](https://github.com/GoogleCloudPlatform/iap-desktop/) を使う
+
+</details>
+
 
 ## まとめ
 
