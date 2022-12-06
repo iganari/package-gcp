@@ -270,6 +270,20 @@ Linux iap-test-linux 5.15.0-1025-gcp #32-Ubuntu SMP Wed Nov 23 21:46:01 UTC 2022
 
 </details>
 
+
+### Linux ( Ubuntu ) の GCE インスタンスに SSH ログインする場合 〜IAP Desktop〜
+
+<details>
+<summary>Details</summary>
+
+[IAP Desktop の Connect to Linux VMs with SSH](https://github.com/GoogleCloudPlatform/iap-desktop/#connect-to-linux-vms-with-ssh) を使う
+
+
+![](https://raw.githubusercontent.com/GoogleCloudPlatform/iap-desktop/master/doc/images/SSH_350.gif)
+
+</details>
+
+
 ### Windows Server の GCE インスタンスに RDP ログインする場合 〜Tunneling RDP connections〜
 
 <details>
@@ -324,7 +338,7 @@ Listening on port [13389].
 <details>
 <summary>Details</summary>
 
-[IAP Desktop](https://github.com/GoogleCloudPlatform/iap-desktop/) を使う
+[IAP Desktop の Connect to Windows VMs with Remote Desktop](https://github.com/GoogleCloudPlatform/iap-desktop/#connect-to-windows-vms-with-remote-desktop) を使う
 
 
 ![](https://raw.githubusercontent.com/GoogleCloudPlatform/iap-desktop/master/doc/images/RemoteDesktop_350.gif)
