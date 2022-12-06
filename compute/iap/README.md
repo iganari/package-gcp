@@ -155,9 +155,9 @@ gcloud beta iam service-accounts create ${_common} \
 
 ## GCE Instance の作成
 
-静的外部 IP アドレスが付いていない VM の作成します
+静的外部 IP アドレスが付いていない GCE インスタンスの作成します
 
-### Linux ( Ubuntu ) の場合
+### Linux ( Ubuntu ) の GCE インスタンス場合
 
 <details>
 <summary>Details</summary>
@@ -188,7 +188,7 @@ gcloud beta compute instances create ${_common}-linux \
 
 </details>
 
-### Windows Server の場合
+### Windows Server の GCE インスタンス場合
 
 <details>
 <summary>Details</summary>
