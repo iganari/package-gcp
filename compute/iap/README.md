@@ -326,6 +326,9 @@ Listening on port [13389].
 
 [IAP Desktop](https://github.com/GoogleCloudPlatform/iap-desktop/) を使う
 
+
+![](https://raw.githubusercontent.com/GoogleCloudPlatform/iap-desktop/master/doc/images/RemoteDesktop_350.gif)
+
 </details>
 
 
