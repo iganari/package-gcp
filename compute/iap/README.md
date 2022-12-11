@@ -155,9 +155,9 @@ gcloud beta iam service-accounts create ${_common} \
 
 ## GCE Instance の作成
 
-静的外部 IP アドレスが付いていない VM の作成します
+静的外部 IP アドレスが付いていない GCE インスタンスの作成します
 
-### Linux ( Ubuntu ) の場合
+### Linux ( Ubuntu ) の GCE インスタンスの場合
 
 <details>
 <summary>Details</summary>
@@ -188,7 +188,7 @@ gcloud beta compute instances create ${_common}-linux \
 
 </details>
 
-### Windows Server の場合
+### Windows Server の GCE インスタンスの場合
 
 <details>
 <summary>Details</summary>
@@ -221,9 +221,9 @@ gcloud beta compute instances create ${_common}-win \
 
 ## 接続確認
 
-作成した VM に IAP 越しに SSH ログインします
+作成した VM に IAP 越しにログインします
 
-### Linux ( Ubuntu ) の場合
+### Linux ( Ubuntu ) の GCE インスタンスに SSH ログインする場合 〜Tunneling SSH connections〜
 
 <details>
 <summary>Details</summary>
@@ -270,7 +270,21 @@ Linux iap-test-linux 5.15.0-1025-gcp #32-Ubuntu SMP Wed Nov 23 21:46:01 UTC 2022
 
 </details>
 
-### Windows Server の場合
+
+### Linux ( Ubuntu ) の GCE インスタンスに SSH ログインする場合 〜IAP Desktop〜
+
+<details>
+<summary>Details</summary>
+
+[IAP Desktop の Connect to Linux VMs with SSH](https://github.com/GoogleCloudPlatform/iap-desktop/#connect-to-linux-vms-with-ssh) を使う
+
+
+![](https://raw.githubusercontent.com/GoogleCloudPlatform/iap-desktop/master/doc/images/SSH_350.gif)
+
+</details>
+
+
+### Windows Server の GCE インスタンスに RDP ログインする場合 〜Tunneling RDP connections〜
 
 <details>
 <summary>Details</summary>
@@ -318,6 +332,19 @@ Listening on port [13389].
 ---> IAP 越しに パブリック IP アドレスが無い GCE( Windows Server ) に SSH ログインすることが出来ました :)
 
 </details>
+
+### Windows Server の GCE インスタンスに RDP ログインする場合 〜IAP Desktop〜
+
+<details>
+<summary>Details</summary>
+
+[IAP Desktop の Connect to Windows VMs with Remote Desktop](https://github.com/GoogleCloudPlatform/iap-desktop/#connect-to-windows-vms-with-remote-desktop) を使う
+
+
+![](https://raw.githubusercontent.com/GoogleCloudPlatform/iap-desktop/master/doc/images/RemoteDesktop_350.gif)
+
+</details>
+
 
 ## まとめ
 
