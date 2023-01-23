@@ -13,6 +13,43 @@ gcloud components update -q && \
 gcloud components install kubectl -q
 ```
 
+## インストール方法
+
+
+### Linux on GCE の場合
+
++ https://cloud.google.com/sdk/docs/install#deb
++ https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke?hl=en
+
++ 必要なパッケージのインストール
+
+```
+sudo apt-get install -y apt-transport-https ca-certificates gnupg
+```
+
++ apt のリポジトリを追加
+
+```
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+```
+
++ apt 用の Google Cloud public key を追加
+
+```
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+```
+
++ gcloud CLI のアップデート
+
+```
+sudo apt-get update && sudo apt-get install -y google-cloud-cli
+```
+
++ GKE 用の認証プラグインをインストール
+
+```
+sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
+```
 
 ## [Cluster について](./cluster-overview)
 
