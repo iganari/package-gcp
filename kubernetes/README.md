@@ -8,7 +8,7 @@
 ## 先にインストールしておきたいコマンド
 
 ```
-gcloud components install beta -q &&\
+gcloud components install beta -q && \
 gcloud components update -q && \
 gcloud components install kubectl -q
 ```
