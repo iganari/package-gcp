@@ -83,7 +83,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-iap-ssh \
   --action ALLOW \
   --rules tcp:22,icmp \
   --source-ranges=35.235.240.0/20 \
-  --target-tags ${_common}-allow-ssh \
+  --target-tags ${_common}-allow-iap-ssh \
   --priority=1010 \
   --project ${_gcp_pj_id}
 
@@ -95,7 +95,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-iap-rdp \
   --action ALLOW \
   --rules tcp:3389,icmp \
   --source-ranges=35.235.240.0/20 \
-  --target-tags ${_common}-allow-rdp \
+  --target-tags ${_common}-allow-iap-rdp \
   --priority=1010 \
   --project ${_gcp_pj_id}
 ```
@@ -173,7 +173,7 @@ gcloud beta compute instances create ${_common}-linux \
   --zone ${_zone} \
   --machine-type ${_vm_type} \
   --network-interface=subnet=${_common}-subnets,no-address \
-  --tags=${_common}-allow-ssh \
+  --tags=${_common}-allow-iap-ssh \
   --service-account=${_common}@${_gcp_pj_id}.iam.gserviceaccount.com \
   --scopes https://www.googleapis.com/auth/cloud-platform \
   --image-project=${_os_family} \
@@ -204,7 +204,7 @@ gcloud beta compute instances create ${_common}-win \
   --zone ${_zone} \
   --machine-type ${_vm_type} \
   --network-interface=subnet=${_common}-subnets,no-address \
-  --tags=${_common}-allow-rdp \
+  --tags=${_common}-allow-iap-rdp \
   --service-account=${_common}@${_gcp_pj_id}.iam.gserviceaccount.com \
   --scopes https://www.googleapis.com/auth/cloud-platform \
   --image-project=${_os_family} \
