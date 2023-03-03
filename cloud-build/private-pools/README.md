@@ -123,11 +123,12 @@ gcloud beta compute routers nats create ${_common}-nat \
 
 ## GSC
 
-Log
+```
+gsutil mb -p ${_gcp_pj_id} -c STANDARD -l ${_region} -b on gs://${_gcp_pj_id}-${_common}-logs
+```
 
-```
-${_gcp_pj_id}-${_common}-logs
-```
+作成後、手動で ACLs に変換する
+
 
 ## Service Accunt
 
@@ -156,7 +157,7 @@ gcloud projects add-iam-policy-binding ${_gcp_pj_id} \
 
 
 ```
-
+gsutil acl ch -u ${_common}-sa@${_gcp_pj_id}.iam.gserviceaccount.com:W gs://${_gcp_pj_id}-${_common}-logs
 ```
 
 ## clud builkd trigger
