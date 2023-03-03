@@ -27,20 +27,16 @@ export _gcp_pj_id='Your GCP Project ID'
 export _common='cb-pri'
 export _range_name='pri-pool-addr'
 
-
-
-
-
 export _region='asia-northeast1'
-export _zone='asia-northeast1-b'
+# export _zone='asia-northeast1-b'
+# export _sub_network_range='172.16.0.0/12'
+# export _my_ip='Your Home IP Address'
+# export _other_ip='Your other IP Address'
 
 
- 
 
-export _sub_network_range='172.16.0.0/12'
-
-export _my_ip='Your Home IP Address'
-export _other_ip='Your other IP Address'
+export _pri_pool_vm_type='e2-medium'
+export _pri_pool_vm_size='100'
 ```
 
 + Service Networking APIs の有効化
@@ -80,19 +76,48 @@ gcloud beta services vpc-peerings connect \
   --project ${_gcp_pj_id}
 ```
 
-
 ここからは https://cloud.google.com/build/docs/private-pools/create-manage-private-pools
 
 + Creating a new private pool
 
 ```
-gcloud builds worker-pools create PRIVATEPOOL_ID \
-  --project=PRIVATEPOOL_PROJECT_ID \
-  --region=REGION \
-  --peered-network=PEERED_NETWORK \
-  --worker-machine-type=PRIVATEPOOL_MACHINE_TYPE \
-  --worker-disk-size=PRIVATEPOOL_DISK_SIZE_GB \
-  --no-public-egress
+gcloud beta builds worker-pools create ${_common}-pool \
+  --region=${_region} \
+  --peered-network=projects/${_gcp_pj_id}/global/networks/${_common}-network \
+  --worker-machine-type=${_pri_pool_vm_type} \
+  --worker-disk-size=${_pri_pool_vm_size} \
+  --no-public-egress \
+  --project=${_gcp_pj_id}
+```
+
+ここまで
+
+ここから non doc
+
++ Cloud NAT で使用する IP Address の予約
+
+```
+gcloud beta compute addresses create ${_common}-nat-ip \
+  --region ${_region} \
+  --project ${_gcp_pj_id}
+```
+
++ Cloud NAT で使用する Cloud Router を作成
+
+```
+gcloud beta compute routers create ${_common}-nat-router \
+  --network ${_common}-network \
+  --region ${_region} \
+  --project ${_gcp_pj_id}
+```
++ Cloud NAT の作成
+
+```
+gcloud beta compute routers nats create ${_common}-nat \
+  --router-region ${_region} \
+  --router ${_common}-nat-router \
+  --nat-all-subnet-ip-ranges \
+  --nat-external-ip-pool ${_common}-nat-ip \
   --project ${_gcp_pj_id}
 ```
 
