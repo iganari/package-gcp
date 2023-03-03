@@ -121,22 +121,50 @@ gcloud beta compute routers nats create ${_common}-nat \
   --project ${_gcp_pj_id}
 ```
 
-## Service Accunt
-
-
-WQIP
-
-
 ## GSC
 
 Log
 
+```
+${_gcp_pj_id}-${_common}-logs
+```
+
+## Service Accunt
+
++ Create SA
+
+```
+gcloud beta iam service-accounts create ${_common}-sa \
+  --description="for Private Pool for Cloud Build" \
+  --display-name=${_common}-sa \
+  --project ${_gcp_pj_id}
+```
+
+
+
++ WorkerPool User
+
+
+```
+gcloud projects add-iam-policy-binding ${_gcp_pj_id} \
+  --member=serviceAccount:${_common}-sa@${_gcp_pj_id}.iam.gserviceaccount.com \
+  --role=roles/cloudbuild.workerPoolUser \
+  --project ${_gcp_pj_id}
+```
+
++ GCS
+
+
+```
+
+```
+
 ## clud builkd trigger
 
-
+```
 ping -c 5 8.8.8.8
-
-
+trace route
+```
 
 
 
