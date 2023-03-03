@@ -4,10 +4,12 @@
 
 Cloud Build 上で Apache Benchmark を実行するサンプル
 
-https://cloud.google.com/build/docs/private-pools/private-pools-overview?hl=en
++ Overview
+  + https://cloud.google.com/build/docs/private-pools/private-pools-overview?hl=en
++ Set up
+  + https://cloud.google.com/build/docs/private-pools/set-up-private-pool-to-use-in-vpc-network?hl=en
 
 ## 構築
-
 
 + GCP に認証をします
 
@@ -27,6 +29,12 @@ export _sub_network_range='172.16.0.0/12'
 
 export _my_ip='Your Home IP Address'
 export _other_ip='Your other IP Address'
+```
+
++ Service Networking APIs の有効化
+
+```
+gcloud beta services enable cloudbuild.googleapis.com servicenetworking.googleapis.com --project ${_gcp_pj_id}
 ```
 
 + VPC Network の作成
