@@ -164,7 +164,7 @@ gsutil acl ch -u ${_common}-sa@${_gcp_pj_id}.iam.gserviceaccount.com:W gs://${_g
 
 ```
 ping -c 5 8.8.8.8
-trace route
+traceroute www.google.com
 ```
 
 
