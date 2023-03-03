@@ -83,9 +83,18 @@ gcloud beta services vpc-peerings connect \
 
 ここからは https://cloud.google.com/build/docs/private-pools/create-manage-private-pools
 
++ Creating a new private pool
 
-
-
+```
+gcloud builds worker-pools create PRIVATEPOOL_ID \
+  --project=PRIVATEPOOL_PROJECT_ID \
+  --region=REGION \
+  --peered-network=PEERED_NETWORK \
+  --worker-machine-type=PRIVATEPOOL_MACHINE_TYPE \
+  --worker-disk-size=PRIVATEPOOL_DISK_SIZE_GB \
+  --no-public-egress
+  --project ${_gcp_pj_id}
+```
 
 
 
