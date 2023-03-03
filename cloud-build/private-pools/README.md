@@ -121,6 +121,24 @@ gcloud beta compute routers nats create ${_common}-nat \
   --project ${_gcp_pj_id}
 ```
 
+## Service Accunt
+
+
+WQIP
+
+
+## GSC
+
+Log
+
+## clud builkd trigger
+
+
+ping -c 5 8.8.8.8
+
+
+
+
 
 
 ## hoge
