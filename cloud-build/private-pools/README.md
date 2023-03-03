@@ -167,7 +167,18 @@ ping -c 5 8.8.8.8
 traceroute www.google.com
 ```
 
+https://cloud.google.com/build/docs/manually-build-code-source-repos
 
+```
+gcloud beta builds triggers create manual \
+  --region=REGION \
+  --name=TRIGGER_NAME \
+  --repo=REPO_NAME \
+  --repo-type=REPO_TYPE \
+  --branch-pattern=BRANCH_PATTERN \
+  --build-config=BUILD_CONFIG_FILE \
+  --service-account=SERVICE_ACCOUNT
+```
 
 
 ## hoge
