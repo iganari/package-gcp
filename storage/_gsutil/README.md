@@ -29,8 +29,8 @@ gsutil mb gs://BUCKET_NAME
   + `-l` : バケットのロケーションを指定します。
     + 例: `US-EAST1`
   + `-b` : bucket-level access の設定
-    + on: Uniform
-    + off: Fine-grained
+    + off: [default] Uniform
+    + on: Fine-grained( ACLs )
 
 ```
 gsutil mb -p {PROJECT_ID} -c {STORAGE_CLASS} -l {BUCKET_LOCATION} -b on gs://BUCKET_NAME
