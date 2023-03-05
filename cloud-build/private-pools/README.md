@@ -170,14 +170,21 @@ traceroute www.google.com
 https://cloud.google.com/build/docs/manually-build-code-source-repos
 
 ```
+WIP
+
+
+export _github_remo
+
+
 gcloud beta builds triggers create manual \
-  --region=REGION \
+  --region ${_region} \
   --name=TRIGGER_NAME \
   --repo=REPO_NAME \
   --repo-type=REPO_TYPE \
   --branch-pattern=BRANCH_PATTERN \
   --build-config=BUILD_CONFIG_FILE \
-  --service-account=SERVICE_ACCOUNT
+  --service-account ${_common}-sa@${_gcp_pj_id}.iam.gserviceaccount.com \
+  --project ${_gcp_pj_id}
 ```
 
 
