@@ -11,8 +11,9 @@ Cloud Build 上で Apache Benchmark を実行するサンプル
 
 ## ネットワーク構成図
 
-![](https://cloud.google.com/build/images/private-pool.png)
+https://cloud.google.com/build/docs/private-pools/private-pools-overview
 
+![](https://cloud.google.com/build/images/private-pool.png)
 
 ## 構築
 
