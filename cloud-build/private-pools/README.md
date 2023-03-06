@@ -9,6 +9,11 @@ Cloud Build 上で Apache Benchmark を実行するサンプル
 + Set up
   + https://cloud.google.com/build/docs/private-pools/set-up-private-pool-to-use-in-vpc-network?hl=en
 
+## ネットワーク構成図
+
+![](https://cloud.google.com/build/images/private-pool.png)
+
+
 ## 構築
 
 ここからは https://cloud.google.com/build/docs/private-pools/set-up-private-pool-to-use-in-vpc-network?hl=en
