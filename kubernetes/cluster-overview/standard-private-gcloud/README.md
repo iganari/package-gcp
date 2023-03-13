@@ -215,16 +215,75 @@ test-pod   1/1     Running   0          18s
 kubectl exec -it test-pod /bin/bash
 ```
 
-+ Pod 内から外部に通信をします
++ 必要なパッケージのインストール
 
 ```
 apt update
 apt install -y dnsutils curl iputils-ping
-
-ping -c 5 google.com
-dig google.com
-curl www.google.com
 ```
+
++ Pod 内から外部に通信を試してみます
+
+```
+# ping -c 5 google.com
+
+PING google.com (142.251.42.174) 56(84) bytes of data.
+64 bytes from nrt12s46-in-f14.1e100.net (142.251.42.174): icmp_seq=1 ttl=121 time=2.75 ms
+64 bytes from nrt12s46-in-f14.1e100.net (142.251.42.174): icmp_seq=2 ttl=121 time=2.00 ms
+64 bytes from nrt12s46-in-f14.1e100.net (142.251.42.174): icmp_seq=3 ttl=121 time=1.83 ms
+64 bytes from nrt12s46-in-f14.1e100.net (142.251.42.174): icmp_seq=4 ttl=121 time=1.93 ms
+64 bytes from nrt12s46-in-f14.1e100.net (142.251.42.174): icmp_seq=5 ttl=121 time=1.89 ms
+
+--- google.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4006ms
+rtt min/avg/max/mdev = 1.832/2.080/2.754/0.340 ms
+```
+
+```
+# dig google.com
+
+; <<>> DiG 9.18.1-1ubuntu1.3-Ubuntu <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 30143
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;google.com.                    IN      A
+
+;; ANSWER SECTION:
+google.com.             7       IN      A       142.251.42.174
+
+;; Query time: 2 msec
+;; SERVER: 10.102.128.10#53(10.102.128.10) (UDP)
+;; WHEN: Mon Mar 13 02:23:46 UTC 2023
+;; MSG SIZE  rcvd: 55
+```
+
+```
+# curl -I www.google.com
+
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=ISO-8859-1
+P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+Date: Mon, 13 Mar 2023 02:24:18 GMT
+Server: gws
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+Transfer-Encoding: chunked
+Expires: Mon, 13 Mar 2023 02:24:18 GMT
+Cache-Control: private
+Set-Cookie: 1P_JAR=2023-03-13-02; expires=Wed, 12-Apr-2023 02:24:18 GMT; path=/; domain=.google.com; Secure
+Set-Cookie: AEC=ARSKqsIXPUFS1Pn0bbP4i7b_bhyhI4cak_1Bizty6epP-iNDReiW1qjljjc; expires=Sat, 09-Sep-2023 02:24:18 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=lax
+Set-Cookie: NID=511=k1fDdXieR_xON5HfwGVkNPnhwQdfuGa4HgrEjJc2Fe3FCUIfNj38_Bb6y6VnGepmhjc_P_cFh-DvCbtPfW2olkRE6vQSI73Qw89sX9-LMuKFF-GksUeIY2BTMqndjJcKJVXbMBOLauDkObpR2vb5whQAlARN22M_J_ieKIf3ApM; expires=Tue, 12-Sep-2023 02:24:18 GMT; path=/; domain=.google.com; HttpOnly
+```
+
+---> GKE 上の Pod が外部のコンテンツを取得出来ていることを確認出来た
+
++ ログアウト
+
 ```
 exit
 ```
