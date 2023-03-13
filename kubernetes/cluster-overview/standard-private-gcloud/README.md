@@ -2,18 +2,19 @@
 
 ## キーワード
 
-```
-Standard mode
-Priavte Cluster
-```
++ [ ] Standard mode
++ [ ] Priavte Cluster
 
 ## 実際に作ってみる
 
 + GCP と認証します
 
 ```
-gcloud auth login -q
+gcloud auth login --no-launch-browser -q
 ```
+
++ 環境変数を入れておきます
+  + 適宜、読み替えてください
 
 ```
 ### Env
