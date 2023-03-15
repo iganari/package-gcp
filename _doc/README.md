@@ -11,22 +11,20 @@ https://cloud.google.com/blog/topics/developers-practitioners/introducing-google
 GitHub | Google APIs
 https://github.com/googleapis
 ```
-```
-Google Cloud セキュリティ ホワイトペーパー
-https://services.google.com/fh/files/misc/security_whitepapers_4_booklet_jp.pdf
-```
-```
-セキュリティ ホワイトペーパー
-https://cloud.google.com/docs/security
-```
-```
-Google Workspace セキュリティ ホワイトペーパー
-https://workspace.google.com/intl/ja/files/google-apps-security-and-compliance-whitepaper.pdf
-```
-```
-Google 検索で「google white paper」で検索する
-https://www.google.com/search?q=google+white+paper
-```
+
+## セキュリティ
+
++ Google Cloud セキュリティ ホワイトペーパー
+  + https://services.google.com/fh/files/misc/security_whitepapers_4_booklet_jp.pdf
++ セキュリティ ホワイトペーパー
+  + https://cloud.google.com/docs/security
++ Google Cloudsecurity foundations guide
+  + https://services.google.com/fh/files/misc/google-cloud-security-foundations-guide.pdf
++ Google Workspace セキュリティ ホワイトペーパー
+  + https://workspace.google.com/intl/ja/files/google-apps-security-and-compliance-whitepaper.pdf
++ Google 検索で「google white paper」で検索する
+  + https://www.google.com/search?q=google+white+paper
+
 
 ## ネットワーク系
 
