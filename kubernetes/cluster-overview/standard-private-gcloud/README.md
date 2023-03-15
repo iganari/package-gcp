@@ -3,8 +3,8 @@
 ## キーワード
 
 + [x] Standard mode
-+ [ ] Autopilot mode
-+ [ ] Public Cluster
++ [ ] ~Autopilot mode~
++ [ ] ~Public Cluster~
 + [x] Priavte Cluster
 
 ## 実際に作ってみる
