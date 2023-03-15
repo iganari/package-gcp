@@ -39,6 +39,13 @@ https://cloud.google.com/blog/ja/topics/onair/cloud-onair-20200326
 https://www.youtube.com/watch?v=ehqpc9vynDg
 ```
 
+## コンプライアンス
+
++ https://business.safety.google/intl/ja/compliance/
++ https://cloud.google.com/security/compliance
++ https://cloud.google.com/security/compliance/offerings
+
+
 ## 整理中
 
 + [Cloud アーキテクチャセンター](https://cloud.google.com/architecture)
