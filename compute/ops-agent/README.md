@@ -14,3 +14,4 @@ GCE に Ops Agent をいれて Cloud Monitoring で監視する場合、以下�
 + Logs Writer( `roles/logging.logWriter` )
 
 [公式ドキュメント | Authorize the Ops Agent](https://cloud.google.com/monitoring/agent/ops-agent/authorization#create-service-account)
+[公式ドキュメント | Installing the Ops Agent on individual VMs](https://cloud.google.com/monitoring/agent/ops-agent/installation)
