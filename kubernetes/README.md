@@ -46,6 +46,7 @@ sudo apt-get update && sudo apt-get install -y google-cloud-cli
 ```
 
 + GKE 用の認証プラグインをインストール
+  + https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke?hl=en
 
 ```
 sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
