@@ -22,7 +22,7 @@ export _gcp_pj_id="Your GCP Project ID"
 
 最新版をサクッとインストールしたい場合は -> [Using the Google Cloud CLI installer](https://cloud.google.com/sdk/docs/downloads-interactive)
 
-
+GCE の場合はデフォルトでインストールされている。その場合は apt の外部リポジトリのみ入れておくよい。 ---> 例 [pkg-gcp | kubernetes](https://github.com/iganari/package-gcp/tree/main/kubernetes)
 
 ## auth
 
