@@ -15,3 +15,14 @@ WIP
 ## Cloud Console での URI
 
 https://console.cloud.google.com/spanner/instances
+
+## backup 
+
+https://cloud.google.com/spanner/docs/instance-configurations?hl=ja#regional-configurations
+https://cloud.google.com/spanner/docs/backup?hl=ja
+https://cloud.google.com/spanner/docs/backup?hl=ja#key-features
+https://cloud.google.com/spanner/docs/true-time-external-consistency?hl=ja
+
+## 使いかた
+
+API 有効化が必要
