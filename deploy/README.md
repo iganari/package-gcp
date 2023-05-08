@@ -15,9 +15,10 @@ https://cloud.google.com/deploy/docs/deploy-app-gke
 ## API の有効化
 
 ```
+export _gcp_pj_id='Your GC Project ID'
+
 gcloud beta services enable clouddeploy.googleapis.com --project ${_gcp_pj_id}
 ```
-
 
 
 ## Youtube
