@@ -1,0 +1,10 @@
+steps:
+  - name: 'bash'
+    args: ['echo', 'I am running in a private pool!']
+  options:
+    pool:
+      name: "projects/${PROJECT_ID}/locations/${_REGION}/workerPools/${PRIVATEPOOL_ID}"
+
+substitutions:
+  _REGION: 'Private Pools Region'
+  _PRIVATEPOOL_ID: 'Private Pool ID'
