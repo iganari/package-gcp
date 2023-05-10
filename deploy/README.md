@@ -20,6 +20,17 @@ export _gcp_pj_id='Your GC Project ID'
 gcloud beta services enable clouddeploy.googleapis.com --project ${_gcp_pj_id}
 ```
 
+## コンテンツ
+
+### [Google Cloud Deploy を使用してアプリを Cloud Run にデプロイする](./quickstart-deploy-app-run)
+
+![](./img/qs-run-01.png)
+
+### Google Cloud Deploy を使用してアプリを複数の Google Cloud Project の Cloud Run にデプロイする
+
+ハンズオンレポ
+
+![](./img/qs-run-multi01.png)
 
 ## Youtube
 
