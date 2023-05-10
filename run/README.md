@@ -12,6 +12,11 @@ https://cloud.google.com/run/docs/overview/what-is-cloud-run
 
 [![](https://img.youtube.com/vi/1t94tdyojs0/0.jpg)](https://www.youtube.com/watch?v=1t94tdyojs0)
 
+```
+## アーキテクチャセンターで「 run 」と検索
+https://cloud.google.com/architecture#/?q=run
+```
+
 ## サンプル
 
 + [基本的な使い方](./_basic/)
@@ -37,13 +42,13 @@ https://cloud.google.com/run/docs/overview/what-is-cloud-run
 
 ## 注意点
 
-### アドレスについて
+### 1. アドレスについて
 
 起動しているコンテナは `0.0.0.0` で受けて実行できるようにしないといけない。変更不可
 
 https://cloud.google.com/run/docs/reference/container-contract#port
 
-### ポートについて
+### 2. ポートについて
 
 起動しているコンテナは `8080 ポート` で受けて実行できるようにしないといけない。これは変更可能
 
@@ -55,7 +60,7 @@ gcloud run services update {_run_service_name} --port {_container_port} --region
 https://cloud.google.com/run/docs/configuring/containers?hl=en#configure-port
 ```
 
-### リクエストのタイムアウト
+### 3. リクエストのタイムアウト
 
 デフォルトで 5 分、 最大 60 分まで延長可能
 
@@ -76,7 +81,7 @@ https://cloud.google.com/run/docs/configuring/request-timeout
 
 ※ ただし、 Cloud Run の最小インスタンスを設定した場合はそちらが優先される
 
-### 常時起動させておきたい
+### 4. 常時起動させておきたい
 
 最小インスタンス数を設定することでウォーム状態を維持し、いつでもリクエストを処理できるコンテナインスタンスを維持する
 
@@ -87,7 +92,7 @@ https://cloud.google.com/run/docs/configuring/request-timeout
 https://cloud.google.com/run/docs/configuring/min-instances
 ```
 
-### Cloud SQL に接続する時の情報
+### 5. Cloud SQL に接続する時の情報
 
 + Cloud SQL のパブリックIPアドレスに接続する場合
   + 自動的に Cloud SQL Auth Proxy 経由で繋げる  
