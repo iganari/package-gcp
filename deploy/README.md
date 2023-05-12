@@ -24,13 +24,13 @@ gcloud beta services enable clouddeploy.googleapis.com --project ${_gcp_pj_id}
 
 ### [Google Cloud Deploy を使用してアプリを Cloud Run にデプロイする](./quickstart-deploy-app-run)
 
-![](./_img/qs-run-01.png)
+![](./_img/qs-run-00.png)
 
 ### Google Cloud Deploy を使用してアプリを複数の Google Cloud Project の Cloud Run にデプロイする
 
 ハンズオンレポ
 
-![](./_img/qs-run-multi-01.png)
+![](./_img/qs-run-multi-00.png)
 
 ## Youtube
 
