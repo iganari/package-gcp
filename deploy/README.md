@@ -30,7 +30,7 @@ gcloud beta services enable clouddeploy.googleapis.com --project ${_gcp_pj_id}
 
 ハンズオンレポ
 
-![](./_img/qs-run-multi-00.png)
+![](./_img/qs-multipj-run-00.png)
 
 ## Youtube
 
