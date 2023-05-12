@@ -281,7 +281,11 @@ gcloud beta run services add-iam-policy-binding ${_common}-dev \
 
 ### 6-3. 
 
-:warning: ここの作業は開発者がやる作業です。詳しくは [Cloud Run を ID トークンによる簡易認証で見てみる](https://iganari.hatenablog.com/entry/2022/02/12/173547) を参照してください
+:warning: ここの作業は開発者がやる作業です。
+
+Google Cloud の [デベロッパーの認証](https://cloud.google.com/run/docs/authenticating/developers) を利用します
+
+詳しくは [Cloud Run を ID トークンによる簡易認証で見てみる](https://iganari.hatenablog.com/entry/2022/02/12/173547) を参照してください
 
 + 開発者の ID トークンの確認をする
 
