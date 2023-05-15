@@ -2,7 +2,7 @@
 
 ## 概要
 
-+ Cloud Run 上に phpMyAdmin を立てて、 Cloud SQL に接続できるページを構築する
++ Cloud Run 上の phpMyAdmin を経由して Cloud SQL にアクセスする環境を構築します
 
 ![](./overview.png)
 
