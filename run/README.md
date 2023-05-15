@@ -21,6 +21,8 @@ https://cloud.google.com/architecture#/?q=run
 
 + [基本的な使い方](./_basic/)
   + Cloud Run の基本的な使い方を見ていく
++ [phpMyAdmin を起動する](./sample-phpmyadmin/)
+  + Cloud Run 上の phpMyAdmin を経由して Cloud SQL にアクセスする
 
 ## 周辺の機能など
 
@@ -39,6 +41,11 @@ https://cloud.google.com/architecture#/?q=run
 + [WIP] 外部 IP アドレスが付いていない GCE インスタンスから Cloud Run にアクセスする
   + WIP
 
+
+## hoge
+
++ phpMyAdmin を起動する
+  + Cloud Run 上の phpMyAdmin を経由して Cloud SQL にアクセスする
 
 ## 注意点
 

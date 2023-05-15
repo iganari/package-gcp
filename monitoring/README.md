@@ -15,6 +15,19 @@ Cloud Monitoring
 https://cloud.google.com/monitoring
 ```
 
+[![](https://img.youtube.com/vi/7BLV24noNGc/0.jpg)](https://www.youtube.com/watch?v=7BLV24noNGc)
+
+
+## 複数の GC Project を横断的に見ることが出来る **マルチプロジェクトモニタリング**
+
+```
+マルチプロジェクトの Cloud Monitoring がより簡単に
+https://cloud.google.com/blog/ja/products/operations/multi-project-cloud-monitoring-made-easier/
+```
+```
+複数のプロジェクトの指標スコープを構成する
+https://cloud.google.com/monitoring/settings/multiple-projects
+```
 
 
 ## Installing on Linux
