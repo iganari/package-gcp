@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - 'feature/261'
       # - 'feature/hogehoge'
       # - develop
 
