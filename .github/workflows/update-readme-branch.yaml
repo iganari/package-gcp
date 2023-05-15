@@ -6,13 +6,14 @@ on:
   push:
     branches:
       - main
+      - 'feature/261'
       # - 'feature/hogehoge'
       # - develop
 
 jobs:
   step:
     name: Update readme branch
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Update modify-readme-only
         shell: bash
