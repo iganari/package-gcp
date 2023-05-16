@@ -2,7 +2,7 @@
 
 ## 概要
 
-+ Cloud Run 上に phpMyAdmin を立てて、 Cloud SQL に接続できるページを構築する
++ Cloud Run 上の phpMyAdmin を経由して Cloud SQL にアクセスする環境を構築します
 
 ![](./overview.png)
 
@@ -124,7 +124,7 @@ gcloud beta run deploy ${_common} \
 ```
 gcloud beta run services describe phpadmin \
   --region ${_region} \
-  --project ca-igarashi-test-unite
+  --project ${_gc_pj_id}
 ```
 
 ### 4. Web ブラウザから確認する
@@ -138,6 +138,12 @@ gcloud beta run services describe phpadmin \
 ![](./05.png)
 
 ---> Cloud Run 上の phpMyAdmin 経由して Cloud SQL にアクセスすることが出来ました :)
+
+### 5. セキュリティを強化する 
+
+Cloud Run の前に [Cloud Load Balancing](https://cloud.google.com/load-balancing) を設置し [Identity-Aware Proxy](https://cloud.google.com/iap) にて Cloud IAM による認証をするか、 ID トークンを使って Cloud Run にて Cloud IAM による認証をしましょう
+
+[はてなぶろぐ | Cloud Run を ID トークンによる簡易認証で見てみる ( Authorization: Bearer )](https://iganari.hatenablog.com/entry/2022/02/12/173547)
 
 ## クリーンアップ
 
