@@ -32,7 +32,7 @@ echo ${_instance_name}
 ```
 
 
-### MySQL の場合
+### 1-1. MySQL の場合
 
 + MySQL 特有の設定をいれる
   + 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
@@ -56,16 +56,20 @@ gcloud beta sql instances create ${_instance_name} \
   --async
 ```
 
-### PostgreSQL の場合
+### 1-2. PostgreSQL の場合
 
-+ `postgres` ユーザがデフォルトで作成される
-+ デフォルトのポートは `5432`
-+ 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
++ PostgreSQL 特有の設定を入れる
+  + 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
 
 ```
 export _psgr_ver='POSTGRES_14'
-export _psgr_passwd='password9876'
+export _psgr_passwd="$(echo ${_gc_pj_id})"
 ```
+
++ gcloud コマンドを使って、 Cloud SQL Instance を作成する
+  + `postgres` ユーザがデフォルトで作成される
+  + デフォルトのポートは `5432`
+
 ```
 gcloud beta sql instances create ${_instance_name} \
   --database-version ${_psgr_ver} \
