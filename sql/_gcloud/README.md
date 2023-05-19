@@ -1,6 +1,6 @@
 # gcloud コマンド
 
-## 準備
+## 0. 準備
 
 + 環境変数に入れる
 
@@ -24,7 +24,7 @@ gcloud auth login --no-launch-browser -q
 gcloud beta services enable sqladmin.googleapis.com --project ${_gc_pj_id}
 ```
 
-## Cloud SQL Instance を作成
+## 1. Cloud SQL Instance を作成
 
 + 環境変数に入れる
 
@@ -76,7 +76,7 @@ gcloud beta sql instances create ${_instance_name} \
   --async
 ```
 
-## Database の作成
+## 2. Database の作成
 
 + 環境変数に入れる
 
@@ -97,7 +97,7 @@ gcloud beta sql databases
 https://cloud.google.com/sdk/gcloud/reference/beta/sql/databases
 ```
 
-## User の作成
+## 3. User の作成
 
 + 環境変数に入れる
 
@@ -122,19 +122,19 @@ gcloud beta sql users create
 https://cloud.google.com/sdk/gcloud/reference/beta/sql/users/create
 ```
 
-## Cloud SQL Auth Proxy を使用してログイン
+## 4. Cloud SQL Auth Proxy を使用してログイン
 
 ```
 WIP
 ```
 
-## Cloud SQL instance を再起動
+## 5. Cloud SQL instance を再起動
 
 ```
 WIP
 ```
 
-## Cloud SQL instance を停止
+## 6. Cloud SQL instance を停止
 
 + [gcloud beta sql instances patch](https://cloud.google.com/sdk/gcloud/reference/beta/sql/instances/patch?hl=en)
 
@@ -144,7 +144,7 @@ gcloud beta sql instances patch ${_sql_instance_name} \
   --project ${_gc_pj_id}
 ```
 
-## Cloud SQL instance を停止状態から起動
+## 7. Cloud SQL instance を停止状態から起動
 
 + [gcloud beta sql instances patch](https://cloud.google.com/sdk/gcloud/reference/beta/sql/instances/patch?hl=en)
 
@@ -154,7 +154,7 @@ gcloud beta sql instances patch ${_sql_instance_name} \
   --project ${_gc_pj_id}
 ```
 
-## Cloud SQL Instance を削除
+## 8. Cloud SQL Instance を削除
 
 ```
 gcloud beta sql instances delete ${_sql_instance_name}  \
@@ -162,7 +162,7 @@ gcloud beta sql instances delete ${_sql_instance_name}  \
   -q
 ```
 
-## 非同期ジョブにする
+## 9. 非同期ジョブにする
 
 + `--async` をつける
 
