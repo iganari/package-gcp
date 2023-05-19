@@ -35,6 +35,7 @@ echo ${_instance_name}
 ### MySQL の場合
 
 + MySQL 特有の設定をいれる
+  + 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
 
 ```
 export _mysql_ver='MYSQL_8_0'
@@ -44,7 +45,6 @@ export _mysql_root_passwd="$(echo ${_gc_pj_id})"
 + gcloud コマンドを使って、 Cloud SQL Instance を作成する
   + `root` ユーザがデフォルトで作成される
   + デフォルトのポートは `3306`
-  + 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
 
 ```
 gcloud beta sql instances create ${_instance_name} \
