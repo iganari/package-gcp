@@ -4,15 +4,13 @@
 
 Cloud SQL のデータを、他の GCP Project 上にある Cloud SQL にコピーする
 
-![](./image00.png)
-
+![](./_img/overview.png)
 
 ## やってみる
 
 ### Cloud SQL のデータを Cloud Stoage に Export する
 
-![](./image01.png)
-
+![](./_img/01.png)
 
 ### Cloud Stoge のデータをコピーする
 
@@ -20,14 +18,13 @@ Cloud SQL のデータを、他の GCP Project 上にある Cloud SQL にコピ�
   + gsutil コマンドは Cloud Storage -> Cloud Storage のコピーが出来る
   + [cp - Copy files and objects](https://cloud.google.com/storage/docs/gsutil/commands/cp)
 
-
 ```
 gsutil cp gs://{コピー元の Cloud Storage の Bucket 名}/{SQL ファイル}  gs://{コピー先の Cloud Storage の Bucket 名}/
 ```
 
 ### Cloud SQL のデータを Cloud Stoage に Import する
 
-![](./image02.png)
+![](./_img/02.png)
 
 ## 注意
 
