@@ -4,10 +4,13 @@
 
 WIP
 
+## 基本的な使いかた
+
++ [gcloud コマンド](./_gcloud/README.md)
++ [database flags](./_flag/README.md)
+
 ## Tips
 
-+ [gcloud コマンド](./00_gcloud/README.md)
-+ [database flags](00_flag/README.md)
 + [最大同時接続数]()
 
 ## 構築例
