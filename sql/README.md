@@ -11,7 +11,7 @@ WIP
 
 ## Tips
 
-+ [最大同時接続数]()
++ [最大同時接続数](./tips-maximum_concurrent_connections)
 
 ## 構築例
 
