@@ -2,16 +2,6 @@
 
 ## 0. 準備
 
-+ 環境変数に入れる
-
-```
-export _gc_pj_id='Your GCP Project ID'
-export _region='asia-northeast1'
-```
-
-+ 使用できるデータベースのリスト
-  + https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion
-
 + GCP にログインする
 
 ```
@@ -27,25 +17,35 @@ gcloud beta services enable sqladmin.googleapis.com --project ${_gc_pj_id}
 ## 1. Cloud SQL Instance を作成
 
 + 環境変数に入れる
+  + `_instance_type` -> 使用できるインスタンスタイプ : https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/tiers/list
+  + `_instance_name` -> Cloud SQL Instance の Name はユニークである必要があるため被らないような対策が必要
 
 ```
-export _instance_name="pkg-gcp-sql-instance-$(date +'%Y%m%d%H%M')"
-export _instance_type='db-f1-micro'
+export _gc_pj_id='Your GCP Project ID'
 
-echo ${_sql_instance_name}
+export _common='pkg-gcp-sql-instance'
+export _instance_type='db-g1-small'
+export _region='asia-northeast1'
+
+export _instance_name="$(echo ${_common})-$(date +'%Y%m%d%H%M')"
+echo ${_instance_name}
 ```
 
 
 ### MySQL の場合
 
-+ `root` ユーザがデフォルトで作成される
-+ デフォルトのポートは `3306`
-+ 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
++ MySQL 特有の設定をいれる
 
 ```
 export _mysql_ver='MYSQL_8_0'
-export _mysql_root_passwd='password0123'
+export _mysql_root_passwd="$(echo ${_gc_pj_id})"
 ```
+
++ gcloud コマンドを使って、 Cloud SQL Instance を作成する
+  + `root` ユーザがデフォルトで作成される
+  + デフォルトのポートは `3306`
+  + 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
+
 ```
 gcloud beta sql instances create ${_instance_name} \
   --database-version ${_mysql_ver} \
