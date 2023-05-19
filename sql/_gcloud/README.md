@@ -47,6 +47,7 @@ export _mysql_root_passwd="$(echo ${_gc_pj_id})"
   + デフォルトのポートは `3306`
 
 ```
+### Public IP Address のみ
 gcloud beta sql instances create ${_instance_name} \
   --database-version ${_mysql_ver} \
   --root-password "${_mysql_root_passwd}" \
@@ -55,6 +56,15 @@ gcloud beta sql instances create ${_instance_name} \
   --project ${_gc_pj_id} \
   --async
 ```
+```
+### Public IP Address と Private IP Address
+WIP
+```
+```
+### Private IP Address のみ
+WIP
+```
+
 
 ### 1-2. PostgreSQL の場合
 
