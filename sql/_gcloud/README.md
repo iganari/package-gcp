@@ -37,7 +37,7 @@ echo ${_sql_instance_name}
 ```
 
 
-### for MySQL
+### MySQL の場合
 
 + `root` ユーザがデフォルトで作成される
 + デフォルトのポートは `3306`
@@ -57,7 +57,7 @@ gcloud beta sql instances create ${_instance_name} \
   --async
 ```
 
-### PostgreSQL
+### PostgreSQL の場合
 
 + `postgres` ユーザがデフォルトで作成される
 + デフォルトのポートは `5432`
