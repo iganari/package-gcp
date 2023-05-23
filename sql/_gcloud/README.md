@@ -1,17 +1,6 @@
 # gcloud コマンド
 
-
-## 準備
-
-+ 環境変数に入れる
-
-```
-export _gcp_pj_id='Your GCP Project ID'
-export _region='asia-northeast1'
-```
-
-+ 使用できるデータベースのリスト
-  + https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion
+## 0. 準備
 
 + GCP にログインする
 
@@ -22,62 +11,86 @@ gcloud auth login --no-launch-browser -q
 + API の有効化をする
 
 ```
-gcloud beta services enable sqladmin.googleapis.com --project ${_gcp_pj_id}
+gcloud beta services enable sqladmin.googleapis.com --project ${_gc_pj_id}
 ```
 
-## Cloud SQL Instance を作成
+## 1. Cloud SQL Instance を作成
 
 + 環境変数に入れる
+  + `_instance_type` -> 使用できるインスタンスタイプ : https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/tiers/list
+  + `_instance_name` -> Cloud SQL Instance の Name はユニークである必要があるため被らないような対策が必要
 
 ```
-export _instance_name="pkg-gcp-sql-instance-$(date +'%Y%m%d%H%M')"
-export _instance_type='db-f1-micro'
+export _gc_pj_id='Your GCP Project ID'
 
-echo ${_sql_instance_name}
+export _common='pkg-gcp-sql-instance'
+export _instance_type='db-g1-small'
+export _region='asia-northeast1'
+
+export _instance_name="$(echo ${_common})-$(date +'%Y%m%d%H%M')"
+echo ${_instance_name}
 ```
 
 
-### for MySQL
+### 1-1. MySQL の場合
 
-+ `root` ユーザがデフォルトで作成される
-+ デフォルトのポートは `3306`
-+ 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
++ MySQL 特有の設定をいれる
+  + 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
 
 ```
 export _mysql_ver='MYSQL_8_0'
-export _mysql_root_passwd='password0123'
+export _mysql_root_passwd="$(echo ${_gc_pj_id})"
 ```
+
++ gcloud コマンドを使って、 Cloud SQL Instance を作成する
+  + `root` ユーザがデフォルトで作成される
+  + デフォルトのポートは `3306`
+
 ```
+### Public IP Address のみ
 gcloud beta sql instances create ${_instance_name} \
   --database-version ${_mysql_ver} \
   --root-password "${_mysql_root_passwd}" \
   --tier ${_instance_type} \
   --region ${_region} \
-  --project ${_gcp_pj_id} \
+  --project ${_gc_pj_id} \
   --async
 ```
+```
+### Public IP Address と Private IP Address
+WIP
+```
+```
+### Private IP Address のみ
+WIP
+```
 
-### PostgreSQL
 
-+ `postgres` ユーザがデフォルトで作成される
-+ デフォルトのポートは `5432`
-+ 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
+### 1-2. PostgreSQL の場合
+
++ PostgreSQL 特有の設定を入れる
+  + 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
 
 ```
 export _psgr_ver='POSTGRES_14'
-export _psgr_passwd='password9876'
+export _psgr_passwd="$(echo ${_gc_pj_id})"
 ```
+
++ gcloud コマンドを使って、 Cloud SQL Instance を作成する
+  + `postgres` ユーザがデフォルトで作成される
+  + デフォルトのポートは `5432`
+
 ```
 gcloud beta sql instances create ${_instance_name} \
   --database-version ${_psgr_ver} \
   --root-password "${_psgr_passwd}" \
   --tier ${_instance_type} \
   --region ${_sql_region} \
-  --project ${_gcp_pj_id} \
+  --project ${_gc_pj_id} \
   --async
 ```
 
-## Database の作成
+## 2. Database の作成
 
 + 環境変数に入れる
 
@@ -89,7 +102,7 @@ export _database_character_set='utf8'
 gcloud beta sql databases create ${_database_name} \
   --instance ${_instance_name} \
   --charset ${_database_character_set} \
-  --project ${_gcp_pj_id} \
+  --project ${_gc_pj_id} \
   --async
 ```
 
@@ -98,7 +111,7 @@ gcloud beta sql databases
 https://cloud.google.com/sdk/gcloud/reference/beta/sql/databases
 ```
 
-## User の作成
+## 3. User の作成
 
 + 環境変数に入れる
 
@@ -111,7 +124,7 @@ gcloud beta sql users create ${_user_name} \
   --password ${_user_passwd} \
   --host "%" \
   --instance ${_instance_name} \
-  --project ${_gcp_pj_id} \
+  --project ${_gc_pj_id} \
   --async
 ```
 
@@ -123,47 +136,47 @@ gcloud beta sql users create
 https://cloud.google.com/sdk/gcloud/reference/beta/sql/users/create
 ```
 
-## Cloud SQL Auth Proxy を使用してログイン
+## 4. Cloud SQL Auth Proxy を使用してログイン
 
 ```
 WIP
 ```
 
-## Cloud SQL instance を再起動
+## 5. Cloud SQL instance を再起動
 
 ```
 WIP
 ```
 
-## Cloud SQL instance を停止
+## 6. Cloud SQL instance を停止
 
 + [gcloud beta sql instances patch](https://cloud.google.com/sdk/gcloud/reference/beta/sql/instances/patch?hl=en)
 
 ```
 gcloud beta sql instances patch ${_sql_instance_name} \
   --activation-policy NEVER \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
-## Cloud SQL instance を停止状態から起動
+## 7. Cloud SQL instance を停止状態から起動
 
 + [gcloud beta sql instances patch](https://cloud.google.com/sdk/gcloud/reference/beta/sql/instances/patch?hl=en)
 
 ```
 gcloud beta sql instances patch ${_sql_instance_name} \
   --activation-policy ALWAYS \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
-## Cloud SQL Instance を削除
+## 8. Cloud SQL Instance を削除
 
 ```
 gcloud beta sql instances delete ${_sql_instance_name}  \
-  --project ${_gcp_pj_id} \
+  --project ${_gc_pj_id} \
   -q
 ```
 
-## 非同期ジョブにする
+## 9. 非同期ジョブにする
 
 + `--async` をつける
 
@@ -171,7 +184,7 @@ gcloud beta sql instances delete ${_sql_instance_name}  \
 gcloud beta sql instances patch ${_sql_instance_name} \
   --activation-policy NEVER \
   --async \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
 + 非同期にした job のリストを確認する
@@ -179,12 +192,12 @@ gcloud beta sql instances patch ${_sql_instance_name} \
 
 
 ```
-gcloud beta sql operations list ${_sql_instance_name} --project ${_gcp_pj_id} 
+gcloud beta sql operations list ${_sql_instance_name} --project ${_gc_pj_id} 
 ```
 ```
 ### 例
 
-$ gcloud beta sql operations list ${_sql_instance_name} --project ${_gcp_pj_id}  
+$ gcloud beta sql operations list ${_sql_instance_name} --project ${_gc_pj_id}
 NAME                                  TYPE             START                          END                            ERROR  STATUS
 4503f367-e7b6-48e6-88c6-1e120000002b  UPDATE           2022-04-24T07:07:30.519+00:00  T                              -      RUNNING
 ac90dc58-d272-4f1e-bc90-ae990000002b  UPDATE           2022-04-24T07:03:34.453+00:00  2022-04-24T07:04:10.679+00:00  -      DONE
@@ -204,7 +217,7 @@ gcloud beta sql operations wait --project cmg-pyxis2v2-dev {operation name} --ti
 ```
 ### 例
 
-$ gcloud beta sql operations wait --project cmg-pyxis2v2-dev {operation name} --timeout=unlimited
+$ gcloud beta sql operations wait --project ${_gc_pj_id} {operation name} --timeout=unlimited
 Waiting for [https://sqladmin.googleapis.com/sql/v1beta4/projects/_your_gcp_pj_id/operations/4503f367-e7b6-48e6-88c6-1e120000002b]...done.                                                                                       
 NAME                                  TYPE    START                          END                            ERROR  STATUS
 4503f367-e7b6-48e6-88c6-1e120000002b  UPDATE  2022-04-24T07:07:30.519+00:00  2022-04-24T07:19:01.768+00:00  -      DONE
