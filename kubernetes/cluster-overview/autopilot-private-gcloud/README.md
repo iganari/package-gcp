@@ -20,7 +20,8 @@ gcloud auth login --no-launch-browser -q
 ```
 ### Env
 
-export _gcp_pj_id='Your GCP Project ID'
+export _gcp_pj_id='Your Google Cloud Project ID'
+
 export _common='priauto'
 export _region='asia-northeast1'
 export _sub_network_range='10.146.0.0/20'
