@@ -1,16 +1,58 @@
-# ダミーデータを入れる
+# Cloud SQL Instance にサンプルのダミーデータをいれる
 
 ## 概要
 
-hogehoge
+Cloud SQL Instance にサンプルのダミーデータをいれる工程を記す
 
-使用するダミーデータ
+MySQL, PostgreSQL, SQL Server のバージョンを記しておく
 
-https://github.com/iganari/code-labo/tree/main/mysql
+### 使用するダミーデータ
+
++ MySQl
+  + https://github.com/iganari/code-labo/tree/main/mysql
+  + https://dev.mysql.com/doc/index-other.html
+
+## 1. Cloud SQL for MySQL の場合
+
+### 1-1. Cloud SQL Instance の用意
+
++ [Cloud SQL の gcloud コマンド](../_gcloud/) を参考に **Pubulic IP Address 付きの Cloud SQL Instance** の作成を行う
+
+```
+export _gc_pj_id='Your Google Cloud Project ID'
+
+export _common='pkg-gcp-sql-dummydata'
+export _instance_type='db-g1-small'
+export _region='asia-northeast1'
+
+export _instance_name="$(echo ${_common})-$(date +'%Y%m%d%H%M')"
+echo ${_instance_name}
+```
+```
+export _mysql_ver='MYSQL_8_0'
+export _mysql_root_passwd="$(echo ${_gc_pj_id})"
+```
+
+あとは、上記のリンクの [MySQL の場合 | Public IP Address のみ](../_gcloud/README.md#1-1-mysql-の場合) を実行する
 
 
++ 確認する
 
-## Cloud SQL Instance の用意
+```
+gcloud beta sql instances list --project ${_gc_pj_id}
+```
+```
+### 例
+
+$ gcloud beta sql instances list --project ${_gc_pj_id}
+NAME                                DATABASE_VERSION  LOCATION           TIER         PRIMARY_ADDRESS  PRIVATE_ADDRESS  STATUS
+pkg-gcp-sql-dummydata-202305240830  MYSQL_8_0         asia-northeast1-b  db-g1-small  35.200.31.48     -                RUNNABLE
+```
+
+### 1-2. サンプルデータの用意
+
++ サンプルデータを公式 URL からダウンロード
+  + https://dev.mysql.com/doc/index-other.html
 
 ```
 cd { Your Workspace }
@@ -22,13 +64,15 @@ unzip world-db.zip
 unzip world_x-db.zip
 ```
 
++ データの確認
+
 ```
 $ ls -lh
 total 200K
-drwxr-xr-x 2 iganari iganari 4.0K May  1 07:05 world-db/
--rw-rw-r-- 1 iganari iganari  91K May  1 07:05 world-db.zip
-drwxr-xr-x 2 iganari iganari 4.0K May  1 07:05 world_x-db/
--rw-rw-r-- 1 iganari iganari  98K May  1 07:05 world_x-db.zip
+drwxr-xr-x 2 iganari iganari 4.0K May  1 08:35 world-db/
+-rw-rw-r-- 1 iganari iganari  91K May  1 08:35 world-db.zip
+drwxr-xr-x 2 iganari iganari 4.0K May  1 08:35 world_x-db/
+-rw-rw-r-- 1 iganari iganari  98K May  1 08:35 world_x-db.zip
 ```
 ```
 $ du -sh world-db
@@ -39,89 +83,122 @@ $ du -sh world_x-db
 556K    world_x-db
 ```
 
-+ 環境変数
++ Google Cloud Storage の Bucket を作成する
 
 ```
-export _gc_pj_id='ca-igarashi-test-2023q2'
-```
-
-+ gcs にupload
-
-```
-gcloud storage buckets create gs://${_gc_pj_id}-my-bucket \
+gcloud storage buckets create gs://${_gc_pj_id}-${_common} \
   --default-storage-class standard \
-  --location asia-northeast1 \
+  --location ${_region} \
   --project ${_gc_pj_id}
 ```
+
++ Google Cloud Storage にアップロードする
+
 ```
-gcloud storage cp world-db/world.sql gs://${_gc_pj_id}-my-bucket/
-gcloud storage cp world_x-db/world_x.sql gs://${_gc_pj_id}-my-bucket/
+gcloud storage cp world-db/world.sql gs://${_gc_pj_id}-${_common}/
+gcloud storage cp world_x-db/world_x.sql gs://${_gc_pj_id}-${_common}/
 ```
+
+### 1-3. Cloud SQL Instance の Service Account の Role を設定
 
 + SQL instance の SA を確認
 
 ```
-gcloud sql instances describe check-01 --project ${_gc_pj_id} --format json | jq -r .serviceAccountEmailAddress
+gcloud sql instances describe ${_instance_name} --project ${_gc_pj_id} --format json | jq -r .serviceAccountEmailAddress
+
+export _sql_instance_sa="$(gcloud sql instances describe ${_instance_name} --project ${_gc_pj_id} --format json | jq -r .serviceAccountEmailAddress)"
 ```
 ```
-$ gcloud sql instances describe check-01 --project ${_gc_pj_id} --format json | jq -r .serviceAccountEmailAddress
-p140009665765-mgwf5b@gcp-sa-cloud-sql.iam.gserviceaccount.com
+$ echo ${_sql_instance_sa}
+pxxxxxxxxxxxx-ewynhm@gcp-sa-cloud-sql.iam.gserviceaccount.com
 ```
 
-+ SQL Instance が GCS を読めるようにする
++ Cloud SQL Instance が Cloud Storage を読めるようにする
   + `Storage Object Viewer` **roles/storage.objectViewer**
   + `Viewer` **roles/viewer**
   + `Storage Admin` **roles/storage.admin**
 
 ```
 gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
-  --member="serviceAccount:p140009665765-mgwf5b@gcp-sa-cloud-sql.iam.gserviceaccount.com" \
+  --member="serviceAccount:${_sql_instance_sa}" \
   --role="roles/storage.objectViewer"
 ```
-```
-gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
-  --member="serviceAccount:p140009665765-mgwf5b@gcp-sa-cloud-sql.iam.gserviceaccount.com" \
-  --role="roles/viewer"
-```
-```
-gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
-  --member="serviceAccount:p140009665765-mgwf5b@gcp-sa-cloud-sql.iam.gserviceaccount.com" \
-  --role="roles/storage.admin"
-```
 
+### 1-4. Cloud Storage から Cloud SQL Instance にサンプルデータを挿入( Import )する
 
-
++ gcloud コマンドを使って挿入( Import )する
 
 ```
-gcloud beta sql import sql check-01 gs://${_gc_pj_id}-my-bucket/world.sql \
-  --project ${_gc_pj_id}
-```
-```
-gcloud beta sql import sql check-01 gs://${_gc_pj_id}-my-bucket/world_x.sql \
-  --project ${_gc_pj_id}
+### world.sql
+gcloud beta sql import sql ${_instance_name} gs://${_gc_pj_id}-${_common}/world.sql --project ${_gc_pj_id}
+
+### world_x.sql
+gcloud beta sql import sql ${_instance_name} gs://${_gc_pj_id}-${_common}/world_x.sql --project ${_gc_pj_id}
 ```
 
-+ user 作る
++ Cloud SQL Instance 内の Database を確認する
+
+```
+gcloud sql databases list --instance ${_instance_name} --project ${_gc_pj_id}
+```
+```
+### 例
+
+$ gcloud sql databases list --instance ${_instance_name} --project ${_gc_pj_id}
+NAME                CHARSET  COLLATION
+mysql               utf8     utf8_general_ci
+information_schema  utf8     utf8_general_ci
+performance_schema  utf8mb4  utf8mb4_0900_ai_ci
+sys                 utf8mb4  utf8mb4_0900_ai_ci
+world               utf8mb4  utf8mb4_0900_ai_ci
+world_x             utf8mb4  utf8mb4_0900_ai_ci
+```
+
+### 1-5. Cloud SQL Instance 内のサンプルデータを確認する
+
++ Cloud SQL Instance 内の user 作る
 
 ```
 gcloud beta sql users create iganari \
-  --instance check-01 \
+  --instance ${_instance_name} \
   --password=${_gc_pj_id} \
   --project ${_gc_pj_id}
 ```
 
-+ sql instance に繋ぐ
-  + mysql コマンドが必要
-  + Public IP Address が必要( auth network は自動で作ってくれる )
++ gcloud 経由で Cloud SQL Instance に繋ぐ
+  + :warning:
+    + 実行環境に mysql コマンドが必要
+    + Public IP Address の Auth Network は自動で作ってくれる
+    + **gcloud beta sql** コマンドは敢えて使っていない
 
 ```
-gcloud sql connect check-01 \
+gcloud sql connect ${_instance_name} \
   --user iganari \
   --project ${_gc_pj_id}
 ```
+```
+### 例
+
+$ gcloud sql connect ${_instance_name} \
+  --user iganari \
+  --project ${_gc_pj_id}
+Allowlisting your IP for incoming connection for 5 minutes...done.                                                                                                                                                             
+Connecting to database with SQL user [iganari].Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 486
+Server version: 8.0.26-google (Google)
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> 
+```
+
++ Cloud SQL Instance 内の Database を確認する
 
 ```
-MySQL [(none)]> show databases ;
+MySQL [(none)]> SHOW DATABASES ;
 +--------------------+
 | Database           |
 +--------------------+
@@ -136,6 +213,9 @@ MySQL [(none)]> show databases ;
 
 MySQL [(none)]> 
 ```
+
++ Cloud SQL Instance 内の Table を確認する
+
 ```
 MySQL [(none)]> SHOW TABLES FROM world ;
 +-----------------+
@@ -164,7 +244,7 @@ MySQL [(none)]> SHOW TABLES FROM world_x ;
 MySQL [(none)]> 
 ```
 
-+ select
++ その他のサンプルクエリ
 
 ```
 SELECT * FROM world.city ;
@@ -173,84 +253,14 @@ SELECT * FROM world.city ;
 SELECT * FROM world_x.countryinfo ;
 ```
 
-
-
-```
-SHOW TABLES FROM world_x ;
-```
-
----> 見れた
-
-+ ぬける
++ Cloud SQL Instance からログアウトする
 
 ```
+exit
+```
+```
+### 例
+
 MySQL [(none)]> exit
 Bye
 ```
-
-+ network 確認
-
-```
-gcloud beta sql instances describe check-01 --project ${_gc_pj_id} --format json | jq .settings.ipConfiguration.authorizedNetworks[]
-```
-```
-$ gcloud beta sql instances describe check-01 --project ${_gc_pj_id} --format json | jq .settings.ipConfiguration.authorizedNetworks[]
-{
-  "kind": "sql#aclEntry",
-  "name": "sql connect at time 2023-05-18 02:20:22.525756+00:00",
-  "value": "34.84.146.186"
-}
-```
-
-
-+ authorized-networks を全削除する
-
-```
-gcloud sql instances patch check-01 \
-  --clear-authorized-networks \
-  --project ${_gc_pj_id}
-
-```
-$ gcloud beta sql instances describe check-01 --project ${_gc_pj_id} --format json | jq .settings.ipConfiguration
-{
-  "enablePrivatePathForGoogleCloudServices": true,
-  "ipv4Enabled": true,
-  "privateNetwork": "projects/ca-igarashi-test-2023q2/global/networks/check-vpc"
-}
-```
-
-## BQ
-
-https://cloud.google.com/bigquery/docs/cloud-sql-federated-queries
-https://qiita.com/Shmwa2/items/e15c97db48ef278e956b
-
-
-
-1. 手動でexternal connections をつくる
-
---> Connection ID = projects/ca-igarashi-test-2023q2/locations/asia-northeast1/connections/hogehogehoge
-
---> 個別の SA 出来る ---> 
-Role
-Cloud SQL Client をつける
-
-
-2. BQ sql
-
-```
--- List all tables in a database.
-SELECT * FROM EXTERNAL_QUERY("projects/ca-igarashi-test-2023q2/locations/asia-northeast1/connections/hogehogehoge",
-"select * from information_schema.columns where table_name='x';");
-
----> no data
-```
-
-```
-SELECT * FROM EXTERNAL_QUERY("ca-igarashi-test-2023q2.asia-northeast1.hogehogehoge", "SHOW TABLES FROM world;");
-
-
----> これはできた
-```
-
-米
-pribate アクセスをとった時にちゃんと繋がらなくなることを見る
