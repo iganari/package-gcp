@@ -23,3 +23,8 @@ WIP
   + Cloud SQL のデータをコピーしたい場合のやり方
 + リードレプリカ
 + 
+
+## サンプル
+
++ [Terraform で Cloud SQL を作成する](./samples-terraform/)
++ [サンプルのダミーデータをいれる](./samples-dummydata/)
