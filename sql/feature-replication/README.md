@@ -30,7 +30,7 @@ https://cloud.google.com/sql/docs/sqlserver/replication
 
 ![](./_img/02-01.png)
 
-+ メインの Instance の Zonal availability が ultiple zones(　Highly available　)の場合
++ メインの Instance の Zonal availability が ultiple zones( Highly available )の場合
 
 ![](./_img/02-02.png)
 
