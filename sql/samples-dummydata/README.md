@@ -8,13 +8,16 @@ MySQL, PostgreSQL, SQL Server のバージョンを記しておく
 
 ### 使用するダミーデータ
 
-+ MySQl
++ MySQL
   + https://github.com/iganari/code-labo/tree/main/mysql
   + https://dev.mysql.com/doc/index-other.html
 
 ## 1. Cloud SQL for MySQL の場合
 
 ### 1-1. Cloud SQL Instance の用意
+
+<details>
+<summary>Details</summary>
 
 + [Cloud SQL の gcloud コマンド](../_gcloud/) を参考に **Pubulic IP Address 付きの Cloud SQL Instance** の作成を行う
 
@@ -49,7 +52,12 @@ NAME                                DATABASE_VERSION  LOCATION           TIER   
 pkg-gcp-sql-dummydata-202305240830  MYSQL_8_0         asia-northeast1-b  db-g1-small  35.200.31.48     -                RUNNABLE
 ```
 
+</details>
+
 ### 1-2. サンプルデータの用意
+
+<details>
+<summary>Details</summary>
 
 + サンプルデータを公式 URL からダウンロード
   + https://dev.mysql.com/doc/index-other.html
@@ -99,9 +107,14 @@ gcloud storage cp world-db/world.sql gs://${_gc_pj_id}-${_common}/
 gcloud storage cp world_x-db/world_x.sql gs://${_gc_pj_id}-${_common}/
 ```
 
+</details>
+
 ### 1-3. Cloud SQL Instance の Service Account の Role を設定
 
-+ SQL instance の SA を確認
+<details>
+<summary>Details</summary>
+
++ SQL instance の Service Account を確認
 
 ```
 gcloud sql instances describe ${_instance_name} --project ${_gc_pj_id} --format json | jq -r .serviceAccountEmailAddress
@@ -124,7 +137,12 @@ gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --role="roles/storage.objectViewer"
 ```
 
+</details>
+
 ### 1-4. Cloud Storage から Cloud SQL Instance にサンプルデータを挿入( Import )する
+
+<details>
+<summary>Details</summary>
 
 + gcloud コマンドを使って挿入( Import )する
 
@@ -154,7 +172,12 @@ world               utf8mb4  utf8mb4_0900_ai_ci
 world_x             utf8mb4  utf8mb4_0900_ai_ci
 ```
 
+</details>
+
 ### 1-5. Cloud SQL Instance 内のサンプルデータを確認する
+
+<details>
+<summary>Details</summary>
 
 + Cloud SQL Instance 内の user 作る
 
@@ -166,7 +189,7 @@ gcloud beta sql users create iganari \
 ```
 
 + gcloud 経由で Cloud SQL Instance に繋ぐ
-  + :warning:
+  + :warning: 注意点
     + 実行環境に mysql コマンドが必要
     + Public IP Address の Auth Network は自動で作ってくれる
     + **gcloud beta sql** コマンドは敢えて使っていない
@@ -264,3 +287,34 @@ exit
 MySQL [(none)]> exit
 Bye
 ```
+
+</details>
+
+### 1-6. リソースの削除
+
+<details>
+<summary>Details</summary>
+
++ Cloud SQL Instance の削除
+
+```
+gcloud beta sql instances delete ${_instance_name} --project ${_gc_pj_id}
+```
+
++ Cloud Storage Bucket の削除
+
+```
+gcloud storage rm --recursive gs://${_gc_pj_id}-${_common}/ \
+  --project ${_gc_pj_id}
+```
+
+</details>
+
+## 2. Cloud SQL for PostgreSQL の場合
+
+WIP
+
+
+## 3. Cloud SQL for SQL Server の場合
+
+WIP
