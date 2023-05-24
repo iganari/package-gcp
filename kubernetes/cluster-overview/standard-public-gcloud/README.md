@@ -113,6 +113,8 @@ gcloud projects add-iam-policy-binding ${_gc_pj_id} \
 ```
 
 + Node Pool の追加します
+  + `--preemptible`
+    + preemptible VM の node を作成する( https://cloud.google.com/kubernetes-engine/docs/preemptible-vm )
 
 ```
 gcloud beta container node-pools create "${_common}-add-pool-1" \
