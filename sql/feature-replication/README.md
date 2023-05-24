@@ -73,7 +73,9 @@ https://cloud.google.com/sql/docs/sqlserver/replication
 
 リードレプリカのインスタンスをカスケード( 小さな滝のような階段型の階層 )で作ることが出来る
 
-カスケードはプライマリインスタンスを入れて、最大で 4 階層作ることが出来る
+カスケードレプリカの利点などは -> https://cloud.google.com/sql/docs/mysql/replication/#cascading-replicas
+
+カスケードレプリカはプライマリインスタンスを入れて、最大で 4 階層作ることが出来る
 
 <details>
 <summary>スクリーンショット</summary>
