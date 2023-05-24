@@ -117,6 +117,7 @@ gcloud projects add-iam-policy-binding ${_gc_pj_id} \
     + preemptible VM の node を作成する( https://cloud.google.com/kubernetes-engine/docs/preemptible-vm )
   + `--spot`
     + Spot VM の node を作成する( https://cloud.google.com/kubernetes-engine/docs/how-to/spot-vms )
+  + `--preemptible` と `--spot` はどちらかしか使えない
 
 ```
 gcloud beta container node-pools create "${_common}-add-pool-1" \
