@@ -86,4 +86,20 @@ https://cloud.google.com/sql/docs/sqlserver/replication
 
 ## 5. External read replicas について
 
-WIP
+<details>
+<summary>WIP</summary>
+
+[About replicating from an external server](https://cloud.google.com/sql/docs/mysql/replication/external-server)
+
+```
+## memo
+
+MySQL on GCE -> Cloud SQL
+Cloud SQL -> MySQL on GCE
+
+の両方を試したい
+
+上記はハンズオン形式で作成する
+```
+
+</details>
