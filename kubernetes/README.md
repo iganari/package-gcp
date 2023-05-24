@@ -55,10 +55,10 @@ sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
 ## [Cluster について](./cluster-overview)
 
 + mode と { Private or Public }
-  + [Create Private Cluster of Autopilot mode](./autopilot-private-gcloud)
-  + [Create Public Cluster of Autopilot mode](./autopilot-public-gcloud)
-  + [Create Private Cluster of Standard mode](./standard-private-gcloud)
-  + [Create Public Cluster of Standard mode](./standard-public-gcloud)
+  + [Create Private Cluster of Autopilot mode using gcloud command](./cluster-overview/autopilot-private-gcloud/)
+  + [Create Public Cluster of Autopilot mode using gcloud command](./cluster-overview/autopilot-public-gcloud/)
+  + [Create Private Cluster of Standard mode using gcloud command](./cluster-overview/standard-private-gcloud/)
+  + [Create Public Cluster of Standard mode using gcloud command](./cluster-overview/standard-public-gcloud/)
   + WIP [Standard mode と Autopilot mode の違いについて]
 
 + GKE クラスタのアップグレード方法
