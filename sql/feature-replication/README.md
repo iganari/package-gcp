@@ -23,17 +23,32 @@ https://cloud.google.com/sql/docs/sqlserver/replication
 
 ## 2. Read Replica について
 
-<details>
-<summary>構成例</summary>
+構成例
 
-+ メインの Instance の Zonal availability が Single Zone の場合
+<details>
+<summary>メインの Instance の Zonal availability が Single Zone の場合</summary>
 
 ![](./_img/02-01.png)
 
-+ メインの Instance の Zonal availability が ultiple zones( Highly available )の場合
+</details>
+
+
+<details>
+<summary>メインの Instance の Zonal availability が Multiple zones( Highly available )の場合</summary>
 
 ![](./_img/02-02.png)
 
 </details>
 
 
+## 3. Cross-region read replicas について
+
+WIP
+
+## 4. Cascading read replicas について
+
+WIP
+
+## 5. External read replicas について
+
+WIP
