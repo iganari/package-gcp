@@ -110,7 +110,12 @@ https://cloud.google.com/run/docs/configuring/min-instances
   
 https://cloud.google.com/sql/docs/postgres/connect-instance-cloud-run?hl=ja#deploy_sample_app_to
 
-
+  
+## 6. インスタンスあたりの最大同時リクエスト数
+  
+https://cloud.google.com/run/docs/about-concurrency
+  
+![](https://cloud.google.com/run/docs/images/concurrency-diagram.svg)
 
 ## 参考 URL
 
