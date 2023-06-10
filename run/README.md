@@ -41,7 +41,7 @@ https://cloud.google.com/architecture#/?q=run
 
 ## ハンズオン
 
-+ [Cloud Run 上の phpMyAdmin を経由して Cloud SQL にアクセスする環境を構築するハンズオン](./handson-run-phpmyadmin-sql/)
++ [Cloud Run 上の phpMyAdmin を経由して Cloud SQL にアクセスする環境を構築するハンズオン](./handson-run-phpmyadmin-sql/README.md)
 
 ## 注意点
 
