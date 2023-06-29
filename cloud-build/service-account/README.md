@@ -16,30 +16,71 @@ Service Account を特別設定しない場合は Cloud Build のデフォルト
 
 ## やってみる
 
+### 0. 準備
+
+```
+export _gc_pj_id='Your Google Cloud Project ID'
+export _common='pkg-gcp-run'
+export _region='asia-northeast1'
+```
+
++ Google Clou と認証する
+
+```
+gcloud auth login --no-launch-browser
+```
+
++ API の有効化
+
+```
+gcloud beta services enable cloudbuild.googleapis.com --project ${_gc_pj_id}
+```
+
+### 1. リソース作成
+
 + GCS Bucket の作成
 
-
-+ SA 作成
-
 ```
 WIP
 ```
 
-+ role
-  + Service Account User ( roles/iam.serviceAccountUser ) 
-  + Logs Writer ( roles/logging.logWriter )
-
++ Service Account の作成
 
 ```
-WIP
-
-
-https://cloud.google.com/build/docs/securing-builds/configure-user-specified-service-accounts
+gcloud beta iam service-accounts create sa-${_common}-cloudbuild \
+  --description="Cloud Build Trigger 毎に Service Account を付与する" \
+  --display-name="a-${_common}-cloudbuild" \
+  --project ${_gc_pj_id}
 ```
 
-
-+ Trigger 作成
++ Service Account の確認
 
 ```
-WIP
+gcloud beta iam service-accounts describe sa-${_common}-cloudbuild@${_gc_pj_id}.iam.gserviceaccount.com --project ${_gc_pj_id} --format json
 ```
+
++ 絶対に必要な Role
+  + https://cloud.google.com/build/docs/securing-builds/configure-user-specified-service-accounts
+    + Service Account User ( `roles/iam.serviceAccountUser` ) 
+    + Logs Writer ( `roles/logging.logWriter` )
+
+```
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
+  --member="serviceAccount:sa-${_common}-cloudbuild@${_gc_pj_id}.iam.gserviceaccount.com" \
+  --role="roles/iam.serviceAccountUser" \
+  --project ${_gc_pj_id}
+
+
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
+  --member="serviceAccount:sa-${_common}-cloudbuild@${_gc_pj_id}.iam.gserviceaccount.com" \
+  --role="roles/logging.logWriter" \
+  --project ${_gc_pj_id}
+```
+
++ Trigger 作成時に Service Account を設定する
+
+![](./01.png)
+
+## memo
+
+GCS は作る？
