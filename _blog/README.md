@@ -2,6 +2,10 @@
 
 ## 公式ブログ
 
+### 2023
+
++ [ネットワーキング入門ガイド Google Cloud リファレンス シート 2023 v2: ネットワーキングの基本](https://cloud.google.com/blog/ja/products/networking/networking-101-google-cloud-reference-sheet-version-2)
+
 ### 2022
 + [Google Cloud のセキュリティの概要](https://cloud.google.com/blog/ja/topics/developers-practitioners/google-cloud-security-overview)
 
