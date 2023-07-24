@@ -47,7 +47,7 @@ WIP
 
 ### [Servcie Account について](./service-account)
 
-WIP
+サンプルコードおよび Service Account を使う時の注意点など
 
 ### [Terraform](./terraform/)
 
@@ -62,7 +62,6 @@ Terraform にまつわるサンプル
 ### [GKE](../kubernetes/builds)
 
 GKE Cluster 上にデプロイする
-
 
 ## 参考ドキュメント
 
