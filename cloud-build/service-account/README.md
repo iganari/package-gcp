@@ -20,7 +20,7 @@ Service Account を特別設定しない場合は Cloud Build のデフォルト
 + Cloud Build Trigger に紐づける Service Account
   + Role
     + Logs Writer( `roles/logging.logWriter` )
-    + Storage Admin( `roles/storage.admin` )
+    + ~~Storage Admin( `roles/storage.admin` )~~
 
 
 
