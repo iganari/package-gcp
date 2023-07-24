@@ -14,6 +14,16 @@ Service Account を特別設定しない場合は Cloud Build のデフォルト
 
 故に個別の Service Account を使う場合は、Cloud Build Trigger のログを溜める GCS Bucket から用意する必要がある
 
+### 最低限必要なもの
+
++ Cloud Build のログを格納する Cloud Storage Bucket
++ Cloud Build Trigger に紐づける Service Account
+  + Role
+    + Logs Writer( `roles/logging.logWriter` )
+    + Storage Admin( `roles/storage.admin` )
+
+
+
 ## やってみる
 
 + GCS Bucket の作成
