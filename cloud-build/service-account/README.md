@@ -18,9 +18,14 @@ Service Account を特別設定しない場合は Cloud Build のデフォルト
 
 + Cloud Build のログを格納する Cloud Storage Bucket
 + Cloud Build Trigger に紐づける Service Account
-  + Role
+  + 必須 Role
+    + Service Account User( `roles/iam.serviceAccountUser` ) 
     + Logs Writer( `roles/logging.logWriter` )
-    + ~~Storage Admin( `roles/storage.admin` )~~
+    + Storage Admin( `roles/storage.admin` )
++ AR を使う時に必要( 自分の AR　に格納したコンテナイメージを使う時も必要 )
+  + Artifact Registry Writer( `roles/artifactregistry.writer` )
++ memo
+  + storage object admin はなくても良い
 
 
 ```
