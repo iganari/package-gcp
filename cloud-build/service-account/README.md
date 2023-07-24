@@ -23,11 +23,18 @@ Service Account を特別設定しない場合は Cloud Build のデフォルト
     + ~~Storage Admin( `roles/storage.admin` )~~
 
 
+```
+https://cloud.google.com/build/docs/securing-builds/configure-user-specified-service-accounts
+```
+
 
 ## やってみる
 
 + GCS Bucket の作成
 
+```
+WIP
+```
 
 + SA 作成
 
@@ -39,13 +46,6 @@ WIP
   + Service Account User ( roles/iam.serviceAccountUser ) 
   + Logs Writer ( roles/logging.logWriter )
 
-
-```
-WIP
-
-
-https://cloud.google.com/build/docs/securing-builds/configure-user-specified-service-accounts
-```
 
 
 + Trigger 作成
