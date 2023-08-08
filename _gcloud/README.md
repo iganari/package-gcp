@@ -11,7 +11,7 @@
 ## 準備
 
 ```
-export _gcp_pj_id="Your GCP Project ID"
+export _gc_pj_id="Your GCP Project ID"
 ```
 
 ## インストール方法
@@ -219,16 +219,16 @@ gcloud --quiet components install kubectl
 + すべてのリストを表示
 
 ```
-gcloud beta services list --project ${_gcp_pj_id}
+gcloud beta services list --project ${_gc_pj_id}
 ```
 
 + 有効化しているリストを表示
 
 ```
-gcloud beta services list --enabled --project ${_gcp_pj_id}
+gcloud beta services list --enabled --project ${_gc_pj_id}
 ```
 ```
-gcloud beta services list --enabled --filter='API Name' --project ${_gcp_pj_id}
+gcloud beta services list --enabled --filter='API Name' --project ${_gc_pj_id}
 ```
 
 + サービスを有効化する
@@ -240,7 +240,7 @@ gcloud beta services enable {{ Services Name }} --project ${_gcp_pj_id}
 + サービスを無効化する
 
 ```
-gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
+gcloud beta services disable {Services Name} --project ${_gc_pj_id}
 ```
 
 ## Option
@@ -258,7 +258,7 @@ gcloud auth list --format json
 + Table
 
 ```
-$ gcloud beta compute instances list --project ${_gcp_pj_id} --format='table(name, zone)'
+$ gcloud beta compute instances list --project ${_gc_pj_id} --format='table(name, zone)'
 NAME     ZONE
 bastion  asia-northeast1-b
 dbproxy  asia-northeast1-b
@@ -271,7 +271,7 @@ fuga-02   asia-northeast1-b
 + CSV
 
 ```
-$ gcloud beta compute instances list --project ${_gcp_pj_id} --format='csv(name, zone)'
+$ gcloud beta compute instances list --project ${_gc_pj_id} --format='csv(name, zone)'
 name,zone
 bastion,asia-northeast1-b
 dbproxy,asia-northeast1-b

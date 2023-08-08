@@ -36,6 +36,25 @@ Cloud Run の認証を設定する | Service Account User( `roles/iam.serviceAcc
 
 故に個別の Service Account を使う場合は、Cloud Build Trigger のログを溜める GCS Bucket から用意する必要がある
 
+### 最低限必要なもの
+
++ Cloud Build のログを格納する Cloud Storage Bucket
++ Cloud Build Trigger に紐づける Service Account
+  + 必須 Role
+    + Service Account User( `roles/iam.serviceAccountUser` ) 
+    + Logs Writer( `roles/logging.logWriter` )
+    + Storage Admin( `roles/storage.admin` )
++ AR を使う時に必要( 自分の AR　に格納したコンテナイメージを使う時も必要 )
+  + Artifact Registry Writer( `roles/artifactregistry.writer` )
++ memo
+  + storage object admin はなくても良い
+
+
+```
+https://cloud.google.com/build/docs/securing-builds/configure-user-specified-service-accounts
+```
+
+
 ## やってみる
 
 ### 0. 準備
@@ -76,7 +95,7 @@ gcloud beta iam service-accounts create sa-${_common}-cloudbuild \
   --project ${_gc_pj_id}
 ```
 
-+ Service Account の確認
++ Trigger 作成
 
 ```
 gcloud beta iam service-accounts describe sa-${_common}-cloudbuild@${_gc_pj_id}.iam.gserviceaccount.com --project ${_gc_pj_id} --format json
@@ -108,4 +127,16 @@ gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
 
 ## memo
 
-GCS は作る？
++ GCS は作る？
+
+```
+WIP
+```
+
+
++ cloudbuild.yaml
+
+```
+WIP
+```
+

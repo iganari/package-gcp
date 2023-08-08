@@ -42,7 +42,10 @@ https://www.youtube.com/watch?v=ehqpc9vynDg
 + https://business.safety.google/intl/ja/compliance/
 + https://cloud.google.com/security/compliance
 + https://cloud.google.com/security/compliance/offerings
-
++ 中井悦司氏によるグーグルクラウドに関連する技術コラム
+    + https://www.school.ctc-g.co.jp/columns/nakai2/
++ クラウドの歴史とこれからの未来について徹底解説
+    + https://business.ntt-east.co.jp/bizdrive/column/dr00103-021.html
 
 ## 整理中
 
