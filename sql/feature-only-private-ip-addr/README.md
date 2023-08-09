@@ -21,8 +21,6 @@ https://cloud.google.com/sql/docs/mysql/create-instance?hl=en#create-2nd-gen
 https://cloud.google.com/sql/docs/mysql/configure-private-ip?hl=en#new-private-instance
 ```
 
-
-
 ## 実際に構築する
 
 ### 0. 準備
@@ -33,25 +31,14 @@ https://cloud.google.com/sql/docs/mysql/configure-private-ip?hl=en#new-private-i
 gcloud auth login --no-launch-browser -q
 ```
 
-```
-### Env
++ 環境変数を設定する
 
+```
 export _gc_pj_id='Your GCP Project ID'
-# export _gc_pj_id='ca-igarashi-test-2023q3'
 
 export _common='pkg-gcp-sqlpriipaddr'
 export _region='asia-northeast1'
-# export _zone='asia-northeast1-b'
 export _sub_network_range='172.16.0.0/12'
-
-# export _my_ip='Your Home IP Address'
-# export _other_ip='Your other IP Address'
-```
-
-+ API を enable 化します
-
-```
-WIP
 ```
 
 ### 1. ネットワークの作成
@@ -76,7 +63,7 @@ gcloud beta compute networks subnets create ${_common}-subnets \
   --project ${_gc_pj_id}
 ```
 
-+ Firewall
++ Firewall Rule の作成
 
 ```
 ### 内部通信
@@ -89,7 +76,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   --project ${_gc_pj_id}
 ```
 
-+ Allocate an IP address range
++ private services connection の作成
   + 割り当てるIPアドレスは範囲のみを指定する( Google Cloud がよしなにやってくれるのに任せる )
   + `16` の部分
 
@@ -111,9 +98,9 @@ gcloud beta compute addresses create google-managed-services-${_common}-network 
 
 ![](./img/01-01.png)
 
-```
-# private connection の作成
++ private connection の作成
 
+```
 gcloud services vpc-peerings connect \
   --service servicenetworking.googleapis.com \
   --ranges google-managed-services-${_common}-network \
@@ -125,7 +112,7 @@ gcloud services vpc-peerings connect \
 
 ### 02. Cloud SQL Instance の作成
 
-※ Cloud SQL for MySQL を作ります
+:warning: Cloud SQL for MySQL を作ります
 
 ```
 # API の有効化
@@ -133,7 +120,7 @@ gcloud services vpc-peerings connect \
 gcloud beta services enable sqladmin.googleapis.com --project ${_gc_pj_id}
 ```
 
-+ 環境変数を設定します
++ 環境変数を設定する
   + https://cloud.google.com/sql/docs/mysql/instance-settings#settings-2ndgen
 
 ```
