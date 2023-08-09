@@ -1,4 +1,4 @@
-# SQL
+# Cloud SQL
 
 ## 概要
 
@@ -15,15 +15,17 @@ WIP
 
 ## 機能および構築例
 
-+ [IAP to Cloud SQL](./feature-iap/README.md)
++ [WIP][プライベート IP アドレスしか持たない Cloud SQL の作成](./feature-only-private-ip-addr)
+  + TBD
++ [WIP][IAP to Cloud SQL](./feature-iap/README.md)
   + IAP 越しに パブリック IP アドレスが無い Cloud SQL に パブリック IP アドレスが無い GCE を通じてログインします
-+ [Login to Cloud SQL using the Cloud SQL Auth proxy](./feature-sql-auth-proxy/README.md)
++ [WIP][Login to Cloud SQL using the Cloud SQL Auth proxy](./feature-sql-auth-proxy/README.md)
   + Cloud SQL Auth proxy を使用して、外部の VM から Cloud SQL にログインします
 + [Copy Another Cloud SQL](./copy-another-sql)
   + Cloud SQL のデータをコピーしたい場合のやり方
 + [レプリケーションについて](./feature-replication/)
   + Cloud SQL のリードレプリカや、外部の DB とのレプリケーションについて
-+ [Cloud SQL Insights について]
++ Cloud SQL Insights について
   + https://cloud.google.com/blog/ja/products/databases/boost-your-query-performance-troubleshooting-skills-cloud-sql-insights
 
 ## サンプル

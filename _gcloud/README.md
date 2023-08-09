@@ -234,7 +234,7 @@ gcloud beta services list --enabled --filter='API Name' --project ${_gc_pj_id}
 + サービスを有効化する
 
 ```
-gcloud beta services enable {{ Services Name }} --project ${_gcp_pj_id}
+gcloud beta services enable {{ Services Name }} --project ${_gc_pj_id}
 ```
 
 + サービスを無効化する
