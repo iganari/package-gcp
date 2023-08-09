@@ -11,6 +11,17 @@ Overview of Cloud Build
 https://cloud.google.com/build/docs/overview
 ```
 
+## めも
+
+有効化する API
+
++ Cloud Console から手動実行する際に必要となる API
+
+```
+### Identity and Access Management (IAM) API
+https://console.cloud.google.com/apis/library/iam.googleapis.com
+```
+
 ## サンプル
 
 ### [Basic Sample](./basic-sample)
@@ -47,7 +58,7 @@ WIP
 
 ### [Servcie Account について](./service-account)
 
-WIP
+サンプルコードおよび Service Account を使う時の注意点など
 
 ### [Terraform](./terraform/)
 
@@ -62,7 +73,6 @@ Terraform にまつわるサンプル
 ### [GKE](../kubernetes/builds)
 
 GKE Cluster 上にデプロイする
-
 
 ## 参考ドキュメント
 

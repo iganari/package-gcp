@@ -4,7 +4,6 @@
 
 Google のスケーラブルなインフラストラクチャ上でコンテナを直接実行できるマネージド コンピューティング プラットフォーム
 
-
 ```
 Cloud Run とは
 https://cloud.google.com/run/docs/overview/what-is-cloud-run
@@ -15,6 +14,15 @@ https://cloud.google.com/run/docs/overview/what-is-cloud-run
 ```
 ## アーキテクチャセンターで「 run 」と検索
 https://cloud.google.com/architecture#/?q=run
+```
+
+## 公式チュートリアル
+
+とても充実している
+
+```
+### Tutorials
+https://cloud.google.com/run/docs/tutorials
 ```
 
 ## サンプル
@@ -38,6 +46,9 @@ https://cloud.google.com/architecture#/?q=run
   + Google Cloud Load Balancing( GCLB ) の下に Cloud run を設置する
 + [WIP] 外部 IP アドレスが付いていない GCE インスタンスから Cloud Run にアクセスする
   + WIP
++ <WIP> Trigger ごとに Service Account を設定する
+  + WIP
+
 
 ## ハンズオン
 
@@ -121,3 +132,4 @@ https://cloud.google.com/run/docs/about-concurrency
   + [Cloud Run を最大限使いこなすには](https://lp.cloudplatformonline.com/rs/808-GJW-314/images/App_Modernization_OnAir_q1_0217_Session.pdf)
 + 他の記事
   + TBD
+

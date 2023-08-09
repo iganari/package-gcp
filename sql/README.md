@@ -23,6 +23,8 @@ WIP
   + Cloud SQL のデータをコピーしたい場合のやり方
 + [レプリケーションについて](./feature-replication/)
   + Cloud SQL のリードレプリカや、外部の DB とのレプリケーションについて
++ [Cloud SQL Insights について]
+  + https://cloud.google.com/blog/ja/products/databases/boost-your-query-performance-troubleshooting-skills-cloud-sql-insights
 
 ## サンプル
 
