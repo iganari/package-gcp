@@ -15,7 +15,8 @@ WIP
 
 ## 機能および構築例
 
-+ [プライベート IP アドレスしか持たない Cloud SQL の作成](./feature-only-private-ip-addr)
++ [WIP][プライベート IP アドレスしか持たない Cloud SQL の作成](./feature-only-private-ip-addr)
+  + TBD
 + [WIP][IAP to Cloud SQL](./feature-iap/README.md)
   + IAP 越しに パブリック IP アドレスが無い Cloud SQL に パブリック IP アドレスが無い GCE を通じてログインします
 + [WIP][Login to Cloud SQL using the Cloud SQL Auth proxy](./feature-sql-auth-proxy/README.md)
