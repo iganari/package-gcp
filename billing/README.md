@@ -28,3 +28,7 @@ https://cloud.google.com/billing/docs/how-to/export-data-bigquery
 故に Google Cloud Project 毎に Export する BQ の Dataset を変えたい場合は、紐づけている請求先アカウントも変更しないといけない
 
 また、 Export 先を複数設定することが **出来ない** ので注意する
+
+## 参考になる YouTube
+
+[Billing Administration on Google Cloud](https://www.youtube.com/watch?v=GpiQPym27II)
