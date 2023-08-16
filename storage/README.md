@@ -66,3 +66,8 @@ https://cloud.google.com/storage/docs/lifecycle
 https://cloud.google.com/storage/docs/caching
 https://cloud.google.com/storage/docs/metadata#caching_data
 ```
+```
+Cloud Storage の 5 TB のオブジェクト サイズ上限
+Cloud Storage は、最大 5 テラバイトの単一オブジェクト サイズをサポートしています。オブジェクトが 5TB を超える場合、Cloud Storage または Storage Transfer Service のオブジェクトの転送は失敗します。
+https://cloud.google.com/storage-transfer/docs/known-limitations-transfer?hl=ja
+```
