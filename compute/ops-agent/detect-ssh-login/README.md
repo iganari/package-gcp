@@ -1,38 +1,10 @@
 # SSH ログインを Ops Agent の機能を使って検知する
 
-## 以下のように変更
+## 以下のように記載
 
 + デフォルト
   + `/etc/google-cloud-ops-agent/config.yaml`
-
-```
-logging:
-  receivers:
-    syslog:
-      type: files
-      include_paths:
-      - /var/log/messages
-      - /var/log/syslog
-  service:
-    pipelines:
-      default_pipeline:
-        receivers: [syslog]
-metrics:
-  receivers:
-    hostmetrics:
-      type: hostmetrics
-      collection_interval: 60s
-  processors:
-    metrics_filter:
-      type: exclude_metrics
-      metrics_pattern: []
-  service:
-    pipelines:
-      default_pipeline:
-        receivers: [hostmetrics]
-        processors: [metrics_filter]
-
-```
+  + このファイルに書くと同じ識別子はオーバーライドされる
 
 ```
 logging:
@@ -53,5 +25,19 @@ logging:
 + Ops Agent の再起動
 
 ```
-sudo systemctl restart google-cloud-ops-agent.target
+sudo systemctl restart google-cloud-ops-agent
+```
+
++ Ops Agent の状態確認
+
+```
+sudo systemctl status google-cloud-ops-agent
+```
+
++ Cloud Logging での検出クエリ例
+
+```
+resource.type="gce_instance"
+logName="projects/ca-igarashi-test-i/logs/syslog"
+jsonPayload.message=~ ".*Accepted publickey.*"
 ```
