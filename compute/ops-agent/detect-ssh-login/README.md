@@ -41,3 +41,22 @@ resource.type="gce_instance"
 logName="projects/{{ Your Google Cloud Project ID }}/logs/syslog"
 jsonPayload.message=~ ".*Accepted publickey.*"
 ```
+
+## 以下はアディショナル
+
+```
+export _gc_pj_id='ca-igarashi-test-i'
+export _common='detect-ssh-login'
+```
+
+```
+gcloud beta pubsub topics create ${_common}-topic --project ${_gc_pj_id}
+```
+```
+gcloud beta pubsub subscriptions create ${_common}-sub-pull \
+--topic ${_common}-topic \
+--topic-project ${_gc_pj_id} \
+--message-retention-duration 6d \
+--expiration-period 14d \
+--project ${_gc_pj_id}
+```
