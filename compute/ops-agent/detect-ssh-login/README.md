@@ -48,3 +48,10 @@ logging:
       default_pipeline:
         receivers: [syslog]
 ```
+
+
++ Ops Agent の再起動
+
+```
+sudo systemctl restart google-cloud-ops-agent.target
+```
