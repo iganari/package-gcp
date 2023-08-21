@@ -38,6 +38,6 @@ sudo systemctl status google-cloud-ops-agent
 
 ```
 resource.type="gce_instance"
-logName="projects/ca-igarashi-test-i/logs/syslog"
+logName="projects/{{ Your Google Cloud Project ID }}/logs/syslog"
 jsonPayload.message=~ ".*Accepted publickey.*"
 ```
