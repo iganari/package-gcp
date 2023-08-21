@@ -45,7 +45,7 @@ jsonPayload.message=~ ".*Accepted publickey.*"
 ## 以下はアディショナル
 
 ```
-export _gc_pj_id='ca-igarashi-test-i'
+export _gc_pj_id='{{ Your Google Cloud Project ID }}'
 export _common='detect-ssh-login'
 ```
 
