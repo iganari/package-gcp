@@ -3,6 +3,7 @@
 ## 以下のように変更
 
 + デフォルト
+  + `/etc/google-cloud-ops-agent/config.yaml`
 
 ```
 logging:
