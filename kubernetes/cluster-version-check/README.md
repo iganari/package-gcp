@@ -11,7 +11,7 @@ export _release_channel='RAPID'  ## RAPID / REGULAR / STABLE
 export _region='asia-northeast1'
 ```
 
-+ Default version
+### Default version
 
 ```
 gcloud beta container get-server-config \
@@ -35,7 +35,7 @@ channels:
   defaultVersion: 1.27.3-gke.1700
 ```
 
-+ Available versions
+### Available versions
 
 ```
 gcloud beta container get-server-config \
