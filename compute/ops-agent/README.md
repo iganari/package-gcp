@@ -5,6 +5,9 @@
 
 hoge
 
+## デフォルトで送信するログ
+
+https://cloud.google.com/stackdriver/docs/solutions/agents/ops-agent/configuration?hl=en#default
 
 ## 注意点
 
