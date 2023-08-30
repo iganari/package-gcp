@@ -2,17 +2,14 @@
 
 https://cloud.google.com/kubernetes-engine/versioning?hl=en
 
-## Rapid
+## Command
 
 https://cloud.google.com/kubernetes-engine/versioning?hl=en#use_to_check_versions
-
 
 ```
 export _release_channel='RAPID'  ## RAPID / REGULAR / STABLE
 export _region='asia-northeast1'
 ```
-
-
 
 + Default version
 
