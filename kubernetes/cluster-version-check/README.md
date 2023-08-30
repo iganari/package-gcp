@@ -1,10 +1,10 @@
 # 利用可能な GKE クラスタのバージョンの確認方法
 
-https://cloud.google.com/kubernetes-engine/versioning?hl=en
+[Google Cloud Doc | GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning?hl=en)
 
 ## Command
 
-https://cloud.google.com/kubernetes-engine/versioning?hl=en#use_to_check_versions
+[Google Cloud Doc | GKE versioning and support / Use gcloud CLI to check versions](https://cloud.google.com/kubernetes-engine/versioning?hl=en#use_to_check_versions)
 
 ```
 export _release_channel='RAPID'  ## RAPID / REGULAR / STABLE
