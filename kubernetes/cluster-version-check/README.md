@@ -20,6 +20,10 @@ gcloud beta container get-server-config \
   --filter="channels.channel=${_release_channel}" \
   --format="yaml(channels.channel,channels.defaultVersion)"
 ```
+
+<details>
+<summary>コマンドサンプル</summary>
+
 ```
 ### 例
 
@@ -34,6 +38,7 @@ channels:
   channel: RAPID
   defaultVersion: 1.27.3-gke.1700
 ```
+</details>
 
 ### Available versions
 
