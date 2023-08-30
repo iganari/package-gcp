@@ -1,4 +1,4 @@
-# GKE クラスタのバージョンの確認
+# 利用可能な GKE クラスタのバージョンの確認方法
 
 https://cloud.google.com/kubernetes-engine/versioning?hl=en
 
