@@ -69,8 +69,8 @@ sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
   + [継続的なアップグレード戦略を作成する](https://cloud.google.com/kubernetes-engine/docs/best-practices/upgrading-clusters#continuous-strategy)
   + <WIP> [Zenn | GKE クラスタのアップグレード戦略を考える]()
 + GKE クラスタのバージョンの確認方法
-　　　　+ ./cluster-version-check
-
+　　　　+ [Cluster Version Check](./cluster-version-check/)
+  + 利用可能な GKE クラスタのバージョンをコマンドラインで確認する方法
 
 ## Kind について
 
