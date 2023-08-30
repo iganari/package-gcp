@@ -11,7 +11,7 @@ export _release_channel='RAPID'  ## RAPID / REGULAR / STABLE
 export _region='asia-northeast1'
 ```
 
-### Default version
+### Check Default version
 
 ```
 gcloud beta container get-server-config \
@@ -38,9 +38,10 @@ channels:
   channel: RAPID
   defaultVersion: 1.27.3-gke.1700
 ```
+
 </details>
 
-### Available versions
+### Check Available versions
 
 ```
 gcloud beta container get-server-config \
@@ -49,6 +50,10 @@ gcloud beta container get-server-config \
   --filter="channels.channel=${_release_channel}" \
   --format="yaml(channels.channel,channels.validVersions)"
 ```
+
+<details>
+<summary>コマンドサンプル</summary>
+
 ```
 ### 例
 
@@ -73,5 +78,5 @@ channels:
   - 1.23.17-gke.10000
 ```
 
-
+</details>
 
