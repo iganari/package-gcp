@@ -4,6 +4,24 @@
 
 https://cloud.google.com/storage/docs/gcs-fuse
 
+## 使い方
+
+### マウント
+
+```
+WIP
+```
+
+
+### アンマウント
+
+
+```
+fusermount -u /var/www/wp-a
+```
+
+
+
 ## 注意点
 
 使ってみての注意点
