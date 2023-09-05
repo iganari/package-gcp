@@ -3,11 +3,11 @@
 
 ## 概要
 
-WIP
+https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs?hl=en
 
 
 ## Tips
 
-### Google Managed SSL Certificate
+### Google-managed SSL certificates
 
 Cloud Armor で IP アドレス制限をしていても、 `PROVISIONING` -> `ACTIVE`　になる
