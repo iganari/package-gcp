@@ -10,6 +10,8 @@ Google Cloud を扱う上で見ることがある **アカウント** につい�
 
 ## Google Account
 
+https://www.google.com/account/about/
+
 ![](./_img/02-google-account.png)
 
 ## Google Group
