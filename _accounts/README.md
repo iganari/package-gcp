@@ -10,11 +10,12 @@ Google Cloud を扱う上で見ることがある **アカウント** につい�
 
 ## Google Account
 
-Google のサービスを利用する際に必要になるアカウント
-
-Google Admin にてアカウント作成が可能
-
-https://www.google.com/account/about/
+- 概要
+  - Google のサービスを利用する際に必要になるアカウント
+- 作成および管理方法
+  - Google Admin にてアカウント作成が可能
+- 参考リンク
+  - https://www.google.com/account/about/
 
 ![](./_img/02-google-account.png)
 
