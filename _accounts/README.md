@@ -39,18 +39,34 @@ Google Cloud を扱う上で見ることがある **アカウント** につい�
 
 ![](./_img/04-cloud-identity.png)
 
-同じドメインのアカウント全体を指すグループ
-
-Google Workspace もしくは Cloud Identity Free/Premium を作成すると同時に利用可能になる
+- 概要
+  - 同じドメインのアカウント全体を指すグループ
+- 作成および管理方法
+  - Google Workspace もしくは Cloud Identity Free/Premium を作成すると同時に利用可能になる
+- 参考リンク
+  - TBD
 
 ## Service Account
 
 ![](./_img/05-service-account.png)
 
-プログラムおよびサーバ、特定の Google Cloud のサービスが使用するアカウント
-
-基本的には人は使わない
+- 概要
+  - プログラムおよびサーバ、特定の Google Cloud のサービスが使用するアカウント
+  - 基本的には人は使わない
+- 作成および管理方法
+  - TBD
+- 参考リンク
+  - TBD
 
 ## Billing Account
 
 ![](./_img/06-billing-account.png)
+
+- 概要
+  - TBD
+- 作成および管理方法
+  - TBD
+- 参考リンク
+  - TBD
+
+
