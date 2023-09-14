@@ -65,7 +65,7 @@ Google Cloud を扱う上で見ることがある **アカウント** につい�
   - 基本的には人は使わない
   - Google Cloud が事前に定義している Service Account もあるので、自分が作った Service Account と適宜使い分ける
 - 作成および管理方法
-  - Google Cloud 
+  - Google Cloud の特定の Project 内で作成および管理が可能
 - 参考リンク
   - https://cloud.google.com/iam/docs/service-account-overview?hl=en
 
