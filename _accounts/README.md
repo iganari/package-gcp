@@ -8,12 +8,15 @@ Google Cloud を扱う上で見ることがある **アカウント** につい�
 
 ![](./_img/01-all.png)
 
-+ Google Cloud のリソースに対してアクション出来るアカウント
-  + Google Account
-  + Google Group
-  + Cloud Identity
-+ Google Cloud の課金について制御するアカウント
-  + Billing Account
+### サマリー
+
+アカウント | 用途 | 利用者 | 所属( どこに紐づくか )
+:- | :- | :- | :-
+Google Account | Google Cloud のリソースに対してアクション出来るように設定できる | 基本的には人 | Google Admin( in Google Workspace )
+Google Group | 同上 | 同上 | 同上
+Cloud Identity | 同上 | 同上 | 同上
+Service Account | 同上 | プログラムやサーバーなどの特定の人を介さないもの | Google Cloud 
+Billing Account | Google Cloud の課金について制御するように設定できる | 基本的には人 | Google Cloud 
 
 ## Google Account
 
