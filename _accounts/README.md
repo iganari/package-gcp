@@ -12,11 +12,11 @@ Google Cloud を扱う上で見ることがある **アカウント** につい�
 
 アカウント | 用途 | 利用者 | 所属( どこに紐づくか )
 :- | :- | :- | :-
-Google Account | Google Cloud のリソースに対してアクション出来るように設定できる | 基本的には人 | Google Admin( in Google Workspace )
-Google Group | 同上 | 同上 | 同上
-Cloud Identity | 同上 | 同上 | 同上
-Service Account | 同上 | プログラムやサーバーなどの特定の人を介さないもの | Google Cloud 
-Billing Account | Google Cloud の課金について制御するように設定できる | 基本的には人 | Google Cloud 
+[Google Account](./README.md#google-account) | Google Cloud のリソースに対してアクション出来るように設定できる | 基本的には人 | Google Admin( in Google Workspace )
+[Google Group](./README.md#google-group) | 同上 | 同上 | 同上
+[Cloud Identity](./README.md#cloud-identity) | 同上 | 同上 | 同上
+[Service Account](./README.md#service-account) | 同上 | プログラムやサーバーなどの特定の人を介さないもの | Google Cloud 
+[Billing Account](./README.md#billing-account) | Google Cloud の課金について制御するように設定できる | 基本的には人 | Google Cloud 
 
 ## Google Account
 
