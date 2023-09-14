@@ -15,8 +15,8 @@ Google Cloud を扱う上で見ることがある **アカウント** につい�
 [Google Account](./README.md#google-account) | Google Cloud のリソースに対してアクション出来るように設定できる | 基本的には人 | Google Admin( in Google Workspace )
 [Google Group](./README.md#google-group) | 同上 | 同上 | 同上
 [Cloud Identity](./README.md#cloud-identity) | 同上 | 同上 | 同上
-[Service Account](./README.md#service-account) | 同上 | プログラムやサーバーなどの特定の人を介さないもの | Google Cloud 
-[Billing Account](./README.md#billing-account) | Google Cloud の課金について制御するように設定できる | 基本的には人 | Google Cloud 
+[Service Account](./README.md#service-account) | 同上 | プログラムやサーバーなどの特定の人を介さないもの | Google Cloud の特定の Project
+[Billing Account](./README.md#billing-account) | Google Cloud の課金について制御するように設定できる | 基本的には人 | Google Cloud の組織( Organization )
 
 ## Google Account
 
@@ -54,7 +54,7 @@ Google Cloud を扱う上で見ることがある **アカウント** につい�
 - 作成および管理方法
   - Google Workspace もしくは Cloud Identity Free/Premium を作成すると同時に利用可能になる
 - 参考リンク
-  - TBD
+  - https://cloud.google.com/identity?hl=en
 
 ## Service Account
 
@@ -63,10 +63,11 @@ Google Cloud を扱う上で見ることがある **アカウント** につい�
 - 概要
   - プログラムおよびサーバ、特定の Google Cloud のサービスが使用するアカウント
   - 基本的には人は使わない
+  - Google Cloud が事前に定義している Service Account もあるので、自分が作った Service Account と適宜使い分ける
 - 作成および管理方法
-  - TBD
+  - Google Cloud 
 - 参考リンク
-  - TBD
+  - https://cloud.google.com/iam/docs/service-account-overview?hl=en
 
 ## Billing Account
 
