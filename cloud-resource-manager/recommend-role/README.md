@@ -10,4 +10,6 @@
     + `roles/resourcemanager.folderViewer`
 
 
-
++ Google Cloud 組織の IAM & Admin 見る権限
+    + Organization Role Viewer( TBD )
+        + `roles/iam.organizationRoleViewer`
