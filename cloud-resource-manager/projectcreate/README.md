@@ -11,7 +11,17 @@
   + Project Creator( プロジェクト作成者 )
     + `roles/resourcemanager.projectCreator`
     + 組織配下でもいいし、フォルダ配下でも良い
-+ TBD
+
+
+
+
+
+
+
++ Google Cloud 組織直下に Google Cloud Project を作る時の追加 Role
+  + Organization Administrator( TBD )
+    + `roles/resourcemanager.organizationAdmin`
++ Google Cloud フォルダ配下に Google Cloud Project を作る時の追加 Role
   + Folder Editor( TBD )
     + `roles/resourcemanager.folderEditor`
     + hoge
@@ -21,4 +31,17 @@
 
 
 
-+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+test
