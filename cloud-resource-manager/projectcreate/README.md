@@ -21,6 +21,7 @@
 + Google Cloud 組織直下に Google Cloud Project を作る時の追加 Role
   + Organization Administrator( TBD )
     + `roles/resourcemanager.organizationAdmin`
+    + この Role は強すぎるので、 特定のフォルダの配下にした方が良さそう
 + Google Cloud フォルダ配下に Google Cloud Project を作る時の追加 Role
   + Folder Editor( TBD )
     + `roles/resourcemanager.folderEditor`
