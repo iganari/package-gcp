@@ -17,8 +17,9 @@
 
 
 
-
-
++ フォルダの IAM & Admin 見れる最弱 Role
+  + Security Reviewer( TBD )
+    + `roles/iam.securityReviewer`
 
 
 
