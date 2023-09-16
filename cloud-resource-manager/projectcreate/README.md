@@ -19,12 +19,11 @@
 
 
 + Google Cloud 組織直下に Google Cloud Project を作る時の追加 Role
-  + Organization Administrator( TBD )
-    + `roles/resourcemanager.organizationAdmin`
-    + この Role は強すぎるので、 特定のフォルダの配下にのみ作成できるようにした方が良さそう
+  + Organization Viewer( TBD )
+    + `roles/resourcemanager.organizationViewer`
 + Google Cloud フォルダ配下に Google Cloud Project を作る時の追加 Role
-  + Folder Editor( TBD )
-    + `roles/resourcemanager.folderEditor`
+  + Folder Viewer( TBD )
+    + `roles/resourcemanager.folderViewer`
 
 
 
