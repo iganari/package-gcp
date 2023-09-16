@@ -15,7 +15,7 @@
     + フォルダにつけると、フォルダ配下が見えるし、そのフォルダ配下のフォルダを見れる
 
 
-
+https://cloud.google.com/resource-manager/docs/creating-managing-projects?hl=en
 
 
 
