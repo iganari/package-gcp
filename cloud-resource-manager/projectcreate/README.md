@@ -11,6 +11,7 @@
   + Project Creator( プロジェクト作成者 )
     + `roles/resourcemanager.projectCreator`
     + 組織配下でもいいし、フォルダ配下でも良い
+    + 組織直下でつけると、組織の名前が見える
 
 
 
