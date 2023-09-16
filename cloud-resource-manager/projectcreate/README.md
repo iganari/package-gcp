@@ -8,8 +8,8 @@
 ## 必要な Role
 
 + Google Cloud プロジェクトを作成する権限
-　　　　+ Project Creator( プロジェクト作成者 )
-  　　　　+ `roles/resourcemanager.projectCreator`
+  + Project Creator( プロジェクト作成者 )
+    + `roles/resourcemanager.projectCreator`
     + 組織配下でもいいし、フォルダ配下でも良い
 + TBD
   + Folder Editor( TBD )
