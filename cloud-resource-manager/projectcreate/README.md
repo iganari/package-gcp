@@ -24,7 +24,7 @@
 + Google Cloud フォルダ配下に Google Cloud Project を作る時の追加 Role
   + Folder Editor( TBD )
     + `roles/resourcemanager.folderEditor`
-    + hoge
+
 
 
 
