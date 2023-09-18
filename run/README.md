@@ -124,6 +124,12 @@ https://cloud.google.com/run/docs/about-concurrency
   
 ![](https://cloud.google.com/run/docs/images/concurrency-diagram.svg)
 
+## LB からのみアクセスさせたい
+
+:warning: セキュアな通信のために必須
+
+https://cloud.google.com/run/docs/securing/ingress#command-line
+
 ## 参考 URL
 
 + 公式ドキュメント or 公式ブログ
