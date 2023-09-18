@@ -74,7 +74,11 @@ gcloud auth login --no-launch-browser
 + API の有効化
 
 ```
+### Cloud Build そのものを有効化
 gcloud beta services enable cloudbuild.googleapis.com --project ${_gc_pj_id}
+
+### Cloud Build Trigger で個別の Service Account を使う際に必要
+gcloud beta services enable iam.googleapis.com --project ${_gc_pj_id} --quiet
 ```
 
 ### 1. リソース作成
