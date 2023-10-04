@@ -2,6 +2,8 @@
 
 ## 概要
 
+下記は間違い
+
 クラウドホスト型の NoSQL ドキュメント指向データベース
 
 ```
@@ -14,6 +16,11 @@ https://firebase.google.com/docs/firestore/data-model
 
 ---> Firebase の再生リスト [Get to know Cloud Firestore](https://www.youtube.com/playlist?list=PLl-K7zZEsYLluG5MCVEzXAQ7ACZBCuZgZ)
 
+## 
+
+```
+gcloud beta services enable file.googleapis.com --project ${_gc_pj_id}
+```
 
 ## パフォーマンスについて
 
