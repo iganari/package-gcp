@@ -118,11 +118,27 @@ https://cloud.google.com/run/docs/configuring/min-instances
 https://cloud.google.com/sql/docs/postgres/connect-instance-cloud-run?hl=ja#deploy_sample_app_to
 
   
-## 6. インスタンスあたりの最大同時リクエスト数
+### 6. インスタンスあたりの最大同時リクエスト数
   
 https://cloud.google.com/run/docs/about-concurrency
   
 ![](https://cloud.google.com/run/docs/images/concurrency-diagram.svg)
+
+### 7. LB からのみアクセスさせたい
+
+:warning: セキュアな通信のために必須
+
+https://cloud.google.com/run/docs/securing/ingress#command-line
+
+### 8. tag 
+
+Cloud Run の場合は、 tag をつけると、 トラフィックを流さない設定にデフォルトでなる
+
+https://cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration?hl=en#tags
+
+### 9. revision は指定できる
+
+https://cloud.google.com/sdk/gcloud/reference/run/deploy#--revision-suffix
 
 ## 参考 URL
 

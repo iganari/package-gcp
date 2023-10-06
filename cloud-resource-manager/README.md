@@ -199,3 +199,13 @@ Deleted [<Folder
  name: 'folders/389489399241'
  parent: 'folders/393223048277'>].
 ```
+
+## Tips
+
+以下の Role を組織ノードにつけておくと、全体像が把握しやすくなる
+
++ Folder Viewer
++ Organization Role Viewer
++ Organization Viewer
++ Security Reviewer
++ Owner( Or View )
