@@ -47,10 +47,14 @@ https://www.youtube.com/watch?v=ehqpc9vynDg
 + クラウドの歴史とこれからの未来について徹底解説
     + https://business.ntt-east.co.jp/bizdrive/column/dr00103-021.html
 
+## [Cloud アーキテクチャセンター](https://cloud.google.com/architecture)
+
+Google Cloud でワークロードをビルドまたは移行するためのリファレンス アーキテクチャ、図、設計パターン、ガイダンス、ベスト プラクティスがある
+
++ [コンテナ運用のベスト プラクティス](https://cloud.google.com/architecture/best-practices-for-operating-containers?hl=en)
+
 ## 整理中
 
-+ [Cloud アーキテクチャセンター](https://cloud.google.com/architecture)
-  + Google Cloud でワークロードをビルドまたは移行するためのリファレンス アーキテクチャ、図、設計パターン、ガイダンス、ベスト プラクティスを示します。
 + [Google Cloud セキュリティ ベスト プラクティス センター](https://cloud.google.com/security/best-practices)
   + Google Cloud にワークロードをデプロイする際に、セキュリティとコンプライアンスの目標を達成するためのベスト プラクティスをご紹介します。
 + [Google Cloud 設定チェックリスト](https://cloud.google.com/docs/enterprise/setup-checklist)
