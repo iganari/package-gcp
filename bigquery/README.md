@@ -30,3 +30,15 @@ WIP
 ## Tips
 
 BigQuery向けのSQL の構文解析ツール -> [tree-sitter for BigQuery's SQL](https://github.com/TKNGUE/tree-sitter-sql-bigquery)
+
++ 他のサイト( いつか自分でもやってみるリスト )
+  + [BigQueryで高額課金が発生しているクエリの呼び出し元を特定する](https://ex-ture.com/blog/2023/08/13/bigqueryで高額課金が発生しているクエリの呼び出し元/)
+
+
+
+
+
+
+
+
+
