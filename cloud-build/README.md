@@ -24,55 +24,34 @@ https://console.cloud.google.com/apis/library/iam.googleapis.com
 
 ## サンプル
 
-### [Basic Sample](./basic-sample)
-
-Cloud Build Trigger の基礎的なサンプル
-
-### [ClamAV](./clamav)
-
-オープンソースのセキュリティソフトのアンチウイルスエンジン
-
-### [Cloud Scheduler](./cloudscheduler)
++ [Basic Sample](./samples-basic)
+  + Cloud Build Trigger の基礎的なサンプル
++ [ClamAV](./samples-clamav)
+  + オープンソースのセキュリティソフトのアンチウイルスエンジン
++ [Trivy](./samples-trivy)
+  + コンテナイメージ内の OS やライブラリやモジュールなどの脆弱性のチェック
 
 WIP
 
-### [Notifications](./notifications)
-
-WIP
-
-### [Parallel Step](./parallel-step)
-
-WIP
-
-### [Pluto by Fairwinds を Cloud Build 上で実行する](./pluto)
-
-WIP
-
-### [Pub/Sub](./pubsub)
-
-WIP
-
-### [Python on Cloud Build](./python)
-
-WIP
-
-### [Servcie Account について](./service-account)
-
-サンプルコードおよび Service Account を使う時の注意点など
-
-### [Terraform](./terraform/)
-
-Terraform にまつわるサンプル
-
-+ [Terraform のバージョンチェック](./terraform/README.md#terraform-のバージョンチェック)
-
-### [Trivy](./trivy)
-
-コンテナイメージ内の OS やライブラリやモジュールなどの脆弱性のチェック
-
-### [GKE](../kubernetes/builds)
-
-GKE Cluster 上にデプロイする
++ [Cloud Scheduler](./cloudscheduler)
+  + WIP
++ [Notifications](./notifications)
+  + WIP
++ [Parallel Step](./parallel-step)
+  + WIP
++ [Pluto by Fairwinds を Cloud Build 上で実行する](./pluto)
+  + WIP
++ [Pub/Sub](./pubsub)
+  + WIP
++ [Python on Cloud Build](./python)
+  + WIP
++ [Servcie Account について](./service-account)
+  + サンプルコードおよび Service Account を使う時の注意点など
++ [Terraform](./terraform/)
+  + Terraform にまつわるサンプル
+  + [Terraform のバージョンチェック](./terraform/README.md#terraform-のバージョンチェック)
++ [GKE](../kubernetes/builds)
+  + GKE Cluster 上にデプロイする
 
 ## 参考ドキュメント
 
