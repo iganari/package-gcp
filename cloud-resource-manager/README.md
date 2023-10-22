@@ -204,8 +204,8 @@ Deleted [<Folder
 
 以下の Role を組織ノードにつけておくと、全体像が把握しやすくなる
 
-+ Folder Viewer
-+ Organization Role Viewer
 + Organization Viewer
++ Organization Role Viewer
++ Folder Viewer
 + Security Reviewer
 + Owner( Or View )
