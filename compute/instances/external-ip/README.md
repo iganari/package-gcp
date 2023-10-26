@@ -59,7 +59,6 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   --action ALLOW \
   --rules tcp:0-65535,udp:0-65535,icmp \
   --source-ranges ${_sub_network_range} \
-  --target-tags ${_common}-allow-internal-all \
   --project ${_gcp_pj_id}
 
 ### SSH
