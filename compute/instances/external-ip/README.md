@@ -80,14 +80,14 @@ gcloud beta compute addresses create ${_common}-ip \
   --project ${_gcp_pj_id}
 ```
 
-+ VM Instance　のパブリックイメージの検索
++ VM Instance のパブリックイメージの検索
   + https://cloud.google.com/compute/docs/images
 
 ```
 gcloud beta compute images list --filter="name~'^ubuntu-minimal-.*?'" --project ${_gcp_pj_id}
 ```
 
-+ VM Instance　の作成
++ VM Instance の作成
 
 ```
 export _os_project='ubuntu-os-cloud'
