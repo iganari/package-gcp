@@ -204,8 +204,10 @@ Deleted [<Folder
 
 以下の Role を組織ノードにつけておくと、全体像が把握しやすくなる
 
-+ Organization Viewer
-+ Organization Role Viewer
-+ Folder Viewer
-+ Security Reviewer
-+ Owner( Or View )
+Title | Used in
+:- |:-
+Organization Viewer (roles/resourcemanager.organizationViewer) | Resource Manager
+Organization Role Viewer (roles/iam.organizationRoleViewer) | Roles
+Folder Viewer (roles/resourcemanager.folderViewer) | Resource Manager
+Security Reviewer (roles/iam.securityReviewer) | IAM
+Owner( Or View ) | Project
