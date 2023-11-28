@@ -35,7 +35,10 @@ gcloud compute addresses create ${_common}-psa \
   --project ${_gc_pj_id}
 ```
 
+
+```
 TBD
+```
 
 ## Memcached Instance の作成
 
