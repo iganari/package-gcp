@@ -14,7 +14,7 @@ gcloud beta services enable redis.googleapis.com --project ${_gc_pj_id}
 
 ## コンテンツ
 
-[基本構築]()
+[基本構築](./basic-instance/)
 
 ## 設定
 
