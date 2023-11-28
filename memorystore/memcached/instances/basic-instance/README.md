@@ -27,7 +27,7 @@ gcloud beta compute networks create ${_common}-network \
   + `Prefix Length` は自動にするため指定しない
 
 ```
-gcloud compute addresses create ${_common}-psa \
+gcloud beta compute addresses create ${_common}-psa \
   --global \
   --network ${_common}-network \
   --purpose VPC_PEERING \
@@ -38,16 +38,57 @@ gcloud compute addresses create ${_common}-psa \
 + Private Connection の作成
 
 ```
-gcloud services vpc-peerings connect \
+gcloud beta services vpc-peerings connect \
   --network ${_common}-network \
   --ranges ${_common}-psa \
   --service servicenetworking.googleapis.com \
   --project ${_gc_pj_id}
 ```
 
++ Private Connnection の確認
+
+```
+gcloud beta services vpc-peerings list \
+  --network ${_common}-network \
+  --project ${_gc_pj_id}
+```
+
 ## Memcached Instance の作成
 
-TBD
++ 環境変数を設定しておく
+  + ここで MemCached の基本的なスペックを指定する
+
+```
+export _mem_node_region='asia-northeast1'
+export _mem_node_count='1'    ## 1 ~ 20
+export _mem_node_cpu='1'      ## vCPU
+export _mem_node_mem='1024'   ## MB
+export _mem_ver='1.6.15'      ## 1.5 or 1.6.15
+```
+
++ Memorystore for Memcached のインスタンスの作成
+
+```
+gcloud beta memcache instances create ${_common}-memcached \
+  --node-count ${_mem_node_count} \
+  --node-cpu ${_mem_node_cpu} \
+  --node-memory ${_mem_node_mem} \
+  --memcached-version ${_mem_ver} \
+  --region ${_mem_node_region} \
+  --authorized-network=projects/${_gc_pj_id}/global/networks/${_common}-network \
+  --reserved-ip-range-id ${_common}-psa \
+  --project ${_gc_pj_id}
+```
+
++ Memorystore for Memcached のインスタンスの確認
+
+```
+gcloud beta memcache instances list --region ${_mem_node_region} --project ${_gc_pj_id}
+
+または
+
+gcloud beta memcache instances describe ${_common}-memcached --region ${_mem_node_region} --project ${_gc_pj_id} --format json
+```
 
 ## 注意点
 
