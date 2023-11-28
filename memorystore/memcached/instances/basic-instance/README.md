@@ -35,9 +35,14 @@ gcloud compute addresses create ${_common}-psa \
   --project ${_gc_pj_id}
 ```
 
++ Private Connection の作成
 
 ```
-TBD
+gcloud services vpc-peerings connect \
+  --network ${_common}-network \
+  --service servicenetworking.googleapis.com \
+  --ranges ${_common}-pc \
+  --project ${_gc_pj_id}
 ```
 
 ## Memcached Instance の作成
