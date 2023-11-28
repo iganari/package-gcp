@@ -90,6 +90,54 @@ gcloud beta memcache instances list --region ${_mem_node_region} --project ${_gc
 gcloud beta memcache instances describe ${_common}-memcached --region ${_mem_node_region} --project ${_gc_pj_id} --format json
 ```
 
+## 99. クリーンアップ
+
+<details>
+<summary>99-1. Memcached のインスタンス削除</summary>
+
+```
+gcloud beta memcache instances delete ${_common}-memcached \
+  --region ${_mem_node_region} \
+  --project ${_gc_pj_id}
+```
+
+</details>
+
+
+<details>
+<summary>99-2. Private Connection の削除</summary>
+
+```
+gcloud beta services vpc-peerings delete \
+  --network ${_common}-network \
+  --service servicenetworking.googleapis.com \
+  --project ${_gc_pj_id}
+```
+
+</details>
+
+<details>
+<summary>99-3. Private Services Access の削除</summary>
+
+```
+gcloud beta compute addresses delete ${_common}-psa \
+  --global \
+  --project ${_gc_pj_id}
+```
+
+</details>
+
+<details>
+<summary>99-4. VPC Network の削除</summary>
+
+```
+gcloud beta compute networks delete ${_common}-network \
+  --project ${_gc_pj_id}
+```
+
+</details>
+
+
 ## 注意点
 
 紐づける VPC ネットワーク にて **Private Services Access が必要** になる
