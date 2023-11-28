@@ -40,8 +40,8 @@ gcloud compute addresses create ${_common}-psa \
 ```
 gcloud services vpc-peerings connect \
   --network ${_common}-network \
+  --ranges ${_common}-psa \
   --service servicenetworking.googleapis.com \
-  --ranges ${_common}-pc \
   --project ${_gc_pj_id}
 ```
 
