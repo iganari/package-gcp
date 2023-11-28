@@ -14,7 +14,9 @@ gcloud beta services enable redis.googleapis.com --project ${_gc_pj_id}
 
 ## コンテンツ
 
-[基本構築](./basic-instance/)
+### [基本的な構築方法](./basic-instance/)
+
+Memcached Instance の基礎構築の例
 
 ## 設定
 
