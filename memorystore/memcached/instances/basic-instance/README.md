@@ -18,4 +18,9 @@ TBD
 
 [公式ドキュメント | Private services access](https://cloud.google.com/vpc/docs/private-services-access?hl=en)
 
+<details>
+<summary>スクショ</summary>
+
 ![](./_img/psa.png)
+
+</details>
