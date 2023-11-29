@@ -89,11 +89,11 @@ gcloud beta redis instances create ${_common}-redis \
 + Memorystore for Redis のインスタンスの確認
 
 ```
-gcloud beta memcache instances list --region ${_instance_region} --project ${_gc_pj_id}
+gcloud beta redis instances list --region ${_instance_region} --project ${_gc_pj_id}
 
 または
 
-gcloud beta memcache instances describe ${_common}-redis --region ${{_instance_region} --project ${_gc_pj_id} --format json
+gcloud beta redis instances describe ${_common}-redis --region ${{_instance_region} --project ${_gc_pj_id} --format json
 ```
 
 ## 99. クリーンアップ
