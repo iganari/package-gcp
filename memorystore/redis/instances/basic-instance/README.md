@@ -101,7 +101,7 @@ gcloud beta redis instances describe ${_common}-redis --region ${_instance_regio
 WIP
 
 <details>
-<summary>99-1. Memcached のインスタンス削除</summary>
+<summary>99-1. Redis のインスタンス削除</summary>
 
 ```
 gcloud beta redis instances delete ${_common}-redis \
