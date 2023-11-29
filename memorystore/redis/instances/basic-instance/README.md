@@ -104,13 +104,12 @@ WIP
 <summary>99-1. Memcached のインスタンス削除</summary>
 
 ```
-gcloud beta memcache instances delete ${_common}-memcached \
-  --region ${_mem_node_region} \
+gcloud beta redis instances delete ${_common}-redis \
+  --region ${_instance_region} \
   --project ${_gc_pj_id}
 ```
 
 </details>
-
 
 <details>
 <summary>99-2. Private Connection の削除</summary>
