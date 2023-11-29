@@ -3,7 +3,7 @@
 
 
 ```
-export _gcp_pj_id='Your_GCP_Project_ID'
+export _gc_pj_id='Your　Google Cloud Project ID'
 export _common='pkg-gcp'
 export _region='asia-northeast1'
 ```
@@ -14,13 +14,17 @@ export _region='asia-northeast1'
 + VM に SSH し、コマンドを実行する
 
 ```
-gcloud compute ssh {_user}@${_vm_name} --zone ${_region}-b --project ${_gcp_pj_id} --command="ps -ejH"
+gcloud compute ssh {_user}@${_vm_name} --zone ${_region}-b --project ${_gc_pj_id} --command="ps -ejH"
 ```
 
 
 ## metadata
 
-WIP
++ VM Instance の中から Project ID を取得する
+
+```
+curl -H "Metadata-Flavor: Google" "http://metadata.google.internal/computeMetadata/v1/project/project-id"
+```
 
 ## ssh keys
 

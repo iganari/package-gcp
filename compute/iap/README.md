@@ -16,7 +16,7 @@ IAP 越しに外部 IP アドレスが無い GCE にログインします
 ※ GCP を操作できる Google アカウントが必要です
 
 ```
-export _gcp_pj_id='Your GCP Project ID'
+export _gc_pj_id='Your GCP Project ID'
 
 export _common='iap-test'
 export _region='asia-northeast1'
@@ -47,7 +47,7 @@ echo ${_your_gcp_account_name}
 ```
 gcloud beta compute networks create ${_common}-network \
   --subnet-mode=custom \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
 + サブネットの作成
@@ -58,7 +58,7 @@ gcloud beta compute networks subnets create ${_common}-subnets \
   --region ${_region} \
   --range ${_sub_network_range} \
   --enable-private-ip-google-access \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
 + Firewall Rule の作成
@@ -73,7 +73,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   --rules tcp:0-65535,udp:0-65535,icmp \
   --source-ranges ${_sub_network_range} \
   --priority=1000 \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 
 
 ### IAP からの SSH と ICMP を許可する
@@ -97,15 +97,15 @@ gcloud beta compute firewall-rules create ${_common}-allow-iap-rdp \
   --source-ranges=35.235.240.0/20 \
   --target-tags ${_common}-allow-iap-rdp \
   --priority=1010 \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
-+ Cloud NAT で使用する IP Address の予約
++ Cloud NAT で使用する外部 IP Address の予約
 
 ```
 gcloud beta compute addresses create ${_common}-nat-ip \
   --region ${_region} \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
 + Cloud NAT で使用する Cloud Router を作成
@@ -114,7 +114,7 @@ gcloud beta compute addresses create ${_common}-nat-ip \
 gcloud beta compute routers create ${_common}-nat-router \
   --network ${_common}-network \
   --region ${_region} \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
 + Cloud NAT の作成
@@ -125,7 +125,7 @@ gcloud beta compute routers nats create ${_common}-nat \
   --router ${_common}-nat-router \
   --nat-all-subnet-ip-ranges \
   --nat-external-ip-pool ${_common}-nat-ip \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
 </details>
@@ -140,13 +140,13 @@ gcloud beta compute routers nats create ${_common}-nat \
 ```
 gcloud beta iam service-accounts create ${_common} \
   --display-name ${_common} \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
 + [WIP] IAP を使用するための Role を付与
 
 ```
-# gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} \
+# gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
 #   --member=user:${_your_gcp_account} \
 #   --role=roles/iap.tunnelResourceAccessor
 ```
@@ -205,7 +205,7 @@ gcloud beta compute instances create ${_common}-win \
   --machine-type ${_vm_type} \
   --network-interface=subnet=${_common}-subnets,no-address \
   --tags=${_common}-allow-iap-rdp \
-  --service-account=${_common}@${_gcp_pj_id}.iam.gserviceaccount.com \
+  --service-account=${_common}@${_gc_pj_id}.iam.gserviceaccount.com \
   --scopes https://www.googleapis.com/auth/cloud-platform \
   --image-project=${_os_family} \
   --image=${_os_image} \
@@ -214,7 +214,7 @@ gcloud beta compute instances create ${_common}-win \
   --shielded-vtpm \
   --shielded-integrity-monitoring \
   --reservation-affinity=any \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
 </details>
@@ -231,12 +231,12 @@ gcloud beta compute instances create ${_common}-win \
 + gcloud コマンド経由で SSH ログインする
 
 ```
-gcloud beta compute ssh ${_your_gcp_account_name}@${_common}-linux --tunnel-through-iap --zone ${_zone} --project ${_gcp_pj_id}
+gcloud beta compute ssh ${_your_gcp_account_name}@${_common}-linux --tunnel-through-iap --zone ${_zone} --project ${_gc_pj_id}
 ```
 ```
 ### 例
 
-$ gcloud beta compute ssh ${_your_gcp_account_name}@${_common}-linux --tunnel-through-iap --zone ${_zone} --project ${_gcp_pj_id}
+$ gcloud beta compute ssh ${_your_gcp_account_name}@${_common}-linux --tunnel-through-iap --zone ${_zone} --project ${_gc_pj_id}
 
 Welcome to Ubuntu 22.04.1 LTS (GNU/Linux 5.15.0-1025-gcp x86_64)
 Last login: Fri Dec  2 23:30:07 2022 from 35.235.242.49

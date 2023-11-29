@@ -13,7 +13,7 @@ gcloud auth login --no-launch-browser -q
 ```
 ### Env
 
-export _gcp_pj_id='Your GCP Project ID'
+export _gc_pj_id='Your GCP Project ID'
 
 export _common='external-ip'
 export _region='asia-northeast1'
@@ -27,10 +27,23 @@ export _other_ip='Your other IP Address'
 + API を enable 化します
 
 ```
-gcloud beta services enable compute.googleapis.com --project ${_gcp_pj_id}
+gcloud beta services enable compute.googleapis.com --project ${_gc_pj_id}
 ```
 
-+ VPC Network の作成します
+## Service Account の作成
+
++ GCE Instance 用の SA の作成
+
+```
+gcloud beta iam service-accounts create ${_common}-sa-gce \
+  --description="for Package GCP" \
+  --display-name="${_common}-sa-gce" \
+  --project ${_gc_pj_id}
+```
+
+## ネットワークの作成
+
++ VPC Network の作成
 
 ```
 gcloud beta compute networks create ${_common}-network \
@@ -47,10 +60,10 @@ gcloud beta compute networks subnets create ${_common}-subnets \
   --region ${_region} \
   --range ${_sub_network_range} \
   --enable-private-ip-google-access \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
-+ Firewall
++ Firewall Rule の作成
 
 ```
 ### 内部通信
@@ -59,8 +72,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   --action ALLOW \
   --rules tcp:0-65535,udp:0-65535,icmp \
   --source-ranges ${_sub_network_range} \
-  --target-tags ${_common}-allow-internal-all \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 
 ### SSH
 gcloud beta compute firewall-rules create ${_common}-allow-ssh \
@@ -68,8 +80,8 @@ gcloud beta compute firewall-rules create ${_common}-allow-ssh \
   --action ALLOW \
   --rules tcp:22,icmp \
   --source-ranges ${_my_ip},${_other_ip} \
-  --target-tags ${_common}-allow-ssh \
-  --project ${_gcp_pj_id}
+  --source-service-accounts ${_common}-sa-gce@${_gc_pj_id}.iam.gserviceaccount.com \
+  --project ${_gc_pj_id}
 ```
 
 + IP Address の予約
@@ -77,17 +89,19 @@ gcloud beta compute firewall-rules create ${_common}-allow-ssh \
 ```
 gcloud beta compute addresses create ${_common}-ip \
   --region ${_region} \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
-+ VM Instance　のパブリックイメージの検索
+## GCE の作成
+
++ GCE Instance のパブリックイメージの検索
   + https://cloud.google.com/compute/docs/images
 
 ```
-gcloud beta compute images list --filter="name~'^ubuntu-minimal-.*?'" --project ${_gcp_pj_id}
+gcloud beta compute images list --filter="name~'^ubuntu-minimal-.*?'" --project ${_gc_pj_id}
 ```
 
-+ VM Instance　の作成
++ GCE Instance の作成
 
 ```
 export _os_project='ubuntu-os-cloud'
@@ -116,7 +130,7 @@ echo ${_account}
 ```
 
 ```
-gcloud beta compute ssh ${_account}@${_common}-vm --zone ${_zone} --project ${_gcp_pj_id}
+gcloud beta compute ssh ${_account}@${_common}-vm --zone ${_zone} --project ${_gc_pj_id}
 ```
 
 ---> これでログイン出来るはずです :)
