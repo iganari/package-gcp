@@ -93,7 +93,7 @@ gcloud beta redis instances list --region ${_instance_region} --project ${_gc_pj
 
 または
 
-gcloud beta redis instances describe ${_common}-redis --region ${{_instance_region} --project ${_gc_pj_id} --format json
+gcloud beta redis instances describe ${_common}-redis --region ${_instance_region} --project ${_gc_pj_id} --format json
 ```
 
 ## 99. クリーンアップ
