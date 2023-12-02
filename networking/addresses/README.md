@@ -47,3 +47,4 @@ gcloud beta compute addresses create mix-ip-addr \
   --global \
   --project ${_gc_pj_id}
 ```
+
