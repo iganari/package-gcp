@@ -9,6 +9,9 @@ Global external Application Load Balancer を CLI で作成する
 公式ドキュメント
 
 + https://cloud.google.com/iap/docs/load-balancer-howto#gcloud
++ https://cloud.google.com/load-balancing/docs/https/setup-global-ext-https-compute#gcloud
++ https://cloud.google.com/load-balancing/docs/https/setup-global-ext-https-buckets#gcloud
++ https://cloud.google.com/load-balancing/docs/https/setup-global-ext-https-external-backend#gcloud
 + https://cloud.google.com/load-balancing/docs/https/setup-global-ext-https-serverless#gcloud:-cloud-run
 
 ## 0. 準備
