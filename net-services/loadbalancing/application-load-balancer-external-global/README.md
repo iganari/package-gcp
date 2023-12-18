@@ -64,7 +64,8 @@ gcloud beta run services update ${_common} \
 
 ## ネットワークの作成
 
-+ IP アドレスの予約
++ 外部 IP アドレスの予約
+  + Global を使用
 
 ```
 gcloud beta compute addresses create ${_common}-alb \
