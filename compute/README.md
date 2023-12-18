@@ -37,3 +37,7 @@ curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/{me
 $ curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/vm-role" -H "Metadata-Flavor: Google"
 base
 ```
+
+## 外部 IP アドレスの変更方法
+
+https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address

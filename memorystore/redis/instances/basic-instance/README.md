@@ -60,7 +60,7 @@ gcloud beta services vpc-peerings list \
 ## Redis Instance の作成
 
 + 環境変数を設定しておく
-  + ここで MemCached の基本的なスペックを指定する
+  + ここで Redis の基本的なスペックを指定する
 
 ```
 export _instance_tier='basic'
