@@ -4,7 +4,7 @@
 
 外部 IP アドレスが無い VM Instance に IAP 越しに SSH ログインします
 
-![](./_img/main.png)
+![](../_img/main.png)
 
 + 参考 URL
   + [Setting up IAP for Compute Engine](https://cloud.google.com/iap/docs/tutorial-gce)
