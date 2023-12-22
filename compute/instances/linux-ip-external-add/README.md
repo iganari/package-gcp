@@ -66,7 +66,7 @@ gcloud beta compute networks subnets create ${_common}-subnets \
 + Firewall Rule の作成
 
 ```
-### 内部通信用
+### 内部通信は全て許可する
 gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   --network ${_common}-network \
   --action ALLOW \
@@ -80,7 +80,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-ssh \
   --action ALLOW \
   --rules tcp:22,icmp \
   --source-ranges ${_my_ip},${_other_ip} \
-  --source-service-accounts ${_common}-sa-gce@${_gc_pj_id}.iam.gserviceaccount.com \
+  --target-service-accounts ${_common}-sa@${_gc_pj_id}.iam.gserviceaccount.com \
   --project ${_gc_pj_id}
 ```
 
@@ -102,7 +102,7 @@ gcloud beta compute addresses create ${_common}-ip \
 gcloud beta compute images list --filter="name~'^ubuntu-minimal-.*?'" --project ${_gc_pj_id}
 ```
 
-+ VM Instance の作成
++ 環境変数を設定
 
 ```
 export _boot_project='ubuntu-os-cloud'
@@ -112,8 +112,10 @@ export _boot_size='30'
 export _machine_type='e2-small'
 export _vm_provisioning_model='STANDARD'   ### STANDARD/SPOT  <--- Spot VM
 export _maintenance_policy='MIGRATE'       ### MIGRATE/TERMINATE
-
 ```
+
++ VM Instance の作成
+
 ```
 gcloud beta compute instances create ${_common}-vm \
   --zone ${_zone} \

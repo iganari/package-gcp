@@ -184,6 +184,10 @@ gcloud beta compute ssh ${_account}@${_common}-vm \
   --tunnel-through-iap \
   --project ${_gc_pj_id}
 ```
+
+<details>
+<summary>実行例</summary>
+
 ```
 ### 例
 
@@ -225,8 +229,6 @@ applicable law.
 igarashi.toru@pkg-gcp-vm:~$
 ```
 
----> IAP 越しに パブリック IP アドレスが無い GCE( Linux ) に SSH ログインすることが出来ました :)
-
 + ping コマンドをインストールする
 
 ```
@@ -253,6 +255,10 @@ PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 rtt min/avg/max/mdev = 1.237/1.422/1.756/0.236 ms
 ```
 
+---> 外部 IP アドレスが無い VM Instance の中から外部のインターネットに対して、パッケージのアップデートと ping が疎通出来ました :)
+
+</details>
+
 ### 4-2. IAP Desktop で SSH ログインする
 
 [IAP Desktop の Connect to Linux VMs with SSH](https://github.com/GoogleCloudPlatform/iap-desktop/#connect-to-linux-vms-with-ssh) を使う
@@ -263,11 +269,6 @@ rtt min/avg/max/mdev = 1.237/1.422/1.756/0.236 ms
 ![](https://raw.githubusercontent.com/GoogleCloudPlatform/iap-desktop/master/doc/images/SSH_350.gif)
 
 </details>
-
-
----> 外部 IP アドレスが無い VM Instance の中から外部のインターネットに対して、パッケージのアップデートと ping が疎通出来ました :)
-
-
 
 ## 99. クリーンアップ
 
