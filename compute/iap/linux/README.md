@@ -272,7 +272,8 @@ rtt min/avg/max/mdev = 1.237/1.422/1.756/0.236 ms
 
 ## 99. クリーンアップ
 
-+ VM Instance の削除
+<details>
+<summary>99-1. VM Instance の削除</summary>
 
 ```
 gcloud beta compute instances delete ${_common}-vm \
@@ -281,7 +282,10 @@ gcloud beta compute instances delete ${_common}-vm \
   --quiet
 ```
 
-+ Cloud NAT の削除
+</details>
+
+<details>
+<summary>99-2. Cloud NAT の削除</summary>
 
 ```
 gcloud beta compute routers nats delete ${_common}-nat \
@@ -291,7 +295,10 @@ gcloud beta compute routers nats delete ${_common}-nat \
   --quiet
 ```
 
-+ Cloud Router の削除
+</details>
+
+<details>
+<summary>99-3. Cloud Router の削除</summary>
 
 ```
 gcloud beta compute routers delete ${_common}-nat-router \
@@ -300,7 +307,10 @@ gcloud beta compute routers delete ${_common}-nat-router \
   --quiet
 ```
 
-+ Cloud NAT 用の外部 IP アドレスを削除
+</details>
+
+<details>
+<summary>99-4. Cloud NAT 用の外部 IP アドレスを削除</summary>
 
 ```
 gcloud beta compute addresses delete ${_common}-nat-ip \
@@ -309,7 +319,10 @@ gcloud beta compute addresses delete ${_common}-nat-ip \
   --quiet
 ```
 
-+ Firewall Rule の削除
+</details>
+
+<details>
+<summary>99-5. Firewall Rule の削除</summary>
 
 ```
 ### 内部通信用
@@ -323,7 +336,10 @@ gcloud beta compute firewall-rules delete ${_common}-allow-iap-ssh \
   --quiet
 ```
 
-+ サブネットの削除
+</details>
+
+<details>
+<summary>99-6. サブネットの削除</summary>
 
 ```
 gcloud beta compute networks subnets delete ${_common}-subnets \
@@ -332,7 +348,10 @@ gcloud beta compute networks subnets delete ${_common}-subnets \
   --quiet
 ```
 
-+ VPC Network の削除
+</details>
+
+<details>
+<summary>99-7. VPC Network の削除</summary>
 
 ```
 gcloud beta compute networks delete ${_common}-network \
@@ -340,10 +359,15 @@ gcloud beta compute networks delete ${_common}-network \
   --quiet
 ```
 
-+ Service Account の削除
+</details>
+
+<details>
+<summary>99-8. Service Account の削除</summary>
 
 ```
 gcloud beta iam service-accounts delete ${_common}-sa@${_gc_pj_id}.iam.gserviceaccount.com \
   --project ${_gc_pj_id} \
   --quiet
 ```
+
+</details>
