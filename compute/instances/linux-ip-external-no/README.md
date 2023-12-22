@@ -1,3 +1,3 @@
-# 外部 IP アドレスが無い GCE
+# 外部 IP アドレスが無い VM instance
 
 [IAP](../../iap/) に移動しました
