@@ -5,6 +5,8 @@
 ### 2023
 
 + [ネットワーキング入門ガイド Google Cloud リファレンス シート 2023 v2: ネットワーキングの基本](https://cloud.google.com/blog/ja/products/networking/networking-101-google-cloud-reference-sheet-version-2)
++ [金融庁：職員による有志チームが会議日程調整アプリを内製開発し、各回 2 時間程度の工数削減に成功](https://cloud.google.com/blog/ja/topics/customers/fsa-in-house-development/)
++ [デジタル庁: 官公庁のガバメントクラウド利用申請システムを Cloud Run、Firestore でフル サーバーレスに実現](https://cloud.google.com/blog/ja/topics/customers/digital-go-jp-government-cloud-fully-serverless-with-cloud-run-and-firestore/)
 
 ### 2022
 + [Google Cloud のセキュリティの概要](https://cloud.google.com/blog/ja/topics/developers-practitioners/google-cloud-security-overview)

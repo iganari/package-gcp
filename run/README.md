@@ -146,6 +146,7 @@ https://cloud.google.com/sdk/gcloud/reference/run/deploy#--revision-suffix
   + [60 を超える Google Cloud ソースのイベントで Cloud Run をトリガーする](https://cloud.google.com/blog/ja/products/serverless/build-event-driven-applications-in-cloud-run)
   + [新しい CPU 割り当てコントロールにより Cloud Run 上でさらに多様なワークロードを実行](https://cloud.google.com/blog/ja/products/serverless/cloud-run-gets-always-on-cpu-allocation)
   + [Cloud Run を最大限使いこなすには](https://lp.cloudplatformonline.com/rs/808-GJW-314/images/App_Modernization_OnAir_q1_0217_Session.pdf)
+  + [Cloud Run でダイレクト VPC 下り（外向き）の提供を開始: パフォーマンス向上と費用削減を実現](https://cloud.google.com/blog/ja/products/serverless/announcing-direct-vpc-egress-for-cloud-run)
 + 他の記事
   + TBD
 
