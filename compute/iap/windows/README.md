@@ -1,10 +1,10 @@
-# IAP for TCP forwarding to Linux VM Instance
+# IAP for TCP forwarding to Windows Server VM Instance
 
 ## 概要
 
-外部 IP アドレスが無い Linux VM Instance に IAP 越しに SSH ログインします
+外部 IP アドレスが無い Windows Server VM Instance に IAP 越しに SSH ログインします
 
-![](../_img/main.png)
+![](./_img/main.png)
 
 + 参考 URL
   + [Setting up IAP for Compute Engine](https://cloud.google.com/iap/docs/tutorial-gce)
@@ -80,12 +80,12 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
   --project ${_gc_pj_id}
 
 
-### IAP からの SSH と ICMP を許可する (Linux の場合)
-gcloud beta compute firewall-rules create ${_common}-allow-iap-ssh \
+### IAP からの RDP と ICMP を許可する (Windows Serverの場合)
+gcloud beta compute firewall-rules create ${_common}-allow-iap-rdp \
   --network ${_common}-network \
   --direction=INGRESS \
   --action ALLOW \
-  --rules tcp:22,icmp \
+  --rules tcp:3389,icmp \
   --source-ranges=35.235.240.0/20 \
   --target-service-accounts ${_common}-sa@${_gc_pj_id}.iam.gserviceaccount.com \
   --priority=1010 \
@@ -127,15 +127,15 @@ gcloud beta compute routers nats create ${_common}-nat \
 
 ```
 ### 例: Ubuntu のイメージを探すコマンド
-gcloud beta compute images list --filter="name~'^ubuntu-minimal-.*?'" --project ${_gc_pj_id}
+gcloud beta compute images list --filter="name~'^windows-server-.*?'" --project ${_gc_pj_id}
 ```
 
 + 環境変数を設定
 
 ```
-export _boot_project='ubuntu-os-cloud'
-export _boot_image='ubuntu-minimal-2204-jammy-v20231213b'
-export _boot_size='30'
+export _boot_project='windows-cloud'
+export _boot_image='windows-server-2022-dc-v20231213'
+export _boot_size='50'
 
 export _machine_type='e2-small'
 export _vm_provisioning_model='STANDARD'   ### STANDARD/SPOT  <--- Spot VM
@@ -160,27 +160,41 @@ gcloud beta compute instances create ${_common}-vm \
   --project ${_gc_pj_id}
 ```
 
-## 4. VM instance にログインする
+## 4. VM instance に SSH ログインする
 
 作成した VM Instance に IAP 越しにログインします
 
-### 4-1. CLI で SSH ログインする
+### 4-1. RDP ログインする場合 〜Tunneling RDP connections〜
 
-+ アカウント名を取得
-
-```
-gcloud auth list --filter=status:ACTIVE --format="value(account)"
-
-export _account=$(gcloud auth list --filter=status:ACTIVE --format="value(account)" | awk -F\@ '{print $1}')
-echo ${_account}
-```
-
-+ VM instance に SSH ログインする
++ Windows Server の ID とパスワードを作る
 
 ```
-gcloud beta compute ssh ${_account}@${_common}-vm \
+gcloud beta compute reset-windows-password ${_common}-vm \
   --zone ${_zone} \
-  --tunnel-through-iap \
+  --user=iganari \
+  --project ${_gc_pj_id}
+```
+
+<details>
+<summary>実行例</summary>
+
+```
+### 例
+$ gcloud beta compute reset-windows-password ${_common}-win --zone ${_zone} --user=iganari --project ${_gcp_pj_id}
+
+password: ********    # <----- 本来は表示されます
+username: iganari
+```
+
+</details>
+
++ gcloud コマンドで、ローカル PC と VM Instance 間で TCP tunnel を作る
+  + 例) GCE Instance の 3389 ポートと localhost の 13389 を繋ぐ
+
+```
+gcloud beta compute start-iap-tunnel ${_common}-vm 3389 \
+  --local-host-port=localhost:13389 \
+  --zone ${_zone} \
   --project ${_gc_pj_id}
 ```
 
@@ -190,84 +204,41 @@ gcloud beta compute ssh ${_account}@${_common}-vm \
 ```
 ### 例
 
-$ gcloud beta compute ssh ${_account}@${_common}-vm \
+% gcloud beta compute start-iap-tunnel ${_common}-vm 3389 \
+  --local-host-port=localhost:13389 \
   --zone ${_zone} \
-  --tunnel-through-iap \
   --project ${_gc_pj_id}
 
-
-Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 6.2.0-1019-gcp x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-This system has been minimized by removing packages and content that are
-not required on a system that users do not log into.
-
-To restore this content, you can run the 'unminimize' command.
-
-Expanded Security Maintenance for Applications is not enabled.
-
-0 updates can be applied immediately.
-
-Enable ESM Apps to receive additional future security updates.
-See https://ubuntu.com/esm or run: sudo pro status
+Testing if tunnel connection works.
+Listening on port [13389].
 
 
-The list of available updates is more than a week old.
-To check for new updates run: sudo apt update
-
-The programs included with the Ubuntu system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
-applicable law.
-
-igarashi.toru@pkg-gcp-vm:~$
 ```
 
-+ ping コマンドをインストールする
++ terminal はこのままで Microsoft Remote Desktop から RDP 接続をする
 
-```
-sudo apt update
-sudo apt install iputils-ping
-```
+![](./img/win-01.png)
 
-+ 外部に接続出来るか確認する
+![](./img/win-02.png)
 
-```
-ping -c 3 8.8.8.8
-```
-```
-### 例
+![](./img/win-03.png)
 
-$ ping -c 3 8.8.8.8
-PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
-64 bytes from 8.8.8.8: icmp_seq=1 ttl=122 time=1.76 ms
-64 bytes from 8.8.8.8: icmp_seq=2 ttl=122 time=1.24 ms
-64 bytes from 8.8.8.8: icmp_seq=3 ttl=122 time=1.27 ms
-
---- 8.8.8.8 ping statistics ---
-3 packets transmitted, 3 received, 0% packet loss, time 2003ms
-rtt min/avg/max/mdev = 1.237/1.422/1.756/0.236 ms
-```
-
----> 外部 IP アドレスが無い VM Instance の中から外部のインターネットに対して、パッケージのアップデートと ping が疎通出来ました :)
+---> IAP 越しに外部 IP アドレスが無い VM Instance (Windows Server) に RDP ログインすることが出来ました :)
 
 </details>
 
-### 4-2. IAP Desktop で SSH ログインする
-
-[IAP Desktop の Connect to Linux VMs with SSH](https://github.com/GoogleCloudPlatform/iap-desktop/#connect-to-linux-vms-with-ssh) を使う
+### 4-2. Windows Server の GCE インスタンスに RDP ログインする場合 〜IAP Desktop〜
 
 <details>
-<summary>スクリーンショット</summary>
+<summary>Details</summary>
 
-![](https://raw.githubusercontent.com/GoogleCloudPlatform/iap-desktop/master/doc/images/SSH_350.gif)
+[IAP Desktop の Connect to Windows VMs with Remote Desktop](https://github.com/GoogleCloudPlatform/iap-desktop/#connect-to-windows-vms-with-remote-desktop) を使う
+
+
+![](https://raw.githubusercontent.com/GoogleCloudPlatform/iap-desktop/master/doc/images/RemoteDesktop_350.gif)
 
 </details>
+
 
 ## まとめ
 
@@ -338,7 +309,7 @@ gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
   --quiet
 
 ### SSH 用
-gcloud beta compute firewall-rules delete ${_common}-allow-iap-ssh \
+gcloud beta compute firewall-rules delete ${_common}-allow-iap-rdp \
   --project ${_gc_pj_id} \
   --quiet
 ```
