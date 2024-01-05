@@ -13,3 +13,7 @@ gcloud auth login
 ```
 WIP
 ```
+
+## Tipe
+
+[Google Cloud の組織全体を見渡したい時に持っておくと良い Role 一覧](../cloud-resource-manager/README.md)
