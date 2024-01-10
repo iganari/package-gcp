@@ -10,4 +10,24 @@ https://github.com/iganari/handson-serverless-neg
 
 ### CLI
 
-TBD
++ 基本形
+
+```
+gcloud beta compute network-endpoint-groups create {{ serverless-neg-name }} \
+  --region {{ region }} \
+  --network-endpoint-type SERVERLESS \
+  --cloud-run-service {{ run_service }} \
+  --project {{ Google Cloud Project ID }}
+```
+
++ Tag を指定
+  + `--cloud-run-tag` で Cloud Run の特定のリビジョンに付与したタグを指定する
+
+```
+gcloud beta compute network-endpoint-groups create {{ serverless-neg-name }} \
+  --region {{ region }} \
+  --network-endpoint-type SERVERLESS \
+  --cloud-run-service {{ run_service }} \
+  --cloud-run-tag hogehoge \
+  --project {{ Google Cloud Project ID }}
+```
