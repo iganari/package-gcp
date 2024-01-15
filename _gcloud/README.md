@@ -11,7 +11,7 @@
 ## 準備
 
 ```
-export _gc_pj_id="Your GCP Project ID"
+export _gc_pj_id="Your Google Cloud Project ID"
 ```
 
 ## インストール方法
@@ -23,6 +23,20 @@ export _gc_pj_id="Your GCP Project ID"
 最新版をサクッとインストールしたい場合は -> [Using the Google Cloud CLI installer](https://cloud.google.com/sdk/docs/downloads-interactive)
 
 GCE の場合はデフォルトでインストールされている。その場合は apt の外部リポジトリのみ入れておくよい。 ---> 例 [pkg-gcp | kubernetes](https://github.com/iganari/package-gcp/tree/main/kubernetes)
+
+## Dcoker を用いた環境
+
+---> 最新の TAG を確認したい場合は https://hub.docker.com/r/google/cloud-sdk/tags を見る
+
+```
+docker run -it --rm google/cloud-sdk:latest /bin/bash
+```
+```
+### 例
+
+$ docker run -it --rm google/cloud-sdk:latest /bin/bash
+root@dbbe699e6698:/#
+```
 
 ## auth
 

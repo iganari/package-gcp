@@ -11,6 +11,7 @@
 + [あらゆるニーズに応えるサーバーレス: Cloud Run ジョブと第 2 世代の実行環境が一般提供に](https://cloud.google.com/blog/ja/products/serverless/cloud-run-jobs-and-second-generation-execution-environment-ga)
 
 ### 2022
+
 + [Google Cloud のセキュリティの概要](https://cloud.google.com/blog/ja/topics/developers-practitioners/google-cloud-security-overview)
 
 ### 2021
@@ -35,4 +36,3 @@
 ## 有用なブログ
 
 [GCP の細かすぎて伝わらないハイブリッドネットワーキング](https://medium.com/google-cloud-jp/gcp-の細かすぎて伝わらないハイブリッドネットワーキング-14ed12ebe84d)
-
