@@ -13,6 +13,8 @@
 ### 2022
 
 + [Google Cloud のセキュリティの概要](https://cloud.google.com/blog/ja/topics/developers-practitioners/google-cloud-security-overview)
++ [Google Cloud の新しくなったホームページのご紹介](https://cloud.google.com/blog/ja/topics/developers-practitioners/introducing-new-homepage-google-cloud)
+  + ここで Google Cloud への名称変更の話も出てくる
 
 ### 2021
 
