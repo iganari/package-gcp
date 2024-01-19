@@ -78,3 +78,6 @@ https://hogehoge.an.r.appspot.com/
 ```
 https://hogehoge.an.r.appspot.com/_gcp_iap/clear_login_cookie
 ```
+
+
+認証情報にて test と production は違いがある
