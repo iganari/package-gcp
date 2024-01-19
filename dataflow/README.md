@@ -9,7 +9,12 @@
 
 ### クイックスタート
 
-https://cloud.google.com/dataflow?hl=ja
+https://cloud.google.com/dataflow?hl=ja にある
+
+スキルブースト
+
+https://www.cloudskillsboost.google/course_templates/218
+
 
 ### ユースケース
 
