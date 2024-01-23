@@ -16,6 +16,9 @@ Google Cloud Project は `組織` の直下、もしくは `フォルダ` の配
 
 [Creating and managing Folders (フォルダの作成と管理)](https://cloud.google.com/resource-manager/docs/creating-managing-folders)
 
+
+[Google Cloud ランディング ゾーンのリソース階層を決定する](https://cloud.google.com/architecture/landing-zones/decide-resource-hierarchy)
+
 ![](https://cloud.google.com/resource-manager/img/cloud-folders-hierarchy.png)
 
 ## 注意点
