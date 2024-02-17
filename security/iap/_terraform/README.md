@@ -27,4 +27,7 @@ Google Cloud の OAuth 2.0 Client IDs が API 経由で作成が出来ないた�
 https://iap.googleapis.com/v1/oauth/clientIds/{{ Client ID }}:handleRedirect
 ```
 
-スクショ
+![](./_img/02-01.png)
+
+![](./_img/02-02.png)
+
