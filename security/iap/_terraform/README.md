@@ -42,3 +42,23 @@ https://iap.googleapis.com/v1/oauth/clientIds/{{ Client ID }}:handleRedirect
 ![](./_img/02-03.png)
 
 </details>
+
+## 3. Terrafor で以下の設定を Backend Service にて追加
+
++ 以下が必要
+  + Client ID
+  + Client sercret
+
+```
+resource "google_compute_backend_service" "default" {
+  name                  = "tf-test-backend-service-external"
+  protocol              = "HTTP"
+  load_balancing_scheme = "EXTERNAL"
+  iap {
+    oauth2_client_id     = "abc"
+    oauth2_client_secret = "xyz"
+  }
+}
+```
+
+https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#example-usage---backend-service-external-iap
