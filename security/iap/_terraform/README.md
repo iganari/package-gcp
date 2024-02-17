@@ -6,7 +6,13 @@ Google Cloud の OAuth 2.0 Client IDs が API 経由で作成が出来ないた�
 
 ## 1. Cloud Console で OAuth 2.0 Client IDs を作成
 
- Web application
+`Web application` を指定して Client ID を作成
+
+![](./_img/01-01.png)
+
+![](./_img/01-02.png)
+
+![](./_img/01-03.png)
 
 
 ## 2. 作成した ID を修正
