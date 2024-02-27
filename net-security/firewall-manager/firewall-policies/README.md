@@ -25,7 +25,7 @@ default-allow-ssh | Ingress | Apply to all | IP ranges: 0.0.0.0/0 | tcp:22 | All
 ## 命名規則例
 
 ```
-{{ VPC ネットワーク名 }}-{{ allow/deny }}-{{ ingress/egress }}-{{ ports(分かりやすい形) }}
+{{ VPC ネットワーク名 }}-{{ allow/deny }}-{{ ingress/egress/internal }}-{{ ports(分かりやすい形) }}
 ```
 
 がいいと思う
