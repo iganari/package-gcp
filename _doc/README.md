@@ -37,6 +37,11 @@ https://cloud.google.com/blog/ja/topics/onair/cloud-onair-20200326
 https://www.youtube.com/watch?v=ehqpc9vynDg
 ```
 
+## モニタリング
+
++ Google Cloud のオペレーション スイートの概要
+  + https://cloud.google.com/blog/ja/topics/developers-practitioners/introduction-google-clouds-operations-suite
+
 ## コンプライアンス
 
 + https://business.safety.google/intl/ja/compliance/
