@@ -53,6 +53,11 @@ Google Cloud でワークロードをビルドまたは移行するためのリ�
 
 + [コンテナ運用のベスト プラクティス](https://cloud.google.com/architecture/best-practices-for-operating-containers?hl=en)
 
+## [学習プログラム](https://cloud.google.com/learn/?hl=en)
+
++ PaaS、IaaS、SaaS、CaaS の違い
+  + https://cloud.google.com/learn/paas-vs-iaas-vs-saas?hl=en
+
 ## 整理中
 
 + [Google Cloud セキュリティ ベスト プラクティス センター](https://cloud.google.com/security/best-practices)
