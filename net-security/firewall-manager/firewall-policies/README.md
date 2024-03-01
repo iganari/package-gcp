@@ -1,10 +1,21 @@
 # VPC firewall rules
 
+## 予約されている IP アドレスレンジ
 
+### IAP
 
++ `35.235.240.0/20`
 
+https://cloud.google.com/iap/docs/using-tcp-forwarding?hl=en
 
+### Load Balancer
 
++ `35.191.0.0/16`
++ `130.211.0.0/22`
++ `209.85.152.0/22`
++ `209.85.204.0/22`
+
+https://cloud.google.com/load-balancing/docs/health-check-concepts?hl=en#ip-ranges
 
 ## default の Firewall Rule の話
 
