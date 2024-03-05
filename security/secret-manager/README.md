@@ -2,7 +2,7 @@
 
 ## 概要
 
-Cloud Secret Manager ( 以下、 CMS ) は機密データを GCP 内に保存することが出来、適宜取り出して使用することが出来る
+Cloud Secret Manager (以下、 CMS) は機密データを Google Cloud Project 内に保存することが出来、適宜取り出して使用することが出来る
 
 アクセス権などは IAM で管理される
 
@@ -12,13 +12,13 @@ https://cloud.google.com/secret-manager/docs/overview
 
 ## CMS の API の有効化
 
-+ 環境変数に GCP Project をいれておく
++ 環境変数に Google Cloud Project をいれておく
 
 ```
-export _gc_pj_id='Your GCP Project ID'
+export _gc_pj_id='Your Google Cloud Project ID'
 ```
 
-+ GCP Project 内における API の有効化
++ Google Cloud Project 内における API の有効化
   + `secretmanager.googleapis.com`
 
 ```
