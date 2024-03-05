@@ -15,14 +15,14 @@ https://cloud.google.com/secret-manager/docs/overview
 + 環境変数に GCP Project をいれておく
 
 ```
-export _gcp_pj_id='Your GCP Project ID'
+export _gc_pj_id='Your GCP Project ID'
 ```
 
 + GCP Project 内における API の有効化
   + `secretmanager.googleapis.com`
 
 ```
-gcloud beta services enable secretmanager.googleapis.com --project ${_gcp_pj_id}
+gcloud beta services enable secretmanager.googleapis.com --project ${_gc_pj_id}
 ```
 
 ## 新規で secret を作成する
@@ -31,25 +31,25 @@ gcloud beta services enable secretmanager.googleapis.com --project ${_gcp_pj_id}
   + echo をリダイレクトさせる
 
 ```
-echo -n "this is my super secret data" | gcloud beta secrets create secret-hirabun --data-file=- --project ${_gcp_pj_id}
+echo -n "this is my super secret data" | gcloud beta secrets create secret-hirabun --data-file=- --project ${_gc_pj_id}
 ```
 
 + ファイルの場合
 
 ```
 echo -n 'this is my super secret data in file' > /tmp/secret
-gcloud beta secrets create secret-file --data-file=/tmp/secret --project ${_gcp_pj_id}
+gcloud beta secrets create secret-file --data-file=/tmp/secret --project ${_gc_pj_id}
 ```
 
 ## secret のリストの確認
 
 ```
-gcloud beta secrets list --project ${_gcp_pj_id}
+gcloud beta secrets list --project ${_gc_pj_id}
 ```
 ```
 ### Ex.
 
-# gcloud beta secrets list --project ${_gcp_pj_id}
+# gcloud beta secrets list --project ${_gc_pj_id}
 NAME            CREATED              REPLICATION_POLICY  LOCATIONS
 secret-file     2021-11-04T05:36:08  automatic           -
 secret-hirabun  2021-11-04T05:32:08  automatic           -
@@ -60,12 +60,12 @@ secret-hirabun  2021-11-04T05:32:08  automatic           -
 + `secret-hirabun` のバージョンを確認する
 
 ```
-gcloud beta secrets versions list secret-hirabun --project ${_gcp_pj_id}
+gcloud beta secrets versions list secret-hirabun --project ${_gc_pj_id}
 ```
 ```
 ### 例
 
-# gcloud beta secrets versions list secret-hirabun --project ${_gcp_pj_id}
+# gcloud beta secrets versions list secret-hirabun --project ${_gc_pj_id}
 NAME  STATE    CREATED              DESTROYED
 1     enabled  2021-11-04T05:32:10  -
 ```
@@ -76,12 +76,12 @@ NAME  STATE    CREATED              DESTROYED
   + 上記で確認したバージョンも必要になる
 
 ```
-gcloud beta secrets versions access 1 --secret secret-hirabun --project ${_gcp_pj_id}
+gcloud beta secrets versions access 1 --secret secret-hirabun --project ${_gc_pj_id}
 ```
 ```
 ### 例
 
-# gcloud beta secrets versions access 1 --secret secret-hirabun --project ${_gcp_pj_id}
+# gcloud beta secrets versions access 1 --secret secret-hirabun --project ${_gc_pj_id}
 this is my super secret data
 ```
 
@@ -89,12 +89,12 @@ this is my super secret data
   + 上記で確認したバージョンも必要になる
 
 ```
-gcloud beta secrets versions access 1 --secret secret-file --project ${_gcp_pj_id}
+gcloud beta secrets versions access 1 --secret secret-file --project ${_gc_pj_id}
 ```
 ```
 ### 例
 
-# gcloud beta secrets versions access 1 --secret secret-file --project ${_gcp_pj_id}
+# gcloud beta secrets versions access 1 --secret secret-file --project ${_gc_pj_id}
 this is my super secret data in file
 ```
 
@@ -103,13 +103,13 @@ this is my super secret data in file
 + `secret-hirabun` を削除
 
 ```
-gcloud beta secrets delete secret-hirabun --project ${_gcp_pj_id}
+gcloud beta secrets delete secret-hirabun --project ${_gc_pj_id}
 ```
 
 + `secret-file` を削除
 
 ```
-gcloud beta secrets delete secret-file --project ${_gcp_pj_id}
+gcloud beta secrets delete secret-file --project ${_gc_pj_id}
 ```
 
 ## 他に出来ること
