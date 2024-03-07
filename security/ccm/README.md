@@ -19,6 +19,8 @@ certificatemanager.googleapis.com
 + Cloud Console からは作成出来ない (2024/03 現在)
 + Wildcard Certificate を目的で使いたい場合は、 Google が作ってくれるわけではなく、他の購入した Wildcard Certificate をセルフ証明書として使えるというだけ。
 
+![](./_img/ccm-01.png)
+
 
 削除は出来る ??
 
