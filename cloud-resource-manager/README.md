@@ -16,6 +16,9 @@ Google Cloud Project は `組織` の直下、もしくは `フォルダ` の配
 
 [Creating and managing Folders (フォルダの作成と管理)](https://cloud.google.com/resource-manager/docs/creating-managing-folders)
 
+
+[Google Cloud ランディング ゾーンのリソース階層を決定する](https://cloud.google.com/architecture/landing-zones/decide-resource-hierarchy)
+
 ![](https://cloud.google.com/resource-manager/img/cloud-folders-hierarchy.png)
 
 ## 注意点
@@ -211,3 +214,4 @@ Organization Role Viewer (組織のロール閲覧者) | **roles/iam.organizatio
 Folder Viewer (フォルダ閲覧者) | **roles/resourcemanager.folderViewer** | Resource Manager | [リンク](https://cloud.google.com/iam/docs/understanding-roles#resourcemanager.folderViewer)
 Security Reviewer (セキュリティ審査担当者) | **roles/iam.securityReviewer** | IAM | [リンク](https://cloud.google.com/iam/docs/understanding-roles#iam.securityReviewer)
 Viewer (閲覧者) | | Project | [リンク](https://cloud.google.com/iam/docs/understanding-roles#viewer)
+Quota Viewer (割り当て閲覧者) | **roles/servicemanagement.quotaViewer** | Service Management | [リンク](https://cloud.google.com/iam/docs/understanding-roles#servicemanagement.quotaViewer)

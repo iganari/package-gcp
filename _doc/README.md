@@ -37,6 +37,11 @@ https://cloud.google.com/blog/ja/topics/onair/cloud-onair-20200326
 https://www.youtube.com/watch?v=ehqpc9vynDg
 ```
 
+## モニタリング
+
++ Google Cloud のオペレーション スイートの概要
+  + https://cloud.google.com/blog/ja/topics/developers-practitioners/introduction-google-clouds-operations-suite
+
 ## コンプライアンス
 
 + https://business.safety.google/intl/ja/compliance/
@@ -52,6 +57,11 @@ https://www.youtube.com/watch?v=ehqpc9vynDg
 Google Cloud でワークロードをビルドまたは移行するためのリファレンス アーキテクチャ、図、設計パターン、ガイダンス、ベスト プラクティスがある
 
 + [コンテナ運用のベスト プラクティス](https://cloud.google.com/architecture/best-practices-for-operating-containers?hl=en)
+
+## [学習プログラム](https://cloud.google.com/learn/?hl=en)
+
++ PaaS、IaaS、SaaS、CaaS の違い
+  + https://cloud.google.com/learn/paas-vs-iaas-vs-saas?hl=en
 
 ## 整理中
 
