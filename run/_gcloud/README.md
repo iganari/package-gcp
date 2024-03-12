@@ -83,3 +83,42 @@ $ gcloud beta run revisions delete ${_run_revision_name} \
 Deleting [hogehogerun-b9cc30f]...done.
 Deleted revision [hogehogerun-b9cc30f]
 ```
+
+## ケース1
+
++ 条件
+  + tag は一切使っていない場合
+
++ 全てのリビジョンを取得
+
+```
+export _gc_pj_id='Your Google Cloud Project'
+export _region='Your Cloud Run Region'
+export _run_service='Your Cloud Run Service Name'
+
+
+gcloud beta run revisions list \
+  --service ${_run_service} \
+  --region ${_region} \
+  --project ${_gc_pj_id} \
+  --format json | \
+  jq -r .[].metadata.name
+```
+
++ 不要なリビジョンをすべて削除
+  + やや強引
+  + TODO: jq でもっとスマートに書きなしたい
+
+```
+for i in `gcloud beta run revisions list \
+  --service ${_run_service} \
+  --region ${_region} \
+  --project ${_gc_pj_id} | \
+  grep -v "yes" | \
+  awk 'NR>=2 {print $2}'` ;\
+  do gcloud beta run revisions delete ${i} --region ${_region} --platform managed --project ${_gc_pj_id} --quiet ;\
+  done
+```
+
+
+
