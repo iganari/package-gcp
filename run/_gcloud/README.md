@@ -119,6 +119,39 @@ for i in `gcloud beta run revisions list \
   do gcloud beta run revisions delete ${i} --region ${_region} --platform managed --project ${_gc_pj_id} --quiet ;\
   done
 ```
+```
+### 例
+
+$ for i in `gcloud beta run revisions list \
+  --service ${_run_service} \
+  --region ${_region} \
+  --project ${_gc_pj_id} | \
+  grep -v "yes" | \
+  awk 'NR>=2 {print $2}'` ;\
+  do gcloud beta run revisions delete ${i} --region ${_region} --platform managed --project ${_gc_pj_id} --quiet ;\
+  done
+Deleting [hogehogerun-00008-k9t]...done.
+Deleted revision [hogehogerun-00008-k9t].
+Deleting [hogehogerun-00007-2b7]...done.
+Deleted revision [hogehogerun-00007-2b7].
+Deleting [hogehogerun-00006-mtb]...done.
+Deleted revision [hogehogerun-00006-mtb].
+Deleting [hogehogerun-00005-7d7]...done.
+Deleted revision [hogehogerun-00005-7d7].
+Deleting [hogehogerun-00004-b4c]...done.
+Deleted revision [hogehogerun-00004-b4c].
+Deleting [hogehogerun-00003-42f]...done.
+Deleted revision [hogehogerun-00003-42f].
+Deleting [hogehogerun-00002-jgq]...done.
+Deleted revision [hogehogerun-00002-jgq].
+
+
+```
+
+
+
+
+
 
 
 
