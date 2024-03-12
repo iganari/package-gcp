@@ -32,12 +32,23 @@ gcloud beta run revisions list --service ${_run_service} --region ${_region} --p
 + リビジョン名のみを抜き出す
 
 ```
-gcloud beta run revisions list --service ${_run_service} --region ${_region} --project ${_gc_pj_id} --format json | jq -r .[].metadata.name
+gcloud beta run revisions list \
+  --service ${_run_service} \
+  --region ${_region} \
+  --project ${_gc_pj_id} \
+  --format json | \
+  jq -r .[].metadata.name
 ```
 ```
 ### 例
 
-$ gcloud beta run revisions list --service ${_run_service} --region ${_region} --project ${_gc_pj_id} --format json | jq -r .[].metadata.name
+$ gcloud beta run revisions list \
+  --service ${_run_service} \
+  --region ${_region} \
+  --project ${_gc_pj_id} \
+  --format json | \
+  jq -r .[].metadata.name
+
 hogehogerun-00009-xj5
 hogehogerun-00008-k9t
 hogehogerun-00007-2b7
