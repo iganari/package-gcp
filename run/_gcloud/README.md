@@ -73,3 +73,13 @@ gcloud beta run revisions delete ${_run_revision_name} \
   --project ${_gc_pj_id} \
   --quiet
 ```
+```
+$ gcloud beta run revisions delete ${_run_revision_name} \
+  --region ${_region} \
+  --platform managed \
+  --project ${_gc_pj_id} \
+  --quiet
+
+Deleting [hogehogerun-b9cc30f]...done.
+Deleted revision [hogehogerun-b9cc30f]
+```
