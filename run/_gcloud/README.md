@@ -59,3 +59,17 @@ hogehogerun-00003-42f
 hogehogerun-00002-jgq
 hogehogerun-b9cc30f
 ```
+
++ 特定のリビジョンを削除する
+  + Cloud Run の Service 名は不要
+
+```
+export _run_revision_name='削除したい Revision Name'
+
+
+gcloud beta run revisions delete ${_run_revision_name} \
+  --region ${_region} \
+  --platform managed \
+  --project ${_gc_pj_id} \
+  --quiet
+```
