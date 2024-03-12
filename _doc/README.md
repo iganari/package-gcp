@@ -12,6 +12,10 @@ GitHub | Google APIs
 https://github.com/googleapis
 ```
 
+## Google Cloud のサービス一覧
+
+https://cloud.google.com/products?hl=en#featured-products/
+
 ## セキュリティ
 
 + Google Cloud セキュリティ ホワイトペーパー
