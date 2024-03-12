@@ -89,20 +89,34 @@ Deleted revision [hogehogerun-b9cc30f]
 + 条件
   + tag は一切使っていない場合
 
-+ 全てのリビジョンを取得
++ 環境変数を設定
 
 ```
 export _gc_pj_id='Your Google Cloud Project'
 export _region='Your Cloud Run Region'
 export _run_service='Your Cloud Run Service Name'
+```
 
++ 全てのリビジョンを取得
 
+```
 gcloud beta run revisions list \
   --service ${_run_service} \
   --region ${_region} \
   --project ${_gc_pj_id} \
   --format json | \
   jq -r .[].metadata.name
+```
+
++ 非アクティブなリビジョンのリストを表示
+
+```
+gcloud beta run revisions list \
+  --service ${_run_service} \
+  --region ${_region} \
+  --project ${_gc_pj_id} | \
+  grep -v "yes" | \
+  awk 'NR>=2 {print $2}'
 ```
 
 + 不要なリビジョンをすべて削除
