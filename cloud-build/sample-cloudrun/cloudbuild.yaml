@@ -1,0 +1,61 @@
+steps:
+ - id: "Build Container Image to Artifact Registry"
+   name: "gcr.io/cloud-builders/docker"
+   entrypoint: bash
+   args:
+     - -c
+     - |
+      docker build --no-cache --build-arg _DOMAIN=example.com --tag=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_RUN_SERVICE_NAME}/${_RUN_SERVICE_NAME}:${COMMIT_SHA} .
+      docker build            --build-arg _DOMAIN=example.com --tag=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_RUN_SERVICE_NAME}/${_RUN_SERVICE_NAME}:latest .
+      docker push ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_RUN_SERVICE_NAME}/${_RUN_SERVICE_NAME}:${COMMIT_SHA}
+      docker push ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_RUN_SERVICE_NAME}/${_RUN_SERVICE_NAME}:latest
+
+  - id: "Deploy Container Image to Cloud Run"
+    name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gcloud beta run deploy ${_RUN_SERVICE_NAME} \
+          --platform managed \
+          --network ${_RUN_SERVICE_NETWORK} \
+          --subnet ${_RUN_SERVICE_SUBNET} \
+          --region ${_REGION} \
+          --cpu ${_RESOURCE_CPU} \
+          --memory ${_RESOURCE_MEM} \
+          --concurrency ${_RESOURCE_CONCURRENCY} \
+          --image ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_RUN_SERVICE_NAME}/${_RUN_SERVICE_NAME}:${COMMIT_SHA} \
+          --port ${_RUN_SERVICE_PORT} \
+          --set-env-vars=appenv=${_APP_ENV}, \
+          --ingress ${_INGRESS_TRAFFIC} \
+          --vpc-egress ${_VPC_EGRESS} \
+          --allow-unauthenticated \
+          --min-instances ${_RUN_SERVICE_MIN_SCALE} \
+          --max-instances ${_RUN_SERVICE_MAX_SCALE} \
+          --service-account ${_SERVICE_ACCOUNT} \
+          --project ${PROJECT_ID} \
+          --quiet
+
+images:
+  - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_RUN_SERVICE_NAME}/${_RUN_SERVICE_NAME}
+logsBucket: "gs://${PROJECT_ID}-cloudbuildlog"
+
+substitutions:
+  _REGION: "asia-northeast1"
+  _RUN_SERVICE_NETWORK: "_my_vpc_network"
+  _RUN_SERVICE_SUBNET: "_my_subnet"
+  _RUN_SERVICE_NAME: "_my_service_name"
+  _RUN_SERVICE_REGION: "asia-northeast1"
+  _RUN_SERVICE_PORT: "8080"
+  # _RUN_SERVICE_MIN_SCALE: 'この値はこのファイルの中ではなく、 Cloud Console 上で設定してください( 例: 1 )'
+  # _RUN_SERVICE_MAX_SCALE: 'この値はこのファイルの中ではなく、 Cloud Console 上で設定してください( 例: 5 )'
+  _CONTAINER_IMAGE_NAME: "${_RUN_SERVICE_NAME}"
+  _INGRESS_TRAFFIC: "internal-and-cloud-load-balancing" ## Only `all` or `internal` or `internal-and-cloud-load-balancing`
+  _VPC_EGRESS: "private-ranges-only" ## Only `all` or `all-traffic` or `private-ranges-only`
+  _SERVICE_ACCOUNT: "sa-sample@${PROJECT_ID}.iam.gserviceaccount.com"
+  _DOMAIN: "example.com"
+  _APP_ENV: "dev"
+  # _RESOURCE_CPU: 'この値はこのファイルの中ではなく、 Cloud Console 上で設定してください( 例: 1000m )'
+  # _RESOURCE_MEM: 'この値はこのファイルの中ではなく、 Cloud Console 上で設定してください( 例: 2Gi )'
+  # _RESOURCE_CONCURRENCY: 'この値はこのファイルの中ではなく、 Cloud Console 上で設定してください( 例: 80 )'
+  # _APP_ENV: 'この値はこのファイルの中ではなく、 Cloud Console 上で設定してください'
