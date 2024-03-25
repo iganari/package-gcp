@@ -6,4 +6,7 @@ TBD
 
 ## 有効化
 
-スクリーンショット
+### hoge
+
+![](./_img/scc-activation-01.png)
+
