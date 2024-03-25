@@ -18,15 +18,24 @@ TBD
 <details>
 <summary>02. Standard Tier を選択します</summary>
 
-### 02. Standard Tier を選択します
+### 02. Standard Service Tier を選択します
+
+Service Tier については ---> https://cloud.google.com/security-command-center/docs/concepts-security-command-center-overview
 
 ![](./_img/scc-activation-02.png)
 
 </details>
 
-### 03. hoge
+<details>
+<summary>03. 有効化するサービス/無効化するサービスを選択します</summary>
+
+### 03. 有効化するサービス/無効化するサービスを選択します
+
+:warning: デフォルトで有料サービスが ON になっているので、しっかり OFF にしましょう
 
 ![](./_img/scc-activation-03.png)
+
+</details>
 
 ### 04. hoge
 
