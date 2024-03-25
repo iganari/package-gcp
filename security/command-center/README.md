@@ -4,7 +4,7 @@
 
 TBD
 
-## 有効化
+## Standard Service Tier の設定方法
 
 <details>
 <summary>01. Security Command Center のページに行きます</summary>
@@ -37,15 +37,29 @@ Service Tier については ---> https://cloud.google.com/security-command-cent
 
 </details>
 
-### 04. hoge
+<details>
+<summary>04. Security Command Center を実行するための Service Account に必要な Role を付与します</summary>
+
+### 04. Security Command Center を実行するための Service Account に必要な Role を付与します
 
 ![](./_img/scc-activation-04.png)
 
-### 05. hoge
+</details>
+
+<details>
+<summary>05. Security Command Center を実行するための Service Account に必要な Role の付与が完了したことを確認しました</summary>
+
+### 05. Security Command Center を実行するための Service Account に必要な Role の付与が完了したことを確認しました
 
 ![](./_img/scc-activation-05.png)
 
-### 06. hoge
+</details>
+
+<details>
+<summary>06. 設定完了しました</summary>
+
+### 06. 設定完了しました
 
 ![](./_img/scc-activation-06.png)
 
+</details>
