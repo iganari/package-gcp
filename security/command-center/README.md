@@ -6,13 +6,23 @@ TBD
 
 ## 有効化
 
-### 01. hoge
+<details>
+<summary>01. Security Command Center のページに行きます</summary>
+
+### 01. Security Command Center のページに行きます
 
 ![](./_img/scc-activation-01.png)
 
-### 02. hoge
+</details>
+
+<details>
+<summary>02. Standard Tier を選択します</summary>
+
+### 02. Standard Tier を選択します
 
 ![](./_img/scc-activation-02.png)
+
+</details>
 
 ### 03. hoge
 
