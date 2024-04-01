@@ -38,6 +38,4 @@ Memorystore for Memcached インスタンスに接続するには、接続する
 https://cloud.google.com/memorystore/docs/memcached/regions?hl=en
 ```
 
-[Regions and zones](https://cloud.google.com/memorystore/docs/memcached/regions?hl=en)
-
 ![](https://raw.githubusercontent.com/iganari/artifacts/main/googlecloud/memorystore/memcached/tips-01.png)
