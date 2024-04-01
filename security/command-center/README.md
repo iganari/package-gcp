@@ -2,7 +2,7 @@
 
 ## 概要
 
-TBD
+[TBD] Google Cloud の組織とフォルダに対して、スキャンをする
 
 ## Standard Service Tier の設定方法
 
