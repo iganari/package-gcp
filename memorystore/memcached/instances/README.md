@@ -35,3 +35,5 @@ TBD
 Memorystore for Memcached インスタンスに接続するには、接続するクライアントがインスタンスと同じリージョン内にある必要がある
 https://cloud.google.com/memorystore/docs/memcached/regions?hl=en
 ```
+
+![](https://raw.githubusercontent.com/iganari/artifacts/main/googlecloud/memorystore/memcached/tips-01.png)
