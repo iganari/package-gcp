@@ -4,6 +4,9 @@
 
 TBD
 
++ https://cloud.google.com/memorystore/docs/memcached?hl=en
++ https://cloud.google.com/memorystore/docs/memcached/memcached-overview?hl=en
+
 ## API 有効化
 
 ```
@@ -25,3 +28,10 @@ Memcached Instance の基礎構築の例
 ## リンク
 
 TBD
+
+## 注意点
+
+```
+Memorystore for Memcached インスタンスに接続するには、接続するクライアントがインスタンスと同じリージョン内にある必要がある
+https://cloud.google.com/memorystore/docs/memcached/regions?hl=en
+```
