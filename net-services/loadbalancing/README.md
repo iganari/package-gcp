@@ -20,6 +20,13 @@
 
 ![](https://cloud.google.com/static/load-balancing/images/lb-product-tree.svg)
 
+## DDoS 攻撃対策について
+
++ デフォルトで DDoS 攻撃への対策が施されている (ただしどの程度防いでくれるかは明文化されていない)
++ 追加で Cloud Armor (WAF) をつけることで、より強固な対策をすることが出来る
+
+[外部ロードバランサの DDoS 対策](https://cloud.google.com/load-balancing/docs/choosing-load-balancer?hl=en#ddos)
+
 ## めも
 
 Firewall を作るときには LB の IP アドレスのレンジを許可する必要がある
