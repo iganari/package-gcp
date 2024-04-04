@@ -18,7 +18,7 @@ export _gc_pj_id='Your Google Cloud Project ID'
 export _common='pkg-gcp'
 export _region='asia-northeast1'
 export _zone=`echo ${_region}-b`
-export _sub_network_range='10.146.0.0/20'
+export _sub_network_range='10.0.0.0/16'
 
 export _my_ip='Your Home IP Address'
 export _other_ip='Your other IP Address'
