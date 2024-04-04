@@ -35,9 +35,9 @@ gcloud beta services enable compute.googleapis.com --project ${_gc_pj_id}
 + GCE Instance 用の Service Account の作成
 
 ```
-gcloud beta iam service-accounts create ${_common}-sa \
-  --description="${_common}-sa for Package GCP" \
-  --display-name="${_common}-sa" \
+gcloud beta iam service-accounts create sa-${_common} \
+  --description="${_common}-vm 用の Service Account" \
+  --display-name="sa-${_common}" \
   --project ${_gc_pj_id}
 ```
 
@@ -66,21 +66,21 @@ gcloud beta compute networks subnets create ${_common}-subnets \
 + Firewall Rule の作成
 
 ```
-### 内部通信は全て許可する
-gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
-  --network ${_common}-network \
-  --action ALLOW \
-  --rules tcp:0-65535,udp:0-65535,icmp \
-  --source-ranges ${_sub_network_range} \
+# ### 内部通信は全て許可する
+# gcloud beta compute firewall-rules create ${_common}-network-allow-internal-all \
+#   --network ${_common}-network \
+#   --action ALLOW \
+#   --rules tcp:0-65535,udp:0-65535,icmp \
+#   --source-ranges ${_sub_network_range} \
   --project ${_gc_pj_id}
 
 ### SSH 用
-gcloud beta compute firewall-rules create ${_common}-allow-ssh \
+gcloud beta compute firewall-rules create ${_common}-network-allow-ingress-ssh \
   --network ${_common}-network \
   --action ALLOW \
   --rules tcp:22,icmp \
   --source-ranges ${_my_ip},${_other_ip} \
-  --target-service-accounts ${_common}-sa@${_gc_pj_id}.iam.gserviceaccount.com \
+  --target-service-accounts sa-${_common}@${_gc_pj_id}.iam.gserviceaccount.com \
   --project ${_gc_pj_id}
 ```
 
@@ -106,7 +106,7 @@ gcloud beta compute images list --filter="name~'^ubuntu-minimal-.*?'" --project 
 
 ```
 export _boot_project='ubuntu-os-cloud'
-export _boot_image='ubuntu-minimal-2204-jammy-v20231213b'
+export _boot_image='ubuntu-minimal-2204-jammy-v20240318'
 export _boot_size='30'
 
 export _machine_type='e2-small'
@@ -123,7 +123,7 @@ gcloud beta compute instances create ${_common}-vm \
   --network-interface=address=${_common}-ip,stack-type=IPV4_ONLY,subnet=${_common}-subnets \
   --maintenance-policy ${_maintenance_policy} \
   --provisioning-model ${_vm_provisioning_model} \
-  --service-account=${_common}-sa@${_gc_pj_id}.iam.gserviceaccount.com \
+  --service-account=${_common}@${_gc_pj_id}.iam.gserviceaccount.com \
   --scopes=https://www.googleapis.com/auth/cloud-platform \
   --create-disk=auto-delete=yes,boot=yes,image=projects/${_boot_project}/global/images/${_boot_image},mode=rw,size=${_boot_size},type=projects/${_gc_pj_id}/zones/${_zone}/diskTypes/pd-standard \
   --shielded-secure-boot \
