@@ -1,5 +1,10 @@
 # Billing
 
+## Role
+
+
+[Cloud Billing のアクセス制御と権限](https://cloud.google.com/billing/docs/how-to/billing-access?hl=en)
+
 ## 請求される料金
 
 ### Cloud Monitoring
