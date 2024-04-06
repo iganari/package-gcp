@@ -1,5 +1,17 @@
 # [WIP] External IP addresses
 
+## 概要
+
+外部のインターネットからアクセス出来る IP アドレスを予約し、利用することが出来る
+
+### 種類と特徴
+
++ 種類
+  + Premium Tier
+  + Standard Tier
++ コストのついて
+  + [Network Service Tiers の概要](https://cloud.google.com/network-tiers/docs/overview?hl=en)
+  + [Network Service Tiers の料金](https://cloud.google.com/network-tiers/pricing?hl=en)
 
 ## 準備
 
