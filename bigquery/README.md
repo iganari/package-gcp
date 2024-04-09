@@ -35,10 +35,12 @@ BigQuery向けのSQL の構文解析ツール -> [tree-sitter for BigQuery's SQL
   + [BigQueryで高額課金が発生しているクエリの呼び出し元を特定する](https://ex-ture.com/blog/2023/08/13/bigqueryで高額課金が発生しているクエリの呼び出し元/)
 
 
+## 注意点
 
-
-
-
++ [データセットに名前を付ける](https://cloud.google.com/bigquery/docs/datasets?hl=en)
+  + 1,024 文字まで。
+  + 文字 (大文字または小文字) 、数字、アンダースコア。
+  + スペースや特殊文字 (`-`, `&`, `@`, `%` など) を含めることは出来ない
 
 
 
