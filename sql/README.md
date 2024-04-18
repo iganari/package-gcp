@@ -32,3 +32,9 @@ WIP
 
 + [Terraform で Cloud SQL を作成する](./samples-terraform/)
 + [サンプルのダミーデータをいれる](./samples-dummydata/)
++ [インスタンスの起動、停止、再起動](https://cloud.google.com/sql/docs/mysql/start-stop-restart-instance?hl=en)
+
+
+## 公式ブログ
+
++ [開発費用の削減: Cloud SQL インスタンスの起動と停止をスケジュールする](https://cloud.google.com/blog/ja/topics/developers-practitioners/lower-development-costs-schedule-cloud-sql-instances-start-and-stop)
