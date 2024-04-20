@@ -12,6 +12,10 @@ GitHub | Google APIs
 https://github.com/googleapis
 ```
 
+## Google Cloud のサービス一覧
+
+https://cloud.google.com/products?hl=en#featured-products/
+
 ## セキュリティ
 
 + Google Cloud セキュリティ ホワイトペーパー
@@ -36,6 +40,11 @@ https://cloud.google.com/blog/ja/topics/onair/cloud-onair-20200326
 ゼロからレベルアップ エピソード 4: 共有 VPC
 https://www.youtube.com/watch?v=ehqpc9vynDg
 ```
+
+## データベース
+
++ What is a relational database?
+  + https://cloud.google.com/learn/what-is-a-relational-database?hl=en
 
 ## モニタリング
 

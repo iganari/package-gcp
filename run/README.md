@@ -140,6 +140,13 @@ https://cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration?hl=en#tag
 
 https://cloud.google.com/sdk/gcloud/reference/run/deploy#--revision-suffix
 
+### 10. 割り当てられる Memeory は CPU によって異なる
+
+```
+ERROR: (gcloud.beta.run.deploy) spec.template.spec.containers[0].resources.limits.memory: Invalid value specified for container memory. For 1.0 CPU, memory must be between 128Mi and 4Gi inclusive.
+For more troubleshooting guidance, see https://cloud.google.com/run/docs/configuring/memory-limits
+```
+
 ## 参考 URL
 
 + 公式ドキュメント or 公式ブログ

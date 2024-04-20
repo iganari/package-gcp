@@ -1,5 +1,17 @@
 # Billing
 
+## Role
+
+
+[Cloud Billing のアクセス制御と権限](https://cloud.google.com/billing/docs/how-to/billing-access?hl=en)
+
++ 作成ができる
+  + Billing Account Administrator (roles/billing.admin)
+  + Billing Account Creator　(roles/billing.creator)
+    + 自身が作成した請求先アカウントのみ見ることができる
+
+
+
 ## 請求される料金
 
 ### Cloud Monitoring
