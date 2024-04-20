@@ -24,6 +24,10 @@ Cloud Monitoring の料金の概要
 https://cloud.google.com/stackdriver/pricing#monitoring-pricing-summary
 ```
 
+## Cloud Billing のアクセス制御と権限
+
+https://cloud.google.com/billing/docs/how-to/billing-access
+
 ## Export Cloud Billing について
 
 + 公式ドキュメント
