@@ -53,6 +53,13 @@ rpm --query --queryformat '%{NAME} %{VERSION} %{RELEASE} %{ARCH}\n' \
 protoPayload."@type"="type.googleapis.com/google.cloud.audit.AuditLog"
 ```
 
+## 様々なログ
+
+### データアクセス監査ログを有効にする
+
+https://cloud.google.com/logging/docs/audit/configure-data-access?hl=en
+
+
 ## memo
 
 ```
