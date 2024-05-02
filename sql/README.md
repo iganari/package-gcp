@@ -12,6 +12,8 @@ WIP
 ## Tips
 
 + [最大同時接続数](./tips-maximum_concurrent_connections)
++ [Cloud SQL で利用できるデータベースの種類とバージョン](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
+
 
 ## 機能および構築例
 
@@ -27,8 +29,17 @@ WIP
   + Cloud SQL のリードレプリカや、外部の DB とのレプリケーションについて
 + Cloud SQL Insights について
   + https://cloud.google.com/blog/ja/products/databases/boost-your-query-performance-troubleshooting-skills-cloud-sql-insights
++ [PostgreSQL のセキュリティ](https://cloud.google.com/sql/docs/postgres/data-privacy-strategies?hl=en)
+  + [列レベルのセキュリティ (Column Level Security)](https://cloud.google.com/sql/docs/postgres/data-privacy-strategies?hl=en#column-level-security)
+  + [行レベルのセキュリティ (Row Level Security)](https://cloud.google.com/sql/docs/postgres/data-privacy-strategies?hl=en#row-level-security)
 
 ## サンプル
 
 + [Terraform で Cloud SQL を作成する](./samples-terraform/)
 + [サンプルのダミーデータをいれる](./samples-dummydata/)
++ [インスタンスの起動、停止、再起動](https://cloud.google.com/sql/docs/mysql/start-stop-restart-instance?hl=en)
+
+
+## 公式ブログ
+
++ [開発費用の削減: Cloud SQL インスタンスの起動と停止をスケジュールする](https://cloud.google.com/blog/ja/topics/developers-practitioners/lower-development-costs-schedule-cloud-sql-instances-start-and-stop)
