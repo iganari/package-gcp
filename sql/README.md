@@ -12,6 +12,8 @@ WIP
 ## Tips
 
 + [最大同時接続数](./tips-maximum_concurrent_connections)
++ [Cloud SQL で利用できるデータベースの種類とバージョン](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
+
 
 ## 機能および構築例
 
@@ -27,6 +29,9 @@ WIP
   + Cloud SQL のリードレプリカや、外部の DB とのレプリケーションについて
 + Cloud SQL Insights について
   + https://cloud.google.com/blog/ja/products/databases/boost-your-query-performance-troubleshooting-skills-cloud-sql-insights
++ [PostgreSQL のセキュリティ](https://cloud.google.com/sql/docs/postgres/data-privacy-strategies?hl=en)
+  + [列レベルのセキュリティ (Column Level Security)](https://cloud.google.com/sql/docs/postgres/data-privacy-strategies?hl=en#column-level-security)
+  + [行レベルのセキュリティ (Row Level Security)](https://cloud.google.com/sql/docs/postgres/data-privacy-strategies?hl=en#row-level-security)
 
 ## サンプル
 

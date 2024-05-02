@@ -29,9 +29,9 @@ https://cloud.google.com/sql/docs/mysql/sql-proxy#install
 ### 2. IAM
 
 + IAM にて以下のどれか 1 つの Role を付与する
-  + Cloud SQL Client ( roles/cloudsql.client )
-  + Cloud SQL Editor ( roles/cloudsql.editor )
-  + Cloud SQL Admin ( roles/cloudsql.admin )
+  + Cloud SQL Client (roles/cloudsql.client)
+  + Cloud SQL Editor (roles/cloudsql.editor)
+  + Cloud SQL Admin (roles/cloudsql.admin)
 
 ---> Permission `cloudsql.instances.connect` が入っている Role であれば OK
 

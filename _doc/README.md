@@ -16,6 +16,10 @@ https://github.com/googleapis
 
 https://cloud.google.com/products?hl=en#featured-products/
 
+## アーキテクト
+
+[アカウントと組織の計画に関するベスト プラクティス](https://cloud.google.com/architecture/identity/best-practices-for-planning?hl=en)
+
 ## セキュリティ
 
 + Google Cloud セキュリティ ホワイトペーパー

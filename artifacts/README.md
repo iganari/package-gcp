@@ -2,12 +2,10 @@
 
 ## どんなもの?
 
-下記を読み込んでおくと良い
+Google Kubernetes Engine、Cloud Run、Compute Engine、App Engine フレキシブル環境で自作のカスタマイズしたコンテナイメージを運用するために利用するサービスです
 
 公式ドキュメント
 
-+ Artifact Registry
-  + https://cloud.google.com/artifact-registry?hl=en
 + Overview of Artifact Registry
   + https://cloud.google.com/artifact-registry/docs/overview
 + Container Registry からの移行

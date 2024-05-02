@@ -1,10 +1,10 @@
-# Login to Cloud SQL using the Cloud SQL Auth proxy from Server
+# Login to Cloud SQL using the Cloud SQL Auth proxy from Linux Server
 
 ## 概要
 
-一般的な Server 内から Cloud SQL Auth proxy で Cloud SQL に繋ぐ方法
+一般的な Linux Server 内から Cloud SQL Auth proxy で Cloud SQL に繋ぐ方法です
 
-Cloud SQL Auth proxy をデーモン化することで、他のアプリケーションからも定常的に利用出来る用にしておく
+Cloud SQL Auth proxy をデーモン化することで、他のアプリケーションからも定常的に利用出来る用にしておくとよいでしょう
 
 ![](./01.png)
 
@@ -13,15 +13,19 @@ Cloud SQL Auth proxy をデーモン化することで、他のアプリケー�
 ### Cloud SQL の準備
 
 + 以下の条件で Cloud SQL が出来ていることを前提とします
-  + Cloud SQL for MySQL を使用
-  + 外部 IP アドレス有りの Cloud SQL
+  + Cloud SQL for MySQL
+    + Version は最新のもの
+  + 外部 IP アドレス有り
+    + 内部 IP アドレス無し
 
 + Cloud SQL の Connection name を控えておきます
   + 以下のような名前になります
 
 ```
-{Your GCP Project ID}:{Cloud SQL Instance Region}:{Cloud SQL Instance Name}
+{Your Google Cloud Project ID}:{Cloud SQL Instance Region}:{Cloud SQL Instance Name}
 ```
+
+スクショ
 
 ### Service Account の作成と role の付与
 
@@ -35,7 +39,7 @@ export _gcp_pj_id='Your GCP Project ID'
 
 ```
 gcloud beta iam service-accounts create cloud-sql-auth-proxy-test \
-  --display-name="for Cloud SQL Auth proxy" \
+  --display-name="for Cloud SQL Auth Proxy" \
   --project ${_gcp_pj_id}
 ```
 
@@ -57,6 +61,8 @@ gcloud beta iam service-accounts keys create sa-key-cloud-sql-auth-proxy.json \
   --project ${_gcp_pj_id}
 ```
 ```
+### 確認
+
 $ ls | grep sa-key-cloud-sql-auth-proxy
 sa-key-cloud-sql-auth-proxy.json
 ```
@@ -95,6 +101,7 @@ Google Cloud SDK 355.0.0
 ```
 
 + Cloud SQL Auth proxy を取得し、実行可能な状態にします
+  + https://cloud.google.com/sql/docs/mysql/connect-auth-proxy?hl=en#linux-64-bit
 
 ```
 sudo wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O /usr/local/bin/cloud_sql_proxy
