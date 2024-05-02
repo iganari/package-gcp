@@ -12,6 +12,8 @@ WIP
 ## Tips
 
 + [最大同時接続数](./tips-maximum_concurrent_connections)
++ [Cloud SQL で利用できるデータベースの種類とバージョン](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
+
 
 ## 機能および構築例
 
