@@ -54,5 +54,5 @@ https://cloud.google.com/billing/docs/how-to/export-data-bigquery
 
 ### Billing Administration on Google Cloud
 
-[![](https://img.youtube.com/vi/GpiQPym27II/0.jpg)](https://www.youtube.com/watch?v=GpiQPym27II)
+[YouTube | Billing Administration on Google Cloud](https://www.youtube.com/watch?v=GpiQPym27II)
 
