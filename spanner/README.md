@@ -26,3 +26,7 @@ https://cloud.google.com/spanner/docs/true-time-external-consistency?hl=ja
 ## 使いかた
 
 API 有効化が必要
+
+## Google 謹製の Spanner 負荷試験ツール
+
+https://github.com/cloudspannerecosystem/gcsb
