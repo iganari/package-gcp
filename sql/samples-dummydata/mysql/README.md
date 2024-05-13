@@ -1,10 +1,8 @@
-# Cloud SQL Instance にサンプルのダミーデータをいれる
+# Cloud SQL for MySQL にサンプルのダミーデータ入れる
 
 ## 概要
 
-Cloud SQL Instance にサンプルのダミーデータをいれる工程を記す
-
-MySQL, PostgreSQL, SQL Server のバージョンを記しておく
+Cloud SQL for MySQL にダミーデータをいれるサンプルです
 
 ### 使用するダミーデータ
 
@@ -19,9 +17,11 @@ MySQL, PostgreSQL, SQL Server のバージョンを記しておく
 <details>
 <summary>Details</summary>
 
-+ [Cloud SQL の gcloud コマンド](../_gcloud/) を参考に **Pubulic IP Address 付きの Cloud SQL Instance** の作成を行う
++ [Cloud SQL の gcloud コマンド](../../_gcloud/) を参考に **Pubulic IP Address 付きの Cloud SQL Instance** の作成を行う
 
 ```
+### Cloud SQL Instance の設定
+
 export _gc_pj_id='Your Google Cloud Project ID'
 
 export _common='pkg-gcp-sql-dummydata'
@@ -32,11 +32,13 @@ export _instance_name="$(echo ${_common})-$(date +'%Y%m%d%H%M')"
 echo ${_instance_name}
 ```
 ```
+### データベースの設定
+
 export _mysql_ver='MYSQL_8_0'
 export _mysql_root_passwd="$(echo ${_gc_pj_id})"
 ```
 
-あとは、上記のリンクの [MySQL の場合 | Public IP Address のみ](../_gcloud/README.md#1-1-mysql-の場合) を実行する
+あとは、上記のリンクの [MySQL の場合 | Public IP Address のみ](.././_gcloud/README.md#1-1-mysql-の場合) を実行する
 
 
 + 確認する
@@ -310,11 +312,3 @@ gcloud storage rm --recursive gs://${_gc_pj_id}-${_common}/ \
 
 </details>
 
-## 2. Cloud SQL for PostgreSQL の場合
-
-WIP
-
-
-## 3. Cloud SQL for SQL Server の場合
-
-WIP

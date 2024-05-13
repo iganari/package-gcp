@@ -72,8 +72,8 @@ WIP
   + 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
 
 ```
-export _psgr_ver='POSTGRES_14'
-export _psgr_passwd="$(echo ${_gc_pj_id})"
+export _psgrs_ver='POSTGRES_15'
+export _psgrs_passwd="$(echo ${_gc_pj_id})"
 ```
 
 + gcloud コマンドを使って、 Cloud SQL Instance を作成する
@@ -82,10 +82,14 @@ export _psgr_passwd="$(echo ${_gc_pj_id})"
 
 ```
 gcloud beta sql instances create ${_instance_name} \
-  --database-version ${_psgr_ver} \
-  --root-password "${_psgr_passwd}" \
+  --edition enterprise \
+  --database-version ${_psgrs_ver} \
+  --root-password "${_psgrs_passwd}" \
   --tier ${_instance_type} \
-  --region ${_sql_region} \
+  --region ${_region} \
+  --no-backup \
+  --storage-size 10G \
+  --storage-auto-increase \
   --project ${_gc_pj_id} \
   --async
 ```
