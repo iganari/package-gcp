@@ -26,3 +26,21 @@ https://cloud.google.com/spanner/docs/true-time-external-consistency?hl=ja
 ## 使いかた
 
 API 有効化が必要
+
+## Google 謹製の Spanner 負荷試験ツール
+
+https://github.com/cloudspannerecosystem/gcsb
+
+## Tips
+
+### 01
+
+Spanner の PrimaryKey にあたる Natural Key というものがある ? 公式には無さそうだけど...
+
+https://cloud.google.com/spanner/docs/migrating-primary-keys
+
+### 02
+
+Spanner の使用パターンを分析する
+
+Key Visualizer -> https://cloud.google.com/spanner/docs/key-visualizer?hl=en
