@@ -94,6 +94,13 @@ gcloud beta sql instances create ${_instance_name} \
   --async
 ```
 
+- Cloud SQL Instance の情報の確認
+
+```
+gcloud beta sql instances describe ${_instance_name} --project ${_gc_pj_id} --format json
+```
+
+
 ## 2. Database の作成
 
 + 環境変数に入れる
