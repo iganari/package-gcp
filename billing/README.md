@@ -1,16 +1,21 @@
 # Billing
 
-## Role
 
+## 請求先アカウントについて
+
+- 組織に紐づくリソース
+
+### 必要なRole
+
+- 請求先アカウントを作成する Role
+  - Billing Account Administrator (roles/billing.admin)
+    - 組織に紐づく請求先アカウント全体を見ることが出来る
+  - Billing Account Creator　(roles/billing.creator)
+    - 自身が作成した請求先アカウントのみ見ることができる
+- Google Cloud Project と請求先アカウントを紐づけることが出来る Role
+  - Billing Account User (roles/billing.user)
 
 [Cloud Billing のアクセス制御と権限](https://cloud.google.com/billing/docs/how-to/billing-access?hl=en)
-
-+ 作成ができる
-  + Billing Account Administrator (roles/billing.admin)
-  + Billing Account Creator　(roles/billing.creator)
-    + 自身が作成した請求先アカウントのみ見ることができる
-
-
 
 ## 請求される料金
 
@@ -49,5 +54,5 @@ https://cloud.google.com/billing/docs/how-to/export-data-bigquery
 
 ### Billing Administration on Google Cloud
 
-[![](https://img.youtube.com/vi/GpiQPym27II/0.jpg)](https://www.youtube.com/watch?v=GpiQPym27II)
+[YouTube | Billing Administration on Google Cloud](https://www.youtube.com/watch?v=GpiQPym27II)
 
