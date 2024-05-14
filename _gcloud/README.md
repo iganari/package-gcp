@@ -225,18 +225,32 @@ gcloud --quiet components install kubectl
 ```
 
 
-## services
+## Services (API の有効化)
 
 + 公式ドキュメント
     + https://cloud.google.com/sdk/gcloud/reference/services
 
-+ すべてのリストを表示
++ すべての API のリストを表示
 
 ```
 gcloud beta services list --project ${_gc_pj_id}
 ```
 
-+ 有効化しているリストを表示
++ 利用可能だが、未だ有効化していない API を表示
+
+```
+### 全て
+
+gcloud beta services list --available --project ${_gc_pj_id}
+```
+```
+### 特定の API のみ
+
+gcloud beta services list --available --filter='API Name' --project ${_gc_pj_id}
+```
+
+
++ 既に有効化している API のリストを表示
 
 ```
 gcloud beta services list --enabled --project ${_gc_pj_id}
@@ -245,13 +259,13 @@ gcloud beta services list --enabled --project ${_gc_pj_id}
 gcloud beta services list --enabled --filter='API Name' --project ${_gc_pj_id}
 ```
 
-+ サービスを有効化する
++ API を有効化する
 
 ```
 gcloud beta services enable {{ Services Name }} --project ${_gc_pj_id}
 ```
 
-+ サービスを無効化する
++ API を無効化する
 
 ```
 gcloud beta services disable {Services Name} --project ${_gc_pj_id}
