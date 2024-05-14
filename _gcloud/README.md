@@ -236,7 +236,8 @@ gcloud --quiet components install kubectl
 gcloud beta services list --project ${_gc_pj_id}
 ```
 
-+ 利用可能だが、未だ有効化していない API を表示
++ 利用可能な API を表示
+  + 未だインストールしていない、既にインストールしているに限らず、単純に **現在利用可能な API のリスト**
 
 ```
 ### 全て
