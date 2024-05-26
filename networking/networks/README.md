@@ -33,7 +33,7 @@ gcloud beta compute firewall-rules list --project ${_gc_pj_id} --format=json
 ```
 gcloud beta compute firewall-rules delete default-allow-rdp --project ${_gc_pj_id} --quiet
 gcloud beta compute firewall-rules delete default-allow-internal --project ${_gc_pj_id} --quiet
-gcloud beta compute firewall-rules delete default-allow-ssh	 --project ${_gc_pj_id} --quiet
+gcloud beta compute firewall-rules delete default-allow-ssh --project ${_gc_pj_id} --quiet
 gcloud beta compute firewall-rules delete default-allow-icmp --project ${_gc_pj_id} --quiet
 ```
 
