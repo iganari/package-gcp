@@ -12,3 +12,14 @@ TBD
 ```
 
 [公式ドキュメント | 自動モードの IPv4 範囲](https://cloud.google.com/vpc/docs/subnets?hl=en#ip-ranges)
+
+
+## default VPC Network の削除
+
+```
+export _gc_pj_id='Your Google Cloud Project ID'
+```
+```
+gcloud beta compute network
+gcloud beta compute firewall-rules delete  default-allow-rdp --project ${_gc_pj_id}
+```
