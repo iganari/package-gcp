@@ -29,7 +29,7 @@ gcloud beta builds triggers create github \
   --branch-pattern='^main$' \
   --build-config='./cloudbuild-.yaml' \
   --substitutions=KEY1='VALUE1',KEY2='VALUE2',KEY3='VALUE3' \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
 ## Trigger を Enable / Disable したい場合
