@@ -1,9 +1,15 @@
 # gcloud builds
 
+
+
+```
+export _gc_pj_id='Your Googcle Cloud Project ID'
+```
+
 ## Service Account
 
 ```
-gcloud beta projects add-iam-policy-binding ${GCP Project ID} \
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --member="serviceAccount:${GCP Project Number}@cloudbuild.gserviceaccount.com" \
   --role="roles/appengine.appAdmin"
 ```
