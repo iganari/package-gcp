@@ -4,6 +4,7 @@
 
 ```
 export _gc_pj_id='Your Googcle Cloud Project ID'
+export _region='asia-northeast1'
 ```
 
 ## Service Account
@@ -54,7 +55,22 @@ TBD
 ```
 gcloud beta builds repositories create hogehoge-fugafuga \
   --connection github \
-  --region asia-northeast1 \
+  --region ${_region} \
   --remote-uri='https://github.com/{{ User-Name }}/{{ Repo-Neme }}.git' \
+  --project ${_gc_pj_id}
+```
+
+### Push to branch
+
++ Trigger
+
+```
+gcloud beta builds triggers create github \
+  --name='hogehoge-trigger' \
+  --repository="projects/${_gc_pj_id}/locations/${_region}/connections/github/repositories/hogehoge-fugafuga" \
+  --branch-pattern="^main$" \
+  --build-config="cloudbuild.yaml" \
+  --region ${_region} \
+  --service-account="projects/${_gc_pj_id}/serviceAccounts/xxx-xxx-xxx@${_gc_pj_id}.iam.gserviceaccount.com" \
   --project ${_gc_pj_id}
 ```
