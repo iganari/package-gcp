@@ -14,7 +14,7 @@ export _gc_pj_id='Your Googcle Cloud Project ID'
 gcloud beta iam service-accounts create SERVICE_ACCOUNT_ID \
   --description="DESCRIPTION" \
   --display-name="DISPLAY_NAME" \
-  --project PROJECT_ID
+  --project ${_gc_pj_id}
 ```
 
 
