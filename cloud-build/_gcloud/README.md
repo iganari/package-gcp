@@ -40,10 +40,12 @@ TBD
 
 ### Repository を作成
 
++ GitHub の Repository の所有者を `{{ User-Name }}` , Repository の名前を `{{ Repo-Name }}`
+
 ```
-gcloud beta builds repositories create leadknock-dataharvest \
+gcloud beta builds repositories create hogehoge-fugafuga \
   --connection github \
   --region asia-northeast1 \
-  --remote-uri='https://github.com/PantaRhei-Developer/leadknock-dataharvest.git' \
+  --remote-uri='https://github.com/{{ User-Name }}/{{ Repo-Neme }}.git' \
   --project ${_gc_pj_id}
 ```
