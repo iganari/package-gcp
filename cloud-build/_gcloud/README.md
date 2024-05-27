@@ -31,3 +31,19 @@ gcloud beta builds triggers create github \
 現状は Trigger の設定を Export して、編集し、再度 import する必要がある
 
 https://cloud.google.com/build/docs/automating-builds/create-manage-triggers#disabling_a_build_trigger
+
+## 2nd
+
+### 接続を作成
+
+TBD
+
+### Repository を作成
+
+```
+gcloud beta builds repositories create leadknock-dataharvest \
+  --connection github \
+  --region asia-northeast1 \
+  --remote-uri='https://github.com/PantaRhei-Developer/leadknock-dataharvest.git' \
+  --project ${_gc_pj_id}
+```
