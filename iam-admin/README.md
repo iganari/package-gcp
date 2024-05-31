@@ -22,6 +22,12 @@ WIP
 
 ## Gooogle Cloud Project の Project Number を調べるコマンド
 
+- Project ID を環境変数にいれる
+
+```
+export _gc_pj_id='Google Cloud Project ID'
+```
+
 - Project の情報を表示する
 
 ```
