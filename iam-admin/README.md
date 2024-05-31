@@ -1,6 +1,6 @@
 # IAM & Admin
 
-+ GCP との認証の仕方
++ Google Cloud との認証の仕方
 
 ## gcloud command-line tool を用いた認証方法
 
