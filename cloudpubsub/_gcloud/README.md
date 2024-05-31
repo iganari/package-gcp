@@ -13,7 +13,6 @@ gcloud beta pubsub topics create mytopic --project ${_gc_pj_id}
 
 ```
 gcloud beta pubsub subscriptions create mysub \
-  --topic mytopic \
-  --topic-project ${_gc_pj_id} \
+  --topic ${_common} \
   --project ${_gc_pj_id}
 ```
