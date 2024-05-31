@@ -6,6 +6,8 @@
 
 ```
 gcloud auth login
+OR
+gcloud auth login --no-launch-browser
 ```
 
 ## Service Accounts を用いた認証方法
