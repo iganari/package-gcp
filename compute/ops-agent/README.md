@@ -5,6 +5,15 @@
 
 hoge
 
+## インストール方法
+
+https://cloud.google.com/stackdriver/docs/solutions/agents/ops-agent/installation?hl=en#agent-install-latest-linux
+
+```
+curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+```
+
 ## デフォルトで送信するログ
 
 https://cloud.google.com/stackdriver/docs/solutions/agents/ops-agent/configuration?hl=en#default
