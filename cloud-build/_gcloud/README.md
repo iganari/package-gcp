@@ -74,3 +74,19 @@ gcloud beta builds triggers create github \
   --service-account="projects/${_gc_pj_id}/serviceAccounts/xxx-xxx-xxx@${_gc_pj_id}.iam.gserviceaccount.com" \
   --project ${_gc_pj_id}
 ```
+
+### Manual Trigger
+
+- 注意
+  - region を明示する必要がある
+
+```
+gcloud beta builds triggers create manual \
+  --name='hogehoge-trigger-manual' \
+  --region ${_region} \
+  --build-config="cloudbuild.yaml" \
+  --repository="projects/${_gc_pj_id}/locations/${_region}/connections/github/repositories/hogehoge-fugafuga" \
+  --branch='my-branch' \
+  --project ${_gc_pj_id}
+```
+
