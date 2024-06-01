@@ -140,10 +140,9 @@ gcloud storage buckets create gs://${_gc_pj_id}-cloudbuildlogs \
   --project ${_gc_pj_id}
 ```
 
-
-+ cloudbuild.yaml
++ cloudbuild.yaml にて Cloud Storage Buckets の明示が必要
 
 ```
-logsBucket: "gs://${_gc_pj_id}-cloudbuildlogs"
+logsBucket: "gs://${PROJECT_ID}-cloudbuildlogs"
 ```
 
