@@ -2,7 +2,6 @@
 
 ## 概要
 
-
 hoge
 
 ## インストール方法
@@ -20,6 +19,14 @@ sudo bash add-google-cloud-ops-agent-repo.sh --also-install
 
 ```
 sudo systemctl status google-cloud-ops-agent"*"
+```
+
+## その他必要なこと
+
+- API の有効化
+
+```
+gcloud services enable monitoring.googleapis.com --project ${_gc_pj_id}
 ```
 
 ## デフォルトで送信するログ
