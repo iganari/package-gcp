@@ -132,16 +132,18 @@ gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
 
 ## memo
 
-+ GCS は作る？
++ Cloud Storage の作成
 
 ```
-WIP
+gcloud storage buckets create gs://${_gc_pj_id}-cloudbuildlogs \
+  --location ${_region} \
+  --project ${_gc_pj_id}
 ```
 
 
 + cloudbuild.yaml
 
 ```
-WIP
+logsBucket: "gs://${_gc_pj_id}-cloudbuildlogs"
 ```
 
