@@ -56,3 +56,9 @@ gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --role="roles/logging.logWriter" \
   --condition None
 ```
+
+## ローカルのログの確認方法
+
+```
+sudo tail -f /var/log/google-cloud-ops-agent/health-checks.log
+```
