@@ -26,3 +26,18 @@ GCE に Ops Agent をいれて Cloud Monitoring で監視する場合、以下�
 + Logs Writer( `roles/logging.logWriter` )
 
 [公式ドキュメント | Authorize the Ops Agent](https://cloud.google.com/monitoring/agent/ops-agent/authorization#create-service-account)
+
+- ex
+
+```
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
+  --member="serviceAccount:sa-gce-hogehoge@${_gc_pj_id}.iam.gserviceaccount.com" \
+  --role="roles/monitoring.metricWriter" \
+  --condition None
+```
+```
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
+  --member="serviceAccount:sa-gce-hogehoge@${_gc_pj_id}.iam.gserviceaccount.com" \
+  --role="roles/logging.logWriter" \
+  --condition None
+```
