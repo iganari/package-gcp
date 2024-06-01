@@ -111,19 +111,19 @@ gcloud beta iam service-accounts describe sa-${_common}-cloudbuild@${_gc_pj_id}.
 gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --member="serviceAccount:sa-${_common}-cloudbuild@${_gc_pj_id}.iam.gserviceaccount.com" \
   --role="roles/iam.serviceAccountUser" \
-  --project ${_gc_pj_id}
+  --condition None
 
 
 gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --member="serviceAccount:sa-${_common}-cloudbuild@${_gc_pj_id}.iam.gserviceaccount.com" \
   --role="roles/logging.logWriter" \
-  --project ${_gc_pj_id}
+  --condition None
 
 
 gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --member="serviceAccount:sa-${_common}-cloudbuild@${_gc_pj_id}.iam.gserviceaccount.com" \
   --role="roles/storage.admin" \
-  --project ${_gc_pj_id}
+  --condition None
 ```
 
 + Trigger 作成時に Service Account を設定する
