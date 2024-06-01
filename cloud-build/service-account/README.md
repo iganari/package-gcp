@@ -119,6 +119,7 @@ gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --role="roles/logging.logWriter" \
   --project ${_gc_pj_id}
 
+
 gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --member="serviceAccount:sa-${_common}-cloudbuild@${_gc_pj_id}.iam.gserviceaccount.com" \
   --role="roles/storage.admin" \
