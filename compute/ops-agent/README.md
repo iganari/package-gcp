@@ -9,9 +9,17 @@ hoge
 
 https://cloud.google.com/stackdriver/docs/solutions/agents/ops-agent/installation?hl=en#agent-install-latest-linux
 
+- 最新 Ver の Ops Agent をインストールする
+
 ```
 curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
 sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+```
+
+- Ops Agent のステータスの確認
+
+```
+sudo systemctl status google-cloud-ops-agent"*"
 ```
 
 ## デフォルトで送信するログ
