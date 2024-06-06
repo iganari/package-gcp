@@ -62,3 +62,19 @@ gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
 ```
 sudo tail -f /var/log/google-cloud-ops-agent/health-checks.log
 ```
+
+- インストール後に権限周りも正常な場合は以下のようになる
+
+```
+$ sudo tail -f /var/log/google-cloud-ops-agent/health-checks.log
+{"severity":"INFO","time":"2024-06-06T09:39:24Z","message":"Monitoring API response status: 200 OK"}
+{"severity":"INFO","time":"2024-06-06T09:39:24Z","message":"Request to the Monitoring API was successful."}
+{"severity":"INFO","time":"2024-06-06T09:39:24Z","message":"dl.google.com response status: 200 OK"}
+{"severity":"INFO","time":"2024-06-06T09:39:24Z","message":"Request to dl.google.com was successful."}
+{"severity":"INFO","time":"2024-06-06T09:39:24Z","message":"GCE Metadata Server response status: 200 OK"}
+{"severity":"INFO","time":"2024-06-06T09:39:24Z","message":"Request to the GCE Metadata server was successful."}
+{"severity":"INFO","time":"2024-06-06T09:39:24Z","message":"[Network Check] Result: PASS"}
+{"severity":"INFO","time":"2024-06-06T09:39:24Z","message":"monitoring client was created successfully"}
+{"severity":"INFO","time":"2024-06-06T09:39:24Z","message":"logging client was created successfully"}
+{"severity":"INFO","time":"2024-06-06T09:39:24Z","message":"[API Check] Result: PASS"}
+```
