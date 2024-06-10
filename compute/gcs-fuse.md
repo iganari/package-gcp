@@ -11,6 +11,31 @@ Compute Engine や Cloud Run から Cloud Storage をあたかもファイルサ
 - GCE からマウントする方法
   - https://cloud.google.com/storage/docs/gcsfuse-mount
 
+## 必要な Role
+
+Compute Engine の中の Permission の話なので、 Compute Engine に付与した Service Account などに Role をつける
+
+- 読み込みだけで良い場合
+  - Role `Storage Object Viewer (roles/storage.objectViewer)`
+
+```
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
+  --member="serviceAccount:sa-gce-hogehoge@${_gc_pj_id}.iam.gserviceaccount.com" \
+  --role="roles/storage.objectViewer" \
+  --condition None
+```
+
+- 読み込みと書き込みの両方を行う場合
+  - Role `Storage Object Admin (roles/storage.objectAdmin)`
+
+```
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
+  --member="serviceAccount:sa-gce-hogehoge@${_gc_pj_id}.iam.gserviceaccount.com" \
+  --role="roles/storage.objectAdmin" \
+  --condition None
+```
+
+
 
 ## やってみる
 
