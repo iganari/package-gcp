@@ -262,3 +262,18 @@ gcloud beta sql import sql ${_instance_name} \
 ## 確認
 
 ![](./_img/01.png)
+
+
+## リソースの削除
+
+- Cloud Storage Buckets の削除
+
+```
+gcloud storage rm -r gs://${_gc_pj_id}-${_common} --quiet
+```
+
+- Cloud SQL Instance の削除
+
+```
+gcloud beta sql instances delete ${_instance_name} --project ${_gc_pj_id} --quiet
+```
