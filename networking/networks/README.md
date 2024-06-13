@@ -12,3 +12,61 @@ TBD
 ```
 
 [公式ドキュメント | 自動モードの IPv4 範囲](https://cloud.google.com/vpc/docs/subnets?hl=en#ip-ranges)
+
+
+## default VPC Network の削除
+
+### Firewall Rule の削除
+
+```
+export _gc_pj_id='Your Google Cloud Project ID'
+```
+
++ Firewall Rule の確認
+
+```
+gcloud beta compute firewall-rules list --project ${_gc_pj_id} --format=json
+```
+
++ Firewall Rule の削除
+
+```
+gcloud beta compute firewall-rules delete default-allow-rdp --project ${_gc_pj_id} --quiet
+gcloud beta compute firewall-rules delete default-allow-internal --project ${_gc_pj_id} --quiet
+gcloud beta compute firewall-rules delete default-allow-ssh --project ${_gc_pj_id} --quiet
+gcloud beta compute firewall-rules delete default-allow-icmp --project ${_gc_pj_id} --quiet
+```
+
++ Firewall Rule の確認
+
+```
+gcloud beta compute firewall-rules list --project ${_gc_pj_id} --format=json
+```
+
+### default VPC Network の削除
+
++ VPC Network の確認
+
+```
+gcloud beta compute networks list --project ${_gc_pj_id}
+```
+
++ VPC Network の削除
+
+```
+gcloud beta compute networks delete default --project ${_gc_pj_id} --quiet
+```
+
++ VPC Network の確認
+
+```
+gcloud beta compute networks list --project ${_gc_pj_id}
+```
+
+
+
+
+
+
+
+
