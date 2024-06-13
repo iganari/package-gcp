@@ -29,4 +29,3 @@ Google Cloud Project は `組織` の直下、もしくは `フォルダ` の配
   - TBD
 - プロジェクトについて
   - [./project](./project/README.md)
-  

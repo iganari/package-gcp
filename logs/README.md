@@ -63,6 +63,10 @@ https://cloud.google.com/logging/docs/audit/configure-data-access?hl=en
 ## memo
 
 ```
-Logging のクエリ言語
+### Logging のクエリ言語
 https://cloud.google.com/logging/docs/view/logging-query-language?hl=ja
+```
+```
+### Loggingでログ検索を速くする方法
+https://cloud.google.com/logging/docs/view/logging-query-language?hl=ja#finding-quickly
 ```
