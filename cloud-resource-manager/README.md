@@ -23,9 +23,10 @@ Google Cloud Project は `組織` の直下、もしくは `フォルダ` の配
 
 ## Tips
 
-- おすすめの Role について
-  - [./recommend-role](./recommend-role/README.md)
+- 組織について
+  - [./organization](./organization/README.md)
+  - おすすめの Role について
 - フォルダについて
-  - TBD
+  - [./folder](./folder/README.md)
 - プロジェクトについて
   - [./project](./project/README.md)
