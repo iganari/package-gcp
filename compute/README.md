@@ -14,13 +14,16 @@ TBD
 
 ## Tips
 
-+ VM in VM について (VM のネスト)
-  + [ネストされた仮想化について](https://cloud.google.com/compute/docs/instances/nested-virtualization/overview?hl=en)
+- VM in VM について (VM のネスト)
+  - [ネストされた仮想化について](https://cloud.google.com/compute/docs/instances/nested-virtualization/overview?hl=en)
 
+- GCE 内から Project ID を取得する
+  - metadata から取得が可能
+  - https://cloud.google.com/compute/docs/metadata/overview?hl=en
 
-
-
-
+```
+curl "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google"
+```
 
 
 
