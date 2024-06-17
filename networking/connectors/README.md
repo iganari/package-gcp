@@ -1,5 +1,18 @@
 # Serverless VPC access
 
+## 概要
+
+TBD
+
+```
+### API
+gcloud beta services enable vpcaccess.googleapis.com --project ${_gc_pj_id}
+```
+```
+### Role
+Serverless VPC Access Admin など
+```
+
 ## 公式ドキュメント
 
 ```
