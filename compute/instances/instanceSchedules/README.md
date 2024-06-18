@@ -4,6 +4,9 @@
 
 https://cloud.google.com/compute/docs/instances/schedule-instance-start-stop
 
+![](https://raw.githubusercontent.com/iganari/artifacts/main/googlecloud/compute/instances/instanceSchedules/2024-instance-schedules-movie.gif)
+
+
 ## やってみる
 
 ### サンプルの GCE を作成
@@ -48,7 +51,7 @@ gcloud beta compute networks subnets create ${_common}-${_another_region} \
   --project ${_gc_pj_id}
 ```
 
-- GCE Instance
+- GCE Instance の作成
 
 ```
 ### asia-northeast1
@@ -85,7 +88,7 @@ gcloud beta compute instances create ${_common}-${_another_region} \
   --project ${_gc_pj_id}
 ```
 
-- Instance Schedules
+- Instance Schedules の作成
 
 ```
 gcloud beta compute resource-policies create instance-schedule ${_default_region}-start08-end20-daily \
@@ -106,12 +109,7 @@ gcloud beta compute resource-policies create instance-schedule ${_another_region
   --project ${_gc_pj_id}
 ```
 
-
-movie
-
-
-
-- Role が必要
+- Instance Schedules で利用する Service Account に、以下の Role が必要
   - Compute Engine Service Agent: `service-{{ Google Cloud Project Number }}@compute-system.iam.gserviceaccount.com` に Role: `Compute Instance Admin (beta) (roles/compute.instanceAdmin)` を付与する
 
 ```
@@ -123,41 +121,53 @@ gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --condition None
 ```
 
-
-インスタンスを新規作成時にアタッチすることもできるし、既存のVMに設定することもできる
-今回は既存で行う
-
-https://cloud.google.com/compute/docs/instances/schedule-instance-start-stop#attaching_to_an_existing_VM
-
-- 東京リージョンの GCE に、東京リージョンの Instance Schedule を追加
+- Instance Schedules を GCE Instance にアタッチする必要がある
+  - VM 新規作成時および既存の VM にアタッチすることが出来る
+  - https://cloud.google.com/compute/docs/instances/schedule-instance-start-stop#attaching_to_an_existing_VM
 
 ```
+### 東京リージョンの GCE に、東京リージョンの Instance Schedule を追加
+
 gcloud compute instances add-resource-policies ${_common}-${_default_region} \
   --resource-policies ${_default_region}-start08-end20-daily \
   --zone ${_default_region}-b \
   --project ${_gc_pj_id}
 ```
-
-
-PNG
-
-
-
-- アイオワリージョンの GCE に、アイオワリージョンの Instance Schedule を追加
-
 ```
+### アイオワリージョンの GCE に、アイオワリージョンの Instance Schedule を追加
+
 gcloud compute instances add-resource-policies ${_common}-${_another_region} \
   --resource-policies ${_another_region}-start10-end16-wed \
   --zone ${_another_region}-c \
   --project ${_gc_pj_id}
 ```
 
+### スクリーンショット
 
+<details>
+<summary>GCE Instance</summary>
 
+![](https://raw.githubusercontent.com/iganari/artifacts/main/googlecloud/compute/instances/instanceSchedules/2024-instance-schedules-01.png)
 
+</details>
 
+<details>
+<summary>Instance Schedules</summary>
 
+![](https://raw.githubusercontent.com/iganari/artifacts/main/googlecloud/compute/instances/instanceSchedules/2024-instance-schedules-02.png)
 
+</details>
 
+<details>
+<summary>Instance Schedule の詳細 <東京リージョン></summary>
 
+![](https://raw.githubusercontent.com/iganari/artifacts/main/googlecloud/compute/instances/instanceSchedules/2024-instance-schedules-03.png)
 
+</details>
+
+<details>
+<summary>Instance Schedule の詳細 <アイオワリージョン></summary>
+
+![](https://raw.githubusercontent.com/iganari/artifacts/main/googlecloud/compute/instances/instanceSchedules/2024-instance-schedules-04.png)
+
+</details>
