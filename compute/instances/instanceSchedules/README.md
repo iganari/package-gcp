@@ -6,6 +6,10 @@ https://cloud.google.com/compute/docs/instances/schedule-instance-start-stop
 
 ![](https://raw.githubusercontent.com/iganari/artifacts/main/googlecloud/compute/instances/instanceSchedules/2024-instance-schedules-movie.gif)
 
+- GCE に Instance Schedules を紐づけることで適用される
+- 紐付けなければ適用されない
+- リージョン毎に設定が必要
+
 
 ## やってみる
 
