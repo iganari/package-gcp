@@ -38,7 +38,7 @@ https://cloud.google.com/iap/docs/using-tcp-forwarding#create-firewall-rule
 - iganari 的おすすめ
 
 ```
-{{ VPC ネットワーク名 }}-{{ allow/deny }}-{{ ingress/egress/internal }}-{{ ports(分かりやすい形) }}
+{{ VPC ネットワーク名 }}-{{ allow|deny }}-{{ ingress|egress|internal }}-{{ ports(分かりやすい形) }}
 ```
 
 ## Firewall Rule の仕様
