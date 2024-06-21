@@ -27,9 +27,15 @@ https://cloud.google.com/compute/docs/instances/schedule-instance-start-stop
 asia-northeast1-start08-end20-daily
 ```
 ```
+### 東京リージョンにて、毎夜18時に停止
+asia-northeast1-end18-daily
+```
+```
 ### アイオワリージョンにて、毎週水曜の朝10時に起動、毎週水曜の夜16時に停止
 us-central1-start10-end16-wed
 ```
+
+
 
 ## やってみる
 
