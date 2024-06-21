@@ -6,10 +6,30 @@ https://cloud.google.com/compute/docs/instances/schedule-instance-start-stop
 
 ![](https://raw.githubusercontent.com/iganari/artifacts/main/googlecloud/compute/instances/instanceSchedules/2024-instance-schedules-movie.gif)
 
+### 注意点
+
 - GCE に Instance Schedules を紐づけることで適用される
-- 紐付けなければ適用されない
+    - 紐付けなければ適用されない
 - リージョン毎に設定が必要
 
+### 命名規則例
+
+- 一般化
+
+```
+{{ リージョン名 }}-{{起動や停止の時間}}-{{ 頻度 }}
+```
+
+- 具体例
+
+```
+### 東京リージョンにて、毎朝8時に起動、毎夜20時に停止
+asia-northeast1-start08-end20-daily
+```
+```
+### アイオワリージョンにて、毎週水曜の朝10時に起動、毎週水曜の夜16時に停止
+us-central1-start10-end16-wed
+```
 
 ## やってみる
 
