@@ -10,7 +10,7 @@ WIP
 + GCP Project ID とリージョンを環境変数に用意する
 
 ```
-export _gcp_pj_id='Your GCP Project ID'
+export _gc_pj_id='Your GCP Project ID'
 export _region='asia-northeast1'
 ```
 
