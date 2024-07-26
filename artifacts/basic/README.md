@@ -7,7 +7,7 @@ WIP
 
 ### Artifact Registry を準備する
 
-+ GCP Project ID とリージョンを環境変数に用意する
++ Google Cloud Project ID とリージョンを環境変数に用意する
 
 ```
 export _gc_pj_id='Your Google Cloud Project ID'
