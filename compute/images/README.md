@@ -26,6 +26,8 @@ gcloud beta compute images list --project ${_gc_pj_id}
 gcloud compute images list --filter="name~'^rocky-linux-8-optimized-gcp-v.*?'" --format table'(NAME, PROJECT, STATUS)'
 ```
 
+### Ubuntu
+
 - hoge
   - **ubuntu**
 
@@ -35,6 +37,11 @@ gcloud beta compute images list --project ${_gc_pj_id}
 ```
 gcloud beta compute images list --filter="name~'^ubuntu-.*?'" --project ${_gc_pj_id}
 ```
+
+<details>
+<summary>実行例</summary>
+
+
 ```
 $ gcloud beta compute images list --filter="name~'^ubuntu-.*?'" --project ${_gc_pj_id}
 
@@ -67,6 +74,8 @@ ubuntu-minimal-2310-mantic-arm64-v20240701a  ubuntu-os-cloud      ubuntu-minimal
 ubuntu-minimal-2404-noble-amd64-v20240709    ubuntu-os-cloud      ubuntu-minimal-2404-lts-amd64              READY
 ubuntu-minimal-2404-noble-arm64-v20240709    ubuntu-os-cloud      ubuntu-minimal-2404-lts-arm64              READY
 ```
+
+</details>
 
 - AND 条件
 
