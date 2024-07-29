@@ -95,12 +95,30 @@ ubuntu-pro-2404-noble-amd64-v20240701a       ubuntu-os-pro-cloud  ubuntu-pro-240
 
 ### Rocky Linux 
 
-- memo
+- 基本形
 
 ```
 gcloud beta compute images list --filter="name ~ '^rocky-linux-.*?'" --project ${_gc_pj_id} | grep -v arm64
 ```
 
+<details>
+<summary>実行例</summary>
+
 ```
-gcloud beta compute images list --filter="name~'^rocky-.*?'" --format table'(NAME, PROJECT, STATUS)' --project ${_gc_pj_id}
+$ gcloud beta compute images list --filter="name ~ '^rocky-linux-.*?'" --project ${_gc_pj_id} | grep -v arm64
+NAME                                         PROJECT            FAMILY                             DEPRECATED  STATUS
+rocky-linux-8-optimized-gcp-v20240717        rocky-linux-cloud  rocky-linux-8-optimized-gcp                    READY
+rocky-linux-8-v20240709                      rocky-linux-cloud  rocky-linux-8                                  READY
+rocky-linux-9-optimized-gcp-v20240717        rocky-linux-cloud  rocky-linux-9-optimized-gcp                    READY
+rocky-linux-9-v20240709                      rocky-linux-cloud  rocky-linux-9                                  READY
 ```
+
+</details>
+
+
+- AND 条件
+
+```
+TBD
+```
+
