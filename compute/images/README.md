@@ -93,8 +93,14 @@ ubuntu-minimal-2404-noble-amd64-v20240709    ubuntu-os-cloud      ubuntu-minimal
 ubuntu-pro-2404-noble-amd64-v20240701a       ubuntu-os-pro-cloud  ubuntu-pro-2404-lts-amd64                  READY
 ```
 
+### Rocky Linux 
+
 - memo
 
 ```
 gcloud beta compute images list --filter="name ~ '^rocky-linux-.*?'" --project ${_gc_pj_id} | grep -v arm64
+```
+
+```
+gcloud beta compute images list --filter="name~'^rocky-.*?'" --format table'(NAME, PROJECT, STATUS)' --project ${_gc_pj_id}
 ```
