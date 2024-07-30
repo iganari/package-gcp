@@ -65,7 +65,7 @@ https://cloud.google.com/beyondcorp-enterprise/docs/securing-virtual-machines#kn
 - Ubuntu/Debian
   - 対応
 - Rocky Linux
-  - おそらく非対応 <--- 体感
+  - 対応
 
 ## Tips
 
