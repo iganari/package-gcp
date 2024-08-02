@@ -64,7 +64,7 @@ gcloud beta compute networks subnets create ${_common} \
 ```
 
 - Firewall Rule の作成
-  - [VPC firewall rules](../../../../net-security/firewall-manager/firewall-policies/)
+  - [VPC firewall rules](../../../net-security/firewall-manager/firewall-policies/)
 
 ```
 ### SSH 用
