@@ -46,7 +46,7 @@ gcloud beta iam service-accounts create sa-gce-${_common} \
 + VPC Network の作成
 
 ```
-gcloud beta compute networks create ${_common}-network \
+gcloud beta compute networks create ${_common} \
   --subnet-mode=custom \
   --project ${_gc_pj_id}
 ```
@@ -55,28 +55,21 @@ gcloud beta compute networks create ${_common}-network \
   + `限定公開の Google アクセス` を On にしておく
 
 ```
-gcloud beta compute networks subnets create ${_common}-subnets \
-  --network ${_common}-network \
+gcloud beta compute networks subnets create ${_common} \
+  --network ${_common} \
   --region ${_region} \
   --range ${_sub_network_range} \
   --enable-private-ip-google-access \
   --project ${_gc_pj_id}
 ```
 
-+ Firewall Rule の作成
+- Firewall Rule の作成
+  - [VPC firewall rules](../../../../net-security/firewall-manager/firewall-policies/)
 
 ```
-# ### 内部通信は全て許可する
-# gcloud beta compute firewall-rules create ${_common}-network-allow-internal-all \
-#   --network ${_common}-network \
-#   --action ALLOW \
-#   --rules tcp:0-65535,udp:0-65535,icmp \
-#   --source-ranges ${_sub_network_range} \
-  --project ${_gc_pj_id}
-
 ### SSH 用
 gcloud beta compute firewall-rules create ${_common}-network-allow-ingress-ssh \
-  --network ${_common}-network \
+  --network ${_common} \
   --action ALLOW \
   --rules tcp:22,icmp \
   --source-ranges ${_my_ip},${_other_ip} \
