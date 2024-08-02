@@ -35,9 +35,9 @@ gcloud beta services enable compute.googleapis.com --project ${_gc_pj_id}
 + GCE Instance 用の Service Account の作成
 
 ```
-gcloud beta iam service-accounts create sa-${_common} \
-  --description="${_common}-vm 用の Service Account" \
-  --display-name="sa-${_common}" \
+gcloud beta iam service-accounts create sa-gce-${_common} \
+  --description="[GCE] ${_common} 用の Service Account" \
+  --display-name="sa-gce-${_common}" \
   --project ${_gc_pj_id}
 ```
 
