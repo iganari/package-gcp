@@ -123,17 +123,10 @@ gcloud beta compute images list --format="table(NAME,PROJECT,FAMILY)"  --filter=
 ```
 ### 例: Ubuntu のイメージを探すコマンド
 $ gcloud beta compute images list --format="table(NAME,PROJECT,FAMILY)"  --filter="(name:ubuntu-minimal-* NOT family:arm64)" --project ${_gc_pj_id}
-NAME: ubuntu-minimal-2004-focal-v20240802a
-PROJECT: ubuntu-os-cloud
-FAMILY: ubuntu-minimal-2004-lts
-
-NAME: ubuntu-minimal-2204-jammy-v20240802
-PROJECT: ubuntu-os-cloud
-FAMILY: ubuntu-minimal-2204-lts
-
-NAME: ubuntu-minimal-2404-noble-amd64-v20240801
-PROJECT: ubuntu-os-cloud
-FAMILY: ubuntu-minimal-2404-lts-amd64
+NAME                                       PROJECT          FAMILY
+ubuntu-minimal-2004-focal-v20240802a       ubuntu-os-cloud  ubuntu-minimal-2004-lts
+ubuntu-minimal-2204-jammy-v20240802        ubuntu-os-cloud  ubuntu-minimal-2204-lts
+ubuntu-minimal-2404-noble-amd64-v20240801  ubuntu-os-cloud  ubuntu-minimal-2404-lts-amd64
 ```
 
 - 環境変数を設定
