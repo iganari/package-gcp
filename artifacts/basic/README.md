@@ -7,10 +7,10 @@ WIP
 
 ### Artifact Registry を準備する
 
-+ GCP Project ID とリージョンを環境変数に用意する
++ Google Cloud Project ID とリージョンを環境変数に用意する
 
 ```
-export _gcp_pj_id='Your GCP Project ID'
+export _gc_pj_id='Your Google Cloud Project ID'
 export _region='asia-northeast1'
 ```
 
@@ -24,14 +24,14 @@ export _ar_repo='Your Repository Name of Artifact Registry's'
 gcloud beta artifacts repositories create ${_ar_repo} \
   --repository-format docker \
   --location ${_region} \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
 + Artifact Registry のリポジトリの確認
 
 ```
-gcloud beta artifacts repositories list --project ${_gcp_pj_id}
-gcloud beta artifacts repositories describe ${_ar_repo} --location ${_region} --project ${_gcp_pj_id}
+gcloud beta artifacts repositories list --project ${_gc_pj_id}
+gcloud beta artifacts repositories describe ${_ar_repo} --location ${_region} --project ${_gc_pj_id}
 ```
 
 ## Cloud Run を使った例
