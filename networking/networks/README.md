@@ -13,6 +13,37 @@ TBD
 
 [公式ドキュメント | 自動モードの IPv4 範囲](https://cloud.google.com/vpc/docs/subnets?hl=en#ip-ranges)
 
+## コマンド
+
+```
+### Env
+
+export _gc_pj_id='Your Google Cloud Project ID'
+
+export _common='pkg-gcp'
+export _region='asia-northeast1'
+export _sub_network_range='10.0.0.0/16'
+```
+
+- VPC Network の作成
+
+```
+gcloud beta compute networks create ${_common} \
+  --subnet-mode=custom \
+  --project ${_gc_pj_id}
+```
+
+- Subnet の作成
+
+```
+gcloud beta compute networks subnets create ${_common}-${_region} \
+  --network ${_common} \
+  --region ${_region} \
+  --range ${_sub_network_range} \
+  --enable-private-ip-google-access \
+  --project ${_gc_pj_id}
+```
+
 
 ## default VPC Network の削除
 
