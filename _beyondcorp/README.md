@@ -2,9 +2,13 @@
 
 ## BeyondCorp is 何 ?
 
-Google が実装したセキュリティのフレームワーク (https://cloud.google.com/beyondcorp?hl=en)
+https://cloud.google.com/beyondcorp?hl=en
+
+Google が実装したセキュリティのフレームワークのことです
 
 ゼロトラストネットワークの思想がベースとなっていて、Google Cloud の設計思想に繋がっている
+
+Google Cloud において固有のサービスがあるわけではなく、各サービスにおけるセキュリティの向上の追加設定やオプションのことを指しています
 
 ### ゼロトラストネットワークとは
 
@@ -12,7 +16,6 @@ Google が実装したセキュリティのフレームワーク (https://cloud.
 
 - 参考図書
   - https://www.oreilly.co.jp/books/9784873118888/
-
 
 ## BeyondCorp Enterprise のドキュメント
 
