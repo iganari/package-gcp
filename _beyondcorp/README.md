@@ -20,3 +20,7 @@ Google Cloud において固有のサービスがあるわけではなく、各�
 ## BeyondCorp Enterprise のドキュメント
 
 https://cloud.google.com/beyondcorp-enterprise/docs
+
+## 具体的にどんなことをすればいいですか ？
+
+TBD
