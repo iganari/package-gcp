@@ -11,8 +11,9 @@ Google Kubernetes Engine (GKE) を使うためのサンプルです :)
 - kubectl
   - GKE の Kubernetes の領域を操作する際に必要です
 
-## インストール方法
 
+<details>
+<summary>インストール方法</summary>
 
 ### Linux on GCE の場合
 
@@ -49,6 +50,8 @@ sudo apt-get update && sudo apt-get install -y google-cloud-cli
 ```
 sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
 ```
+
+</details>
 
 ## [Cluster について](./cluster-overview)
 
