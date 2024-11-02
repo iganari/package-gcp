@@ -5,6 +5,10 @@
 + 公式ドキュメント
   + https://cloud.google.com/workflows/docs/quickstart-gcloud
 
+## Tips
+
+https://cloud.google.com/workflows/docs/authentication?hl=en#sa-permissions
+
 ## gcloud コマンドでやっていく
 
 + GCP 認証

@@ -16,11 +16,10 @@ export _gc_pj_id="Your Google Cloud Project ID"
 
 ## インストール方法
 
-[Google Cloud SDK のインストール](https://cloud.google.com/sdk/docs/install)
+[gcloud CLI のインストール](https://cloud.google.com/sdk/docs/install#linux)
 
 上記に `Linux`, `Debian/Ubuntu`, `Red Hat/Fedora/CentOS`, `macOS`, `Windows` が記載されている
 
-最新版をサクッとインストールしたい場合は -> [Using the Google Cloud CLI installer](https://cloud.google.com/sdk/docs/downloads-interactive)
 
 GCE の場合はデフォルトでインストールされている。その場合は apt の外部リポジトリのみ入れておくよい。 ---> 例 [pkg-gcp | kubernetes](https://github.com/iganari/package-gcp/tree/main/kubernetes)
 
@@ -271,6 +270,13 @@ gcloud beta services enable {{ Services Name }} --project ${_gc_pj_id}
 ```
 gcloud beta services disable {Services Name} --project ${_gc_pj_id}
 ```
+
+## Project
+
+```
+gcloud projects describe ${_gc_pj_id} --format="value(projectNumber)"
+```
+
 
 ## Option
 

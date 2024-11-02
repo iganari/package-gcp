@@ -6,8 +6,8 @@
 
 ```
 gcloud beta iam service-accounts create SERVICE_ACCOUNT_ID \
-  --description="DESCRIPTION" \
   --display-name="DISPLAY_NAME" \
+  --description="DESCRIPTION" \
   --project PROJECT_ID
 ```
 

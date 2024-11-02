@@ -126,14 +126,14 @@ $ gcloud beta compute images list --format="table(NAME,PROJECT,FAMILY)"  --filte
 NAME                                       PROJECT          FAMILY
 ubuntu-minimal-2004-focal-v20240802a       ubuntu-os-cloud  ubuntu-minimal-2004-lts
 ubuntu-minimal-2204-jammy-v20240802        ubuntu-os-cloud  ubuntu-minimal-2204-lts
-ubuntu-minimal-2404-noble-amd64-v20240801  ubuntu-os-cloud  ubuntu-minimal-2404-lts-amd64
+ubuntu-minimal-2404-noble-amd64-v20240808  ubuntu-os-cloud  ubuntu-minimal-2404-lts-amd64
 ```
 
 - 環境変数を設定
 
 ```
 export _boot_project='ubuntu-os-cloud'
-export _boot_image='ubuntu-minimal-2404-noble-amd64-v20240801'
+export _boot_image='ubuntu-minimal-2404-noble-amd64-v20240808'
 export _boot_size='30'
 
 export _machine_type='e2-small'
