@@ -14,7 +14,9 @@ https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-ad
 
 ## 目次
 
-TBD
+OS のライブラリやセキュリティパッチを自動でアップデートしてくれる
+
+VM の適用具合も可視化してくれる
 
 ## Tips
 
