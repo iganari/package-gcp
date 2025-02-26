@@ -235,3 +235,22 @@ NAME                                  TYPE    START                          END
 
 $
 ```
+
+
+## オンデマンドのバックアップを作成・確認
+
+### バックアップの作成
+
+```
+export _gc_pj_id='Your Google Cloud Project'
+export _sql_instance_name='Your Cloud SQL Instance Name'
+export _bk_location='Back Up Locatoin'  ### asia-northeast1
+
+
+gcloud beta sql backups create \
+  --instance ${_sql_instance_name} \
+  --location ${_bk_location} \
+  --description="On-demand Backup" \
+  --project ${_gc_pj_id} \
+  --async
+```
