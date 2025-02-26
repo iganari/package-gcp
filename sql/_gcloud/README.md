@@ -293,3 +293,35 @@ $ gcloud beta sql backups list \
 "1559755678953"
 "1517582134388"
 ```
+
+### 最新の ID を指定して、バックアップの内容を確認する
+
+- 基本コマンド
+
+```
+gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq -r '.[] | select(.id == "<backupID>")'
+```
+
+- 組み合わせて、最新の ID を指定して、バックアップの内容を確認する
+
+```
+export _latest_id=$(gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq -r .[].id | head -1)
+
+echo ${_latest_id}
+```
+```
+jq ...
+
+gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq -r '.[] | select(.id == \"${_latest_id}\")'
+としたいが、${_latest_id} が入らない...
+```
+
