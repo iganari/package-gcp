@@ -20,7 +20,12 @@ IAP 経由で GCE に SSH などをする際に最低限必要な Role は以下
 - **IAP-secured Tunnel User** (roles/iap.tunnelResourceAccessor)
 - **Service Account User** (roles/iam.serviceAccountUser)
 
+<details>
+<summary>スクリーンショット</summary>
+
 ![](./_img/compute-iap-01.png)
+
+</details>
 
 ## まとめ
 
