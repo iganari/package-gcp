@@ -20,6 +20,8 @@ IAP 経由で GCE に SSH などをする際に最低限必要な Role は以下
 - **IAP-secured Tunnel User** (roles/iap.tunnelResourceAccessor)
 - **Service Account User** (roles/iam.serviceAccountUser)
 
+![](./_img/compute-iap-01.png)
+
 ## まとめ
 
 本来、外部 IP アドレスが付いていない GCE へは外部からアクセス出来ませんが、IAP 越しに接続することで SSH ログインおよび RDP ログインすることが出来ることが分かりました :raised_hands:
