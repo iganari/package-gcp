@@ -6,10 +6,19 @@ https://cloud.google.com/iap/docs/concepts-overview
 
 ## 概要
 
-+ [VM Instance が Linux の場合](./linux/)
-+ [VM Instance が Windows Server の場合](./windows)
+- [VM Instance が Linux の場合](./linux/)
+- [VM Instance が Windows Server の場合](./windows)
 
 ![](./_img/main.png)
+
+## 必要な Role
+
+IAP 経由で GCE に SSH などをする際に最低限必要な Role は以下です
+
+- **Viewer** (roles/viewer)
+- **Compute Instance Admin (beta)** (roles/compute.instanceAdmin)
+- **IAP-secured Tunnel User** (roles/iap.tunnelResourceAccessor)
+- **Service Account User** (roles/iam.serviceAccountUser)
 
 ## まとめ
 
