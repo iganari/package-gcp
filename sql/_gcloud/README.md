@@ -235,3 +235,93 @@ NAME                                  TYPE    START                          END
 
 $
 ```
+
+
+## オンデマンドのバックアップを作成・確認
+
+### バックアップの作成
+
+```
+export _gc_pj_id='Your Google Cloud Project'
+export _sql_instance_name='Your Cloud SQL Instance Name'
+export _bk_location='Back Up Locatoin'  ### asia-northeast1
+```
+```
+gcloud beta sql backups create \
+  --instance ${_sql_instance_name} \
+  --location ${_bk_location} \
+  --description="On-demand Backup" \
+  --project ${_gc_pj_id} \
+  --async
+```
+
+
+### バックアップの確認
+
+```
+gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq .[].id
+```
+
+```
+### 例
+
+$ gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq .[].id
+"1740587222425"
+"1740499200000"
+"1740412800000"
+"1740326400000"
+"1740240000000"
+"1740153600000"
+"1740067200000"
+"1739980800000"
+"1736390505693"
+"1736389368958"
+"1732254091937"
+"1729535028699"
+"1709143958865"
+"1688129311577"
+"1683006593196"
+"1594624477205"
+"1574436199564"
+"1567563873797"
+"1559755678953"
+"1517582134388"
+```
+
+### 最新の ID を指定して、バックアップの内容を確認する
+
+- 基本コマンド
+
+```
+gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq -r '.[] | select(.id == "<backupID>")'
+```
+
+- 組み合わせて、最新の ID を指定して、バックアップの内容を確認する
+
+```
+export _latest_id=$(gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq -r .[].id | head -1)
+
+echo ${_latest_id}
+```
+```
+jq ...
+
+gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq -r '.[] | select(.id == \"${_latest_id}\")'
+としたいが、${_latest_id} が入らない...
+```
+

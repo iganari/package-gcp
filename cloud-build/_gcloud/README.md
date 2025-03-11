@@ -90,3 +90,15 @@ gcloud beta builds triggers create manual \
   --project ${_gc_pj_id}
 ```
 
+
+### Cloud Build Trigger の一覧表示
+
+```
+gcloud beta builds triggers list --region asia-northeast1 --project ${_gc_pj_id} --format json
+```
+
+### コマンドによる実行
+
+```
+gcloud beta builds triggers run {{ ID }} --region asia-northeast1 --project ${_gc_pj_id}
+```
