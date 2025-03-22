@@ -1,3 +1,7 @@
 # Cloud SQL Auth Proxy について
 
-WIP
+TBD
+
+## memo
+
+- Private と Public がある

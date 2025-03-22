@@ -27,7 +27,7 @@
 
 - [プライベート IP アドレスしか持たない Cloud SQL の作成](./feature-only-private-ip-addr)
   + プライベート IP アドレスしか持たない Cloud SQL の作成
-- [WIP][IAP to Cloud SQL](./feature-iap/README.md)
+- [IAP to Cloud SQL](./feature-iap/README.md)
   - IAP 越しに パブリック IP アドレスが無い Cloud SQL に パブリック IP アドレスが無い GCE を通じてログインします
 - [WIP][Login to Cloud SQL using the Cloud SQL Auth proxy](./feature-sql-auth-proxy/README.md)
   - Cloud SQL Auth proxy を使用して、外部の VM から Cloud SQL にログインします
