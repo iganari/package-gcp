@@ -23,8 +23,10 @@
 
 ## 機能および構築例
 
+- [バックアップについて](./feature-backup/)
+  - Cloud SQL のバックアップについての覚書
 - [プライベート IP アドレスしか持たない Cloud SQL の作成](./feature-only-private-ip-addr)
-  + プライベート IP アドレスしか持たない Cloud SQL の作成
+  - プライベート IP アドレスしか持たない Cloud SQL の作成
 - [IAP to Cloud SQL](./feature-iap/README.md)
   - IAP 越しに パブリック IP アドレスが無い Cloud SQL に パブリック IP アドレスが無い GCE を通じてログインします
 - [Login to Cloud SQL using the Cloud SQL Auth proxy](./feature-cloud-sql-auth-proxy/README.md)
