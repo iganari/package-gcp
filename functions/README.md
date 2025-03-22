@@ -1,4 +1,4 @@
-# Cloud Functions
+# Cloud Run Functions
 
 ## めも
 
@@ -11,3 +11,12 @@ WIP
 ## [Trigger: HTTP](./trigger-http/)
 
 WIP
+
+
+## 必要な API
+
+- Cloud Funstions API
+- Eventarc API
+- Cloud Pub/Sub API
+
+![](./_img/functions-api.png)
