@@ -19,9 +19,7 @@
 
 ## Tips
 
-- [最大同時接続数](./tips-maximum_concurrent_connections)
 - [Cloud SQL で利用できるデータベースの種類とバージョン](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
-
 
 ## 機能および構築例
 
@@ -29,9 +27,9 @@
   + プライベート IP アドレスしか持たない Cloud SQL の作成
 - [IAP to Cloud SQL](./feature-iap/README.md)
   - IAP 越しに パブリック IP アドレスが無い Cloud SQL に パブリック IP アドレスが無い GCE を通じてログインします
-- [WIP][Login to Cloud SQL using the Cloud SQL Auth proxy](./feature-sql-auth-proxy/README.md)
+- [Login to Cloud SQL using the Cloud SQL Auth proxy](./feature-cloud-sql-auth-proxy/README.md)
   - Cloud SQL Auth proxy を使用して、外部の VM から Cloud SQL にログインします
-- [Copy Another Cloud SQL](./copy-another-sql)
+- [Copy Another Cloud SQL](./feature-copy-another-sql)
   - Cloud SQL のデータをコピーしたい場合のやり方
 - [レプリケーションについて](./feature-replication/)
   - Cloud SQL のリードレプリカや、外部の DB とのレプリケーションについて

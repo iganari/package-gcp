@@ -14,13 +14,34 @@ https://cloud.google.com/sql/docs/mysql/flags
 
 以下はよく設定するフラグ
 
-+ 一般クエリーログを Cloud Logging に吐き出す場合
-  + `log_output` = `FILE` かつ `general_log` = `On`
-+ スロークエリログを Cloud Logging に吐き出す場合
-  + `log_output` = `FILE` かつ `slow_query_log` = `On`
-  + `long_query_time` にてスロークエリのしきい値を決める
-+ time zone の修正
-  + `default_time_zone` = `+09:00`
+- 一般クエリーログを Cloud Logging に吐き出す場合
+  - `log_output` = `FILE` かつ `general_log` = `On`
+- スロークエリログを Cloud Logging に吐き出す場合
+  - `log_output` = `FILE` かつ `slow_query_log` = `On`
+  - `long_query_time` にてスロークエリのしきい値を決める
+- time zone の修正
+  - `default_time_zone` = `+09:00`
+
+### 最大同時接続数 (max_connections)
+
+- 最大同時接続数
+  - https://cloud.google.com/sql/docs/quotas#maximum_concurrent_connections
+
+- 確認コマンド
+
+```
+SHOW VARIABLES LIKE "max_connections";
+```
+
+- デフォルト接続数上限
+
+マシンタイプ | デフォルトの同時接続数
+:- | :-
+db-f1-micro | 250
+db-g1-small | 1,000
+その他のすべてのマシンタイプ | 4,000
+
+※ 割当 (Quotas) で上限緩和申請が可能
 
 ## PostgreSQL
 
@@ -35,3 +56,18 @@ ALTER USER username SET TIMEZONE TO 'timezone';
 ```
 
 https://cloud.google.com/sql/docs/postgres/flags#troubleshooting-flags
+
+### 最大同時接続数 (max_connections)
+
+- 確認コマンド
+
+```
+SELECT * FROM pg_settings WHERE name = 'max_connections';
+```
+
+- デフォルト接続上限
+
+```
+マシンタイプ構成設定により、選択したコア数に基づき、自動的に利用可能なメモリサイズの範囲が調整される
+```
+
