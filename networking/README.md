@@ -17,7 +17,7 @@ gcloud beta services enable compute.googleapis.com --project ${_gc_pj_id}
 VPC 設計のためのおすすめの方法とリファレンス アーキテクチャ
 https://cloud.google.com/architecture/best-practices-vpc-design?hl=ja
 
-## default の削除
+## 不要な初期設定の削除
 
 デフォルトの VPC Network および Firewall Rule はセキュリティ的に良く無いので、はじめに削除しておく (組織ポリシーで禁止も可能)
 
