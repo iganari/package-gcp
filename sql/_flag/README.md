@@ -19,6 +19,7 @@ https://cloud.google.com/sql/docs/mysql/flags
 - スロークエリログを Cloud Logging に吐き出す場合
   - `log_output` = `FILE` かつ `slow_query_log` = `On`
   - `long_query_time` にてスロークエリのしきい値を決める
+    - 単位はおそらく秒(s)
 - time zone の修正
   - `default_time_zone` = `+09:00`
 
