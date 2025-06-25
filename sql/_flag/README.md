@@ -22,6 +22,8 @@ https://cloud.google.com/sql/docs/mysql/flags
 - time zone の修正
   - `default_time_zone` = `+09:00`
 
+https://cloud.google.com/sql/docs/mysql/diagnose-issues#query-logs
+
 ### 最大同時接続数 (max_connections)
 
 - 最大同時接続数
