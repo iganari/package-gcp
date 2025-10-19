@@ -2,13 +2,13 @@
 
 ## 0. 準備
 
-+ GCP にログインする
+- Google Cloud にログインする
 
 ```
 gcloud auth login --no-launch-browser -q
 ```
 
-+ API の有効化をする
+- API の有効化をする
 
 ```
 gcloud beta services enable sqladmin.googleapis.com --project ${_gc_pj_id}
@@ -16,9 +16,9 @@ gcloud beta services enable sqladmin.googleapis.com --project ${_gc_pj_id}
 
 ## 1. Cloud SQL Instance を作成
 
-+ 環境変数に入れる
-  + `_instance_type` -> 使用できるインスタンスタイプ : https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/tiers/list
-  + `_instance_name` -> Cloud SQL Instance の Name はユニークである必要があるため被らないような対策が必要
+- 環境変数に入れる
+  - `_instance_type` -> 使用できるインスタンスタイプ : https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/tiers/list
+  - `_instance_name` -> Cloud SQL Instance の Name はユニークである必要があるため被らないような対策が必要
 
 ```
 export _gc_pj_id='Your GCP Project ID'
@@ -30,7 +30,6 @@ export _region='asia-northeast1'
 export _instance_name="$(echo ${_common})-$(date +'%Y%m%d%H%M')"
 echo ${_instance_name}
 ```
-
 
 ### 1-1. MySQL の場合
 
@@ -100,6 +99,11 @@ gcloud beta sql instances create ${_instance_name} \
 gcloud beta sql instances describe ${_instance_name} --project ${_gc_pj_id} --format json
 ```
 
+### 1-3. Cloud SQL の Service Account の確認
+
+```
+gcloud beta sql instances describe ${_instance_name} --project ${_gc_pj_id} --format json | jq -r .serviceAccountEmailAddress
+```
 
 ## 2. Database の作成
 
