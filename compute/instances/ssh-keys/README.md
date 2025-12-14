@@ -1,6 +1,6 @@
-# Setting Metadata
+# Setting SSH Keys
 
-## GCE の metadata を確認する方法
+## GCE の SSH Keys を確認する方法
 
 - 環境変数
 
