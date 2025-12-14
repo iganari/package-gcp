@@ -13,5 +13,13 @@ export _vm_zone='Your GCE Instance Zone'
 - 確認コマンド
 
 ```
-
+gcloud beta compute instances describe ${_vm_name} \
+  --zone=${_vm_zone} \
+  --project=${_gc_project_id}
 ```
+
+
+
+export _gc_project_id='hejda-tech-2025-prd'
+export _vm_name='ws-hejda'
+export _vm_zone='asia-northeast1-c'
