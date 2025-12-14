@@ -15,7 +15,8 @@ export _vm_zone='Your GCE Instance Zone'
 ```
 gcloud beta compute instances describe ${_vm_name} \
   --zone=${_vm_zone} \
-  --project=${_gc_project_id}
+  --project=${_gc_project_id} \
+  --format="yaml(metadata)"
 ```
 
 
