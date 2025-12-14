@@ -36,7 +36,7 @@ gcloud beta compute project-info describe --project=${_gc_project_id}
 
 ```
 ### 実際の公開鍵の形
-ssh-rsa AAAAB3Nz...割愛...A3qfQ==
+ssh-rsa AAAAB3Nz...割愛...A3qfQ== iganari@example.com
 
 ### VM 上の Linux User
 iganari
