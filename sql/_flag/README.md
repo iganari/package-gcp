@@ -12,7 +12,7 @@ https://cloud.google.com/sql/docs/mysql/flags
 
 設定できるフラグは [サポートされているフラグ](https://cloud.google.com/sql/docs/mysql/flags#list-flags-mysql) にあるもののみ
 
-以下はよく設定するフラグ
+必須設定フラグ
 
 - 一般クエリーログを Cloud Logging に吐き出す場合
   - `log_output` = `FILE` かつ `general_log` = `On`
@@ -22,6 +22,13 @@ https://cloud.google.com/sql/docs/mysql/flags
     - 単位はおそらく秒(s)
 - time zone の修正
   - `default_time_zone` = `+09:00`
+
+必要なら設定するフラグ
+
+- wait_timeout
+  - サーバーがクライアントからのアクティブなコマンドを待つ秒数（アイドルタイムアウト）を設定するパラメータで、この時間内に操作がなければ非対話型接続（アプリケーションからの接続など）を自動的に切断
+- interactive_timeout
+  - mysqlクライアントやMySQL Workbenchのような「対話型」の接続（クライアント）が、次にコマンドが実行されるのを待つアイドル状態（スリープ状態）の最大秒数
 
 https://cloud.google.com/sql/docs/mysql/diagnose-issues#query-logs
 
