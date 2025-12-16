@@ -27,8 +27,10 @@ https://cloud.google.com/sql/docs/mysql/flags
 
 - wait_timeout
   - サーバーがクライアントからのアクティブなコマンドを待つ秒数（アイドルタイムアウト）を設定するパラメータで、この時間内に操作がなければ非対話型接続（アプリケーションからの接続など）を自動的に切断
+  - 非対話型接続向け（例: アプリケーションからの接続）。
 - interactive_timeout
   - mysqlクライアントやMySQL Workbenchのような「対話型」の接続（クライアント）が、次にコマンドが実行されるのを待つアイドル状態（スリープ状態）の最大秒数
+  - 対話型接続向け（例: mysqlクライアント）。
 
 https://cloud.google.com/sql/docs/mysql/diagnose-issues#query-logs
 
