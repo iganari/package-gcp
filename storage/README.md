@@ -57,7 +57,7 @@ https://cloud.google.com/storage/docs/lifecycle
 
 ## Cross-Origin Resource Sharing (CORS) について
 
-[Cross-Origin Resource Sharing (CORS) について](./cors/)
+[Cross-Origin Resource Sharing (CORS) について](./feature-cors/)
 
 ## metadata
 
