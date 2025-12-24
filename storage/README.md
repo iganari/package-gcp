@@ -55,6 +55,10 @@ Object Lifecycle Management
 https://cloud.google.com/storage/docs/lifecycle
 ```
 
+## Cross-Origin Resource Sharing (CORS) について
+
+[Cross-Origin Resource Sharing (CORS) について](./cors/)
+
 ## metadata
 
 + [Get bucket size and metadata](https://cloud.google.com/storage/docs/getting-bucket-size-and-metadata)
