@@ -66,7 +66,7 @@ ORDER BY
   - REFERENCES: 外部キー参照権限（DDLに関わる）
   - TRIGGER: トリガー作成権限
 
-## スキーマごとの権限を確認するクエリ
+## スキーマごとの権限を確認するクエリ (これがおすすめ)
 
 - システムカタログを叩いて一覧を出す
 - PostgreSQL のシステム用スキーマ（pg_ で始まるものや information_schema）を除外
@@ -100,6 +100,8 @@ ORDER BY
 ```
 
 - 一部のユーザを除外
+  - 'cloudsql' で始まるユーザー
+  - 'pg_' で始まるユーザー
 
 ```
 SELECT 
@@ -122,6 +124,8 @@ WHERE
     AND n.nspname <> 'information_schema'
     -- 'cloudsql' で始まるユーザーを除外
     AND r.rolname NOT LIKE 'cloudsql%'
+    -- 'pg_' で始まるユーザーを除外
+    AND r.rolname NOT LIKE 'pg_%'
     -- 権限を何かしら持っているユーザーのみ表示
     AND (
         has_schema_privilege(r.oid, n.oid, 'USAGE') 
