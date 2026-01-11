@@ -65,3 +65,36 @@ ORDER BY
   - TRUNCATE: 削除（全行）権限
   - REFERENCES: 外部キー参照権限（DDLに関わる）
   - TRIGGER: トリガー作成権限
+
+## スキーマごとの権限を確認するクエリ
+
+- システムカタログを叩いて一覧を出す
+- PostgreSQL のシステム用スキーマ（pg_ で始まるものや information_schema）を除外
+
+```
+SELECT 
+    n.nspname AS schema_name, 
+    r.rolname AS user_name, 
+    -- 権限の種類を分かりやすく表示（USAGE, CREATE等）
+    CASE 
+        WHEN has_schema_privilege(r.oid, n.oid, 'USAGE') AND has_schema_privilege(r.oid, n.oid, 'CREATE') THEN 'USAGE + CREATE'
+        WHEN has_schema_privilege(r.oid, n.oid, 'USAGE') THEN 'USAGE'
+        WHEN has_schema_privilege(r.oid, n.oid, 'CREATE') THEN 'CREATE'
+        ELSE 'NONE'
+    END AS privilege_type
+FROM 
+    pg_namespace n
+CROSS JOIN 
+    pg_roles r
+WHERE 
+    -- システム用スキーマを除外
+    n.nspname NOT LIKE 'pg_%' 
+    AND n.nspname <> 'information_schema'
+    -- 権限を何かしら持っているユーザーのみ表示
+    AND (
+        has_schema_privilege(r.oid, n.oid, 'USAGE') 
+        OR has_schema_privilege(r.oid, n.oid, 'CREATE')
+    )
+ORDER BY 
+    schema_name, user_name;
+```
