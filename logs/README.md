@@ -70,3 +70,14 @@ https://cloud.google.com/logging/docs/view/logging-query-language?hl=ja
 ### Loggingでログ検索を速くする方法
 https://cloud.google.com/logging/docs/view/logging-query-language?hl=ja#finding-quickly
 ```
+
+## サンプルクエリ
+
+IAP の成功・失敗のログを見つけるクエリ
+
+```
+resource.type="gce_backend_service"
+logName:"logs/cloudaudit.googleapis.com%2Fdata_access"
+protoPayload.serviceName="iap.googleapis.com"
+protoPayload.methodName="AuthorizeUser"
+```
