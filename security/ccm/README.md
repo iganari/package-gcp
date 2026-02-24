@@ -2,10 +2,9 @@
 
 ## 公式ドキュメント
 
+TBD
 
-## API
-
-+ 必要な API
+- 必要な API
 
 ```
 ### Certificate Manager API
@@ -14,17 +13,17 @@ certificatemanager.googleapis.com
 
 ## 使用方法
 
-### 注意
+### 何が出来るの ?
 
-+ Cloud Console からは作成出来ない (2024/03 現在)
-+ Wildcard Certificate を目的で使いたい場合は、 Google が作ってくれるわけではなく、他の購入した Wildcard Certificate をセルフ証明書として使えるというだけ。
+- 単一ドメインの Google Cloud マネージド SSL 証明書を管理出来る
+- ワイルドカード SSL 証明書も作ることがが出来る
+  - `DNS 認証` のみ (2026/02)
+
+### 注意
 
 ![](./_img/ccm-01.png)
 
-
-削除は出来る ??
-
-### 作りかた
+## Cloud SDK
 
 + SDK を用いて作成する
   + https://cloud.google.com/sdk/gcloud/reference/certificate-manager
@@ -33,7 +32,3 @@ certificatemanager.googleapis.com
 ```
 
 ```
-
-## 参考 URL
-
-https://belonginc.dev/members/ttyfky/posts/leverage-certificate-manager-in-cloud-run
