@@ -32,3 +32,13 @@ certificatemanager.googleapis.com
 ```
 
 ```
+
+## 公式チュートリアル
+
+TBD
+
+## ハンズオン
+
+独自のハンズオン
+
+https://github.com/iganari/handson-googlecloud-certificate-manager
