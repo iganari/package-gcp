@@ -48,6 +48,8 @@ default-allow-ssh | Ingress | Apply to all | IP ranges: 0.0.0.0/0 | tcp:22 | All
 
 ```
 {{ VPC ネットワーク名 }}-{{ allow/deny }}-{{ ingress/egress/internal }}-{{ 対象者 }}-{{ ports(分かりやすい形) }}
+もしくは
+{{ VPC ネットワーク名 }}-{{ allow/deny }}-{{ ingress/egress/internal }}-({{ 対象物 }}-){{ 対象者 }}-{{ ports(分かりやすい形) }}
 ```
 
 がいいと思う
