@@ -26,10 +26,9 @@ gcloud beta compute images list --project ${_gc_pj_id}
 gcloud compute images list --filter="name~'^rocky-linux-8-optimized-gcp-v.*?'" --format table'(NAME, PROJECT, STATUS)'
 ```
 
-### Ubuntu
+### Ubuntu 系を検索する
 
-- hoge
-  - **ubuntu**
+- 該当する Google Cloud プロジェクトにて **ubuntu** のイメージを検索する
 
 ```
 gcloud beta compute images list --project ${_gc_pj_id}
