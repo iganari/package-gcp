@@ -11,3 +11,4 @@ Security Reviewer (セキュリティ審査担当者) | **roles/iam.securityRevi
 Reader (TBD)<br>~Viewer (閲覧者)~ | **roles/reader** | Project | [リンク](https://cloud.google.com/iam/docs/understanding-roles#viewer)
 Quota Viewer (割り当て閲覧者) | **roles/servicemanagement.quotaViewer** | Service Management | [リンク](https://cloud.google.com/iam/docs/understanding-roles#servicemanagement.quotaViewer)
 
+※ 基本ロールが刷新されました -> https://docs.cloud.google.com/iam/docs/roles-overview#basic
