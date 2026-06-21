@@ -11,3 +11,4 @@ https://docs.cloud.google.com/vpc/docs/about-vpc-hosted-services
 
 - めも
   - いわゆる NAT(NAPT) の技術なので、将来的にアタッチメントの数だけ IP アドレスを消費する === 接続するサブネットの IP アドレスのレンジとなる
+  - https://docs.cloud.google.com/vpc/docs/about-vpc-hosted-services
