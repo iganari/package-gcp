@@ -44,7 +44,9 @@ iganari
 ```
 ### 実際のコマンド
 
-gcloud beta compute project-info add-metadata --metadata=ssh-keys="iganari:ssh-rsa AAAAB3Nz...割愛...A3qfQ== iganari@example.com"
+gcloud beta compute project-info add-metadata \
+  --metadata=ssh-keys="iganari:ssh-rsa AAAAB3Nz...割愛...A3qfQ== iganari@example.com" \
+  --project=${_gc_project_id}
 ```
 
 ## VM レベル
