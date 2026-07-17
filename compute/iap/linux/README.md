@@ -39,9 +39,9 @@ gcloud beta services enable compute.googleapis.com --project ${_gc_pj_id}
 + GCE Instance 用の Service Account の作成
 
 ```
-gcloud beta iam service-accounts create ${_common}-sa \
-  --description="${_common}-sa for Package GCP" \
-  --display-name="${_common}-sa" \
+gcloud beta iam service-accounts create sa-gce-${_common} \
+  --description="[GCE] ${_common} 用の Service Account" \
+  --display-name="sa-gce-${_common}" \
   --project ${_gc_pj_id}
 ```
 
@@ -50,7 +50,7 @@ gcloud beta iam service-accounts create ${_common}-sa \
 + VPC Network の作成
 
 ```
-gcloud beta compute networks create ${_common}-network \
+gcloud beta compute networks create ${_common} \
   --subnet-mode=custom \
   --project ${_gc_pj_id}
 ```
@@ -59,8 +59,8 @@ gcloud beta compute networks create ${_common}-network \
   + `限定公開の Google アクセス` を On にしておく
 
 ```
-gcloud beta compute networks subnets create ${_common}-subnets \
-  --network ${_common}-network \
+gcloud beta compute networks subnets create ${_common} \
+  --network ${_common} \
   --region ${_region} \
   --range ${_sub_network_range} \
   --enable-private-ip-google-access \
@@ -73,7 +73,7 @@ gcloud beta compute networks subnets create ${_common}-subnets \
 ```
 ### 内部通信用
 gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
-  --network ${_common}-network \
+  --network ${_common} \
   --action ALLOW \
   --rules tcp:0-65535,udp:0-65535,icmp \
   --source-ranges ${_sub_network_range} \
@@ -82,12 +82,12 @@ gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
 
 ### IAP からの SSH と ICMP を許可する (Linux の場合)
 gcloud beta compute firewall-rules create ${_common}-allow-iap-ssh \
-  --network ${_common}-network \
+  --network ${_common} \
   --direction=INGRESS \
   --action ALLOW \
   --rules tcp:22,icmp \
   --source-ranges=35.235.240.0/20 \
-  --target-service-accounts ${_common}-sa@${_gc_pj_id}.iam.gserviceaccount.com \
+  --target-service-accounts sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com \
   --priority=1010 \
   --project ${_gc_pj_id}
 ```
@@ -104,7 +104,7 @@ gcloud beta compute addresses create ${_common}-nat-ip \
 
 ```
 gcloud beta compute routers create ${_common}-nat-router \
-  --network ${_common}-network \
+  --network ${_common} \
   --region ${_region} \
   --project ${_gc_pj_id}
 ```
@@ -148,10 +148,10 @@ export _maintenance_policy='MIGRATE'       ### MIGRATE/TERMINATE
 gcloud beta compute instances create ${_common}-vm \
   --zone ${_zone} \
   --machine-type ${_machine_type} \
-  --network-interface=no-address,stack-type=IPV4_ONLY,subnet=${_common}-subnets \
+  --network-interface=no-address,stack-type=IPV4_ONLY,subnet=${_common} \
   --maintenance-policy ${_maintenance_policy} \
   --provisioning-model ${_vm_provisioning_model} \
-  --service-account=${_common}-sa@${_gc_pj_id}.iam.gserviceaccount.com \
+  --service-account=sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com \
   --scopes=https://www.googleapis.com/auth/cloud-platform \
   --create-disk=auto-delete=yes,boot=yes,image=projects/${_boot_project}/global/images/${_boot_image},mode=rw,size=${_boot_size},type=projects/${_gc_pj_id}/zones/${_zone}/diskTypes/pd-standard \
   --shielded-secure-boot \
@@ -349,7 +349,7 @@ gcloud beta compute firewall-rules delete ${_common}-allow-iap-ssh \
 <summary>99-6. サブネットの削除</summary>
 
 ```
-gcloud beta compute networks subnets delete ${_common}-subnets \
+gcloud beta compute networks subnets delete ${_common} \
   --region ${_region} \
   --project ${_gc_pj_id} \
   --quiet
@@ -361,7 +361,7 @@ gcloud beta compute networks subnets delete ${_common}-subnets \
 <summary>99-7. VPC Network の削除</summary>
 
 ```
-gcloud beta compute networks delete ${_common}-network \
+gcloud beta compute networks delete ${_common} \
   --project ${_gc_pj_id} \
   --quiet
 ```
@@ -372,7 +372,7 @@ gcloud beta compute networks delete ${_common}-network \
 <summary>99-8. Service Account の削除</summary>
 
 ```
-gcloud beta iam service-accounts delete ${_common}-sa@${_gc_pj_id}.iam.gserviceaccount.com \
+gcloud beta iam service-accounts delete sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com \
   --project ${_gc_pj_id} \
   --quiet
 ```
