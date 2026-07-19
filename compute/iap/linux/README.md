@@ -49,14 +49,14 @@ gcloud beta iam service-accounts create sa-gce-${_common} \
 
 ```
 ### Role: Monitoring Metric Writer
-gcloud beta projects add-iam-policy-binding PROJECT_ID \
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --member="serviceAccount:sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com" \
   --role="roles/monitoring.metricWriter" \
   --condition None
 
 
 ### Role: Logs Writer
-gcloud beta projects add-iam-policy-binding PROJECT_ID \
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
   --member="serviceAccount:sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com" \
   --role="roles/logging.logWriter" \
   --condition None
@@ -72,8 +72,8 @@ gcloud beta compute networks create ${_common} \
   --project ${_gc_pj_id}
 ```
 
-+ サブネットの作成
-  + `限定公開の Google アクセス` を On にしておく
+- サブネットの作成
+  - `限定公開の Google アクセス` を On にしておく
 
 ```
 gcloud beta compute networks subnets create ${_common} \
@@ -84,8 +84,8 @@ gcloud beta compute networks subnets create ${_common} \
   --project ${_gc_pj_id}
 ```
 
-+ Firewall Rule の作成
-  + IAP のレンジなど ---> [package-gcp/networking/firewalls](../../../networking/firewalls)
+- Firewall Rule の作成
+  - IAP のレンジなど ---> [package-gcp/networking/firewalls](../../../networking/firewalls)
 
 ```
 ### 内部通信用
