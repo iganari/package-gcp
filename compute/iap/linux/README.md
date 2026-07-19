@@ -109,7 +109,7 @@ gcloud beta compute firewall-rules create ${_common}-allow-iap-ssh \
   --project ${_gc_pj_id}
 ```
 
-+ Cloud NAT で使用する外部 IP Address の予約
+- Cloud NAT で使用する外部 IP Address の予約
 
 ```
 gcloud beta compute addresses create ${_common}-nat-ip \
@@ -117,7 +117,7 @@ gcloud beta compute addresses create ${_common}-nat-ip \
   --project ${_gc_pj_id}
 ```
 
-+ Cloud NAT で使用する Cloud Router を作成
+- Cloud NAT で使用する Cloud Router を作成
 
 ```
 gcloud beta compute routers create ${_common}-nat-router \
@@ -126,7 +126,7 @@ gcloud beta compute routers create ${_common}-nat-router \
   --project ${_gc_pj_id}
 ```
 
-+ Cloud NAT の作成
+- Cloud NAT の作成
 
 ```
 gcloud beta compute routers nats create ${_common}-nat \
@@ -139,15 +139,15 @@ gcloud beta compute routers nats create ${_common}-nat \
 
 ## 3. 外部 IP アドレスがついた VM instance の作成
 
-+ GCE Instance のパブリックイメージの検索
-  + https://cloud.google.com/compute/docs/images
+- GCE Instance のパブリックイメージの検索
+  - https://cloud.google.com/compute/docs/images
 
 ```
 ### 例: Ubuntu のイメージを探すコマンド
 gcloud beta compute images list --filter="name~'^ubuntu-minimal-.*?'" --project ${_gc_pj_id}
 ```
 
-+ 環境変数を設定
+- 環境変数を設定
 
 ```
 export _boot_project='ubuntu-os-cloud'
@@ -159,7 +159,7 @@ export _vm_provisioning_model='STANDARD'   ### STANDARD/SPOT  <--- Spot VM
 export _maintenance_policy='MIGRATE'       ### MIGRATE/TERMINATE
 ```
 
-+ VM Instance の作成
+- VM Instance の作成
 
 ```
 gcloud beta compute instances create ${_common}-vm \
@@ -183,7 +183,7 @@ gcloud beta compute instances create ${_common}-vm \
 
 ### 4-1. CLI で SSH ログインする
 
-+ アカウント名を取得
+- アカウント名を取得
 
 ```
 gcloud auth list --filter=status:ACTIVE --format="value(account)"
@@ -192,7 +192,7 @@ export _account=$(gcloud auth list --filter=status:ACTIVE --format="value(accoun
 echo ${_account}
 ```
 
-+ VM instance に SSH ログインする
+- VM instance に SSH ログインする
 
 ```
 gcloud beta compute ssh ${_account}@${_common}-vm \
@@ -242,10 +242,10 @@ individual files in /usr/share/doc/*/copyright.
 Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
 applicable law.
 
-igarashi.toru@pkg-gcp-vm:~$
+iganari@pkg-gcp-vm:~$
 ```
 
-+ ping コマンドをインストールする
+- ping コマンドをインストールする
 
 ```
 sudo apt update
