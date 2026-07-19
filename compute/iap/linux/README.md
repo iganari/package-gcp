@@ -6,12 +6,12 @@
 
 ![](../_img/main.png)
 
-+ 参考 URL
-  + [Setting up IAP for Compute Engine](https://cloud.google.com/iap/docs/tutorial-gce)
-  + [Enabling IAP for Compute Engine](https://cloud.google.com/iap/docs/enabling-compute-howto)
-  + [Using IAP for TCP forwarding](https://cloud.google.com/iap/docs/using-tcp-forwarding)
+- 参考 URL
+  - [Setting up IAP for Compute Engine](https://cloud.google.com/iap/docs/tutorial-gce)
+  - [Enabling IAP for Compute Engine](https://cloud.google.com/iap/docs/enabling-compute-howto)
+  - [Using IAP for TCP forwarding](https://cloud.google.com/iap/docs/using-tcp-forwarding)
 
-+ Google Cloud に認証を通す
+- Google Cloud に認証を通す
 
 ```
 gcloud auth login --no-launch-browser -q
@@ -28,7 +28,7 @@ export _zone=`echo ${_region}-b`
 export _sub_network_range='10.146.0.0/20'
 ```
 
-+ API を有効化
+- API を有効化
 
 ```
 gcloud beta services enable compute.googleapis.com --project ${_gc_pj_id}
@@ -36,7 +36,7 @@ gcloud beta services enable compute.googleapis.com --project ${_gc_pj_id}
 
 ## 1. Service Account の作成
 
-+ GCE Instance 用の Service Account の作成
+- GCE Instance 用の Service Account の作成
 
 ```
 gcloud beta iam service-accounts create sa-gce-${_common} \
@@ -45,9 +45,20 @@ gcloud beta iam service-accounts create sa-gce-${_common} \
   --project ${_gc_pj_id}
 ```
 
+- 
+
+```
+### Role: 
+
+gcloud beta projects add-iam-policy-binding PROJECT_ID \
+  --member="serviceAccount:SERVICE_ACCOUNT_ID@PROJECT_ID.iam.gserviceaccount.com" \
+  --role="ROLE_NAME" \
+  --condition None
+```
+
 ## 2. ネットワークの作成
 
-+ VPC Network の作成
+- VPC Network の作成
 
 ```
 gcloud beta compute networks create ${_common} \
