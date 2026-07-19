@@ -45,14 +45,20 @@ gcloud beta iam service-accounts create sa-gce-${_common} \
   --project ${_gc_pj_id}
 ```
 
-- 
+- Ops Agent 用の最小の Role を付与する
 
 ```
-### Role: 
-
+### Role: Monitoring Metric Writer
 gcloud beta projects add-iam-policy-binding PROJECT_ID \
-  --member="serviceAccount:SERVICE_ACCOUNT_ID@PROJECT_ID.iam.gserviceaccount.com" \
-  --role="ROLE_NAME" \
+  --member="serviceAccount:sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com" \
+  --role="roles/monitoring.metricWriter" \
+  --condition None
+
+
+### Role: Logs Writer
+gcloud beta projects add-iam-policy-binding PROJECT_ID \
+  --member="serviceAccount:sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com" \
+  --role="roles/logging.logWriter" \
   --condition None
 ```
 
