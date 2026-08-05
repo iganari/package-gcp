@@ -63,6 +63,18 @@ https://cloud.google.com/storage/docs/lifecycle
 
 + [Get bucket size and metadata](https://cloud.google.com/storage/docs/getting-bucket-size-and-metadata)
 
+## Access control
+
+- Uniform (均一なバケットレベルアクセス)
+  - IAM（Identity and Access Management）のみで管理
+  - バケット全体に対して一括で権限を適用
+  - オブジェクトごとの個別設定（ACL）は無効化される
+  - シンプルでミスが起きにくい (Google推奨)
+- Fine-grained (きめ細かい管理)
+  - IAMとACL（オブジェクト単位のアクセス制御）を併用
+  - ファイル（オブジェクト）ごとに異なるアクセス権を設定可能。
+  - 複雑になりやすく、誰がアクセスできるか把握しづらい
+
 ## memo
 
 ```
