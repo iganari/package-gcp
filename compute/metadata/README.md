@@ -39,3 +39,16 @@ $ curl "http://metadata.google.internal/computeMetadata/v1/project/project-id" -
 
 my_gc_pj            ### <--- GCE が所属している Google Cloud Project ID が取得できる
 ```
+
+## プロジェクト単位の metadata に SSH Key を登録する
+
+※ 既存の SSH Key が無くなるので注意
+
+- 用意するもの
+  - id_rsa.pub
+
+```
+gcloud beta compute project-info add-metadata \
+  --metadata="ssh-keys=iganari:$(cat ~/.ssh/id_rsa.pub)" \
+  --project ${Your Google Cloud Project ID}
+```
