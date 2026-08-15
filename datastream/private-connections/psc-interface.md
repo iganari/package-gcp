@@ -1,3 +1,5 @@
+**AI-powered documentation**
+
 Datastream (Project B) から、別プロジェクト (Project A) の Network Attachment へ、手動承諾 (`ACCEPT_MANUAL`) で PSC (Private Service Connect) 接続を構築する手順書です。
 
 この構成では、**「Datastream が裏で使用する Google 管理のテナントプロジェクト」の ID を特定し、Project A 側で許可リストに追加する**というステップが重要になります。
