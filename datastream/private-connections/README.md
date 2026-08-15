@@ -14,3 +14,4 @@ PSC 側を monual にする場合、auth project は PCC のプロジェクト�
 terraform 実行時に必要
 
 まずは調べるコマンドなど。
+
