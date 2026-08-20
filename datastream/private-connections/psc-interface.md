@@ -55,14 +55,26 @@ Project B で Datastream Private Connection の作成を試行し、エラーメ
 ターミナルから以下の `gcloud` コマンドを実行します。
 ※ `--validate-only` を付けることで、実際には作成せず検証のみ行います。
 
-```bash
-gcloud datastream private-connections create my-private-conn \
-  --project=project-b \
-  --location=asia-northeast1 \
-  --display-name="my-private-conn" \
-  --network-attachment="projects/project-a/regions/asia-northeast1/networkAttachments/my-network-attachment" \
-  --validate-only
 
+```bash
+### PSC Network Attachment
+export _psc_network_attachment_project_id='(Datastream ではなく)、PSC Network Attachment がある Google Cloud Project の ID'
+export _psc_network_attachment_region='asia-northeast1'
+export _psc_network_attachment_name='PSC Network Attachment の名前(=ID)'
+
+### Datastream
+export _datastream_project_id='Datastream がある Google Cloud Project の ID'
+export _datastream_private_con_name='Datastream の Private Connection の名前'
+export _datastream_private_con_region="${_psc_network_attachment_region}" # (※ PSC Network Attachment と同じリージョンである必要がある)
+export _datastream_private_con_network_attachment="projects/${_psc_network_attachment_project_id}/regions/${_psc_network_attachment_region}/networkAttachments/my-network-attachment"
+```
+```bash
+gcloud beta datastream private-connections create ${_datastream_private_con_name} \
+  --display-name="${_datastream_private_con_name}" \
+  --location="${_datastream_private_con_region}" \
+  --network-attachment="${_datastream_private_con_network_attachment}" \
+  --project="${_datastream_project_id}" \
+  --validate-only
 ```
 
 **【取得のポイント】**
