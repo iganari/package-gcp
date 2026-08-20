@@ -54,7 +54,7 @@ Project B で Datastream Private Connection の作成を試行し、エラーメ
 
 ターミナルから以下の `gcloud` コマンドを実行します。
 ※ `--validate-only` を付けることで、実際には作成せず検証のみ行います。
-
+※ 2026/08 現時点では beta では実行できないので GA 版(無印)で実行します
 
 ```bash
 ### PSC Network Attachment
@@ -66,10 +66,10 @@ export _psc_network_attachment_name='PSC Network Attachment の名前(=ID)'
 export _datastream_project_id='Datastream がある Google Cloud Project の ID'
 export _datastream_private_con_name='Datastream の Private Connection の名前'
 export _datastream_private_con_region="${_psc_network_attachment_region}" # (※ PSC Network Attachment と同じリージョンである必要がある)
-export _datastream_private_con_network_attachment="projects/${_psc_network_attachment_project_id}/regions/${_psc_network_attachment_region}/networkAttachments/my-network-attachment"
+export _datastream_private_con_network_attachment="projects/${_psc_network_attachment_project_id}/regions/${_psc_network_attachment_region}/networkAttachments/${_psc_network_attachment_name}"
 ```
 ```bash
-gcloud beta datastream private-connections create ${_datastream_private_con_name} \
+gcloud datastream private-connections create ${_datastream_private_con_name} \
   --display-name="${_datastream_private_con_name}" \
   --location="${_datastream_private_con_region}" \
   --network-attachment="${_datastream_private_con_network_attachment}" \
