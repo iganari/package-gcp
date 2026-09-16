@@ -8,3 +8,8 @@
 export _gc_pj_id='Your Google Cloud Project ID'
 ```
 
+- ghioe
+
+```
+gcloud projects describe ${_gc_pj_id} --format="value(projectNumber)"
+```
