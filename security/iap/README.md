@@ -60,12 +60,18 @@ Known limitations | Connection length
 https://cloud.google.com/beyondcorp-enterprise/docs/securing-virtual-machines#known_limitations
 ```
 
+### 対応している OS
+
+- Ubuntu/Debian
+  - 対応
+- Rocky Linux
+  - 対応
+
 ## Tips
 
+- IAP を設定直後に Aouth 画面がなかなか反映しない場合 
 
-+ IAP を設定直後に Aouth 画面がなかなか反映しない場合 
-
----> IAM が強制号なので5分くらいは待つ。それでもだめな場合は以下を末尾につける ---> 強制的にアカウント選択画面に遷移する
+---> IAM が結果整合なので 5 分くらいは待つ。それでもだめな場合は以下を末尾につける ---> 強制的にアカウント選択画面に遷移する
 
 ```
 https://hogehoge.an.r.appspot.com/
@@ -78,3 +84,7 @@ https://hogehoge.an.r.appspot.com/
 ```
 https://hogehoge.an.r.appspot.com/_gcp_iap/clear_login_cookie
 ```
+
+
+認証情報にて test と production は違いがある
+

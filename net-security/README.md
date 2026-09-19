@@ -4,10 +4,23 @@
 
 WIP
 
-## [SSL policies](./sslpolicies/)
+
+## [Cloud IDS](./ids/)
 
 WIP
 
-## [Cloud IDS](./ids/)
+## [Cloud NGFW]
+
+TBD
+
+## [Secure Access Connect]()
+
+TBD
+
+## [Common components]()
+
+TBD
+
+## [SSL policies](./sslpolicies/)
 
 WIP

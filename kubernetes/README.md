@@ -1,35 +1,81 @@
-# Kubernetes Engine
+# Google Kubernetes Engine
 
 ## 説明
 
-+ GCP 上で Kubernetes を使うためのサンプルを集めています。
-  + つまり、 基本的には GKE のサンプルがメインになります。
+Google Kubernetes Engine (GKE) を使うためのサンプルです :)
 
 ## 先にインストールしておきたいコマンド
 
+- gcloud
+  - GKE の Google Cloud の領域を操作する際に必要です
+- kubectl
+  - GKE の Kubernetes の領域を操作する際に必要です
+
+
+<details>
+<summary>インストール方法</summary>
+
+### Linux on GCE の場合
+
++ https://cloud.google.com/sdk/docs/install#deb
++ https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke?hl=en
+
++ 必要なパッケージのインストール
+
 ```
-gcloud components install beta -q &&\
-gcloud components update -q && \
-gcloud components install kubectl -q
+sudo apt-get install -y apt-transport-https ca-certificates gnupg
 ```
 
++ apt のリポジトリを追加
+
+```
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+```
+
++ apt 用の Google Cloud public key を追加
+
+```
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+```
+
++ gcloud CLI のアップデート
+
+```
+sudo apt-get update && sudo apt-get install -y google-cloud-cli
+```
+
++ GKE 用の認証プラグインをインストール
+  + https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke?hl=en
+
+```
+sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
+```
+
+</details>
 
 ## [Cluster について](./cluster-overview)
 
 + mode と { Private or Public }
-  + [Create Private Cluster of Autopilot mode](./autopilot-private-gcloud)
-  + [Create Public Cluster of Autopilot mode](./autopilot-public-gcloud)
-  + [Create Private Cluster of Standard mode](./standard-private-gcloud)
-  + [Create Public Cluster of Standard mode](./standard-public-gcloud)
+  + [Create Private Cluster of Autopilot mode using gcloud command](./cluster-overview/autopilot-private-gcloud/)
+  + [Create Public Cluster of Autopilot mode using gcloud command](./cluster-overview/autopilot-public-gcloud/)
+  + [Create Private Cluster of Standard mode using gcloud command](./cluster-overview/standard-private-gcloud/)
+  + [Create Public Cluster of Standard mode using gcloud command](./cluster-overview/standard-public-gcloud/)
   + WIP [Standard mode と Autopilot mode の違いについて]
 
 + GKE クラスタのアップグレード方法
   + [cluster-version-upgrade](./cluster-version-upgrade)
     + :fire: [WIP] GKE クラスタのバージョンアップの検討事項
     + https://kubernetes.io/releases/version-skew-policy
+
 + GKE クラスタのアップグレード戦略
   + [継続的なアップグレード戦略を作成する](https://cloud.google.com/kubernetes-engine/docs/best-practices/upgrading-clusters#continuous-strategy)
   + <WIP> [Zenn | GKE クラスタのアップグレード戦略を考える]()
+
++ [利用可能な GKE クラスタのバージョンの確認方法](./cluster-version-check/)
+  + 利用可能な GKE クラスタのバージョンをコマンドラインで確認する方法
+
++ 利用可能な GKE クラスタのリリーススケジュール
+  + https://cloud.google.com/kubernetes-engine/docs/release-schedule?hl=en
 
 ## Kind について
 
@@ -45,13 +91,15 @@ gcloud components install kubectl -q
 
 ## 周辺の機能など
 
-+ [Cloud Armor](./modify-readme-only)
++ [Cloud Armor](./feature-cloud-armor)
++ [Cloud DNS](./feature-cloud-dns)
++ [Config Connector](./feature-config-connector)
 + [IAP](./feature-iap)
   + Ingress に IAP を付与するやり方 ( 正確には BackendConfig を設定し、 Service に関連付けする )
 + [nodeSelector](./feature-nodeselector)
   + Pod を特定のノードプールに明示的にデプロイする
-+ [SSL](./feature-iap)
-+ [Workload Identity](./feature-iap)
++ [SSL](./feature-ssl)
++ [Workload Identity](./feature-workload-identity)
 
 ## Sample
 

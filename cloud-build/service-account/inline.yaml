@@ -1,0 +1,41 @@
+### https://github.com/iganari/package-gcp/blob/main/cloud-build/basic-sample/cloudbuild.yaml
+steps:
+  - id: "Check substitutions"
+    name: 'alpine:edge'
+    entrypoint: ash
+    dir: 'scripts'
+    args:
+      - -c
+      - |
+        echo "### ------------------------------------------------------------------------------------ ###"
+        echo "Cloud build が実行されている GCP Project ID: 'PROJECT_ID' is $PROJECT_ID"
+        echo "Cloud build が実行されている GCP Project Number: 'PROJECT_NUMBER' is $PROJECT_NUMBER"
+        echo "実行されたビルドの ID: 'BUILD_ID' is $BUILD_ID"
+        echo "実行されたビルドのロケーション: 'LOCATION' is $LOCATION"
+        echo "### ------------------------------------------------------------------------------------ ###"
+        echo "トリガーに関連付けられた名前: 'TRIGGER_NAME' is $TRIGGER_NAME"
+        echo "ビルドに関連付けられた commit ID: 'COMMIT_SHA' is $COMMIT_SHA"
+        echo "ビルドに関連付けられた commit ID: 'REVISION_ID' is $REVISION_ID"
+        echo "COMMIT_SHA の最初の 7 文字: 'SHORT_SHA' is $SHORT_SHA"
+        echo "リポジトリの名前: 'REPO_NAME' is $REPO_NAME"
+        echo "ブランチの名前: 'BRANCH_NAME' is $BRANCH_NAME"
+        echo "タグの名前: 'TAG_NAME' is $TAG_NAME"
+        echo "ビルドの実行中に使用されるビルド構成ファイルへのパス: 'TRIGGER_BUILD_CONFIG_PATH' is $TRIGGER_BUILD_CONFIG_PATH"
+        echo "### ------------------------------------------------------------------------------------ ###"
+        echo "[GitHub] pull リクエストのヘッドブランチ: '_HEAD_BRANCH' is $_HEAD_BRANCH"
+        echo "[GitHub] pull リクエストのベースブランチ: '_BASE_BRANCH' is $_BASE_BRANCH"
+        echo "[GitHub] pull リクエストのヘッド リポジトリの URL: '_HEAD_REPO_URL' is $_HEAD_REPO_URL"
+        echo "[GitHub] pull リクエストの数: '_PR_NUMBER' is $_PR_NUMBER"
+        echo "### ------------------------------------------------------------------------------------ ###"
+        echo "refs: https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values"
+
+  - id: "Check cURL"
+    name: 'alpine:edge'
+    entrypoint: ash
+    dir: 'scripts'
+    args:
+      - -c
+      - |
+        apk update
+        apk add curl
+        curl example.com
