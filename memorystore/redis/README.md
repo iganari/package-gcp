@@ -2,24 +2,13 @@
 
 ## 概要
 
+Redis のフルマネージドサービス
 
-```
-Memorystore for Redis のパフォーマンスを調整する際のベスト プラクティス
-https://cloud.google.com/blog/ja/products/databases/performance-tuning-best-practices-for-memorystore-for-redis
-```
-```
-Memorystore とは
-https://cloud.google.com/blog/ja/topics/developers-practitioners/what-memorystore
-```
-```
-Memorystore for Redis の SLA
-https://cloud.google.com/memorystore/sla-20200109
-```
-```
-インスタンス スケーリング時の動作
-https://cloud.google.com/memorystore/docs/redis/scaling-behavior
-```
-```
-Redis インスタンスのスケーリング
-https://cloud.google.com/memorystore/docs/redis/scaling-instances
-```
+クラスタとインスタンスがある
+
+
+## memo
+
+Memorystore for Redis の接続方法は、使用シナリオによって選ぶ必要があります
+
+[公式ドキュメント| Memorystore for Redis/Networking/Choosing a connection mode](https://cloud.google.com/memorystore/docs/redis/networking#choosing_a_connection_mode)
