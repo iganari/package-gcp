@@ -2,19 +2,18 @@
 
 ## 説明
 
-+ GCP 上で Kubernetes を使うためのサンプルを集めています。
-  + つまり、 基本的には GKE のサンプルがメインになります。
+Google Kubernetes Engine (GKE) を使うためのサンプルです :)
 
 ## 先にインストールしておきたいコマンド
 
-```
-gcloud components install beta -q && \
-gcloud components update -q && \
-gcloud components install kubectl -q
-```
+- gcloud
+  - GKE の Google Cloud の領域を操作する際に必要です
+- kubectl
+  - GKE の Kubernetes の領域を操作する際に必要です
 
-## インストール方法
 
+<details>
+<summary>インストール方法</summary>
 
 ### Linux on GCE の場合
 
@@ -52,6 +51,8 @@ sudo apt-get update && sudo apt-get install -y google-cloud-cli
 sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
 ```
 
+</details>
+
 ## [Cluster について](./cluster-overview)
 
 + mode と { Private or Public }
@@ -65,9 +66,16 @@ sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
   + [cluster-version-upgrade](./cluster-version-upgrade)
     + :fire: [WIP] GKE クラスタのバージョンアップの検討事項
     + https://kubernetes.io/releases/version-skew-policy
+
 + GKE クラスタのアップグレード戦略
   + [継続的なアップグレード戦略を作成する](https://cloud.google.com/kubernetes-engine/docs/best-practices/upgrading-clusters#continuous-strategy)
   + <WIP> [Zenn | GKE クラスタのアップグレード戦略を考える]()
+
++ [利用可能な GKE クラスタのバージョンの確認方法](./cluster-version-check/)
+  + 利用可能な GKE クラスタのバージョンをコマンドラインで確認する方法
+
++ 利用可能な GKE クラスタのリリーススケジュール
+  + https://cloud.google.com/kubernetes-engine/docs/release-schedule?hl=en
 
 ## Kind について
 

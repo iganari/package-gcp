@@ -50,3 +50,7 @@ https://cloud.google.com/monitoring/agent/install-agent?hl=en
 ### Windows のプロセス監視
 
 現状無理
+
+## Tips
+
+SSL 証明書の期限切れをお知らせしてくれる -> https://cloud.google.com/monitoring/alerts/policies-in-json?hl=ja#json-uptime

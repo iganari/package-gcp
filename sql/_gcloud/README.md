@@ -2,13 +2,13 @@
 
 ## 0. 準備
 
-+ GCP にログインする
+- Google Cloud にログインする
 
 ```
 gcloud auth login --no-launch-browser -q
 ```
 
-+ API の有効化をする
+- API の有効化をする
 
 ```
 gcloud beta services enable sqladmin.googleapis.com --project ${_gc_pj_id}
@@ -16,9 +16,9 @@ gcloud beta services enable sqladmin.googleapis.com --project ${_gc_pj_id}
 
 ## 1. Cloud SQL Instance を作成
 
-+ 環境変数に入れる
-  + `_instance_type` -> 使用できるインスタンスタイプ : https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/tiers/list
-  + `_instance_name` -> Cloud SQL Instance の Name はユニークである必要があるため被らないような対策が必要
+- 環境変数に入れる
+  - `_instance_type` -> 使用できるインスタンスタイプ : https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/tiers/list
+  - `_instance_name` -> Cloud SQL Instance の Name はユニークである必要があるため被らないような対策が必要
 
 ```
 export _gc_pj_id='Your GCP Project ID'
@@ -30,7 +30,6 @@ export _region='asia-northeast1'
 export _instance_name="$(echo ${_common})-$(date +'%Y%m%d%H%M')"
 echo ${_instance_name}
 ```
-
 
 ### 1-1. MySQL の場合
 
@@ -72,8 +71,8 @@ WIP
   + 使用できるデータベースのバージョン -> [SqlDatabaseVersion](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
 
 ```
-export _psgr_ver='POSTGRES_14'
-export _psgr_passwd="$(echo ${_gc_pj_id})"
+export _psgrs_ver='POSTGRES_15'
+export _psgrs_passwd="$(echo ${_gc_pj_id})"
 ```
 
 + gcloud コマンドを使って、 Cloud SQL Instance を作成する
@@ -82,12 +81,28 @@ export _psgr_passwd="$(echo ${_gc_pj_id})"
 
 ```
 gcloud beta sql instances create ${_instance_name} \
-  --database-version ${_psgr_ver} \
-  --root-password "${_psgr_passwd}" \
+  --edition enterprise \
+  --database-version ${_psgrs_ver} \
+  --root-password "${_psgrs_passwd}" \
   --tier ${_instance_type} \
-  --region ${_sql_region} \
+  --region ${_region} \
+  --no-backup \
+  --storage-size 10G \
+  --storage-auto-increase \
   --project ${_gc_pj_id} \
   --async
+```
+
+- Cloud SQL Instance の情報の確認
+
+```
+gcloud beta sql instances describe ${_instance_name} --project ${_gc_pj_id} --format json
+```
+
+### 1-3. Cloud SQL の Service Account の確認
+
+```
+gcloud beta sql instances describe ${_instance_name} --project ${_gc_pj_id} --format json | jq -r .serviceAccountEmailAddress
 ```
 
 ## 2. Database の作成
@@ -224,3 +239,93 @@ NAME                                  TYPE    START                          END
 
 $
 ```
+
+
+## オンデマンドのバックアップを作成・確認
+
+### バックアップの作成
+
+```
+export _gc_pj_id='Your Google Cloud Project'
+export _sql_instance_name='Your Cloud SQL Instance Name'
+export _bk_location='Back Up Locatoin'  ### asia-northeast1
+```
+```
+gcloud beta sql backups create \
+  --instance ${_sql_instance_name} \
+  --location ${_bk_location} \
+  --description="On-demand Backup" \
+  --project ${_gc_pj_id} \
+  --async
+```
+
+
+### バックアップの確認
+
+```
+gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq .[].id
+```
+
+```
+### 例
+
+$ gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq .[].id
+"1740587222425"
+"1740499200000"
+"1740412800000"
+"1740326400000"
+"1740240000000"
+"1740153600000"
+"1740067200000"
+"1739980800000"
+"1736390505693"
+"1736389368958"
+"1732254091937"
+"1729535028699"
+"1709143958865"
+"1688129311577"
+"1683006593196"
+"1594624477205"
+"1574436199564"
+"1567563873797"
+"1559755678953"
+"1517582134388"
+```
+
+### 最新の ID を指定して、バックアップの内容を確認する
+
+- 基本コマンド
+
+```
+gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq -r '.[] | select(.id == "<backupID>")'
+```
+
+- 組み合わせて、最新の ID を指定して、バックアップの内容を確認する
+
+```
+export _latest_id=$(gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq -r .[].id | head -1)
+
+echo ${_latest_id}
+```
+```
+jq ...
+
+gcloud beta sql backups list \
+  --instance ${_sql_instance_name} \
+  --project ${_gc_pj_id} \
+  --format json | jq -r '.[] | select(.id == \"${_latest_id}\")'
+としたいが、${_latest_id} が入らない...
+```
+
