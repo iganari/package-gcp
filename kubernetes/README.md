@@ -2,19 +2,18 @@
 
 ## 説明
 
-+ GCP 上で Kubernetes を使うためのサンプルを集めています。
-  + つまり、 基本的には GKE のサンプルがメインになります。
+Google Kubernetes Engine (GKE) を使うためのサンプルです :)
 
 ## 先にインストールしておきたいコマンド
 
-```
-gcloud components install beta -q && \
-gcloud components update -q && \
-gcloud components install kubectl -q
-```
+- gcloud
+  - GKE の Google Cloud の領域を操作する際に必要です
+- kubectl
+  - GKE の Kubernetes の領域を操作する際に必要です
 
-## インストール方法
 
+<details>
+<summary>インストール方法</summary>
 
 ### Linux on GCE の場合
 
@@ -51,6 +50,8 @@ sudo apt-get update && sudo apt-get install -y google-cloud-cli
 ```
 sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
 ```
+
+</details>
 
 ## [Cluster について](./cluster-overview)
 

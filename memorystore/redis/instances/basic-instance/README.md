@@ -6,9 +6,15 @@
 
 ```
 export _gc_pj_id='Your Google Cloud Project ID'
-
-export _common='pkg-gcp-redis'
+export   _common='pkg-gcp-redis'
 ```
+
+## 注意点
+
+Redis インスタンスを作成するには **Direct peering** か **Private services access** かで選ぶ必要があるが、公式ドキュメントでは **Private services access** としている
+
+- https://cloud.google.com/memorystore/docs/redis/networking?hl=en#connection_modes
+- https://cloud.google.com/memorystore/docs/redis/create-manage-instances?hl=en#gcloud
 
 ## Network の作成
 
@@ -22,10 +28,8 @@ gcloud beta compute networks create ${_common}-network \
   --project ${_gc_pj_id}
 ```
 
-+ Private Services Access の設定
-  + https://cloud.google.com/memorystore/docs/redis/networking?hl=en#connection_modes
-  + **Direct peering** か **Private services access** かで選ぶ必要がある
-  + **Private services access** は下記が必要
+- Private Services Access の設定
+  - **Private services access** は下記が必要
 
 ```
 gcloud beta compute addresses create ${_common}-psa \
@@ -36,10 +40,11 @@ gcloud beta compute addresses create ${_common}-psa \
   --project ${_gc_pj_id}
 ```
 
-+ Private Connection の作成
-  + https://cloud.google.com/memorystore/docs/redis/networking?hl=en#connection_modes
-  + **Direct peering** か **Private services access** かで選ぶ必要がある
-  + **Private services access** は下記が必要
+- Private Connection の作成
+  - https://cloud.google.com/memorystore/docs/redis/networking?hl=en#connection_modes
+  - **Direct peering** か **Private services access** かで選ぶ必要がある
+  - **Private services access** は下記が必要
+  - Role `Service Networking Admin` が必要
 
 ```
 gcloud beta services vpc-peerings connect \

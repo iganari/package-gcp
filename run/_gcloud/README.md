@@ -108,7 +108,7 @@ gcloud beta run revisions list \
   jq -r .[].metadata.name
 ```
 
-+ 非アクティブなリビジョンのリストを表示
++ 非アクティブなリビジョン(= リビジョンタグがついてない)のリストを表示
 
 ```
 gcloud beta run revisions list \

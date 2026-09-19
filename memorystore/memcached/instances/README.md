@@ -25,6 +25,12 @@ Memcached Instance の基礎構築の例
 
 ポートは memcached の基本ポートである **11211**
 
+## 疎通コマンド
+
+```
+telnet {IP Address} 11211
+```
+
 ## リンク
 
 TBD

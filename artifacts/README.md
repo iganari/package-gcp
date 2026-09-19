@@ -31,19 +31,19 @@ Tips
 ## Enable Service
 
 ```
-export _gcp_pj_id='Your GCP Project ID'
+export _gc_pj_id='Your Google Cloud Project ID'
 ```
 
 + Enable Service
 
 ```
-gcloud beta services enable artifactregistry.googleapis.com --project ${_gcp_pj_id}
+gcloud beta services enable artifactregistry.googleapis.com --project ${_gc_pj_id}
 ```
 
 + Check enabled
 
 ```
-gcloud beta services list --enabled  --filter='artifactregistry' --project ${_gcp_pj_id}
+gcloud beta services list --enabled  --filter='artifactregistry' --project ${_gc_pj_id}
 ```
 
 + Artifact Registry Docker リポジトリに対する認証を構成する

@@ -10,7 +10,14 @@
 
 ## Tips
 
-+ リアルタイムに近いパフォーマンスを必要とするサブスクライバーにとって理想的な配信方法
-  + push 配信
-+ 保存出来るメッセージは制限がある
-+ Cloud Pub/Sub では、メッセージが受信された順序で配信されることが保証されない
+- リアルタイムに近いパフォーマンスを必要とするサブスクライバーにとって理想的な配信方法
+  - push 配信
+- 保存出来るメッセージは制限がある
+- Cloud Pub/Sub では、メッセージが受信された順序で配信されることが保証されない
+
+
+- Pub/Sub の Service Account は共通のものになる (2024/05 時点)
+
+```
+service-{{ Google Cloud Project Number }}@gcp-sa-pubsub.iam.gserviceaccount.com
+```

@@ -27,8 +27,11 @@ https://cloud.google.com/run/docs/tutorials
 
 ## サンプル
 
-+ [基本的な使い方](./_basic/)
-  + Cloud Run の基本的な使い方を見ていく
+- [基本的な使い方](./_basic/)
+  - Cloud Run の基本的な使い方を見ていく
+- [Cloud Run に Apache をデプロイする](./sample-apache/README.md)
+- [Cloud Run に nginx をデプロイする](./sample-nginx/README.md)
+
 
 ## 周辺の機能など
 
