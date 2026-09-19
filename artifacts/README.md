@@ -2,12 +2,10 @@
 
 ## どんなもの?
 
-下記を読み込んでおくと良い
+Google Kubernetes Engine、Cloud Run、Compute Engine、App Engine フレキシブル環境で自作のカスタマイズしたコンテナイメージを運用するために利用するサービスです
 
 公式ドキュメント
 
-+ Artifact Registry
-  + https://cloud.google.com/artifact-registry?hl=en
 + Overview of Artifact Registry
   + https://cloud.google.com/artifact-registry/docs/overview
 + Container Registry からの移行
@@ -33,19 +31,19 @@ Tips
 ## Enable Service
 
 ```
-export _gcp_pj_id='Your GCP Project ID'
+export _gc_pj_id='Your Google Cloud Project ID'
 ```
 
 + Enable Service
 
 ```
-gcloud beta services enable artifactregistry.googleapis.com --project ${_gcp_pj_id}
+gcloud beta services enable artifactregistry.googleapis.com --project ${_gc_pj_id}
 ```
 
 + Check enabled
 
 ```
-gcloud beta services list --enabled  --filter='artifactregistry' --project ${_gcp_pj_id}
+gcloud beta services list --enabled  --filter='artifactregistry' --project ${_gc_pj_id}
 ```
 
 + Artifact Registry Docker リポジトリに対する認証を構成する

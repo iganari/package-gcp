@@ -4,36 +4,52 @@
 
 GCE 上の VM に　Ops Agent をインストールして利用する際のやり方や注意事項など
 
-## VM の中から取得できる GCP のデータ 
+## Patch について
 
-+ 公式
-  + [VM メタデータにクエリを実行する](https://cloud.google.com/compute/docs/metadata/querying-metadata)
+TBD
 
-### GCP Project ID
+## 外部 IP アドレスの変更方法
 
-+ テンプレート
+https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address
+
+## 目次
+
+OS のライブラリやセキュリティパッチを自動でアップデートしてくれる
+
+VM の適用具合も可視化してくれる
+
+## Tips
+
+- VM in VM について (VM のネスト)
+  - [ネストされた仮想化について](https://cloud.google.com/compute/docs/instances/nested-virtualization/overview?hl=en)
+
+- GCE 内から Project ID を取得する
+  - metadata から取得が可能
+  - https://cloud.google.com/compute/docs/metadata/overview?hl=en
 
 ```
 curl "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google"
 ```
-```
-### 例
-$ curl "http://metadata.google.internal/computeMetadata/v1/project/project-id" -H "Metadata-Flavor: Google"
-my_gcp_pj
-```
 
-### metadata
 
-+ テンプレート
 
-```
-curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/{meta key}" -H "Metadata-Flavor: Google"
-```
 
-+ `vm-role` = `base` という metadata を VM に設定している場合
- 
-```
-### 例
-$ curl "http://metadata.google.internal/computeMetadata/v1/instance/attributes/vm-role" -H "Metadata-Flavor: Google"
-base
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
