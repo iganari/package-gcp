@@ -2,12 +2,10 @@
 
 ## どんなもの?
 
-下記を読み込んでおくと良い
+Google Kubernetes Engine、Cloud Run、Compute Engine、App Engine フレキシブル環境で自作のカスタマイズしたコンテナイメージを運用するために利用するサービスです
 
 公式ドキュメント
 
-+ Artifact Registry
-  + https://cloud.google.com/artifact-registry?hl=en
 + Overview of Artifact Registry
   + https://cloud.google.com/artifact-registry/docs/overview
 + Container Registry からの移行
@@ -33,26 +31,35 @@ Tips
 ## Enable Service
 
 ```
-export _gcp_pj_id='Your GCP Project ID'
+export _gc_pj_id='Your Google Cloud Project ID'
 ```
 
 + Enable Service
 
 ```
-gcloud beta services enable artifactregistry.googleapis.com --project ${_gcp_pj_id}
+gcloud beta services enable artifactregistry.googleapis.com --project ${_gc_pj_id}
 ```
 
 + Check enabled
 
 ```
-gcloud beta services list --enabled  --filter='artifactregistry' --project ${_gcp_pj_id}
+gcloud beta services list --enabled  --filter='artifactregistry' --project ${_gc_pj_id}
 ```
 
-+ Configure Docker
++ Artifact Registry Docker リポジトリに対する認証を構成する
+  + asia-northeast1 のみ設定する
+  + https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper
 
 ```
 gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 ```
+```
+### 上記をしない場合は以下のようなエラーが出る(非常に分かりづらい)
+
+denied: Permission "artifactregistry.repositories.downloadArtifacts" denied on resource "${_region}-docker.pkg.dev/${_gcp_pj_id}/${_ar_repo}" (or it may not exist)
+```
+
+
 
 ## [脆弱性スキャン機能](./vulnerability-scanning)
 

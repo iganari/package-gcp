@@ -1,272 +1,397 @@
-# IAP to GCE using Linux
+# IAP for TCP forwarding to Linux VM Instance
 
 ## 概要
 
-IAP 越しに パブリック IP アドレスが無い GCE( Linux ) にログインします
+外部 IP アドレスが無い Linux VM Instance に IAP 越しに SSH ログインします
 
-![](../img/iap-to-gce.png)
+![](../_img/main.png)
 
-```
-参考 URL
-https://cloud.google.com/iap/docs/using-tcp-forwarding#gcloud_2
-```
+- 参考 URL
+  - [Setting up IAP for Compute Engine](https://cloud.google.com/iap/docs/tutorial-gce)
+  - [Enabling IAP for Compute Engine](https://cloud.google.com/iap/docs/enabling-compute-howto)
+  - [Using IAP for TCP forwarding](https://cloud.google.com/iap/docs/using-tcp-forwarding)
 
-
-## 準備
-
-※ IAP をユーザ毎に設定するので、 GCP 上で使用出来るユーザの Email が必要になります
+- Google Cloud に認証を通す
 
 ```
-### GitLab 用の環境変数
+gcloud auth login --no-launch-browser -q
+```
 
-export _gcp_pj_id='Your GCP Project ID'
-export _common='iap-linux'
+```
+### Env
+
+export _gc_pj_id='Your Google Cloud Project ID'
+
+export _common='pkg-gcp'
 export _region='asia-northeast1'
-export _zone='asia-northeast1-c'
-export _your_gcp_account='Your GCP Account ( Email format ) '
+export _zone=`echo ${_region}-b`
+export _sub_network_range='10.146.0.0/20'
 ```
 
-+ GCP との認証
+- API を有効化
 
 ```
-gcloud auth login -q
+gcloud beta services enable compute.googleapis.com --project ${_gc_pj_id}
 ```
 
-+ GCP にログインした情報からアカウント名だけ抽出する
+## 1. Service Account の作成
+
+- GCE Instance 用の Service Account の作成
 
 ```
-export _your_gcp_account_name=$(gcloud auth list --filter=status:ACTIVE --format="value(account)" | awk -F\@ '{print $1}')
+gcloud beta iam service-accounts create sa-gce-${_common} \
+  --description="[GCE] ${_common} 用の Service Account" \
+  --display-name="sa-gce-${_common}" \
+  --project ${_gc_pj_id}
 ```
 
-## ネットワークの作成
-
-+ VPC ネットワークの作成
+- Ops Agent 用の最小の Role を付与する
 
 ```
-gcloud beta compute networks create ${_common}-network \
+### Role: Monitoring Metric Writer
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
+  --member="serviceAccount:sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com" \
+  --role="roles/monitoring.metricWriter" \
+  --condition None
+
+
+### Role: Logs Writer
+gcloud beta projects add-iam-policy-binding ${_gc_pj_id} \
+  --member="serviceAccount:sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com" \
+  --role="roles/logging.logWriter" \
+  --condition None
+```
+
+## 2. ネットワークの作成
+
+- VPC Network の作成
+
+```
+gcloud beta compute networks create ${_common} \
   --subnet-mode=custom \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
-+ サブネットの作成
+- サブネットの作成
+  - `限定公開の Google アクセス` を On にしておく
 
 ```
-gcloud beta compute networks subnets create ${_common}-subnets \
-  --network ${_common}-network \
+gcloud beta compute networks subnets create ${_common} \
+  --network ${_common} \
   --region ${_region} \
-  --range 10.146.0.0/20 \
-  --project ${_gcp_pj_id}
+  --range ${_sub_network_range} \
+  --enable-private-ip-google-access \
+  --project ${_gc_pj_id}
 ```
 
-+ Firewall Rule の作成
-  + [package-gcp/networking/firewalls](../../../networking/firewalls)
+- Firewall Rule の作成
+  - IAP のレンジなど ---> [package-gcp/networking/firewalls](../../../networking/firewalls)
 
 ```
-### 内部通信は全部許可する
-gcloud beta compute firewall-rules create ${_common}-allow-internal \
-  --direction=INGRESS \
-  --priority=1000 \
-  --network ${_common}-network \
+### 内部通信用
+gcloud beta compute firewall-rules create ${_common}-allow-internal-all \
+  --network ${_common} \
   --action ALLOW \
   --rules tcp:0-65535,udp:0-65535,icmp \
-  --source-ranges=10.146.0.0/20 \
-  --project ${_gcp_pj_id}
+  --source-ranges ${_sub_network_range} \
+  --project ${_gc_pj_id}
 
 
-
-### IAP からの SSH と ICMP を許可する
-gcloud beta compute firewall-rules create ${_common}-allow-ssh \
+### IAP からの SSH と ICMP を許可する (Linux の場合)
+gcloud beta compute firewall-rules create ${_common}-allow-iap-ssh \
+  --network ${_common} \
   --direction=INGRESS \
-  --priority=1000 \
-  --network ${_common}-network \
   --action ALLOW \
   --rules tcp:22,icmp \
   --source-ranges=35.235.240.0/20 \
-  --target-tags ${_common}-allow-ssh \
-  --project ${_gcp_pj_id}
+  --target-service-accounts sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com \
+  --priority=1010 \
+  --project ${_gc_pj_id}
 ```
 
-+ Cloud NAT で使用する IP Address の予約
+- Cloud NAT で使用する外部 IP Address の予約
 
 ```
 gcloud beta compute addresses create ${_common}-nat-ip \
-    --region ${_region} \
-    --project ${_gcp_pj_id}
-```
-
-+ Cloud NAT で使用する Cloud Router を作成
-
-```
-gcloud beta compute routers create ${_common}-router \
-  --network ${_common}-network \
   --region ${_region} \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
-+ Cloud NAT の作成
+- Cloud NAT で使用する Cloud Router を作成
+
+```
+gcloud beta compute routers create ${_common}-nat-router \
+  --network ${_common} \
+  --region ${_region} \
+  --project ${_gc_pj_id}
+```
+
+- Cloud NAT の作成
 
 ```
 gcloud beta compute routers nats create ${_common}-nat \
   --router-region ${_region} \
-  --router ${_common}-router \
+  --router ${_common}-nat-router \
   --nat-all-subnet-ip-ranges \
   --nat-external-ip-pool ${_common}-nat-ip \
-  --project ${_gcp_pj_id}
+  --project ${_gc_pj_id}
 ```
 
-## IAM
+## 3. 外部 IP アドレスがついた VM instance の作成
 
-+ IAP を使用するための Role を付与
+- GCE Instance のパブリックイメージの検索
+  - https://cloud.google.com/compute/docs/images
 
 ```
-gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} \
-    --member=user:${_your_gcp_account} \
-    --role=roles/iap.tunnelResourceAccessor
+### 例: Ubuntu のイメージを探すコマンド
+gcloud beta compute images list --filter="name~'^ubuntu-minimal-.*?'" --project ${_gc_pj_id}
 ```
 
-## GCE の作成
+- 環境変数を設定
 
-+ 静的外部 IP アドレスが付いていない VM の作成
+```
+export _boot_project='ubuntu-os-cloud'
+export _boot_image='ubuntu-minimal-2204-jammy-v20231213b'
+export _boot_size='30'
+
+export _machine_type='e2-small'
+export _vm_provisioning_model='STANDARD'   ### STANDARD/SPOT  <--- Spot VM
+export _maintenance_policy='MIGRATE'       ### MIGRATE/TERMINATE
+```
+
+- VM Instance の作成
 
 ```
 gcloud beta compute instances create ${_common}-vm \
   --zone ${_zone} \
-  --machine-type f1-micro \
-  --subnet ${_common}-subnets \
-  --no-address \
-  --tags=${_common}-allow-internal,${_common}-allow-ssh \
-  --image=ubuntu-minimal-2010-groovy-v20210223 \
-  --image-project=ubuntu-os-cloud \
-  --project ${_gcp_pj_id}
+  --machine-type ${_machine_type} \
+  --network-interface=no-address,stack-type=IPV4_ONLY,subnet=${_common} \
+  --maintenance-policy ${_maintenance_policy} \
+  --provisioning-model ${_vm_provisioning_model} \
+  --service-account=sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com \
+  --scopes=https://www.googleapis.com/auth/cloud-platform \
+  --create-disk=auto-delete=yes,boot=yes,image=projects/${_boot_project}/global/images/${_boot_image},mode=rw,size=${_boot_size},type=projects/${_gc_pj_id}/zones/${_zone}/diskTypes/pd-standard \
+  --shielded-secure-boot \
+  --shielded-vtpm \
+  --shielded-integrity-monitoring \
+  --project ${_gc_pj_id}
 ```
 
-+ 作成した VM に IAP 越しに SSH ログインする
+## 4. VM instance にログインする
+
+作成した VM Instance に IAP 越しにログインします
+
+### 4-1. CLI で SSH ログインする
+
+- アカウント名を取得
 
 ```
-gcloud beta compute ssh ${_your_gcp_account_name}@${_common}-vm --tunnel-through-iap --zone ${_zone} --project ${_gcp_pj_id}
+gcloud auth list --filter=status:ACTIVE --format="value(account)"
+
+export _account=$(gcloud auth list --filter=status:ACTIVE --format="value(account)" | awk -F\@ '{print $1}')
+echo ${_account}
 ```
+
+- VM instance に SSH ログインする
+
+```
+gcloud beta compute ssh ${_account}@${_common}-vm \
+  --zone ${_zone} \
+  --tunnel-through-iap \
+  --project ${_gc_pj_id}
+```
+
+<details>
+<summary>実行例</summary>
+
 ```
 ### 例
 
-# gcloud beta compute ssh ${_common}-vm --tunnel-through-iap --zone ${_zone} --project ${_gcp_pj_id}
-External IP address was not found; defaulting to using IAP tunneling.
-Updating project ssh metadata...⠹Updated [https://www.googleapis.com/compute/beta/projects/your_gcp_project_id].
-Updating project ssh metadata...done.
-Waiting for SSH key to propagate.
-Warning: Permanently added 'compute.6486627765331168965' (ECDSA) to the list of known hosts.
-Welcome to Ubuntu 20.10 (GNU/Linux 5.8.0-1023-gcp x86_64)
+$ gcloud beta compute ssh ${_account}@${_common}-vm \
+  --zone ${_zone} \
+  --tunnel-through-iap \
+  --project ${_gc_pj_id}
+
+
+Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 6.2.0-1019-gcp x86_64)
 
  * Documentation:  https://help.ubuntu.com
  * Management:     https://landscape.canonical.com
  * Support:        https://ubuntu.com/advantage
-
 
 This system has been minimized by removing packages and content that are
 not required on a system that users do not log into.
 
 To restore this content, you can run the 'unminimize' command.
 
-0 updates can be installed immediately.
-0 of these updates are security updates.
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
 
 
 The list of available updates is more than a week old.
 To check for new updates run: sudo apt update
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+iganari@pkg-gcp-vm:~$
 ```
 
-+ OS の確認
+- ping コマンドをインストールする
 
 ```
-# cat /etc/os-release
-NAME="Ubuntu"
-VERSION="20.10 (Groovy Gorilla)"
-ID=ubuntu
-ID_LIKE=debian
-PRETTY_NAME="Ubuntu 20.10"
-VERSION_ID="20.10"
-HOME_URL="https://www.ubuntu.com/"
-SUPPORT_URL="https://help.ubuntu.com/"
-BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-VERSION_CODENAME=groovy
-UBUNTU_CODENAME=groovy
-```
-```
-# uname -a
-Linux iap-linux-vm 5.8.0-1023-gcp #24-Ubuntu SMP Wed Feb 10 01:04:18 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+sudo apt update
+sudo apt install iputils-ping
 ```
 
----> IAP 越しに パブリック IP アドレスが無い GCE( Linux ) に SSH ログインすることが出来ました :)
++ 外部に接続出来るか確認する
 
-# まとめ
+```
+ping -c 3 8.8.8.8
+```
+```
+### 例
 
-本来、静的外部 IP アドレスが付いていない VM へは外部からアクセス出来ませんが、IAP 越しに接続することで SSH ログインすることが出来ることが分かりました :raised_hands:
+$ ping -c 3 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=122 time=1.76 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=122 time=1.24 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=122 time=1.27 ms
+
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 1.237/1.422/1.756/0.236 ms
+```
+
+---> 外部 IP アドレスが無い VM Instance の中から外部のインターネットに対して、パッケージのアップデートと ping が疎通出来ました :)
+
+</details>
+
+### 4-2. IAP Desktop で SSH ログインする
+
+[IAP Desktop の Connect to Linux VMs with SSH](https://github.com/GoogleCloudPlatform/iap-desktop/#connect-to-linux-vms-with-ssh) を使う
+
+<details>
+<summary>スクリーンショット</summary>
+
+![](https://raw.githubusercontent.com/GoogleCloudPlatform/iap-desktop/master/doc/images/SSH_350.gif)
+
+</details>
+
+## まとめ
+
+本来、外部 IP アドレスが付いていない GCE へは外部からアクセス出来ませんが、IAP 越しに接続することで SSH ログインおよび RDP ログインすることが出来ることが分かりました :raised_hands:
 
 IAP を使用することで GCE へのログインもよりセキュアに実施していきましょう
 
 Have fun! :)
 
+## 99. クリーンアップ
 
-## リソースの削除
-
-+ GCE の削除
+<details>
+<summary>99-1. VM Instance の削除</summary>
 
 ```
 gcloud beta compute instances delete ${_common}-vm \
   --zone ${_zone} \
-  --project ${_gcp_pj_id} -q
+  --project ${_gc_pj_id} \
+  --quiet
 ```
 
-+ Cloud NAT の削除
+</details>
+
+<details>
+<summary>99-2. Cloud NAT の削除</summary>
 
 ```
 gcloud beta compute routers nats delete ${_common}-nat \
   --router-region ${_region} \
-  --router ${_common}-router \
-  --project ${_gcp_pj_id} -q
+  --router ${_common}-nat-router \
+  --project ${_gc_pj_id} \
+  --quiet
 ```
 
-+ Cloud Router の削除
+</details>
+
+<details>
+<summary>99-3. Cloud Router の削除</summary>
 
 ```
-gcloud beta compute routers delete ${_common}-router \
+gcloud beta compute routers delete ${_common}-nat-router \
   --region ${_region} \
-  --project ${_gcp_pj_id} -q
+  --project ${_gc_pj_id} \
+  --quiet
 ```
 
-+ Cloud NAT 用の外部 IP アドレスを削除
+</details>
+
+<details>
+<summary>99-4. Cloud NAT 用の外部 IP アドレスを削除</summary>
 
 ```
 gcloud beta compute addresses delete ${_common}-nat-ip \
-    --region ${_region} \
-    --project ${_gcp_pj_id} -q
-```
-
-+ Firewall Rule の削除
-
-```
-gcloud beta compute firewall-rules delete ${_common}-allow-internal \
-  --project ${_gcp_pj_id} -q
-
-gcloud beta compute firewall-rules delete ${_common}-allow-ssh \
-  --project ${_gcp_pj_id} -q
-```
-
-+ サブネットの削除
-
-```
-gcloud beta compute networks subnets delete ${_common}-subnets \
   --region ${_region} \
-  --project ${_gcp_pj_id} -q
+  --project ${_gc_pj_id} \
+  --quiet
 ```
 
-+ VPC ネットワークの作成
+</details>
+
+<details>
+<summary>99-5. Firewall Rule の削除</summary>
 
 ```
-gcloud beta compute networks delete ${_common}-network \
-  --project ${_gcp_pj_id} -q
+### 内部通信用
+gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
+  --project ${_gc_pj_id} \
+  --quiet
+
+### SSH 用
+gcloud beta compute firewall-rules delete ${_common}-allow-iap-ssh \
+  --project ${_gc_pj_id} \
+  --quiet
 ```
 
-## 最終更新日
+</details>
 
-2021/04/09
+<details>
+<summary>99-6. サブネットの削除</summary>
+
+```
+gcloud beta compute networks subnets delete ${_common} \
+  --region ${_region} \
+  --project ${_gc_pj_id} \
+  --quiet
+```
+
+</details>
+
+<details>
+<summary>99-7. VPC Network の削除</summary>
+
+```
+gcloud beta compute networks delete ${_common} \
+  --project ${_gc_pj_id} \
+  --quiet
+```
+
+</details>
+
+<details>
+<summary>99-8. Service Account の削除</summary>
+
+```
+gcloud beta iam service-accounts delete sa-gce-${_common}@${_gc_pj_id}.iam.gserviceaccount.com \
+  --project ${_gc_pj_id} \
+  --quiet
+```
+
+</details>

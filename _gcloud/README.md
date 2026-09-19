@@ -11,18 +11,31 @@
 ## 準備
 
 ```
-export _gcp_pj_id="Your GCP Project ID"
+export _gc_pj_id="Your Google Cloud Project ID"
 ```
 
 ## インストール方法
 
-[Google Cloud SDK のインストール](https://cloud.google.com/sdk/docs/install)
+[gcloud CLI のインストール](https://cloud.google.com/sdk/docs/install#linux)
 
 上記に `Linux`, `Debian/Ubuntu`, `Red Hat/Fedora/CentOS`, `macOS`, `Windows` が記載されている
 
-最新版をサクッとインストールしたい場合は -> [Using the Google Cloud CLI installer](https://cloud.google.com/sdk/docs/downloads-interactive)
 
+GCE の場合はデフォルトでインストールされている。その場合は apt の外部リポジトリのみ入れておくよい。 ---> 例 [pkg-gcp | kubernetes](https://github.com/iganari/package-gcp/tree/main/kubernetes)
 
+## Dcoker を用いた環境
+
+---> 最新の TAG を確認したい場合は https://hub.docker.com/r/google/cloud-sdk/tags を見る
+
+```
+docker run -it --rm google/cloud-sdk:latest /bin/bash
+```
+```
+### 例
+
+$ docker run -it --rm google/cloud-sdk:latest /bin/bash
+root@dbbe699e6698:/#
+```
 
 ## auth
 
@@ -74,9 +87,17 @@ gcloud auth list
 ```
 
 + アクティブなユーザのみ表示する
+  + 例 `hogehoge@fizzbuzz.com`
 
 ```
 gcloud auth list --filter=status:ACTIVE --format="value(account)"
+```
+
++ アクティブなユーザのユーザネームのみを表示する
+  + 例 `hogehoge`
+
+```
+gcloud auth list --filter=status:ACTIVE --format="value(account)" | awk -F\@ '{print $1}'
 ```
 
 ## configurations
@@ -169,6 +190,12 @@ gcloud beta projects add-iam-policy-binding example-project-id-1 \
   --role='roles/editor'
 ```
 
+### Tips
+
++ GCP の API の仕様で roles/owner はつけることが出来ない
+  + https://cloud.google.com/iam/docs/understanding-roles#invitation_flow
+
+
 ## monitoring
 
 :warning: WIP
@@ -183,6 +210,7 @@ export _pj_id='Your GCP Project Id'
 gcloud alpha monitoring channel-descriptors describe projects/${_pj_id}/notificationChannelDescriptors/slack
 ```
 
+
 ## update
 
 gcloud コマンド自体のアップデートを行う
@@ -196,37 +224,59 @@ gcloud --quiet components install kubectl
 ```
 
 
-## services
+## Services (API の有効化)
 
 + 公式ドキュメント
     + https://cloud.google.com/sdk/gcloud/reference/services
 
-+ すべてのリストを表示
++ すべての API のリストを表示
 
 ```
-gcloud beta services list --project ${_gcp_pj_id}
+gcloud beta services list --project ${_gc_pj_id}
 ```
 
-+ 有効化しているリストを表示
++ 利用可能な API を表示
+  + 未だインストールしていない、既にインストールしているに限らず、単純に **現在利用可能な API のリスト**
 
 ```
-gcloud beta services list --enabled --project ${_gcp_pj_id}
+### 全て
+
+gcloud beta services list --available --project ${_gc_pj_id}
 ```
 ```
-gcloud beta services list --enabled --filter='API Name' --project ${_gcp_pj_id}
+### 特定の API のみ
+
+gcloud beta services list --available --filter='API Name' --project ${_gc_pj_id}
 ```
 
-+ サービスを有効化する
+
++ 既に有効化している API のリストを表示
 
 ```
-gcloud beta services enable {Services Name} --project ${_gcp_pj_id}
+gcloud beta services list --enabled --project ${_gc_pj_id}
+```
+```
+gcloud beta services list --enabled --filter='API Name' --project ${_gc_pj_id}
 ```
 
-+ サービスを無効化する
++ API を有効化する
 
 ```
-gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
+gcloud beta services enable {{ Services Name }} --project ${_gc_pj_id}
 ```
+
++ API を無効化する
+
+```
+gcloud beta services disable {Services Name} --project ${_gc_pj_id}
+```
+
+## Project
+
+```
+gcloud projects describe ${_gc_pj_id} --format="value(projectNumber)"
+```
+
 
 ## Option
 
@@ -234,6 +284,34 @@ gcloud beta services disable {Services Name} --project ${_gcp_pj_id}
 
 出力形式を指定できる
 
++ JSON
+
 ```
 gcloud auth list --format json
+```
+
++ Table
+
+```
+$ gcloud beta compute instances list --project ${_gc_pj_id} --format='table(name, zone)'
+NAME     ZONE
+bastion  asia-northeast1-b
+dbproxy  asia-northeast1-b
+hoge-01    asia-northeast1-b
+hoge-02    asia-northeast1-b
+fuga-01   asia-northeast1-b
+fuga-02   asia-northeast1-b
+```
+
++ CSV
+
+```
+$ gcloud beta compute instances list --project ${_gc_pj_id} --format='csv(name, zone)'
+name,zone
+bastion,asia-northeast1-b
+dbproxy,asia-northeast1-b
+hoge-01,asia-northeast1-b
+hoge-02,asia-northeast1-b
+fuga-01,asia-northeast1-b
+fuga-02,asia-northeast1-b
 ```
