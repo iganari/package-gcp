@@ -1,3 +1,0 @@
-*.terraform
-*service_account.json
-*terraform.tfstate*
