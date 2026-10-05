@@ -1,3 +1,0 @@
-# Connection profiles
-
-TBD

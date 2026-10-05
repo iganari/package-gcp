@@ -1,3 +1,0 @@
-google-cloud-monitoring
-google-auth
-pytz

@@ -1,3 +1,0 @@
-# Page usage agreements
-
-TBD

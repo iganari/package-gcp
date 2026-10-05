@@ -1,3 +1,0 @@
-# OAuth consent screen
-
-TBD
